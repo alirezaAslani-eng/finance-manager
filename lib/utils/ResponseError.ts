@@ -5,7 +5,8 @@ type Error_types =
   | "UnAuthorized"
   | "Not_Found"
   | "Invalid_type"
-  | "Unknown_error";
+  | "Unknown_error"
+  | "Invalid_request";
 
 interface ResponseError_face {
   type: Error_types;
