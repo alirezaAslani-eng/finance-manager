@@ -6,7 +6,7 @@ const transactionRule: schema_model<Transaction_face> = {
   amount: { type: String, required: true, match: /^[0-9]+$/ },
   accountBalance: { type: String, required: true, match: /^[0-9]+$/ },
   reason: { type: String, maxlength: 500 },
-  createdAt: { type: String, maxlength: 10, required: true },
+  createdAt: { type: Date, maxlength: 10, required: true },
 };
 
 export default transactionRule
