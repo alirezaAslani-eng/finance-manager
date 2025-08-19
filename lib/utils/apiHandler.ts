@@ -29,7 +29,7 @@ const apiHandler = (handler: handler_type): handler_type => {
       // ! ApiError ->
       if (err instanceof ApiError) {
         const { statusCode } = err;
-        return res.status(statusCode).json(err);
+        return res.status(statusCode).json(err.message);
       }
       // ! dataBaseError
       if (err instanceof mongoose.Error.CastError) {
