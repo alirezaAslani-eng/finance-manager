@@ -21,7 +21,7 @@ const apiHandler = (handler: handler_type): handler_type => {
       if (err instanceof ZodError) {
         return res.status(400).json(
           new ResponseError({
-            message: err.issues.map((issue) => issue.message),
+            message: err.issues,
             type: "Validation",
           })
         );
