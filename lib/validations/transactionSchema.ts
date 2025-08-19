@@ -4,16 +4,17 @@ import z from "zod";
 
 const transactionSchema = z.object({
   amount: z
-    .string("لطفا فیلد را پر کنید")
-    .regex(/^[0-9]+$/, "مقدار معتبر نیست"),
+    .string("مبلغ تراکنش را وارد کنید")
+    .regex(/^[0-9]+$/, "مقدار تراکنش معتبر نیست"),
   reason: z
     .string("لطفا فیلد را پر کنید")
     .min(3, "حد اقل 3 حرف")
     .max(500, "حد اکثر 500 حرف"),
+  type: z.any(), // type is 0 or 1 user cant access to change it
 });
 
 type Test_schema = Test_type<
-  z.infer<typeof transactionSchema>,
-  Pick<Transaction_face, "amount" | "reason">
+  Pick<Transaction_face, "amount" | "reason" | "type">,
+  z.infer<typeof transactionSchema>
 >;
 export default transactionSchema;
