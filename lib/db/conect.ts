@@ -1,5 +1,5 @@
 import "colors";
-const mongooes = require("mongoose");
+import  mongooes  from "mongoose"
 const conect = async (
   url: string = "mongodb://localhost:27017/Finance_manger"
 ): Promise<void> => {
