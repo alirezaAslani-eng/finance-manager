@@ -12,18 +12,21 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      if (!isValidObjectId(req.query.id)) {
-        throw new ApiError(400, "id is invalid (requires ObjectId)");
-      }
+      clientError(
+        "id is invalid (requires ObjectId)",
+        !isValidObjectId(req.query.id)
+      );
+
       const delte_result = await removeTransaction(req.query.id);
       return res.status(204).json(null);
     }
     case "GET": {
-      if (!isValidObjectId(req.query.id))
-        clientError("id is invalid (requiers ObjectId)");
+      clientError(
+        "id is invalid (requiers ObjectId)",
+        !isValidObjectId(req.query.id)
+      );
       const one_res = await getOneTransaction(req.query.id);
-      console.log(one_res);
-
+      clientError("Not Found", !one_res, 404);
       return res.json(one_res);
     }
     case "PUT": {
