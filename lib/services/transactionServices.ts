@@ -12,8 +12,10 @@ const transactionServices = {
     const remove_res = await transaction_model.findOneAndDelete({ _id });
     return remove_res;
   },
-  async editTransaction() {
+  async editOneTransaction(_id: any, body: typeof transactionRule) {
     await conect();
+    const update_res = await transaction_model.findOneAndUpdate({ _id }, body);
+    return update_res;
   },
   async getTransactions() {
     await conect();
