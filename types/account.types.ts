@@ -1,5 +1,5 @@
 interface Account_face {
-  cardNumber: number;
+  cardNumber: string;
   currentBalance: number;
   createdAt: string;
 }
