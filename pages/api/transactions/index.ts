@@ -7,16 +7,19 @@ import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { createTransaction, getTransactions } = transactionServices;
-  // * Body from client ================= >
-  const body = req.body as Pick<Transaction_face, "amount" | "reason" | "type">;
-  // * Zod validator ========================= >
-  const { amount, reason } = transactionSchema.parse(body);
 
   switch (req.method as "POST" | "GET") {
     case "POST": {
+      // * Body from client ================= >
+      const body = req.body as Pick<
+        Transaction_face,
+        "amount" | "reason" | "type"
+      >;
+      // * Zod validator ========================= >
+      const { amount, reason, type } = transactionSchema.parse(body);
       const create_res = await createTransaction({
         // from client ---- >
-        type: body?.type, // no zod validation
+        type,
         amount,
         reason,
         // api side - >
