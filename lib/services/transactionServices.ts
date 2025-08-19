@@ -8,7 +8,10 @@ const transactionServices = {
     const create_res = await transaction_model.create(body);
     return create_res;
   },
-  async removeTransaction() {},
+  async removeTransaction(_id: any) {
+    const remove_res = await transaction_model.findOneAndDelete({ _id });
+    return remove_res;
+  },
   async editTransaction() {
     await conect();
   },
