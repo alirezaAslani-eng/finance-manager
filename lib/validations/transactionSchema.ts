@@ -10,7 +10,7 @@ const transactionSchema = z.object({
     .string("لطفا فیلد را پر کنید")
     .min(3, "حد اقل 3 حرف")
     .max(500, "حد اکثر 500 حرف"),
-  type: z.enum(["0", "1"]), // type is 0 or 1 user cant access to change it
+  type: z.enum(["0", "1"]),
 });
 
 type Test_schema = Test_type<
