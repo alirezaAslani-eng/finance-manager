@@ -1,6 +1,6 @@
 interface Account_face {
   cardNumber: string;
-  currentBalance: number;
+  currentBalance: string;
   createdAt: string;
 }
 export type { Account_face };

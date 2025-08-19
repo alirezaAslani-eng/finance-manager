@@ -3,7 +3,7 @@ import { schema_model } from "@/types/utils";
 
 const accountRule: schema_model<Account_face> = {
   cardNumber: { type: String, required: true, match: /^[0-9]{16}$/ },
-  currentBalance: { type: Number, required: true, match: /^[0-9]+$/ },
+  currentBalance: { type: String, required: true, match: /^[0-9]+$/ },
   createdAt: { type: String, maxlength: 10, required: true },
 };
 
