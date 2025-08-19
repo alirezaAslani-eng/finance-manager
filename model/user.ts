@@ -1,8 +1,9 @@
+import { userRule } from "@/lib/validations/rules";
 import { User_face } from "@/types/user.types";
 import m, { model, models, Schema } from "mongoose";
 
-const schema = new Schema<User_face>({});
+const schema = new Schema(userRule);
 
-const user_model = models.user || model("User", schema);
+const user_model = models.user || model<User_face>("User", schema);
 
 export default user_model;

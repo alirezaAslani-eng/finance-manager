@@ -1,8 +1,9 @@
+import { accountRule } from "@/lib/validations/rules";
 import { Account_face } from "@/types/account.types";
-import m, { model, models, Schema } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
-const schema = new Schema<Account_face>({});
+const schema = new Schema(accountRule);
 
-const account_model = models.Account || model("Account", schema);
+const account_model = models.Account || model<Account_face>("Account", schema);
 
 export default account_model;
