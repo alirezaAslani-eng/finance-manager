@@ -20,6 +20,11 @@ const transactionServices = {
     const get_res = await transaction_model.find();
     return get_res;
   },
+  async getOneTransaction(_id: any) {
+    await conect();
+    const get_res = await transaction_model.findOne({ _id });
+    return get_res;
+  },
 };
 
 export default transactionServices;
