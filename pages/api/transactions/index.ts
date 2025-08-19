@@ -6,13 +6,13 @@ import { Transaction_face } from "@/types/transaction.types";
 import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
-  const { createTransaction, removeTransaction } = transactionServices;
+  const { createTransaction, getTransactions } = transactionServices;
   // * Body from client ================= >
   const body = req.body as Pick<Transaction_face, "amount" | "reason" | "type">;
   // * Zod validator ========================= >
   const { amount, reason } = transactionSchema.parse(body);
 
-  switch (req.method as "POST" | "DELETE") {
+  switch (req.method as "POST" | "GET") {
     case "POST": {
       const create_res = await createTransaction({
         // from client ---- >
@@ -24,6 +24,10 @@ const handler: handler_type = async (req, res) => {
         createdAt: new Date().getUTCFullYear(),
       });
       return res.json(create_res);
+    }
+    case "GET": {
+      const get_res = await getTransactions();
+      return res.json(get_res);
     }
     default: {
       throw new ApiError(400, "request method is not valid");

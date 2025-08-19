@@ -17,6 +17,8 @@ const transactionServices = {
   },
   async getTransactions() {
     await conect();
+    const get_res = await transaction_model.find();
+    return get_res;
   },
 };
 
