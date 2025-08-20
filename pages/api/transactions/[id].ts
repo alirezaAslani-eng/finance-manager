@@ -9,29 +9,22 @@ const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { removeTransaction, getOneTransaction, editOneTransaction } =
     transactionServices;
-
+  // * Check params ================== >
+  clientError(
+    "id is invalid (requires ObjectId)",
+    !isValidObjectId(req.query.id)
+  );
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      clientError(
-        "id is invalid (requires ObjectId)",
-        !isValidObjectId(req.query.id)
-      );
-
       const delte_result = await removeTransaction(req.query.id);
       return res.status(204).json(null);
     }
     case "GET": {
-      clientError(
-        "id is invalid (requiers ObjectId)",
-        !isValidObjectId(req.query.id)
-      );
       const one_res = await getOneTransaction(req.query.id);
       clientError("Not Found", !one_res, 404);
       return res.json(one_res);
     }
     case "PUT": {
-      if (!isValidObjectId(req.query.id))
-        clientError("id is invalid (requiers ObjectId)");
       // * Body from client ================== >
       const body = req.body as Pick<
         Transaction_face,
