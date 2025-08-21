@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 const accountRule: schema_model<Account_face> = {
   cardNumber: { type: String, required: true, match: /^[0-9]{16}$/ },
+  // TODO -> currentBalance must be number
   currentBalance: { type: String, required: true, match: /^[0-9]+$/ },
   user: {
     type: mongoose.Types.ObjectId,

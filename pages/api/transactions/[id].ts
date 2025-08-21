@@ -16,10 +16,13 @@ const handler: handler_type = async (req, res) => {
   );
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
+      // TODO -> delete process needs (authorizing user) before 
+      // TODO -> (error handler): {const delte_result} might be (null) 
       const delte_result = await removeTransaction(req.query.id);
       return res.status(204).json(null);
     }
     case "GET": {
+      // TODO -> get process needs (authorizing user) before
       const one_res = await getOneTransaction(req.query.id);
       clientError("Not Found", !one_res, 404);
       return res.json(one_res);

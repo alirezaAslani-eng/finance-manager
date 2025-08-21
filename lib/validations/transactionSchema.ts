@@ -3,6 +3,7 @@ import { Test_type } from "@/types/utils";
 import z from "zod";
 
 const transactionSchema = z.object({
+  // TODO -> amount must be number
   amount: z
     .string("مبلغ تراکنش را وارد کنید")
     .regex(/^[0-9]+$/, "مقدار تراکنش معتبر نیست"),
