@@ -21,7 +21,7 @@ const userRule: schema_model<User_face> = {
   password: {
     type: String,
     required: true,
-    match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+    minlength: 6,
   },
   phone: {
     type: String,
