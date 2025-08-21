@@ -19,7 +19,9 @@ const transactionServices = {
   },
   async getTransactions() {
     await conect();
-    const get_res = await transaction_model.find();
+    const get_res = await transaction_model
+      .find({}, "-__v")
+      .populate({ path: "user", select: "fullName" });
     return get_res;
   },
   async getOneTransaction(_id: any) {

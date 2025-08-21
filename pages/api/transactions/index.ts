@@ -22,9 +22,10 @@ const handler: handler_type = async (req, res) => {
         type,
         amount,
         reason,
+        // TODO -> id must be authrized 
+        user: "68a709aa701fc361de471a30", // * Relation <<<
         // api side - >
         accountBalance: "40000",
-        createdAt: new Date().getUTCFullYear(),
       });
       return res.json(create_res);
     }
