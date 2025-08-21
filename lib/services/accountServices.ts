@@ -1,8 +1,12 @@
+import { account_model } from "@/model";
 import { conect } from "../db";
+import { accountRule } from "../validations/rules";
 
 const accountServices = {
-  async createAccount() {
+  async createAccount(accountInfo: typeof accountRule) {
     await conect();
+    const create_res = await account_model.create(accountInfo);
+    return create_res;
   },
   async removeAccount() {
     await conect();
