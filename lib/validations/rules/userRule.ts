@@ -26,6 +26,8 @@ const userRule: schema_model<User_face> = {
   phone: {
     type: String,
     match: /^09[0-9]{9}$/,
+    index: true,
+    required: true,
   },
 };
 
