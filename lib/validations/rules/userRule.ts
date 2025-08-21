@@ -15,6 +15,8 @@ const userRule: schema_model<User_face> = {
     match: /^[A-Za-zآ-ی0-9_.]+$/,
     minlength: 5,
     maxlength: 30,
+    index: true,
+    unique: true,
   },
   password: {
     type: String,
