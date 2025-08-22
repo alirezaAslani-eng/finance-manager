@@ -7,6 +7,7 @@ const transactionSchema = object({
     .max(500, "حد اکثر 500 حرف"),
   type: enum_(["0", "1"]),
   account: string().nonempty("تراکنش برای کدوم کارت بانکی هست"),
+  category: string().nonempty("تراکنش برای کدام دسته بندی هست"),
 });
 
 export default transactionSchema;

@@ -1,5 +1,6 @@
 import { Transaction_face } from "@/types/transaction.types";
-import { account_model } from "./account"; // * Refrence
+import { account_model } from "@/model"; // * Relation
+import { category_model } from "@/model"; // * Relation
 import m, {
   model,
   models,
@@ -8,12 +9,15 @@ import m, {
   Types,
 } from "mongoose";
 
-// override user,account because it's a refrence not a object with it's own keys
+// * override user,account,category because they are refrences not objects with their own keys
 type overridedType = {
+  // * Relations ============= >
   user: SchemaDefinitionProperty<Types.ObjectId>;
   account: SchemaDefinitionProperty<Types.ObjectId>;
+  category: SchemaDefinitionProperty<Types.ObjectId>;
 };
-type schemaType = Omit<Transaction_face, "user" | "account"> & overridedType;
+type schemaType = Omit<Transaction_face, "user" | "account" | "category"> &
+  overridedType;
 const transaction_schema = new Schema<schemaType>(
   {
     type: { type: String, required: true, match: /^[01]$/ },
@@ -29,6 +33,11 @@ const transaction_schema = new Schema<schemaType>(
       type: Types.ObjectId,
       required: true,
       ref: "Account",
+    },
+    category: {
+      type: Types.ObjectId,
+      required: true,
+      ref: "Category",
     },
   },
   { timestamps: true }

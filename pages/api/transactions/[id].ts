@@ -31,13 +31,15 @@ const handler: handler_type = async (req, res) => {
       // * Body from client ================== >
       const body = req.body;
       // * Zod Validation ==================== >
-      const { amount, reason, type, account } = transactionSchema.parse(body);
+      const { amount, reason, type, account, category } =
+        transactionSchema.parse(body);
       const edit_res = await editOneTransaction(req.query.id, {
         // from client --- >
         amount,
         reason,
         type,
         account,
+        category,
         // TODO -> id must be authrized
         user: "68a709aa701fc361de471a30", // * Relation <<<
         // api side --- >
