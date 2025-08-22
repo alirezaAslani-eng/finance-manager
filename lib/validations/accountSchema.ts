@@ -1,10 +1,9 @@
 import { Account_face } from "@/types/account.types";
-import { object, Infer, string } from "zod";
+import { object, Infer, string, number } from "zod";
 
 const accountSchema = object({
   cardNumber: string().regex(/^[0-9]{16}$/, "شماره کارت نا معتبر هست"),
-  // TODO -> currentBalance must change to number 
-  currentBalance: string().regex(/^[0-9]+$/, "مقدار نا معتبر هست"),
+  currentBalance: number().min(0, "مقدار حداقل 0 میتونه باشه"),
 });
 
 // * Test Validation =============== >

@@ -3,10 +3,7 @@ import { Test_type } from "@/types/utils";
 import z from "zod";
 
 const transactionSchema = z.object({
-  // TODO -> amount must be number
-  amount: z
-    .string("مبلغ تراکنش را وارد کنید")
-    .regex(/^[0-9]+$/, "مقدار تراکنش معتبر نیست"),
+  amount: z.number().min(0, "مقدار تراکنش حداقل 0 میتوانه باشه"),
   reason: z
     .string("لطفا فیلد را پر کنید")
     .min(3, "حد اقل 3 حرف")
