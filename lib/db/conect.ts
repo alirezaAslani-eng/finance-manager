@@ -1,7 +1,7 @@
 import "colors";
 import  mongooes  from "mongoose"
 const conect = async (
-  url: string = "mongodb://localhost:27017/Finance_manger"
+  url: string | undefined = process.env.db_address
 ): Promise<void> => {
   // * define state =============== >
   let conectState = 0;
@@ -11,7 +11,7 @@ const conect = async (
   if (conectState) return; //  <<<<< Conected
 
   // * start to conect ====================== >
-  const con = await mongooes.connect(url);
+  const con = await mongooes.connect(url || "");
   console.log("MongoDb is conected successfully".green);
 };
 export default conect;
