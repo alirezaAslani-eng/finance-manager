@@ -10,16 +10,25 @@ const accountServices = {
     const create_res = await account_model.create(accountInfo);
     return create_res;
   },
-  async removeAccount() {
+  async removeAccount(_id: any) {
     await conect();
+    const dl_res = await account_model.findOneAndDelete({ _id });
+    return dl_res;
   },
-  async editAccount() {
+  async editAccount(_id: any, body: Account_type) {
     await conect();
+    const edit_res = await account_model.findOneAndUpdate({ _id }, body);
+    return edit_res;
   },
   async getAccounts() {
     await conect();
-    const get_res = await account_model.find()
-    return get_res
+    const get_res = await account_model.find();
+    return get_res;
+  },
+  async getOneAccount(_id: any) {
+    await conect();
+    const get_res = await account_model.findOne({ _id });
+    return get_res;
   },
 };
 
