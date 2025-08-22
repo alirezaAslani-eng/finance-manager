@@ -17,8 +17,8 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
       // TODO -> delete process needs (authorizing user) before
-      // TODO -> (error handler): {const delte_result} might be (null)
       const delte_result = await removeTransaction(req.query.id);
+      clientError(`Not Fond id ${req.query.id}`, !delte_result, 404);
       return res.status(204).json(null);
     }
     case "GET": {
@@ -45,6 +45,7 @@ const handler: handler_type = async (req, res) => {
         // api side --- >
         accountBalance: 3000,
       });
+      clientError(`thre is no id with ${req.query.id}`, !edit_res);
       return res.json(edit_res);
     }
     default: {
