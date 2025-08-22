@@ -25,7 +25,7 @@ const handler: handler_type = async (req, res) => {
         // TODO -> id must be authrized 
         user: "68a709aa701fc361de471a30", // * Relation <<<
         // api side - >
-        accountBalance: "40000",
+        accountBalance: 40000,
       });
       return res.json(create_res);
     }

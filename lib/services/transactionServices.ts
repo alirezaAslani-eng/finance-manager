@@ -1,9 +1,10 @@
-import { transaction_model } from "@/model";
+import { transaction_model, transaction_schema } from "@/model";
 import { conect } from "../db";
-import { transactionRule } from "../validations/rules";
-
+import type { InferSchemaType } from "mongoose";
+// * TransAction schema type
+type TransActionType = InferSchemaType<typeof transaction_schema>;
 const transactionServices = {
-  async createTransaction(body: typeof transactionRule) {
+  async createTransaction(body: TransActionType) {
     await conect();
     const create_res = await transaction_model.create(body);
     return create_res;
@@ -12,7 +13,7 @@ const transactionServices = {
     const remove_res = await transaction_model.findOneAndDelete({ _id });
     return remove_res;
   },
-  async editOneTransaction(_id: any, body: typeof transactionRule) {
+  async editOneTransaction(_id: any, body: TransActionType) {
     await conect();
     const update_res = await transaction_model.findOneAndUpdate({ _id }, body);
     return update_res;

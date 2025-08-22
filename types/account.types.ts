@@ -3,6 +3,6 @@ import { User_face } from "./user.types";
 interface Account_face {
   cardNumber: string;
   currentBalance: number;
-  user:User_face
+  user: User_face;
 }
 export type { Account_face };

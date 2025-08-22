@@ -1,9 +1,29 @@
-import { accountRule } from "@/lib/validations/rules";
 import { Account_face } from "@/types/account.types";
-import { model, models, Schema } from "mongoose";
+import {
+  model,
+  models,
+  Schema,
+  Types,
+  SchemaDefinitionProperty,
+} from "mongoose";
 
-const schema = new Schema(accountRule, { timestamps: true });
+// * overrided types ============== >
+type overridedType = { user: SchemaDefinitionProperty<Types.ObjectId> };
+// * schema type ==================== >
+type schemaType = Omit<Account_face, "user"> & overridedType;
 
-const account_model = models.Account || model<Account_face>("Account", schema);
+const account_schema = new Schema<schemaType>(
+  {
+    cardNumber: { type: String, required: true, match: /^[0-9]{16}$/ },
+    currentBalance: { type: Number, required: true, min: 0 },
+    user: {
+      type: Types.ObjectId,
+    },
+  },
+  { timestamps: true }
+);
 
-export default account_model;
+const account_model =
+  models.Account || model<schemaType>("Account", account_schema);
+
+export { account_model, account_schema };

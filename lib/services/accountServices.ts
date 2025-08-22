@@ -1,9 +1,11 @@
-import { account_model } from "@/model";
+import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
-import { accountRule } from "../validations/rules";
+import type { InferSchemaType } from "mongoose";
 
+// * Accoun Schema typpe ============== >
+type Account_type = InferSchemaType<typeof account_schema>;
 const accountServices = {
-  async createAccount(accountInfo: typeof accountRule) {
+  async createAccount(accountInfo: Account_type) {
     await conect();
     const create_res = await account_model.create(accountInfo);
     return create_res;
