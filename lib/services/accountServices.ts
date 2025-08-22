@@ -18,6 +18,8 @@ const accountServices = {
   },
   async getAccounts() {
     await conect();
+    const get_res = await account_model.find()
+    return get_res
   },
 };
 

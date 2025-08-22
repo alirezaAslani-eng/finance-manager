@@ -4,7 +4,7 @@ import { accountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
   // * Services ================== >
-  const { createAccount } = accountServices;
+  const { createAccount, getAccounts } = accountServices;
   switch (req.method as "POST" | "GET") {
     case "POST": {
       // * Zod Validation ============== >
@@ -22,6 +22,9 @@ const handler: handler_type = async (req, res) => {
       return res.json(create_res);
     }
     case "GET": {
+      // TODO -> here we need to know who is getinig their accounts by authorizing theme
+      const user_accounts = await getAccounts();
+      return res.json(user_accounts);
     }
   }
 };
