@@ -8,11 +8,14 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST" | "GET") {
     case "POST": {
       // * Zod Validation ============== >
-      const { cardNumber, currentBalance } = accountSchema.parse(req.body);
+      const { cardNumber, currentBalance, accountName } = accountSchema.parse(
+        req.body
+      );
       // * Create Account ========== >
       const create_res = await createAccount({
         cardNumber,
         currentBalance,
+        accountName,
         // TODO -> id must be authorized
         user: "68a709aa701fc361de471a30",
       });

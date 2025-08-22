@@ -11,18 +11,16 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST" | "GET") {
     case "POST": {
       // * Body from client ================= >
-      const body = req.body as Pick<
-        Transaction_face,
-        "amount" | "reason" | "type"
-      >;
+      const body = req.body
       // * Zod validator ========================= >
-      const { amount, reason, type } = transactionSchema.parse(body);
+      const { amount, reason, type, account } = transactionSchema.parse(body);
       const create_res = await createTransaction({
         // from client ---- >
         type,
         amount,
         reason,
-        // TODO -> id must be authrized 
+        account,
+        // TODO -> id must be authrized
         user: "68a709aa701fc361de471a30", // * Relation <<<
         // api side - >
         accountBalance: 40000,

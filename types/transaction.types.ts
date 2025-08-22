@@ -1,3 +1,4 @@
+import { Account_face } from "./account.types";
 import { User_face } from "./user.types";
 
 interface Transaction_face {
@@ -6,5 +7,6 @@ interface Transaction_face {
   accountBalance: number;
   reason: string;
   user: User_face;
+  account: Account_face;
 }
 export type { Transaction_face };
