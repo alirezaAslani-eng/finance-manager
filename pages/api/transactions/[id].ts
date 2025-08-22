@@ -16,8 +16,8 @@ const handler: handler_type = async (req, res) => {
   );
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      // TODO -> delete process needs (authorizing user) before 
-      // TODO -> (error handler): {const delte_result} might be (null) 
+      // TODO -> delete process needs (authorizing user) before
+      // TODO -> (error handler): {const delte_result} might be (null)
       const delte_result = await removeTransaction(req.query.id);
       return res.status(204).json(null);
     }
@@ -29,18 +29,16 @@ const handler: handler_type = async (req, res) => {
     }
     case "PUT": {
       // * Body from client ================== >
-      const body = req.body as Pick<
-        Transaction_face,
-        "amount" | "reason" | "type"
-      >;
+      const body = req.body;
       // * Zod Validation ==================== >
-      const { amount, reason, type } = transactionSchema.parse(body);
+      const { amount, reason, type, account } = transactionSchema.parse(body);
       const edit_res = await editOneTransaction(req.query.id, {
         // from client --- >
         amount,
         reason,
         type,
-        // TODO -> id must be authrized 
+        account,
+        // TODO -> id must be authrized
         user: "68a709aa701fc361de471a30", // * Relation <<<
         // api side --- >
         accountBalance: 3000,
