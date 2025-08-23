@@ -7,7 +7,9 @@ const userServices = {
   async registerUser(userInfo: UserType) {
     await conect();
     const reg_res = await user_model.create(userInfo);
-    return reg_res;
+    const withOutPassword = reg_res.toObject();
+    delete withOutPassword.password;
+    return withOutPassword;
   },
   async loginUser() {
     await conect();
