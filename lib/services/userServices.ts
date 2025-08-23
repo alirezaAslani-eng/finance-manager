@@ -17,7 +17,7 @@ const userServices = {
   async getMe() {
     await conect();
   },
-async isUserExist({
+  async isUserExist({
     userName,
     phone,
   }: Pick<UserType, "userName" | "phone">): Promise<boolean> {

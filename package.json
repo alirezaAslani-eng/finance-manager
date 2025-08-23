@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "colors": "^1.4.0",
+    "cookie": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
     "next": "15.4.6",
     "react": "19.1.0",
@@ -17,6 +20,7 @@
     "zod": "^4.0.17"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
