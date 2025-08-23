@@ -1,6 +1,5 @@
-import { User_face } from "@/types/user.types";
+import { User_face, UserRolesEnum } from "@/types/user.types";
 import m, { model, models, Schema } from "mongoose";
-
 
 const user_schema = new Schema<User_face>(
   {
@@ -30,6 +29,11 @@ const user_schema = new Schema<User_face>(
       match: /^09[0-9]{9}$/,
       index: true,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: Object.values(UserRolesEnum),
+      default: UserRolesEnum.USER,
     },
   },
   { timestamps: true }
