@@ -17,6 +17,21 @@ const userServices = {
   async getMe() {
     await conect();
   },
+async isUserExist({
+    userName,
+    phone,
+  }: Pick<UserType, "userName" | "phone">): Promise<boolean> {
+    await conect();
+    const isExist = await user_model.findOne({
+      $or: [{ userName }, { phone }],
+    });
+    return isExist;
+  },
+  async isFirstUser(): Promise<boolean> {
+    await conect();
+    const userLength = await user_model.find();
+    return !userLength.length;
+  },
 };
 
 export default userServices;

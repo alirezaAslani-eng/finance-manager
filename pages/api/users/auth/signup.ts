@@ -6,13 +6,18 @@ import { ApiError } from "next/dist/server/api-utils";
 
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
-  const { registerUser } = userServices;
+  const { registerUser, isUserExist, isFirstUser } = userServices;
   switch (req.method as "POST") {
     case "POST": {
       // * Validation Body ================== >
       const { userName, fullName, password, phone } = userSchema.parse(
         req.body
       ); // ! Might Throw Error <--------------
+
+      // * Check if user existed alredy ======================= >
+      const isExistedUser = await isUserExist({ phone, userName });
+      clientError("نام کاربری یا شماره تماس قبلا ثبت شده", isExistedUser, 409); // ! Might Throw Error <----------
+
       // * Create Query Start =================== >
       const create_res = await registerUser({
         userName,
