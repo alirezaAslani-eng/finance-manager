@@ -11,7 +11,10 @@ interface User_face {
   role?: keyof typeof UserRolesEnum; // * "USER" | "ADMIN"
 }
 type PayloadToken_type = {
-  [key in keyof Pick<User_face, "fullName" | "phone" | "role">]: User_face[key];
+  [key in keyof Pick<
+    User_face,
+    "fullName" | "phone" | "role" | "email"
+  >]: User_face[key];
 };
 // * Type ====>
 export type { User_face, PayloadToken_type };

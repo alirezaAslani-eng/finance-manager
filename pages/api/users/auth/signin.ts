@@ -14,11 +14,12 @@ const handler: handler_type = async (req, res) => {
       // * Verifiy User it will return info of user or an error ============== >
       const findedUser = await loginUser({ password, identifier }); // ! Might Throw Error <---------
       // * Generate Token =================== >
-      const { fullName, phone, role } = findedUser ;
+      const { fullName, phone, role, email } = findedUser;
       const token = generateToken({
         fullName,
         phone,
         role,
+        email,
       });
       res // * Response < --------------
         .setHeader("Set-Cookie", tokenToCookie(token))

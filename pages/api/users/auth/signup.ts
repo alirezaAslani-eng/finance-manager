@@ -44,6 +44,7 @@ const handler: handler_type = async (req, res) => {
         fullName,
         phone,
         role: isAdmin ? "ADMIN" : "USER",
+        email,
       });
 
       // * Response =================== >
