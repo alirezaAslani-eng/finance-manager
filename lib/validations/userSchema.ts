@@ -7,8 +7,7 @@ const userSchema = object({
     .regex(/^[A-Za-zآ-ی0-9_.]+$/, "نام کاربری نا معتبر"),
   fullName: string()
     .min(5, "حد اقل 5 حرف")
-    .max(30, "حد اکثر 30 حرف")
-    .regex(/^[A-Za-zآ-ی]+$/, "نام کاربری نا معتبر"),
+    .max(30, "حد اکثر 30 حرف"),
   password: string()
     .min(6, "حد اقل شامل 6 حرف")
     .regex(/^[A-Za-z0-9]+$/, "رمز عبور باید شامل حروف و اعداد انگلیسی باشد"),
@@ -16,6 +15,16 @@ const userSchema = object({
   email: string()
     .nonempty("فیلد نباید خالی باشه")
     .regex(/^[A-Za-z0-9._%+-]+@gmail\.com$/, "ایمیل معتبر نیست"),
+});
+
+const loginSchema = object({
+  identifier: string().regex(
+    /^(?:[A-Za-z0-9._-]{5,30}|[A-Za-z0-9._%+-]+@gmail\.com)$/,
+    "نام کاربری یا ایمیل معتبر نیست"
+  ),
+  password: string()
+    .min(6, "حد اقل شامل 6 حرف")
+    .regex(/^[A-Za-z0-9]+$/, "رمز عبور باید شامل حروف و اعداد انگلیسی باشد"),
 });
 
 // * Check Validation Type ================ >
