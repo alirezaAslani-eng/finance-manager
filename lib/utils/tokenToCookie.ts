@@ -6,8 +6,8 @@ const tokenToCookie = (token: string): string => {
     path: "/",
     sameSite: "strict",
     secure: true,
-    maxAge: 60 * 60 * 24 * 7, // * 1 week
+    maxAge: Number(process.env.invalidateToken), // * 1 week
   });
 };
 
-export default tokenToCookie
+export default tokenToCookie;

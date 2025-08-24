@@ -4,7 +4,7 @@ const generateToken = <T extends object>(data: T): string => {
   const privateKey = process.env.privateKey as string;
   // * Start Generate Token =================== >
   const token = sign(data, privateKey, {
-    expiresIn: "24h",
+    expiresIn: Number(process.env.invalidateToken),
   });
   return token;
 };
