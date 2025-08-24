@@ -2,6 +2,7 @@ import { userServices } from "@/lib/services";
 import { apiHandler, generateToken, tokenToCookie } from "@/lib/utils";
 import { loginSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
+import { PayloadToken_type } from "@/types/user.types";
 import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services ================= >
@@ -13,7 +14,12 @@ const handler: handler_type = async (req, res) => {
       // * Verifiy User it will return info of user or an error ============== >
       const findedUser = await loginUser({ password, identifier }); // ! Might Throw Error <---------
       // * Generate Token =================== >
-      const token = generateToken(findedUser);
+      const { fullName, phone, role } = findedUser ;
+      const token = generateToken({
+        fullName,
+        phone,
+        role,
+      });
       res // * Response < --------------
         .setHeader("Set-Cookie", tokenToCookie(token))
         .json(findedUser);

@@ -1,5 +1,6 @@
+import { PayloadToken_type } from "@/types/user.types";
 import { sign } from "jsonwebtoken";
-const generateToken = <T extends object>(data: T): string => {
+const generateToken = (data: PayloadToken_type): string => {
   // * Private Key =========== >
   const privateKey = process.env.privateKey as string;
   // * Start Generate Token =================== >
