@@ -23,9 +23,6 @@ const handler: handler_type = async (req, res) => {
       const isExistedUser = await isUserExist({ phone, userName });
       clientError("نام کاربری یا شماره تماس قبلا ثبت شده", isExistedUser, 409); // ! Might Throw Error <----------
 
-      // * Hash User Password =========================== >
-      const hashedPassword = await hashPass(password);
-
       // * Check if it's first time, if true it's ADMIN ====================== >
       const isAdmin = await isFirstUser();
 
@@ -33,7 +30,7 @@ const handler: handler_type = async (req, res) => {
       const create_res = await registerUser({
         userName,
         fullName,
-        password: hashedPassword,
+        password,
         phone,
         email,
         role: isAdmin ? "ADMIN" : "USER",
