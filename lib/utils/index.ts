@@ -4,3 +4,4 @@ export { default as apiHandler } from "./apiHandler";
 export { default as hashPass } from "./hashPass";
 export { default as generateToken } from "./generateToken";
 export { default as tokenToCookie } from "./tokenToCookie";
+export { default as verifyPass } from "./verifyPass";
