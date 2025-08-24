@@ -1,7 +1,8 @@
 import { InferSchemaType } from "mongoose";
 import { conect } from "../db";
 import { user_model, user_schema } from "@/model";
-import { clientError, verifyPass } from "../utils";
+import { clientError, payloadToken, verifyPass } from "../utils";
+import { GetMeOutput } from "@/types/user.types";
 // * User schema type ======== >
 type UserType = InferSchemaType<typeof user_schema>;
 const userServices = {
@@ -32,8 +33,22 @@ const userServices = {
     delete user.password;
     return user;
   },
-  async getMe() {
+  async getUserInfo(token: string | undefined): Promise<GetMeOutput | false> {
     await conect();
+    // * Verify Token ================ >
+    const payloadInfo = payloadToken(token);
+    if (!payloadInfo) return false;
+    // * find User Info ================= >
+    const finded_user: unknown = await user_model.findOne(
+      {
+        $and: [{ email: payloadInfo.email }],
+      },
+      undefined,
+      { select: "-password" }
+    );
+    // * Payload of Token is valid but user is deleted =================== >
+    if (!finded_user) return false;
+    return finded_user as GetMeOutput;
   },
   async isUserExist({
     userName,

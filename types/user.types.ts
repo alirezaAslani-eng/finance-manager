@@ -16,7 +16,11 @@ type PayloadToken_type = {
     "fullName" | "phone" | "role" | "email"
   >]: User_face[key];
 };
+type GetMeOutput = Pick<
+  User_face,
+  "email" | "fullName" | "phone" | "role" | "userName"
+>;
 // * Type ====>
-export type { User_face, PayloadToken_type };
+export type { User_face, PayloadToken_type, GetMeOutput };
 // * Value ===== >
 export { UserRolesEnum };
