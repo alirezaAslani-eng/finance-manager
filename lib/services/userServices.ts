@@ -16,7 +16,7 @@ const userServices = {
     password,
     identifier,
   }: Pick<UserType, "password"> & { identifier: string }): Promise<
-    Error | Omit<UserType, "password">
+    Omit<UserType, "password">
   > {
     await conect();
     // * Finding User by their email or userName ============ >
