@@ -1,9 +1,14 @@
 import { userServices } from "@/lib/services";
-import { apiHandler, clientError, generateToken, hashPass } from "@/lib/utils";
+import {
+  apiHandler,
+  clientError,
+  generateToken,
+  hashPass,
+  tokenToCookie,
+} from "@/lib/utils";
 import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { ApiError } from "next/dist/server/api-utils";
-import { serialize } from "cookie";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { registerUser, isUserExist, isFirstUser } = userServices;
@@ -45,16 +50,7 @@ const handler: handler_type = async (req, res) => {
         res
           .status(201)
           // * Set Cookie ========== >
-          .setHeader(
-            "Set-Cookie",
-            serialize("token", token, {
-              httpOnly: true,
-              path: "/",
-              sameSite: "strict",
-              secure: true,
-              maxAge: 60 * 60 * 24 * 7, // * 1 week
-            })
-          )
+          .setHeader("Set-Cookie", tokenToCookie(token))
           .json(create_res)
       );
     }
