@@ -15,7 +15,7 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST") {
     case "POST": {
       // * Validation Body ================== >
-      const { userName, fullName, password, phone } = userSchema.parse(
+      const { userName, fullName, password, phone, email } = userSchema.parse(
         req.body
       ); // ! Might Throw Error <--------------
 
@@ -35,6 +35,7 @@ const handler: handler_type = async (req, res) => {
         fullName,
         password: hashedPassword,
         phone,
+        email,
         role: isAdmin ? "ADMIN" : "USER",
       });
 

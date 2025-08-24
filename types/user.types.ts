@@ -6,6 +6,7 @@ interface User_face {
   userName: string;
   fullName: string;
   password: string;
+  email: string;
   phone: string;
   role?: keyof typeof UserRolesEnum; // * "USER" | "ADMIN"
 }

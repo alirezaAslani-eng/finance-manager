@@ -1,23 +1,26 @@
 import { User_face, UserRolesEnum } from "@/types/user.types";
 import m, { model, models, Schema } from "mongoose";
-
+// * phone, email, userName are uniqued <<<<<<<<<<
 const user_schema = new Schema<User_face>(
   {
     fullName: {
       type: String,
       required: true,
-      match: /^[A-Za-zآ-ی]+$/,
       minlength: 5,
       maxlength: 20,
     },
     userName: {
       type: String,
       required: true,
-      match: /^[A-Za-zآ-ی0-9_.]+$/,
       minlength: 5,
       maxlength: 30,
-      index: true,
       unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: /^[A-Za-z0-9._%+-]+@gmail\.com$/,
     },
     password: {
       type: String,
@@ -27,8 +30,8 @@ const user_schema = new Schema<User_face>(
     phone: {
       type: String,
       match: /^09[0-9]{9}$/,
-      index: true,
       required: true,
+      unique: true,
     },
     role: {
       type: String,
