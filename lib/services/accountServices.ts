@@ -20,11 +20,6 @@ const accountServices = {
     const edit_res = await account_model.findOneAndUpdate({ _id }, body);
     return edit_res;
   },
-  async getAccounts() {
-    await conect();
-    const get_res = await account_model.find();
-    return get_res;
-  },
   async getOneAccount(_id: any) {
     await conect();
     const get_res = await account_model.findOne({ _id });

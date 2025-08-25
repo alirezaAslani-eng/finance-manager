@@ -21,11 +21,7 @@ const handler: handler_type = async (req, res) => {
       });
       return res.json(create_res);
     }
-    case "GET": {
-      // TODO -> here we need to know who is getinig their accounts by authorizing theme
-      const user_accounts = await getAccounts();
-      return res.json(user_accounts);
-    }
+    // TODO -> API : it will GET user's accounts by virtual method 
   }
 };
 ("njbjkbmjn");
