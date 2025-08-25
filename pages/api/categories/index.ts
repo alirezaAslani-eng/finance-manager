@@ -8,6 +8,7 @@ const handler: handler_type = async (req, res) => {
   const { createCategory } = categoryServivces;
   switch (req.method as "POST") {
     case "POST": {
+      // TODO -> auth : is it user at all 
       // TODO -> auth : who is creating a category we need to know theme becase each one has their own category list
       const { name } = categorySchema.parse(req.body); // ! Might Throw Error
       const create_res = await createCategory({ name, user: "userId" });

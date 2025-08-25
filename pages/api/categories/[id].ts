@@ -13,11 +13,14 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "DELETE") {
     case "DELETE": {
-      // TODO -> auth : who is deleting a category are they authorized user at all
-      const remove_res = await removeCategory(req.query.id); // ! Might Throw Error
+      // TODO -> auth step 1 : is it user at all 
+      // TODO -> auth step 2 : user must be the owner of the document -> (the field "user" of category document must be the same as the field "_id" of user)
+
+      const remove_res = await removeCategory(req.query.id);
       clientError(`there is no id with ${req.query.id}`, !remove_res); // ! Might Throw Error
       return res.status(204).json(""); // ? RESPONSE <----------
     }
+    // TODO -> API : PUT updtate a category is needed 
     default: {
       throw new ApiError(400, "request method is not valid");
     }

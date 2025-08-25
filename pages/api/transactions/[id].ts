@@ -16,18 +16,22 @@ const handler: handler_type = async (req, res) => {
   );
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      // TODO -> delete process needs (authorizing user) before
+      // TODO -> auth : is it user at all
+      // TODO -> auth : delete process needs (authorizing user) before to get user's _id and diffining it with field "user" in transaction document which contain it's owner id
       const delte_result = await removeTransaction(req.query.id);
       clientError(`Not Fond id ${req.query.id}`, !delte_result, 404);
       return res.status(204).json(null);
     }
     case "GET": {
-      // TODO -> get process needs (authorizing user) before
+      // TODO -> auth : is it user at all 
+      // TODO -> auth : read only a transaction document which is for that user by diffining user's _id == transacion field "user" 
       const one_res = await getOneTransaction(req.query.id);
       clientError("Not Found", !one_res, 404);
       return res.json(one_res);
     }
     case "PUT": {
+      // TODO -> auth : is it user at all 
+      // TODO -> auth : update only a transaction document which is for that user by diffining user's _id == transacion field "user"
       // * Body from client ================== >
       const body = req.body;
       // * Zod Validation ==================== >

@@ -10,6 +10,8 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "POST" | "GET") {
     case "POST": {
+      // TODO -> auth : is it user at all
+      // TODO -> auth :create a transaction document which is for that user by geting user's id
       // * Body from client ================= >
       const body = req.body;
       // * Zod validator ========================= >
@@ -30,6 +32,8 @@ const handler: handler_type = async (req, res) => {
       return res.json(create_res);
     }
     case "GET": {
+      // TODO -> auth : is it user at all
+      // TODO -> auth : get all transactions document which are for that user by geting user's _id 
       const get_res = await getTransactions();
       return res.json(get_res);
     }
