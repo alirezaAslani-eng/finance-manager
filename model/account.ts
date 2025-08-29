@@ -24,7 +24,6 @@ const account_schema = new Schema<schemaType>(
       type: String,
       required: true,
       match: /^[0-9]{16}$/,
-      index: true,
       unique: true,
     },
     currentBalance: { type: Number, required: true, min: 0 },
