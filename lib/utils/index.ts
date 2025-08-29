@@ -6,3 +6,4 @@ export { default as generateToken } from "./generateToken";
 export { default as tokenToCookie } from "./tokenToCookie";
 export { default as verifyPass } from "./verifyPass";
 export { default as payloadToken } from "./payloadToken";
+export { default as checkOwnerOf } from "./checkOwnerOf";
