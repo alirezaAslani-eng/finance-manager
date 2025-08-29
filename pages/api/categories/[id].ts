@@ -1,23 +1,29 @@
 import { categoryServivces } from "@/lib/services";
-import { apiHandler, clientError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf, clientError } from "@/lib/utils";
 import { categorySchema } from "@/lib/validations";
+import { category_model } from "@/model";
 import { handler_type } from "@/types/api.types";
+import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { ApiError } from "next/dist/server/api-utils";
 
 const handler: handler_type = async (req, res) => {
   // * Check Params (id) ============= >
-  clientError("id is not valid", !isValidObjectId(req.query.id)); // ! Might Throw Error
+  clientError("id is not valid", !isValidObjectId(req.query.id)); // ! Might Throw Error ================ <
   // * Services  ======================== >
-  const { removeCategory } = categoryServivces;
+  const { removeCategory, editOneCategory } = categoryServivces;
+  // * Check is it a user and is it owner of this document ====================== >
+  const payloadInfo = (await checkOwnerOf({
+    modelID: req.query.id as string,
+    mustBeOwnerOf: category_model,
+    req,
+  })) as PayloadToken_type; // ! Might Throw Error ====================== <
 
-  switch (req.method as "DELETE") {
+  switch (req.method as "DELETE" | "PUT") {
     case "DELETE": {
-      // TODO -> auth step 1 : is it user at all 
-      // TODO -> auth step 2 : user must be the owner of the document -> (the field "user" of category document must be the same as the field "_id" of user)
-
       const remove_res = await removeCategory(req.query.id);
-      clientError(`there is no id with ${req.query.id}`, !remove_res); // ! Might Throw Error
+      return res.status(204).json(""); // ? RESPONSE <----------
+    }
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     // TODO -> API : PUT updtate a category is needed 

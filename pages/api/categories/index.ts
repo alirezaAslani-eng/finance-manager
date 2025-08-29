@@ -1,17 +1,21 @@
 import { categoryServivces } from "@/lib/services";
-import { apiHandler } from "@/lib/utils";
+import { apiHandler, clientError, payloadToken } from "@/lib/utils";
 import { categorySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
+import { PayloadToken_type } from "@/types/user.types";
 import { ApiError } from "next/dist/server/api-utils";
 
 const handler: handler_type = async (req, res) => {
+  // * Services =============================== >
   const { createCategory } = categoryServivces;
+  // * UserInfo =========================== >
+  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  clientError("لطفا اول وارد شوید", !payloadInfo, 401); // ! Might Trow Error ==================== <
+
   switch (req.method as "POST") {
     case "POST": {
-      // TODO -> auth : is it user at all 
-      // TODO -> auth : who is creating a category we need to know theme becase each one has their own category list
-      const { name } = categorySchema.parse(req.body); // ! Might Throw Error
-      const create_res = await createCategory({ name, user: "userId" });
+      const { name } = categorySchema.parse(req.body); // ! Might Throw Error ========================= <
+      const create_res = await createCategory({ name, user: payloadInfo._id }); // ! Might Throw Error ========================= <
       return res.status(201).json(create_res); // ? RESPONSE <------------
     }
     default: {
