@@ -42,6 +42,7 @@ const handler: handler_type = async (req, res) => {
         phone,
         role: isAdmin ? "ADMIN" : "USER",
         email,
+        _id: create_res._id,
       });
 
       // * Response =================== >
