@@ -46,13 +46,17 @@ const userServices = {
     const payloadInfo = payloadToken(token);
     if (!payloadInfo) return false;
     // * find User Info ================= >
-    const finded_user: unknown = await user_model.findOne(
-      {
-        $and: [{ email: payloadInfo.email }],
-      },
-      undefined,
-      { select: "-password" }
-    );
+    const finded_user: unknown = await user_model
+      .findOne(
+        {
+          $and: [{ email: payloadInfo.email }],
+        },
+        undefined,
+        { select: "-password" }
+      )
+      .populate("categories")
+      .populate("accounts")
+      .lean();
     // * Payload of Token is valid but user is deleted =================== >
     if (!finded_user) return false;
     return finded_user as GetMeOutput;

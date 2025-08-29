@@ -41,7 +41,19 @@ const user_schema = new Schema<User_face>(
   },
   { timestamps: true }
 );
-
+user_schema.set("toObject", { virtuals: true });
+user_schema.set("toJSON", { virtuals: true });
+// * Virtual ==================== >
+user_schema.virtual("categories", {
+  ref: "Category",
+  localField: "_id",
+  foreignField: "user",
+});
+user_schema.virtual("accounts", {
+  ref: "Account",
+  localField: "_id",
+  foreignField: "user",
+});
 const user_model = models.User || model<User_face>("User", user_schema);
 
 export { user_schema, user_model };
