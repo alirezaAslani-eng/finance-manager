@@ -24,9 +24,14 @@ const handler: handler_type = async (req, res) => {
       const remove_res = await removeCategory(req.query.id);
       return res.status(204).json(""); // ? RESPONSE <----------
     }
+    case "PUT": {
+      const info = categorySchema.parse(req.body);
+      await editOneCategory(req.query.id as string, {
+        ...info,
+        user: payloadInfo._id,
+      });
       return res.status(204).json(""); // ? RESPONSE <----------
     }
-    // TODO -> API : PUT updtate a category is needed 
     default: {
       throw new ApiError(400, "request method is not valid");
     }
