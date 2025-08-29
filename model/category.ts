@@ -28,6 +28,7 @@ const category_schema = new Schema<schemaType>({
     ref: "User",
   },
 });
+category_schema.index({ name: 1, user: 1 }, { unique: true });
 
 const category_model =
   models.Category || model<schemaType>("Category", category_schema);

@@ -1,14 +1,17 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler } from "@/lib/utils";
+import { apiHandler, clientError, payloadToken } from "@/lib/utils";
 import { accountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
+import { PayloadToken_type } from "@/types/user.types";
 import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services ================== >
   const { createAccount } = accountServices;
+  // * Payload Info ============================================== >
+  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  clientError("لطفا اول وارد حساب شوید", !payloadInfo); // ! Might Throw Error ================== <
+
   switch (req.method as "POST") {
-    // TODO -> auth step 1: is it user at all
-    // TODO -> auth step 2 : get field "_id" of user who wants to create a document
     case "POST": {
       // * Zod Validation ============== >
       const { cardNumber, currentBalance, accountName } = accountSchema.parse(
@@ -19,12 +22,11 @@ const handler: handler_type = async (req, res) => {
         cardNumber,
         currentBalance,
         accountName,
-        // TODO -> creator's id
-        user: "68a709aa701fc361de471a30",
-      });
+        user: payloadInfo._id,
+      }); // ! Might Throw Error ================== <
+
       return res.json(create_res);
     }
-    // TODO -> API : it will GET user's accounts by virtual method 
     default: {
       throw new ApiError(400, "request method is not valid");
     }
