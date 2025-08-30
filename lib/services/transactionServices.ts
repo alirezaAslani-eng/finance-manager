@@ -1,28 +1,92 @@
-import { transaction_model, transaction_schema } from "@/model";
+import {
+  account_model,
+  account_schema,
+  category_model,
+  transaction_model,
+  transaction_schema,
+} from "@/model";
 import { conect } from "../db";
-import type { InferSchemaType } from "mongoose";
+import type { InferSchemaType, Document } from "mongoose";
+import { checkExist, clientError } from "../utils";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
+type AccountType = InferSchemaType<typeof account_schema>;
+
+const amountHandler = async (
+  body: Omit<TransActionType, "accountBalance">
+): Promise<number> => {
+  // * Check (account) it must be valid as _id and existed in colection =============== >
+  const account = await checkExist<AccountType>(account_model, {
+    _id: body.account,
+  }); // ! Might Throw Error =================== <
+
+  // * accountBalance field gets value base on current account's balance ========================= >
+  // * amount of transaction >>
+  let amount = 0;
+  // * type 0 = spend / type 1 = income ================= >
+  if (body.type == "0") {
+    clientError(
+      "مجودی حساب برای ثبت تراکنش کافی نمیباشد لطفا مجودی فعلی را افزایش دهید",
+      account.currentBalance <= 0
+    ); // ! Might Throw Error =================== <
+    amount = account.currentBalance - body.amount; // * Decrease -
+  } else if (body.type == "1") {
+    amount = account.currentBalance + body.amount; // * Increase +
+  }
+
+  // * change the current balance of user's account ============================== >
+  await account_model.findOneAndUpdate({ _id: body.account }, {
+    currentBalance: amount,
+  } as Pick<AccountType, "currentBalance">);
+
+  return amount;
+};
+
 const transactionServices = {
-  async createTransaction(body: TransActionType) {
+  async createTransaction(body: Omit<TransActionType, "accountBalance">) {
     await conect();
-    const create_res = await transaction_model.create(body);
+
+    await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
+    const amount = await amountHandler(body);
+    // * Create A Transaction ============================================== >
+    const create_res = await transaction_model.create({
+      ...body,
+      accountBalance: amount,
+    } as TransActionType);
+
+    // * reset variable ==== >
+
     return create_res;
   },
   async removeTransaction(_id: any) {
     const remove_res = await transaction_model.findOneAndDelete({ _id });
     return remove_res;
   },
-  async editOneTransaction(_id: any, body: TransActionType) {
+  async editOneTransaction(
+    _id: any,
+    body: Omit<TransActionType, "accountBalance">
+  ) {
     await conect();
-    const update_res = await transaction_model.findOneAndUpdate({ _id }, body);
+    // * Check (category) it must be valid an _id and existed =============== >
+    await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
+
+    // * get final amount of transaction it could be decrased or increased ====================== >
+    const amount = await amountHandler(body); // ! Might Throw Error ====================== <
+
+    // * Start Updating Document ======================== >
+    const updatedInfo: TransActionType = { ...body, accountBalance: amount };
+    const update_res = await transaction_model.findOneAndUpdate(
+      { _id },
+      updatedInfo
+    );
     return update_res;
   },
   async getTransactions() {
     await conect();
     const get_res = await transaction_model
       .find({}, "-__v")
-      .populate({ path: "user", select: "fullName" }).populate({path:"account",select:"accountName"});
+      .populate({ path: "user", select: "fullName" })
+      .populate({ path: "account", select: "accountName" });
     return get_res;
   },
   async getOneTransaction(_id: any) {
