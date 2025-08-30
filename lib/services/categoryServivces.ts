@@ -1,7 +1,9 @@
 import { category_schema, category_model } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
-import { clientError } from "../utils";
+import { clientError, payloadToken } from "../utils";
+import { NextApiRequest } from "next";
+import { PayloadToken_type } from "@/types/user.types";
 
 // * Category Schema typpe ============== >
 type Category_type = InferSchemaType<typeof category_schema>;
@@ -16,7 +18,14 @@ const categoryServivces = {
       name
     );
     clientError("این دسته بندی قبلا ثبت شده", !isUnique, 409); // ! Migth Throw Error ============== <
-
+    // * each user must have maximum 10 categories ============================== >
+    const userCategories = await category_model.find({
+      user: categoryInfo.user,
+    });
+    clientError(
+      "حد اکثر ۱۰ تا دسته بندی مجاز هست",
+      userCategories.length == 10
+    );
     // * Create Query ======================= >
     const create_res = await category_model.create({
       ...categoryInfo,
@@ -28,7 +37,7 @@ const categoryServivces = {
   async removeCategory(_id: any) {
     await conect();
     const dl_res = await category_model.findOneAndDelete({ _id });
-    clientError("دسته بندی با این مشخصات وجود ندارد", !dl_res);// ! Migth Throw Error ============== <
+    clientError("دسته بندی با این مشخصات وجود ندارد", !dl_res); // ! Migth Throw Error ============== <
     return dl_res;
   },
 
