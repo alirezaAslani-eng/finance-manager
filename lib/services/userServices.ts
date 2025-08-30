@@ -64,10 +64,11 @@ const userServices = {
   async isUserExist({
     userName,
     phone,
-  }: Pick<UserType, "userName" | "phone">): Promise<boolean> {
+    email,
+  }: Pick<UserType, "userName" | "phone" | "email">): Promise<boolean> {
     await conect();
     const isExist = await user_model.findOne({
-      $or: [{ userName }, { phone }],
+      $or: [{ userName }, { phone }, { email }],
     });
     return isExist;
   },

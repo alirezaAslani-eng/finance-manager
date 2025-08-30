@@ -20,8 +20,8 @@ const handler: handler_type = async (req, res) => {
       ); // ! Might Throw Error <--------------
 
       // * Check if user existed alredy ======================= >
-      const isExistedUser = await isUserExist({ phone, userName });
-      clientError("نام کاربری یا شماره تماس قبلا ثبت شده", isExistedUser, 409); // ! Might Throw Error <----------
+      const isExistedUser = await isUserExist({ phone, userName ,email });
+      clientError("نام کاربری, شماره موبایل یا ایمیل قبلا ثبت شده", isExistedUser, 409); // ! Might Throw Error <----------
 
       // * Check if it's first time, if true it's ADMIN ====================== >
       const isAdmin = await isFirstUser();
