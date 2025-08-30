@@ -8,10 +8,6 @@ import { isValidObjectId } from "mongoose";
 import { ApiError } from "next/dist/server/api-utils";
 
 const handler: handler_type = async (req, res) => {
-  // * Check Params (id) ============= >
-  clientError("id is not valid", !isValidObjectId(req.query.id)); // ! Might Throw Error ================ <
-  // * Services  ======================== >
-  const { removeCategory, editOneCategory } = categoryServivces;
   // * Check is it a user and is it owner of this document ====================== >
   const payloadInfo = (await checkOwnerOf({
     modelID: req.query.id as string,
@@ -19,9 +15,14 @@ const handler: handler_type = async (req, res) => {
     req,
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
 
+  // * Check Params (id) ============= >
+  clientError("id is not valid", !isValidObjectId(req.query.id)); // ! Might Throw Error ================ <
+  // * Services  ======================== >
+  const { removeCategory, editOneCategory } = categoryServivces;
+
   switch (req.method as "DELETE" | "PUT") {
     case "DELETE": {
-      const remove_res = await removeCategory(req.query.id);
+      await removeCategory(req.query.id);
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     case "PUT": {

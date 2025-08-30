@@ -16,7 +16,7 @@ const handler: handler_type = async (req, res) => {
 
   // * Get Info of User Base on Token ============= >
   const userInfo = await getUserInfo(token);
-  clientError("لطفا اول ثبت نام کنید", !userInfo); // ! Might Throw Error
+  clientError("لطفا اول ثبت نام کنید", !userInfo,401); // ! Might Throw Error
 
   return res.json(userInfo); // * Response ---------- <<<<<<
 };

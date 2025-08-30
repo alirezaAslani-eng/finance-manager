@@ -28,6 +28,7 @@ const categoryServivces = {
   async removeCategory(_id: any) {
     await conect();
     const dl_res = await category_model.findOneAndDelete({ _id });
+    clientError("دسته بندی با این مشخصات وجود ندارد", !dl_res);// ! Migth Throw Error ============== <
     return dl_res;
   },
 
@@ -49,6 +50,7 @@ const categoryServivces = {
       },
       { ...updatedInfo, name: name.trim() }
     );
+    clientError("دسته بندی با این مشخصات وجود ندارد", !update_res); // ! Migth Throw Error ============== <
     return update_res;
   },
 

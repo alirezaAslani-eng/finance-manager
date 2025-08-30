@@ -32,6 +32,7 @@ const accountServices = {
   async removeAccount(_id: any) {
     await conect();
     const dl_res = await account_model.findOneAndDelete({ _id });
+    clientError("حسابی با این مشخصات وجود ندارد", !dl_res, 400); // ! Might Throw Error
     return dl_res;
   },
 
@@ -51,12 +52,15 @@ const accountServices = {
         cardNumber: cardNumber.trim(),
       }
     );
+    clientError("حسابی با این مشخصات وجود ندارد", !edit_res, 400); // ! Might Throw Error
+
     return edit_res;
   },
 
   async getOneAccount(_id: any) {
     await conect();
     const get_res = await account_model.findOne({ _id });
+      clientError("حسابی با این مشخصات وجود ندارد", !get_res, 400); // ! Might Throw Error
     return get_res;
   },
 };

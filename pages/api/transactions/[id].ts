@@ -10,17 +10,17 @@ const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { removeTransaction, getOneTransaction, editOneTransaction } =
     transactionServices;
-  // * Check params ================== >
-  clientError(
-    "id is invalid (requires ObjectId)",
-    !isValidObjectId(req.query.id)
-  ); // ! Might Throw Error ====================== <
   // * Authorize user and check theme if they access to mutate a transaction ================= >
   const payloadInfo = (await checkOwnerOf({
     modelID: req.query.id as string,
     mustBeOwnerOf: transaction_model,
     req,
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
+  // * Check params ================== >
+  clientError(
+    "id is invalid (requires ObjectId)",
+    !isValidObjectId(req.query.id)
+  ); // ! Might Throw Error ====================== <
 
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
