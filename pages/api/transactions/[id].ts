@@ -1,8 +1,9 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, clientError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf, clientError } from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
+import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
-import { Transaction_face } from "@/types/transaction.types";
+import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
@@ -13,30 +14,28 @@ const handler: handler_type = async (req, res) => {
   clientError(
     "id is invalid (requires ObjectId)",
     !isValidObjectId(req.query.id)
-  );
+  ); // ! Might Throw Error ====================== <
+  // * Authorize user and check theme if they access to mutate a transaction ================= >
+  const payloadInfo = (await checkOwnerOf({
+    modelID: req.query.id as string,
+    mustBeOwnerOf: transaction_model,
+    req,
+  })) as PayloadToken_type; // ! Might Throw Error ====================== <
+
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      // TODO -> auth : is it user at all
-      // TODO -> auth : delete process needs (authorizing user) before to get user's _id and diffining it with field "user" in transaction document which contain it's owner id
-      const delte_result = await removeTransaction(req.query.id);
-      clientError(`Not Fond id ${req.query.id}`, !delte_result, 404);
+      await removeTransaction(req.query.id); // ! Might Throw Error ====================== <
       return res.status(204).json(null);
     }
     case "GET": {
-      // TODO -> auth : is it user at all 
-      // TODO -> auth : read only a transaction document which is for that user by diffining user's _id == transacion field "user" 
-      const one_res = await getOneTransaction(req.query.id);
-      clientError("Not Found", !one_res, 404);
+      const one_res = await getOneTransaction(req.query.id); // ! Might Throw Error ====================== <
       return res.json(one_res);
     }
     case "PUT": {
-      // TODO -> auth : is it user at all 
-      // TODO -> auth : update only a transaction document which is for that user by diffining user's _id == transacion field "user"
-      // * Body from client ================== >
-      const body = req.body;
       // * Zod Validation ==================== >
       const { amount, reason, type, account, category } =
-        transactionSchema.parse(body);
+        transactionSchema.parse(req.body); // ! Might Throw Error ====================== <
+
       const edit_res = await editOneTransaction(req.query.id, {
         // from client --- >
         amount,
@@ -44,12 +43,9 @@ const handler: handler_type = async (req, res) => {
         type,
         account,
         category,
-        // TODO -> id must be authrized
-        user: "68a709aa701fc361de471a30", // * Relation <<<
-        // api side --- >
-        accountBalance: 3000,
-      });
-      clientError(`thre is no id with ${req.query.id}`, !edit_res);
+        user: payloadInfo._id, // * Relation <<<
+      }); // ! Might Throw Error ====================== <
+
       return res.json(edit_res);
     }
     default: {
