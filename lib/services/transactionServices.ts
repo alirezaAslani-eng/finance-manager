@@ -60,6 +60,7 @@ const transactionServices = {
   },
   async removeTransaction(_id: any) {
     const remove_res = await transaction_model.findOneAndDelete({ _id });
+    clientError("این تراکنش وجود ندارد", !remove_res, 404); // ! Might Throw Error ====================== <
     return remove_res;
   },
   async editOneTransaction(
@@ -79,19 +80,24 @@ const transactionServices = {
       { _id },
       updatedInfo
     );
+    clientError("این تراکنش وجود ندارد", !update_res, 404); // ! Might Throw Error ====================== <
+
     return update_res;
   },
-  async getTransactions() {
+  async getTransactions(userID: string) {
     await conect();
+
     const get_res = await transaction_model
-      .find({}, "-__v")
+      .find({ user: userID }, "-__v")
       .populate({ path: "user", select: "fullName" })
-      .populate({ path: "account", select: "accountName" });
+      .populate({ path: "account", select: "-__v" });
     return get_res;
   },
   async getOneTransaction(_id: any) {
     await conect();
     const get_res = await transaction_model.findOne({ _id });
+    clientError("این تراکنش وجود ندارد", !get_res, 404); // ! Might Throw Error ====================== <
+
     return get_res;
   },
 };
