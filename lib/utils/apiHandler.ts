@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { ApiError } from "next/dist/server/api-utils";
-// ! Dependencies >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+// ! Dependencies >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 import { ZodError } from "zod";
 import mongoose from "mongoose";
 import ResponseError from "./ResponseError";
+import { clientError } from "@/types/error.types";
 // ! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 type handler_type = (
@@ -29,7 +30,9 @@ const apiHandler = (handler: handler_type): handler_type => {
       // ! ApiError ->
       if (err instanceof ApiError) {
         const { statusCode } = err;
-        return res.status(statusCode).json(err.message);
+        return res
+          .status(statusCode)
+          .json({ message: err.message, type: "client" } as clientError);
       }
       // ! dataBaseError
       if (err instanceof mongoose.Error.CastError) {
