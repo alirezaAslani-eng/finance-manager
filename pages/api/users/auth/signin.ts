@@ -11,7 +11,7 @@ const handler: handler_type = async (req, res) => {
     case "GET": {
       // * Validation User's Data from Client ================= >
       const { password, identifier } = loginSchema.parse(req.body); // ! Might Throw Error <---------
-      // * Verifiy User it will return info of user or an error ============== >
+      // * Verifiy User it will return info of user or throw an error ============== >
       const findedUser = await loginUser({ password, identifier }); // ! Might Throw Error <---------
       // * Generate Token =================== >
       const { fullName, phone, role, email, _id } = findedUser;
