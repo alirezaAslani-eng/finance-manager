@@ -1,5 +1,5 @@
 import payloadToken from "./payloadToken";
-import { clientError } from ".";
+import { throwError } from ".";
 // * Types ===================== >
 import type { Model } from "mongoose";
 import type { PayloadToken_type } from "@/types/user.types";
@@ -10,6 +10,7 @@ interface Props {
   req: NextApiRequest;
   modelID: string;
 }
+
 const checkOwnerOf = async ({
   mustBeOwnerOf,
   modelID,
@@ -17,19 +18,36 @@ const checkOwnerOf = async ({
 }: Props): Promise<void | PayloadToken_type> => {
   // * User Token =================================== >
   const token = req.cookies.token;
+
   // * Get Payload ========================== >
   const payloadInfo = payloadToken(token) as PayloadToken_type;
-  clientError("اول وارد حساب شوید", !payloadInfo, 401); // ! Might Throw Error ====================== <<
+
+  throwError(!payloadInfo, {
+    message: "اول وارد حساب شوید",
+    statusCode: 401,
+    type: "client",
+  });
+
   const { _id: userId } = payloadInfo;
 
-  // * Dose it exist ==================== >
+  // * Does it exist ==================== >
   const document_exist = await mustBeOwnerOf.findOne({
     _id: modelID,
   });
-  clientError("Not Found", !document_exist, 404); // ! Might Throw Error ====================== <<
-  // * Check is user owner of Document ========================= >
-  // document's user prop has to contain the same (id) as (payload._id) it means user must be it's owner !
-  clientError("dosen't access", document_exist.user != userId, 403); // ! Might Throw Error ====================== <<
+
+  throwError(!document_exist, {
+    message: "Not Found",
+    statusCode: 404,
+    type: "client",
+  });
+
+  // * Check if user is owner of Document ========================= >
+  // document's user prop has to contain the same (id) as (payload._id) it means user must be its owner!
+  throwError(document_exist.user != userId, {
+    message: "dosen't access",
+    statusCode: 403,
+    type: "client",
+  });
 
   return payloadInfo;
 };

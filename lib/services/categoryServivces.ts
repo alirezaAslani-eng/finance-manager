@@ -1,12 +1,13 @@
 import { category_schema, category_model } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
-import { clientError, payloadToken } from "../utils";
+import { throwError, payloadToken } from "../utils";
 import { NextApiRequest } from "next";
 import { PayloadToken_type } from "@/types/user.types";
 
-// * Category Schema typpe ============== >
+// * Category Schema type ============== >
 type Category_type = InferSchemaType<typeof category_schema>;
+
 const categoryServivces = {
   async createCategory(categoryInfo: Category_type) {
     const { name, user } = categoryInfo;
@@ -17,15 +18,24 @@ const categoryServivces = {
       user as string,
       name
     );
-    clientError("این دسته بندی قبلا ثبت شده", !isUnique, 409); // ! Migth Throw Error ============== <
+
+    throwError(!isUnique, {
+      message: "این دسته بندی قبلا ثبت شده",
+      statusCode: 409,
+      type: "client",
+    });
+
     // * each user must have maximum 10 categories ============================== >
     const userCategories = await category_model.find({
       user: categoryInfo.user,
     });
-    clientError(
-      "حد اکثر ۱۰ تا دسته بندی مجاز هست",
-      userCategories.length == 10
-    );
+
+    throwError(userCategories.length == 10, {
+      message: "حد اکثر ۱۰ تا دسته بندی مجاز هست",
+      statusCode: 400, // 👈 چون statusCode نداشتی
+      type: "client",
+    });
+
     // * Create Query ======================= >
     const create_res = await category_model.create({
       ...categoryInfo,
@@ -49,9 +59,14 @@ const categoryServivces = {
       user as string,
       name
     );
-    clientError("این دسته بندی قبلا ثبت شده", !isUnique, 409); // ! Migth Throw Error ============== <
 
-    // * Create Query ======================= >
+    throwError(!isUnique, {
+      message: "این دسته بندی قبلا ثبت شده",
+      statusCode: 409,
+      type: "client",
+    });
+
+    // * Update Query ======================= >
     const update_res = await category_model.findOneAndUpdate(
       {
         _id,

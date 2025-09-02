@@ -1,5 +1,5 @@
 import type { Model, RootFilterQuery, Document } from "mongoose";
-import { clientError } from ".";
+import throwError from "./throwError";
 
 const checkExist = async <T>(
   model: Model<any>,
@@ -7,7 +7,11 @@ const checkExist = async <T>(
   errorText: string = "can't find document (Not Found)"
 ): Promise<T> => {
   const findedDoc = await model.findOne(findOneInput);
-  clientError(errorText, !findedDoc); // ! Migth Throw Error ==================== <
+  throwError(!findedDoc, {
+    message: errorText,
+    statusCode: 404,
+    type: "client",
+  }); // ! Migth Throw Error ==================== <
   return findedDoc;
 };
 

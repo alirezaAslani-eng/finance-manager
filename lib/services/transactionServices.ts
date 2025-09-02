@@ -7,7 +7,7 @@ import {
 } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType, Document } from "mongoose";
-import { checkExist, clientError } from "../utils";
+import { checkExist, throwError } from "../utils";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -25,10 +25,12 @@ const amountHandler = async (
   let amount = 0;
   // * type 0 = spend / type 1 = income ================= >
   if (body.type == "0") {
-    clientError(
-      "مجودی حساب برای ثبت تراکنش کافی نمیباشد لطفا مجودی فعلی را افزایش دهید",
-      account.currentBalance <= 0
-    ); // ! Might Throw Error =================== <
+    throwError(account.currentBalance <= 0, {
+      message:
+        "مجودی حساب برای ثبت تراکنش کافی نمیباشد لطفا مجودی فعلی را افزایش دهید",
+      statusCode: 400,
+      type: "client",
+    }); // ! Might Throw Error =================== <
     amount = account.currentBalance - body.amount; // * Decrease -
   } else if (body.type == "1") {
     amount = account.currentBalance + body.amount; // * Increase +

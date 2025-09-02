@@ -1,5 +1,5 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler, clientError, payloadToken } from "@/lib/utils";
+import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { accountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -9,7 +9,11 @@ const handler: handler_type = async (req, res) => {
   const { createAccount } = accountServices;
   // * Payload Info ============================================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
-  clientError("لطفا اول وارد حساب شوید", !payloadInfo); // ! Might Throw Error ================== <
+  throwError(!payloadInfo, {
+    message: "لطفا اول وارد حساب شوید",
+    statusCode: 400,
+    type: "dev",
+  }); // ! Might throw Error <<<<<<<<
 
   switch (req.method as "POST") {
     case "POST": {

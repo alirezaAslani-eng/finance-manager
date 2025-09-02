@@ -1,5 +1,5 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf, clientError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf, throwError } from "@/lib/utils";
 import { accountSchema } from "@/lib/validations";
 import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -14,7 +14,11 @@ const handler: handler_type = async (req, res) => {
     req,
   })) as PayloadToken_type; // ! Might Throw Error
   // * Check params (id) ============= >
-  clientError("id is not valid", !isValidObjectId(req.query.id)); // ! Might throw Error <<<<<<<<
+  throwError(!isValidObjectId(req.query.id), {
+    message: "id is not valid",
+    statusCode: 400,
+    type: "dev",
+  }); // ! Might throw Error <<<<<<<<
   // * Services ================== >
   const { removeAccount, editAccount, getOneAccount } = accountServices;
   switch (req.method as "DELETE" | "PUT" | "GET") {

@@ -1,5 +1,5 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf, clientError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf,  throwError } from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
 import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -17,10 +17,11 @@ const handler: handler_type = async (req, res) => {
     req,
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
   // * Check params ================== >
-  clientError(
-    "id is invalid (requires ObjectId)",
-    !isValidObjectId(req.query.id)
-  ); // ! Might Throw Error ====================== <
+  throwError(!isValidObjectId(req.query.id), {
+    message: "id is not valid",
+    statusCode: 400,
+    type: "dev",
+  }); // ! Might throw Error <<<<<<<<
 
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {

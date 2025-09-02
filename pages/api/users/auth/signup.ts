@@ -1,9 +1,8 @@
 import { userServices } from "@/lib/services";
 import {
   apiHandler,
-  clientError,
   generateToken,
-  hashPass,
+  throwError,
   tokenToCookie,
 } from "@/lib/utils";
 import { userSchema } from "@/lib/validations";
@@ -20,8 +19,12 @@ const handler: handler_type = async (req, res) => {
       ); // ! Might Throw Error <--------------
 
       // * Check if user existed alredy ======================= >
-      const isExistedUser = await isUserExist({ phone, userName ,email });
-      clientError("نام کاربری, شماره موبایل یا ایمیل قبلا ثبت شده", isExistedUser, 409); // ! Might Throw Error <----------
+      const isExistedUser = await isUserExist({ phone, userName, email });
+      throwError(isExistedUser, {
+        message: "نام کاربری, شماره موبایل یا ایمیل قبلا ثبت شده",
+        statusCode: 409,
+        type: "client",
+      }); // ! Might Throw Error ====================== <
 
       // * Check if it's first time, if true it's ADMIN ====================== >
       const isAdmin = await isFirstUser();

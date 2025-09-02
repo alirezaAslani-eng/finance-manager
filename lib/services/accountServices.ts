@@ -1,10 +1,11 @@
 import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
-import { clientError } from "../utils";
+import { throwError } from "../utils";
 
-// * Accoun Schema typpe ============== >
+// * Account Schema type ============== >
 type Account_type = InferSchemaType<typeof account_schema>;
+
 const accountServices = {
   async isUniqueCardNumber(cardNumber: string): Promise<boolean> {
     // * cardNumber Field must be Unique ============== >
@@ -13,13 +14,18 @@ const accountServices = {
     });
     return !!!isUnique;
   },
+
   createAccount: async function (accountInfo: Account_type) {
     const { cardNumber } = accountInfo;
     await conect();
 
     // * cardNumber Field must be Unique ============== >
     const isUnique = await accountServices.isUniqueCardNumber(cardNumber);
-    clientError("شماره کارت صحیح نمیباشد", !isUnique, 409); // ! Might Throw Error
+    throwError(!isUnique, {
+      message: "شماره کارت صحیح نمیباشد",
+      statusCode: 409,
+      type: "client",
+    });
 
     // * Create Query ================ >
     const create_res = await account_model.create({
@@ -40,8 +46,12 @@ const accountServices = {
     const { cardNumber } = body;
 
     // * cardNumber Field must be Unique ============== >
-    const isUnique = accountServices.isUniqueCardNumber(cardNumber);
-    clientError("شماره کارت صحیح نمیباشد", !isUnique, 409); // ! Might Throw Error
+    const isUnique = await accountServices.isUniqueCardNumber(cardNumber);
+    throwError(!isUnique, {
+      message: "شماره کارت صحیح نمیباشد",
+      statusCode: 409,
+      type: "client",
+    });
 
     // * Edit Query ================== >
     const edit_res = await account_model.findOneAndUpdate(

@@ -1,5 +1,5 @@
 import { categoryServivces } from "@/lib/services";
-import { apiHandler, clientError, payloadToken } from "@/lib/utils";
+import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { categorySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -10,7 +10,11 @@ const handler: handler_type = async (req, res) => {
   const { createCategory } = categoryServivces;
   // * UserInfo =========================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
-  clientError("لطفا اول وارد شوید", !payloadInfo, 401); // ! Might Trow Error ==================== <
+  throwError(!payloadInfo, {
+    message: "لطفا اول وارد شوید",
+    statusCode: 401,
+    type: "client",
+  }); // ! Might Trow Error ==================== <
 
   switch (req.method as "POST") {
     case "POST": {
