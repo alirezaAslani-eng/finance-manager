@@ -1,4 +1,5 @@
-export { default as clientError } from "./clientError";
+export { default as BadResponse} from "./BadResponse";
+export { default as throwError } from "./throwError";
 export { default as apiHandler } from "./apiHandler";
 export { default as hashPass } from "./hashPass";
 export { default as generateToken } from "./generateToken";
