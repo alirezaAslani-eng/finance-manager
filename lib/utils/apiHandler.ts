@@ -1,10 +1,10 @@
+// ! Dependencies >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 import { NextApiRequest, NextApiResponse } from "next";
 import { ApiError } from "next/dist/server/api-utils";
-// ! Dependencies >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 import { ZodError } from "zod";
+import { MongoNetworkError, MongoServerError } from "mongodb";
 import mongoose from "mongoose";
-import ResponseError from "./ResponseError";
-import { clientError } from "@/types/error.types";
+import { ClientError, DevError } from "@/types/error.types";
 // ! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 type handler_type = (
@@ -20,52 +20,61 @@ const apiHandler = (handler: handler_type): handler_type => {
     } catch (err) {
       // ! Vilidation (zod)
       if (err instanceof ZodError) {
-        return res.status(400).json(
-          new ResponseError({
-            message: err.issues,
-            type: "Validation",
-          })
-        );
+        const error: DevError = {
+          message: err.issues,
+          type: "validation",
+        };
+        return res.status(400).json(error);
       }
       // ! ApiError ->
       if (err instanceof ApiError) {
+        // * message of Api Errors will be shown to user 
         const { statusCode } = err;
-        return res
-          .status(statusCode)
-          .json({ message: err.message, type: "client" } as clientError);
+        const error: ClientError = {
+          message: err.message,
+          type: "client",
+        };
+        return res.status(statusCode).json(error);
       }
       // ! dataBaseError
       if (err instanceof mongoose.Error.CastError) {
         // ! Invalid Types
-        return res
-          .status(400)
-          .json(
-            new ResponseError({ message: err.message, type: "Invalid_type" })
-          );
+        const error: DevError = {
+          message: err.message,
+          type: "database",
+        };
+        return res.status(400).json(error);
       }
       if (err instanceof mongoose.Error.ValidationError) {
         // ! Invalid Value
-        return res
-          .status(400)
-          .json(
-            new ResponseError({ message: err.message, type: "Validation" })
-          );
+        const error: DevError = {
+          message: err.message,
+          type: "database",
+        };
+        return res.status(400).json(error);
       }
-      if (
-        err instanceof mongoose.Error ||
-        err instanceof mongoose.Error.MongooseServerSelectionError
-      ) {
+      if (err instanceof MongoNetworkError) {
         // ! Network Error
-        return res
-          .status(503)
-          .json(new ResponseError({ message: err.message, type: "Network" }));
-      } else {
-        // ! Unknown Error
-        console.log(err);
-        return res
-          .status(500)
-          .json(new ResponseError({ message: err, type: "Unknown_error" }));
+        const netWorkErr: DevError = {
+          message: err.message,
+          type: "database-network",
+        };
+        return res.status(503).json(netWorkErr);
       }
+      if (err instanceof MongoServerError && err.code == 11000) {
+        // ! Dublicate Error / Conflict
+        const netWorkErr: DevError = {
+          message: err.message,
+          type: "database",
+        };
+        return res.status(400).json(netWorkErr);
+      }
+      // ! Unknown Error
+      const unknownErr: DevError = {
+        type: "unknown",
+        message: err,
+      };
+      return res.status(500).json(unknownErr);
     }
   };
   return wrrapedHandler;
