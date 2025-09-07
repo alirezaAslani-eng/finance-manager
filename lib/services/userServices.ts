@@ -22,40 +22,6 @@ const userServices = {
     delete withOutPassword.password;
     return withOutPassword;
   },
-
-  async loginUser({
-    password,
-    identifier,
-  }: Pick<UserType, "password"> & { identifier: string }): Promise<
-    Omit<UserType & userDoc_type, "password">
-  > {
-    await conect();
-    // * Finding User by their email or userName ============ >
-    const findedUser = await user_model.findOne({
-      $or: [{ email: identifier }, { userName: identifier }],
-    });
-
-    throwError(!findedUser, {
-      message: "متسفانه کاربری با این مشخصات وجود ندارد",
-      statusCode: 404,
-      type: "client",
-    });
-
-    const user = findedUser.toObject();
-    // * Check Password ================= >
-    const isPasswordCorect = await verifyPass(password, user.password);
-
-    throwError(!isPasswordCorect, {
-      message: "رمز یا نام کاربری اشتباه هست",
-      statusCode: 422,
-      type: "client",
-    });
-
-    // * Delete Password Field And Return User Info ====== >
-    delete user.password;
-    return user;
-  },
-
   async getUserInfo(token: string | undefined): Promise<GetMeOutput | false> {
     await conect();
     // * Verify Token ================ >
