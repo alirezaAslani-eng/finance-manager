@@ -130,8 +130,11 @@ const otpServices = {
       return updatedOtp.limitWait; // * return limitWait <<<
     }
   },
-
-  async verifyOtp(phone: string, otpCode: string): Promise<any> {
+/** 
+ * verify user by diffing otp code that user sent us with 
+ * an otp document that saved in database and checking user's phone
+ */
+  async verifyOtp(phone: string, otpCode: string): Promise<verifyReturnType> {
     await conect();
 
 
