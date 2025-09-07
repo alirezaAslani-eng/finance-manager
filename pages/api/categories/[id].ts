@@ -5,7 +5,7 @@ import { category_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import { ApiError } from "next/dist/server/api-utils";
+
 
 const handler: handler_type = async (req, res) => {
   // * Check is it a user and is it owner of this document ====================== >
@@ -16,11 +16,11 @@ const handler: handler_type = async (req, res) => {
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
 
   // * Check Params (id) ============= >
-    throwError(!isValidObjectId(req.query.id), {
-      message: "id is not valid",
-      statusCode: 400,
-      type: "dev",
-    }); // ! Might throw Error <<<<<<<<
+  throwError(!isValidObjectId(req.query.id), {
+    message: "id is not valid",
+    statusCode: 400,
+    type: "dev",
+  }); // ! Might throw Error <<<<<<<<
   // * Services  ======================== >
   const { removeCategory, editOneCategory } = categoryServivces;
 
@@ -38,7 +38,11 @@ const handler: handler_type = async (req, res) => {
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     default: {
-      throw new ApiError(400, "request method is not valid");
+      throwError(true, {
+        message: "request method is not allowed",
+        statusCode: 405,
+        type: "dev",
+      });
     }
   }
 };

@@ -7,7 +7,6 @@ import {
 } from "@/lib/utils";
 import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
-import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { registerUser, isUserExist, isFirstUser } = userServices;
@@ -58,7 +57,11 @@ const handler: handler_type = async (req, res) => {
       );
     }
     default: {
-      throw new ApiError(400, "request method is not valid");
+      throwError(true, {
+        message: "request method is not allowed",
+        statusCode: 405,
+        type: "dev",
+      });
     }
   }
 };

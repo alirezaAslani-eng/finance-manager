@@ -5,7 +5,6 @@ import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import { ApiError } from "next/dist/server/api-utils";
 
 const handler: handler_type = async (req, res) => {
   const payloadInfo = (await checkOwnerOf({
@@ -45,7 +44,11 @@ const handler: handler_type = async (req, res) => {
       return res.json(get_res); // ? RESPONSE <<<-------
     }
     default: {
-      throw new ApiError(400, "request method is not valid");
+      throwError(true, {
+        message: "request method is not allowed",
+        statusCode: 405,
+        type: "dev",
+      });
     }
   }
 };

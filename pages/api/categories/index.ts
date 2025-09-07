@@ -3,8 +3,6 @@ import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { categorySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
-import { ApiError } from "next/dist/server/api-utils";
-
 const handler: handler_type = async (req, res) => {
   // * Services =============================== >
   const { createCategory } = categoryServivces;
@@ -23,7 +21,11 @@ const handler: handler_type = async (req, res) => {
       return res.status(201).json(create_res); // ? RESPONSE <------------
     }
     default: {
-      throw new ApiError(400, "request method is not valid");
+      throwError(true, {
+        message: "request method is not allowed",
+        statusCode: 405,
+        type: "dev",
+      });
     }
   }
 };

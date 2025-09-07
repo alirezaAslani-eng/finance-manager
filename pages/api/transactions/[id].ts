@@ -1,11 +1,10 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf,  throwError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf, throwError } from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
 import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { removeTransaction, getOneTransaction, editOneTransaction } =
@@ -50,7 +49,11 @@ const handler: handler_type = async (req, res) => {
       return res.json(edit_res);
     }
     default: {
-      throw new ApiError(400, "request method is not valid");
+      throwError(true, {
+        message: "request method is not allowed",
+        statusCode: 405,
+        type: "dev",
+      });
     }
   }
 };
