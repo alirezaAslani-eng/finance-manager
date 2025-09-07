@@ -19,7 +19,7 @@ const apiHandler = (handler: handler_type): handler_type => {
       // ! Vilidation (zod)
       if (err instanceof ZodError) {
         const error = new BadResponse({
-          message: "zod error (inout validation)",
+          message: "zod error (input validation)",
           statusCode: 400,
           type: "dev",
           devMessage: err.issues,
@@ -43,7 +43,7 @@ const apiHandler = (handler: handler_type): handler_type => {
       }
       // ! Unknown Error
       const error = new BadResponse({
-        message: "database error",
+        message: "unknown error",
         statusCode: 500,
         type: "unknown",
         devMessage: err,
