@@ -1,35 +1,36 @@
-import { userServices } from "@/lib/services";
-import { apiHandler, generateToken, tokenToCookie } from "@/lib/utils";
-import { loginSchema } from "@/lib/validations";
+import { otpServices } from "@/lib/services";
+import {
+  apiHandler,
+  generateToken,
+  payloadToken,
+  throwError,
+  tokenToCookie,
+} from "@/lib/utils";
+import { verifySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
-import { PayloadToken_type } from "@/types/user.types";
-import { ApiError } from "next/dist/server/api-utils";
 const handler: handler_type = async (req, res) => {
-  // * Services ================= >
-  const { loginUser } = userServices;
-  switch (req.method as "GET") {
-    case "GET": {
-      // * Validation User's Data from Client ================= >
-      const { password, identifier } = loginSchema.parse(req.body); // ! Might Throw Error <---------
-      // * Verifiy User it will return info of user or throw an error ============== >
-      const findedUser = await loginUser({ password, identifier }); // ! Might Throw Error <---------
-      // * Generate Token =================== >
-      const { fullName, phone, role, email, _id } = findedUser;
-      const token = generateToken({
-        fullName,
-        phone,
-        role,
-        email,
-        _id,
-      });
-      res // * Response < --------------
-        .setHeader("Set-Cookie", tokenToCookie(token))
-        .json(findedUser);
-    }
-    default: {
-      throw new ApiError(400, "request method is not valid");
-    }
-  }
+  const islogin = payloadToken(req.cookies.token);
+  throwError(!!islogin, {
+    message: "شما قبلا وارد شدید",
+    statusCode: 403,
+    type: "client",
+  }); // ! Might Throw Error ====================== <
+  throwError(req.method != "GET", {
+    message: "Request method is not allowed",
+    statusCode: 405,
+    type: "dev",
+  }); // ! Might Throw Error ====================== <
+  // * Services ==================== >
+  const { verifyOtp } = otpServices;
+  // * Body From Client ===================== >
+  const { phone, otpCode } = verifySchema.parse(req.body); // ! Might Throw Error ====================== <
+  // * Verify User =================================== >
+  const userInfo = await verifyOtp(phone, otpCode); // ! Might Throw Error ====================== <
+  // * Generate Token ================================ >
+  const { email, fullName, _id, role } = userInfo;
+  const token = generateToken({ _id, email, fullName, phone, role });
+  // * Response =============== >
+  return res.setHeader("Set-Cookie", tokenToCookie(token)).json("");
 };
 
 export default apiHandler(handler);
