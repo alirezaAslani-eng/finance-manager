@@ -1,7 +1,13 @@
 import { InferSchemaType } from "mongoose";
 import { conect } from "../db";
 import { user_model, user_schema } from "@/model";
-import { throwError, hashPass, payloadToken, verifyPass } from "../utils";
+import {
+  throwError,
+  hashPass,
+  payloadToken,
+  verifyPass,
+  generateToken,
+} from "../utils";
 import { GetMeOutput, userDoc_type } from "@/types/user.types";
 
 // * User schema type ======== >
@@ -45,6 +51,46 @@ const userServices = {
     if (!finded_user) return false;
     return finded_user as GetMeOutput;
   },
+  async editUserInfo(
+    userID: string,
+    newInfo: Pick<UserType, "email" | "fullName" | "phone" | "userName">
+  ) {
+    await conect();
+    // * Check if new info is unique ============================ >
+    const { email, phone, userName } = newInfo; // << unique field
+    const isUnique = await userServices.isUserExist({ phone, email, userName });
+    throwError(isUnique, {
+      message: "نام کاربری, شماره موبایل یا ایمیل که وارد میکنید قبلا ثبت شده",
+      statusCode: 409,
+      type: "client",
+    }); // ! Might Throw Error ================== <
+
+
+    // * Edit Query ========================= >
+    const updatedInfo = await user_model.findOneAndUpdate(
+      { _id: userID },
+      newInfo,
+      { new: true }
+    );
+
+    // * neede fields to update Token =========================== >
+    const {
+      _id, // ! cant be updated at all
+      email: updatedEmail,
+      fullName: updatedFullName,
+      role, // ! cant be updated by user
+      phone: updatedPhone,
+    } = updatedInfo as UserType & userDoc_type;
+    
+    const UpdatedToken = generateToken({
+      _id,
+      role,
+      email: updatedEmail,
+      fullName: updatedFullName,
+      phone: updatedPhone,
+    });
+    return UpdatedToken;
+  },
 
   async isUserExist({
     userName,
@@ -57,7 +103,6 @@ const userServices = {
     });
     return isExist;
   },
-
   async isFirstUser(): Promise<boolean> {
     await conect();
     const userLength = await user_model.find();
