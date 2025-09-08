@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.2",
+    "@mui/material": "^7.3.2",
+    "@mui/x-charts": "^8.11.1",
     "bcryptjs": "^3.0.2",
     "colors": "^1.4.0",
     "cookie": "^1.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.17.1",
-    "next": "15.4.6",
+    "next": "^15.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "zod": "^4.0.17"
