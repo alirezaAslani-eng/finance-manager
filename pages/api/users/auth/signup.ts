@@ -2,13 +2,21 @@ import { userServices } from "@/lib/services";
 import {
   apiHandler,
   generateToken,
+  payloadToken,
   throwError,
   tokenToCookie,
 } from "@/lib/utils";
 import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
-  // * Services =============== >
+  const isLogin = payloadToken(req.cookies.token);
+  throwError(!isLogin, {
+    message: "شما قبلا وارد شدید",
+    statusCode: 403,
+    type: "client",
+  }); // ! Might Throw Error <-------------------
+
+  // * Services =============== >()
   const { registerUser, isUserExist, isFirstUser } = userServices;
   switch (req.method as "POST") {
     case "POST": {
