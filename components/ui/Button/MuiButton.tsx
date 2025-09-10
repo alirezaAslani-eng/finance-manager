@@ -1,10 +1,16 @@
-import Button from "@mui/material/Button"
-import React from 'react'
+import Button from "@mui/material/Button";
+import type { ButtonProps } from "@mui/material/Button";
+import React, { PropsWithChildren } from "react";
 
-function MuiButton() {
+interface myProps {
+  buttonProps?: ButtonProps;
+}
+function MuiButton({ children, buttonProps={} }: PropsWithChildren<myProps>) {
   return (
-    <Button variant="contained">Contained</Button>
-  )
+    <Button variant="contained" {...buttonProps}>
+      {children}
+    </Button>
+  );
 }
 
-export default MuiButton
+export default MuiButton;
