@@ -1,12 +1,19 @@
 import React from "react";
 import LandingTopBar from "../LandingTopBar/LandingTopBar";
-import { Box, Container, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { MuiButton } from "@/components/ui";
 import Link from "next/link";
-import { HeroIcon } from "@/assets/svg";
+import { HeroDarkIcon, HeroIcon } from "@/assets/svg";
 
 function Landing() {
   const isMedium = useMediaQuery("(min-width:900px)");
+  const { palette } = useTheme();
   return (
     <Box
       sx={{
@@ -72,7 +79,7 @@ function Landing() {
         {/* Left Side =========================== > */}
         {isMedium && (
           <Box component={"aside"} sx={{ minWidth: "min(250px,100%)" }}>
-            <HeroIcon />
+            {palette.mode == "light" ? <HeroIcon /> : <HeroDarkIcon />}
           </Box>
         )}
       </Container>
