@@ -20,7 +20,7 @@ function LandingTopBar() {
       }}
     >
       {/* SignUp Button */}
-      <Link href={"/signin"}>
+      <Link href={"/auth/signin"}>
         <MuiButton buttonProps={{sx:{fontSize:{sm:"20px"},borderRadius:"999px"}}}>{"ورود | ثبت نام"}</MuiButton>
       </Link>
       {/* Logo ============================= > */}

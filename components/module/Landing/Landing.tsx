@@ -66,7 +66,7 @@ function Landing() {
 
           {/* Signin Button ----- > */}
           <Box sx={{ mt: "35px" }}>
-            <Link href={"/signin"}>
+            <Link href={"/auth/signin"}>
               <MuiButton
                 buttonProps={{ size: "large", sx: { fontSize: "18px" } }}
               >
