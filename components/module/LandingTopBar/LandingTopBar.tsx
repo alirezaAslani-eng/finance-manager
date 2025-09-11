@@ -16,12 +16,12 @@ function LandingTopBar() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "10px 20px",
+        padding: "25px 20px",
       }}
     >
       {/* SignUp Button */}
       <Link href={"/signin"}>
-        <MuiButton>{"ورود | ثبت نام"}</MuiButton>
+        <MuiButton buttonProps={{sx:{fontSize:{sm:"20px"},borderRadius:"999px"}}}>{"ورود | ثبت نام"}</MuiButton>
       </Link>
       {/* Logo ============================= > */}
       <Typography variant="h1" component={"h1"} sx={{ fontSize: "28px" }}>
