@@ -1,16 +1,17 @@
 import React from "react";
 import LandingTopBar from "../LandingTopBar/LandingTopBar";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import { MuiButton } from "@/components/ui";
 import Link from "next/link";
-import {HeroIcon} from "@/assets/svg";
+import { HeroIcon } from "@/assets/svg";
 
 function Landing() {
+  const isMedium = useMediaQuery("(min-width:900px)");
   return (
     <Box
       sx={{
         height: "100svh",
-        minHeight:"700px",
+        minHeight: "700px",
         display: "flex",
         flexDirection: "column",
         position: "relative",
@@ -30,14 +31,29 @@ function Landing() {
         }}
       >
         {/* Right Side =================== > */}
-        <Box component={"aside"}>
+        <Box
+          component={"aside"}
+          sx={{
+            textAlign: {
+              xs: "center",
+              md: "right",
+            },
+          }}
+        >
           {/* Title */}
-          <Typography variant="h1" component={"h3"} sx={{ fontSize: "55px" }}>
+          <Typography
+            variant="h1"
+            component={"h3"}
+            sx={{ fontSize: { xs: "30px", sm: "35px" } }}
+          >
             {"دیگه فراموش نکن چرا و کی واریزی داشتی یا خرج کردی"}
           </Typography>
 
           {/* Desc */}
-          <Typography component={"p"} sx={{ fontSize: "24px", mt: "20px" }}>
+          <Typography
+            component={"p"}
+            sx={{ fontSize: { xs: "18px", md: "24px" }, mt: "20px" }}
+          >
             {"با هزینه یار خیلی اسون و رایگان تراکنش هات را کنترل و مدریت کن"}
           </Typography>
 
@@ -54,9 +70,11 @@ function Landing() {
         </Box>
 
         {/* Left Side =========================== > */}
-        <Box component={"aside"} sx={{ minWidth: "min(250px,100%)" }}>
-          <HeroIcon />
-        </Box>
+        {isMedium && (
+          <Box component={"aside"} sx={{ minWidth: "min(250px,100%)" }}>
+            <HeroIcon />
+          </Box>
+        )}
       </Container>
     </Box>
   );
