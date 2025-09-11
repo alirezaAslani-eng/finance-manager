@@ -7,11 +7,39 @@ interface myProps {
 }
 function MuiTitleText({ text, title }: myProps) {
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
       {/* Title =================== > */}
-      <Typography>{title}</Typography>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: {
+            xs: "32px",
+            md: "40px",
+            lg: "45px",
+          },
+        }}
+      >
+        {title}
+      </Typography>
       {/* Text =============== > */}
-      <Typography>{text}</Typography>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: "18px",
+            md: "20px",
+          },
+          mt: "20px",
+        }}
+      >
+        {text}
+      </Typography>
     </Box>
   );
 }
