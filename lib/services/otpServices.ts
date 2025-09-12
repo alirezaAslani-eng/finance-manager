@@ -76,11 +76,9 @@ const otpServices = {
 
     // * Check LimitWait >>>
     throwError(now < findedOtp.limitWait, {
-      message: `به دلیل درخواست زیاد بعد از ${getReamingTime(
-        findedOtp.limitWait
-      )} میتونید دوباره درخواست بدید`,
+      message: findedOtp.limitWait,
       statusCode: 429,
-      type: "client",
+      type: "dev",
     }); // ! Might throw Error ========== <
 
 

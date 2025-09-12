@@ -30,7 +30,7 @@ const handler: handler_type = async (req, res) => {
   const response: OtpGoodResponse_face = {
     message: `کد به شماره ${phone} ارسال شد`,
     phone: phone,
-    limitWait: limitWait - new Date().getTime(),
+    limitWait: limitWait,
   };
   return res.json(response);
 };

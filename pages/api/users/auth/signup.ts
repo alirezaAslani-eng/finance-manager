@@ -10,7 +10,7 @@ import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
   const isLogin = payloadToken(req.cookies.token);
-  throwError(!isLogin, {
+  throwError(!!isLogin, {
     message: "شما قبلا وارد شدید",
     statusCode: 403,
     type: "client",
