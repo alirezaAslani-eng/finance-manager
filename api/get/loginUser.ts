@@ -1,14 +1,11 @@
-import { loginSchema } from "@/lib/validations";
+import { verifySchema } from "@/lib/validations";
 import type { Infer } from "zod";
 import type { BadResponse } from "@/lib/utils";
 const loginUser = async (
-  loginInfo: Infer<typeof loginSchema>
+  loginInfo: Infer<typeof verifySchema>
 ): Promise<BadResponse | string> => {
-  const res = await fetch("/api/user/auth/signin", {
+  const res = await fetch("/api/users/auth/signin", {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(loginInfo),
   });
 
