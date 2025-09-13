@@ -33,7 +33,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   // * A method to update or change usernfo =========================== >
   const setInfo = useCallback((info: Partial<GetMeOutput>) => {
     setUserInfo((prev) => {
-      return { ...prev, info };
+      return { ...prev, ...info };
     });
   }, []);
 
