@@ -5,7 +5,10 @@ const loginUser = async (
   loginInfo: Infer<typeof verifySchema>
 ): Promise<BadResponse | string> => {
   const res = await fetch("/api/users/auth/signin", {
-    method: "GET",
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
     body: JSON.stringify(loginInfo),
   });
 

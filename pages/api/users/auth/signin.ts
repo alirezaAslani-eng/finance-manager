@@ -15,7 +15,7 @@ const handler: handler_type = async (req, res) => {
     statusCode: 403,
     type: "client",
   }); // ! Might Throw Error ====================== <
-  throwError(req.method != "GET", {
+  throwError(req.method != "POST", {
     message: "Request method is not allowed",
     statusCode: 405,
     type: "dev",
