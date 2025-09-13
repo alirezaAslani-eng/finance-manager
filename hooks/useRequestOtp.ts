@@ -1,44 +1,59 @@
 import { postVerifySMS } from "@/api/post";
 import { useMutation } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
-import { sendCodeSchema } from "@/lib/validations";
-import { Infer } from "zod";
-import { useRouter } from "next/router";
-import { AuthContex } from "@/context";
-import { OtpGoodResponse_face } from "@/types/opt.types";
+import type { OtpGoodResponse_face } from "@/types/opt.types";
 import type { BadResponse } from "@/lib/utils";
+import { useContext, useEffect, useState } from "react";
+import { AuthContex } from "@/context";
 
-function useRequestOtp() {
-  const { mutateAsync } = useMutation({ mutationFn: postVerifySMS });
-  const { replace } = useRouter();
+interface Options {
+  init?: boolean;
+}
+function useRequestOtp({ init = true }: Options = {}) {
+  // * this state includes a ms time from future and user shoud wait until that  ================= >
+  const [otpWaitTime, setOtpWaitTime] = useState<number>(0);
 
-  // * AuthContext to add user phone because we need it at this path "/auth/verify-signin?waite=n"
-  const { setInfo } = useContext(AuthContex);
+  const {
+    userInfo: { phone },
+  } = useContext(AuthContex);
 
-  const requestOtp = async (requestInfo: Infer<typeof sendCodeSchema>) => {
+  const { mutateAsync, isPending: isRequesting } = useMutation({
+    mutationFn: postVerifySMS,
+  });
+
+  const requestOtp = async (phone: string): Promise<number> => {
     try {
-      const res = (await mutateAsync({
-        phone: requestInfo.phone,
-      })) as OtpGoodResponse_face;
-      setInfo({ phone: requestInfo.phone });
-      // * navigate user with a query which is needed for state of the time that user shoud waite to next otp requset =============== >
-      replace(`/auth/verify-signin?wait=${res.limitWait}`);
-      // TODO -> show success message <<<<<<<<
-      console.log(res.message);
+      const res = (await mutateAsync({ phone })) as OtpGoodResponse_face;
+      //  TODO show Success Message <<<<<<<
+      const waitTime = res.limitWait;
+
+      // * save waitTime user may refresh the page =============== >
+      localStorage.setItem("otpWaitTime", String(waitTime));
+
+      // * return limitTime ================== >
+      return waitTime;
     } catch (err) {
       const error = err as BadResponse;
-      // * Navigate user to verify page and show error (for better ux)
-      replace(
-        `/auth/verify-signin?wait=${
-          typeof error.message == "number" ? error.message : 0
-        }`
-      );
-      // TODO -> show Error message <<<<<<<<
       console.log(error);
+      return 0;
+      // TODO -> show Error message <<<<<<<<
     }
   };
 
-  return requestOtp;
+  // * Initialize otp request ============== >
+  const now = new Date().getTime();
+  const savedWaitTime: number =
+    Number(localStorage.getItem("otpWaitTime")) || 0;
+  useEffect(() => {
+    if (!init) return;
+    if (now < savedWaitTime) {
+      setOtpWaitTime(savedWaitTime);
+    } else {
+      // * it needs phone number from context when verify form get mounted and user can request for otp
+      requestOtp(phone);
+    }
+  }, [phone]);
+
+  return { requestOtp, isRequesting, otpWaitTime };
 }
 
 export default useRequestOtp;
