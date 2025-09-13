@@ -26,16 +26,6 @@ const editUserSchema = object({
     .regex(/^[A-Za-z0-9._%+-]+@gmail\.com$/, "ایمیل معتبر نیست"),
 });
 
-const loginSchema = object({
-  identifier: string().regex(
-    /^(?:[A-Za-z0-9._-]{5,30}|[A-Za-z0-9._%+-]+@gmail\.com)$/,
-    "نام کاربری یا ایمیل معتبر نیست"
-  ),
-  password: string()
-    .min(6, "حد اقل شامل 6 حرف")
-    .regex(/^[A-Za-z0-9]+$/, "رمز عبور باید شامل حروف و اعداد انگلیسی باشد"),
-});
-
 // * Check Validation Type ================ >
 type Test = Infer<typeof userSchema> extends Pick<
   User_face,
@@ -43,4 +33,4 @@ type Test = Infer<typeof userSchema> extends Pick<
 >
   ? true
   : false;
-export { userSchema, loginSchema, editUserSchema };
+export { userSchema, editUserSchema };
