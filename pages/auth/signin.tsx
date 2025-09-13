@@ -1,4 +1,4 @@
-import { RequestOtpForm } from "@/components/module";
+import { LoginForm } from "@/components/module";
 import { Box, Container } from "@mui/material";
 import React from "react";
 
@@ -13,7 +13,7 @@ function signin() {
       }}
     >
       <Container sx={{display:"flex",justifyContent:"center"}}>
-        <RequestOtpForm />
+        <LoginForm />
       </Container>
     </Box>
   );
