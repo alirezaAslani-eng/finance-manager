@@ -1,12 +1,11 @@
-import { MuiButton, MuiProgress, MuiTextField } from "@/components/ui";
-import { sendCodeSchema, userSchema, verifySchema } from "@/lib/validations";
+import { MuiButton, MuiTextField, RequestOtpButton } from "@/components/ui";
+import { userSchema, verifySchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alpha, Box, Typography, useTheme } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
-import { Infer, size } from "zod";
+import { Infer } from "zod";
 import { AuthContex } from "@/context";
 import { useCheckUserPhone, useLogin, useRequestOtp } from "@/hooks";
 function LoginForm() {
@@ -208,25 +207,11 @@ const VerifyCodeForm = () => {
           >
             ورود
           </MuiButton>
-          <MuiButton
-            buttonProps={{
-              onClick: sendOtpRequest,
-              variant: "outlined",
-              sx: {
-                fontSize: "18px",
-                minHeight: "0",
-                minWidth: "0",
-                padding: "10px",
-                borderRadius: "999px",
-              },
-            }}
-          >
-            {isRequesting ? (
-              <MuiProgress progressProps={{ size: 20 }} />
-            ) : (
-              <RotateLeftRoundedIcon />
-            )}
-          </MuiButton>
+          <RequestOtpButton
+            futureMsTime={otpWaitTime}
+            isRequesting={isRequesting}
+            onRequest={sendOtpRequest}
+          />
         </Box>
       </Box>
     </Box>
