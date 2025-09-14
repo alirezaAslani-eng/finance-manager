@@ -25,7 +25,7 @@ function useRequestOtp({ init = true }: Options = {}) {
       const res = (await mutateAsync({ phone })) as OtpGoodResponse_face;
       //  TODO show Success Message <<<<<<<
       const waitTime = res.limitWait;
-
+      setOtpWaitTime(waitTime);
       // * save waitTime user may refresh the page =============== >
       localStorage.setItem("otpWaitTime", String(waitTime));
 
@@ -40,17 +40,21 @@ function useRequestOtp({ init = true }: Options = {}) {
   };
 
   // * Initialize otp request ============== >
-  const now = new Date().getTime();
-  const savedWaitTime: number =
-    Number(localStorage.getItem("otpWaitTime")) || 0;
-  useEffect(() => {
-    if (!init) return;
+  const initialize = async () => {
+    const now = new Date().getTime();
+    const savedWaitTime: number =
+      Number(localStorage.getItem("otpWaitTime")) || 0;
     if (now < savedWaitTime) {
       setOtpWaitTime(savedWaitTime);
     } else {
       // * it needs phone number from context when verify form get mounted and user can request for otp
-      requestOtp(phone);
+      const waitTime = await requestOtp(phone);
+      setOtpWaitTime(waitTime);
     }
+  };
+  useEffect(() => {
+    if (!init) return;
+    initialize();
   }, [phone]);
 
   return { requestOtp, isRequesting, otpWaitTime };
