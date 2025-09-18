@@ -2,7 +2,7 @@ import { Box, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import React from "react";
 import font from "next/font/local";
-import { AuthProvider, MuiThemeProvider } from "@/context";
+import { AuthProvider, MuiThemeProvider, SignupProvider } from "@/context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -20,17 +20,18 @@ const peydaMedium = font({
 function _app({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      
-      <AuthProvider>
-        <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
-          <MuiThemeProvider>
-            {/* Normalize Css ================== >*/}
-            <CssBaseline />
-            {/* Render Page ================== >*/}
-            <Component {...pageProps} />
-          </MuiThemeProvider>
-        </main>
-      </AuthProvider>
+      <SignupProvider>
+        <AuthProvider>
+          <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
+            <MuiThemeProvider>
+              {/* Normalize Css ================== >*/}
+              <CssBaseline />
+              {/* Render Page ================== >*/}
+              <Component {...pageProps} />
+            </MuiThemeProvider>
+          </main>
+        </AuthProvider>
+      </SignupProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
