@@ -38,7 +38,7 @@ function useRequestOtp(
     } catch (err) {
       const error = err as BadResponse;
       if ((error.statusCode = 429)) {
-        setOtpWaitTime(Number(error.message));
+        setOtpWaitTime(Number(error.message) || 0);
       }
       console.log(error);
       return 0;
