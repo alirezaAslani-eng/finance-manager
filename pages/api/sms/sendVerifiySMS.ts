@@ -15,16 +15,16 @@ const handler: handler_type = async (req, res) => {
     message: "Request method is not allowed",
     statusCode: 405,
     type: "dev",
-  });// ! Might Throw Error ====================== <
+  }); // ! Might Throw Error ====================== <
 
   // * Services ======================== >
   const { requestOtp } = otpServices;
 
   // * Validation Body ========================= >
-  const { phone } = sendCodeSchema.parse(req.body); // ! Might throw Error ========== <
+  const { phone, type } = sendCodeSchema.parse(req.body); // ! Might throw Error ========== <
 
   // * Send otp record ============================ >
-  const limitWait = await requestOtp({ phone }); // ! Might throw Error ========== <
+  const limitWait = await requestOtp({ phone }, { type }); // ! Might throw Error ========== <
 
   // * Response ===================== >
   const response: OtpGoodResponse_face = {
