@@ -21,9 +21,8 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST") {
     case "POST": {
       // * Validation Body ================== >
-      const { userName, fullName, password, phone, email } = userSchema.parse(
-        req.body
-      ); // ! Might Throw Error <--------------
+      const { userName, fullName, password, phone, email, otpCode } =
+        userSchema.parse(req.body); // ! Might Throw Error <--------------
 
       // * Check if user existed alredy ======================= >
       const isExistedUser = await isUserExist({ phone, userName, email });
@@ -43,8 +42,9 @@ const handler: handler_type = async (req, res) => {
         password,
         phone,
         email,
+        otpCode,
         role: isAdmin ? "ADMIN" : "USER",
-      });
+      }); // ! Might Throw Error ====================== <
 
       // * Generate New Token ===================== >
       const token = generateToken({
