@@ -8,16 +8,25 @@ import Link from "next/link";
 import { Infer } from "zod";
 import { AuthContex } from "@/context";
 import { useCheckUserPhone, useLogin, useRequestOtp } from "@/hooks";
+import { OtpType_enum } from "@/types/opt.types";
 function LoginForm() {
   const [isVerifiedPhone, setIsVerifiedPhone] = useState<boolean>(false);
 
   const successPhoneVerify = () => {
     setIsVerifiedPhone(true);
   };
+
+  // * final login by verify otp code ================ >
+  const { login } = useLogin();
+  const verifyAndLogin = async (form: unknown) => {
+    const formInfo = form as Infer<typeof verifySchema>;
+    await login({ otpCode: formInfo.otpCode, phone: formInfo.phone });
+  };
+
   return (
     <>
       {isVerifiedPhone ? (
-        <VerifyCodeForm />
+        <VerifyCodeForm verifyType="signin" onVerify={verifyAndLogin} />
       ) : (
         <VerifyPhoneForm onVerify={successPhoneVerify} />
       )}
@@ -118,7 +127,13 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
   );
 }
 
-const VerifyCodeForm = () => {
+const VerifyCodeForm = ({
+  onVerify = async () => {},
+  verifyType = "signin",
+}: {
+  onVerify: (form: Infer<typeof verifySchema>) => Promise<void>;
+  verifyType: keyof typeof OtpType_enum;
+}) => {
   // * Mui Theme ==================== >
   const { palette } = useTheme();
 
@@ -135,23 +150,20 @@ const VerifyCodeForm = () => {
   } = useForm({ resolver: zodResolver(verifySchema) });
 
   // * request otp hook ================= >
-  const { requestOtp, isRequesting, otpWaitTime } = useRequestOtp();
+  const { requestOtp, isRequesting, otpWaitTime } = useRequestOtp(verifyType);
 
   const sendOtpRequest = async () => {
     await requestOtp(phone);
   };
 
-  // * final login by verify otp code ================ >
-  const { login } = useLogin();
-  const verifyAndLogin = async (form: unknown) => {
-    const formInfo = form as Infer<typeof verifySchema>;
-    await login({ otpCode: formInfo.otpCode, phone: formInfo.phone });
+  const verify = async (f: unknown) => {
+    const verifyInfo = f as Infer<typeof verifySchema>;
+    await onVerify(verifyInfo);
   };
-
   return (
     <Box
       component={"form"}
-      onSubmit={handleSubmit(verifyAndLogin)}
+      onSubmit={handleSubmit(verify)}
       sx={{
         width: "400px",
         backgroundColor:
@@ -217,3 +229,5 @@ const VerifyCodeForm = () => {
     </Box>
   );
 };
+
+export { VerifyCodeForm };
