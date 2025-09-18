@@ -10,11 +10,11 @@ interface myProps {
 function MuiTextField({ textFieldProps = {}, errorText }: myProps) {
   const { palette } = useTheme();
   return (
-    <Box sx={{display:"flex",flexDirection:"column",gap:"5px"}}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "5px" }}>
       <TextField
         error={!!errorText}
-        label="Outlined"
         variant="outlined"
+        label={textFieldProps.placeholder ?? ""}
         {...textFieldProps}
       />
 
