@@ -9,20 +9,33 @@ import {
   generateToken,
 } from "../utils";
 import { GetMeOutput, userDoc_type } from "@/types/user.types";
+import otpServices from "./otpServices";
+import { Otp_face } from "@/types/opt.types";
 
 // * User schema type ======== >
-type UserType = InferSchemaType<typeof user_schema>;
-
+type UserType = InferSchemaType<typeof user_schema> & {
+  otpCode: string;
+};
+const { verifyOtp } = otpServices;
 const userServices = {
   async registerUser(userInfo: UserType) {
+    const { phone, otpCode } = userInfo;
     await conect();
+
+    // * Verify user phone ======================== >
+    await verifyOtp(phone, otpCode, { type: "signup" }); // ! Might Throw Error ================ <
+
+
     // * Hash User Password =========================== >
     const hashedPassword = await hashPass(userInfo.password);
+
+    
     // * Save User In Database ========================= >
     const reg_res = await user_model.create({
       ...userInfo,
       password: hashedPassword,
     });
+
     const withOutPassword = reg_res.toObject();
     // * Delete Password Field in result ==================== >
     delete withOutPassword.password;
@@ -65,7 +78,6 @@ const userServices = {
       type: "client",
     }); // ! Might Throw Error ================== <
 
-
     // * Edit Query ========================= >
     const updatedInfo = await user_model.findOneAndUpdate(
       { _id: userID },
@@ -81,7 +93,7 @@ const userServices = {
       role, // ! cant be updated by user
       phone: updatedPhone,
     } = updatedInfo as UserType & userDoc_type;
-    
+
     const UpdatedToken = generateToken({
       _id,
       role,
