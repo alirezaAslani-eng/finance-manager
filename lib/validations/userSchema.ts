@@ -1,5 +1,6 @@
 import { object, string, Infer } from "zod";
 import { User_face } from "@/types/user.types";
+import { verifySchema } from "@/lib/validations/otpSchema";
 const userSchema = object({
   userName: string()
     .min(5, "حد اقل 5 حرف")
@@ -13,6 +14,7 @@ const userSchema = object({
   email: string()
     .nonempty("فیلد نباید خالی باشه")
     .regex(/^[A-Za-z0-9._%+-]+@gmail\.com$/, "ایمیل معتبر نیست"),
+  otpCode: verifySchema.shape.otpCode,
 });
 const editUserSchema = object({
   userName: string()
