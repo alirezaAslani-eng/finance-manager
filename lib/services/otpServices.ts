@@ -4,30 +4,34 @@ import { sendVerifySMS, throwError, verifyPass } from "../utils";
 import { conect } from "../db";
 import { userDoc_type } from "@/types/user.types";
 import { getReamingTime } from "@/utils";
-import { VerifyOption } from "@/types/opt.types";
+import { OtpRequestSeting, VerifyOption } from "@/types/opt.types";
 type OtpType = InferSchemaType<typeof otp_schema>;
 type OtpTypeToUpdate = Pick<
   OtpType,
-  "expTime" | "limitWait" | "otpCode" | "requestCount"
+  "expTime" | "limitWait" | "otpCode" | "requestCount" 
 >;
 type verifyReturnType = Omit<InferSchemaType<typeof user_schema>, "password"> &
   userDoc_type;
+
 const otpServices = {
   /** this method only return limitWate which is a date as (ms) that user shoud wait until the end of it .
    * it also handle all of the validations for otp request */
-  async requestOtp({ phone }: Pick<OtpType, "phone">): Promise<number> {
+  async requestOtp(
+    { phone }: Pick<OtpType, "phone">,
+    { type = "signin" }: OtpRequestSeting = {}
+  ): Promise<number> {
     await conect();
-
-    // * Check if dose user exist on database with this phone ====================== >
-    const user = await user_model.findOne({ phone });
-    throwError(!user, {
-      message: "این شماره تماس ثبت نشده",
-      statusCode: 404,
-      type: "client",
-    }); // ! Might throw Error ========== <
-
+    if (type == "signin") {
+      // * Check if dose user exist on database with this phone ====================== >
+      const user = await user_model.findOne({ phone });
+      throwError(!user, {
+        message: "این شماره تماس ثبت نشده",
+        statusCode: 404,
+        type: "client",
+      }); // ! Might throw Error ========== <
+    }
     // * Check if dose otp exist on database for this phone ====================== >
-    const findedOtp = await otp_model.findOne({ phone, type: "signin" } as Pick<
+    const findedOtp = await otp_model.findOne({ phone, type } as Pick<
       OtpType,
       "type"
     >);
@@ -37,7 +41,7 @@ const otpServices = {
       // * Initialize an otp ==================== >
       const otpCode = await sendVerifySMS(phone); // * Generate otp code <<<<
       const createdOtp = await otp_model.create({
-        type: "signin",
+        type,
         attempts: 0,
         // TODO delay => expTime and limitWait is generated as 60000 or 300000 but in response they're 59... and 299...
         expTime: getFutureTime({ isExpTime: true }),
@@ -73,7 +77,7 @@ const otpServices = {
     if (findedOtp.requestCount == maxOtpRequest) {
       const limitWait = await updateOtpPass(true);
       // * reset request count ================ >
-      await otp_model.findOneAndUpdate({ phone }, { requestCount: 0 } as Pick<
+      await otp_model.findOneAndUpdate({ phone , type}, { requestCount: 0 } as Pick<
         OtpTypeToUpdate,
         "requestCount"
       >);
@@ -91,7 +95,7 @@ const otpServices = {
       const otpCode = await sendVerifySMS(phone); // * Generate otp code <<<<
 
       const updatedOtp = await otp_model.findOneAndUpdate(
-        { phone, type: "signin" } as Pick<OtpType, "type">,
+        { phone, type } as Pick<OtpType, "type">,
         {
           $inc: {
             requestCount: 1,
