@@ -1,8 +1,6 @@
 import { checkUserPhone } from "@/api/post";
 import type { BadResponse } from "@/lib/utils";
-import { userSchema } from "@/lib/validations";
 import { useMutation } from "@tanstack/react-query";
-import { Infer } from "zod";
 
 function useCheckUserPhone() {
   // * react query mutation ================ >
