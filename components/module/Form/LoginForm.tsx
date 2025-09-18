@@ -26,7 +26,13 @@ function LoginForm() {
   return (
     <>
       {isVerifiedPhone ? (
-        <VerifyCodeForm verifyType="signin" onVerify={verifyAndLogin} />
+        <VerifyCodeForm
+          submitText="ورود"
+          title="خوش اومدی"
+          subTitle="ورود"
+          verifyType="signin"
+          onVerify={verifyAndLogin}
+        />
       ) : (
         <VerifyPhoneForm onVerify={successPhoneVerify} />
       )}
@@ -127,13 +133,20 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
   );
 }
 
+interface VerifyCodeForm_prop {
+  onVerify: (form: Infer<typeof verifySchema>) => Promise<void>;
+  verifyType: keyof typeof OtpType_enum;
+  title: string;
+  subTitle: string;
+  submitText: string;
+}
 const VerifyCodeForm = ({
   onVerify = async () => {},
   verifyType = "signin",
-}: {
-  onVerify: (form: Infer<typeof verifySchema>) => Promise<void>;
-  verifyType: keyof typeof OtpType_enum;
-}) => {
+  subTitle,
+  submitText,
+  title,
+}: VerifyCodeForm_prop) => {
   // * Mui Theme ==================== >
   const { palette } = useTheme();
 
@@ -194,12 +207,12 @@ const VerifyCodeForm = ({
         >
           {/* Title ========================== > */}
           <Typography variant="h1" sx={{ fontSize: "35px" }}>
-            {"ورود با موبایل"}
+            {title}
           </Typography>
 
           {/* Create Account Link ===================== > */}
           <Typography sx={{ fontSize: "18px", mt: "15px" }}>
-            {"کد را وارد کنید"}
+            {subTitle}
           </Typography>
         </Box>
         {/* Input =================== > */}
@@ -217,7 +230,7 @@ const VerifyCodeForm = ({
               sx: { flex: "1", fontSize: "18px" },
             }}
           >
-            ورود
+            {submitText}
           </MuiButton>
           <RequestOtpButton
             futureMsTime={otpWaitTime}
