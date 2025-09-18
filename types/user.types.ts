@@ -10,7 +10,7 @@ interface User_face {
   phone: string;
   role?: keyof typeof UserRolesEnum; // * "USER" | "ADMIN"
 }
-type userDoc_type = {_id:string}
+type userDoc_type = { _id: string };
 type PayloadToken_type = {
   [key in keyof Pick<
     User_face,
@@ -21,7 +21,15 @@ type GetMeOutput = Pick<
   User_face,
   "email" | "fullName" | "phone" | "role" | "userName"
 >;
+
+type SignupResponse_type = Omit<User_face, "password">;
 // * Type ====>
-export type { User_face, PayloadToken_type, GetMeOutput , userDoc_type};
+export type {
+  User_face,
+  PayloadToken_type,
+  GetMeOutput,
+  userDoc_type,
+  SignupResponse_type,
+};
 // * Value ===== >
 export { UserRolesEnum };
