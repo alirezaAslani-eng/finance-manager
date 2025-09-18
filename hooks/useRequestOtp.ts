@@ -1,6 +1,6 @@
 import { postVerifySMS } from "@/api/post";
 import { useMutation } from "@tanstack/react-query";
-import type { OtpGoodResponse_face } from "@/types/opt.types";
+import type { OtpGoodResponse_face, OtpType_enum } from "@/types/opt.types";
 import type { BadResponse } from "@/lib/utils";
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from "@/context";
@@ -8,7 +8,10 @@ import { AuthContex } from "@/context";
 interface Options {
   init?: boolean;
 }
-function useRequestOtp({ init = true }: Options = {}) {
+function useRequestOtp(
+  type: keyof typeof OtpType_enum = "signin",
+  { init = true }: Options = {}
+) {
   // * this state includes a ms time from future and user shoud wait until that  ================= >
   const [otpWaitTime, setOtpWaitTime] = useState<number>(0);
 
@@ -20,19 +23,23 @@ function useRequestOtp({ init = true }: Options = {}) {
     mutationFn: postVerifySMS,
   });
 
-  const requestOtp = async (phone: string): Promise<number> => {
+  const requestOtp = async (userPhone: string): Promise<number> => {
     try {
-      const res = (await mutateAsync({ phone })) as OtpGoodResponse_face;
+      const res = (await mutateAsync({
+        phone: userPhone,
+        type,
+      })) as OtpGoodResponse_face;
       //  TODO show Success Message <<<<<<<
       const waitTime = res.limitWait;
       setOtpWaitTime(waitTime);
-      // * save waitTime user may refresh the page =============== >
-      localStorage.setItem("otpWaitTime", String(waitTime));
 
       // * return limitTime ================== >
       return waitTime;
     } catch (err) {
       const error = err as BadResponse;
+      if ((error.statusCode = 429)) {
+        setOtpWaitTime(Number(error.message));
+      }
       console.log(error);
       return 0;
       // TODO -> show Error message <<<<<<<<
@@ -41,16 +48,9 @@ function useRequestOtp({ init = true }: Options = {}) {
 
   // * Initialize otp request ============== >
   const initialize = async () => {
-    const now = new Date().getTime();
-    const savedWaitTime: number =
-      Number(localStorage.getItem("otpWaitTime")) || 0;
-    if (now < savedWaitTime) {
-      setOtpWaitTime(savedWaitTime);
-    } else {
-      // * it needs phone number from context when verify form get mounted and user can request for otp
-      const waitTime = await requestOtp(phone);
-      setOtpWaitTime(waitTime);
-    }
+    // * it needs phone number from context when verify form get mounted and user can request for otp
+    const waitTime = await requestOtp(phone);
+    setOtpWaitTime(waitTime);
   };
   useEffect(() => {
     if (!init) return;
