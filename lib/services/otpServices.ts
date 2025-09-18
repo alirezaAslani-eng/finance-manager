@@ -4,6 +4,7 @@ import { sendVerifySMS, throwError, verifyPass } from "../utils";
 import { conect } from "../db";
 import { userDoc_type } from "@/types/user.types";
 import { getReamingTime } from "@/utils";
+import { VerifyOption } from "@/types/opt.types";
 type OtpType = InferSchemaType<typeof otp_schema>;
 type OtpTypeToUpdate = Pick<
   OtpType,
@@ -17,9 +18,6 @@ const otpServices = {
   async requestOtp({ phone }: Pick<OtpType, "phone">): Promise<number> {
     await conect();
 
-
-
-
     // * Check if dose user exist on database with this phone ====================== >
     const user = await user_model.findOne({ phone });
     throwError(!user, {
@@ -28,17 +26,11 @@ const otpServices = {
       type: "client",
     }); // ! Might throw Error ========== <
 
-
-
-
     // * Check if dose otp exist on database for this phone ====================== >
     const findedOtp = await otp_model.findOne({ phone, type: "signin" } as Pick<
       OtpType,
       "type"
     >);
-
-
-
 
     // * if there is no otp on database for this phone ======================= >
     if (!findedOtp) {
@@ -58,8 +50,6 @@ const otpServices = {
       return createdOtp.limitWait; // * return limitWait <<<<
     }
 
-
-
     // * if we alredy have an otp for this phone ========================== >
     const now = new Date().getTime();
     // * Check if user is blocked  >>>
@@ -71,18 +61,12 @@ const otpServices = {
       type: "client",
     }); // ! Might throw Error ========== <
 
-
-
-
     // * Check LimitWait >>>
     throwError(now < findedOtp.limitWait, {
       message: findedOtp.limitWait,
       statusCode: 429,
       type: "dev",
     }); // ! Might throw Error ========== <
-
-
-
 
     // * Check if user has reached maximum requestes >>>
     const maxOtpRequest = Number(process.env.maxOtpRequest);
@@ -96,14 +80,10 @@ const otpServices = {
       return limitWait;
     }
 
-
-
     // * user still have chance to request >>
     const limitWait = await updateOtpPass();
     return limitWait; // * return limitWait <<<
 
-
-    
     async function updateOtpPass(
       isReachedMaximumRequest: boolean = false
     ): Promise<number> {
@@ -128,49 +108,44 @@ const otpServices = {
       return updatedOtp.limitWait; // * return limitWait <<<
     }
   },
-/** 
- * verify user by diffing otp code that user sent us with 
- * an otp document that saved in database and checking user's phone
- */
-  async verifyOtp(phone: string, otpCode: string): Promise<verifyReturnType> {
+  /**
+   * verify user by diffing otp code that user sent us with
+   * an otp document that saved in database and checking user's phone
+   */
+  async verifyOtp(
+    phone: string,
+    otpCode: string,
+    options: VerifyOption
+  ): Promise<verifyReturnType> {
     await conect();
-
-
-
+    const { type = "signin" } = options;
 
     // * Check if dose otp exist for this phone number ============================ >
-    const findedOtp = await otp_model.findOne({ phone, type: "signin" } as Pick<
+    const findedOtp = await otp_model.findOne({ phone, type } as Pick<
       OtpType,
       "type"
     >);
     throwError(!findedOtp, {
-      message: "شماره تماسی  معتبر نیست",
-      statusCode: 403,
-      type: "client",
+      message: `درخواست کد برای شماره ${phone} ارسال نشده`,
+      statusCode: 401,
+      type: "verify",
     }); // ! Might Throw Error ======================== <
-
-
-
-
 
     // * Check if user is blocked ====================== >
     const now = new Date().getTime();
     throwError(now < findedOtp.blockTime, {
-      message: `لطفا ${getReamingTime(
+      message: `شماره ${phone} برای ${getReamingTime(
         findedOtp.blockTime
-      )} بعد دوباره امتحان کنید`,
+      )} مسدود شده است`,
       statusCode: 423,
-      type: "client",
+      type: "verify",
     }); // ! Might Throw Error ======================== <
-
-
-
 
     // * Check Attempts of invalid otp code And Block User for a few minutes ======================== >
     if (findedOtp.attempts == process.env.maxInvalidOtp) {
       await otp_model.findOneAndUpdate(
         {
-          type: "signin",
+          type,
           phone,
         } as Pick<OtpType, "type">,
         {
@@ -184,24 +159,17 @@ const otpServices = {
           findedOtp.blockTime
         )} بعد تلاش کنید`,
         statusCode: 429,
-        type: "client",
+        type: "verify",
       }); // ! Might Throw Error ======================== <
     }
 
-
-
-
-
     // * Verify otp password  ========================================= >
-    const isCorrectPass = await verifyPass(otpCode, findedOtp.otpCode);
-
-
-
+    const isCorrectPass = otpCode == findedOtp.otpCode;
 
     // * Check otp and Pluse one attempts if it's wrong =================================== >
     if (!isCorrectPass) {
       await otp_model.findOneAndUpdate(
-        { phone, type: "signin" } as Pick<OtpType, "type">,
+        { phone, type } as Pick<OtpType, "type">,
         {
           $inc: { attempts: 1 } as Pick<OtpType, "attempts">,
         }
@@ -209,27 +177,18 @@ const otpServices = {
       throwError(true, {
         message: "کد اشتباه است",
         statusCode: 401,
-        type: "client",
+        type: "verify",
       }); // ! Might Throw Error ======================== <
     }
-
-
-
-
-
 
     // * Check ExpTime of otp ===================== >
     throwError(now > findedOtp.expTime, {
       message: "مدت زمان اعتبار رمز به پایان رسیده",
       statusCode: 410,
-      type: "client",
+      type: "verify",
     }); // ! Might Throw Error ======================== <
 
-
-
-    
-
-    // * Return User Info ====================== >
+    // * Success Verify ====================== >
     const user = await user_model.findOne({ phone }, undefined, {
       select: "-password -__v",
     });
