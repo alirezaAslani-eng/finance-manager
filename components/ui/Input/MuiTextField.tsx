@@ -16,10 +16,21 @@ function MuiTextField({ textFieldProps = {}, errorText }: myProps) {
         variant="outlined"
         label={textFieldProps.placeholder ?? ""}
         {...textFieldProps}
+        sx={{
+          "& .Mui-error": {
+            color: palette.error[300],
+            borderColor: palette.error[300],
+          },
+          "& .MuiOutlinedInput-root.Mui-error fieldset": {
+            borderColor: palette.error[300],
+          },
+
+          ...textFieldProps.sx,
+        }}
       />
 
       {!!errorText && (
-        <Typography component={"span"} sx={{ color: palette.error.main }}>
+        <Typography component={"span"} sx={{ color: palette.error[300] }}>
           {errorText}
         </Typography>
       )}
