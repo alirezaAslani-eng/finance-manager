@@ -15,9 +15,16 @@ interface provider {
   isLogin: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
 }
-const AuthContex = createContext({} as provider);
+interface AuthProviderInput {
+  // * ssrUserInfo is for info which is injected from SSR PAGE
+  ssrUserInfo?: GetMeOutput;
+}
+const AuthContex = createContext({} as provider | null);
 
-const AuthProvider = ({ children }: PropsWithChildren) => {
+const AuthProvider = ({
+  children,
+  ssrUserInfo,
+}: PropsWithChildren<AuthProviderInput>) => {
   // * User info state ==================================== >
   const [userInfo, setUserInfo] = useState<GetMeOutput>({
     email: "",
@@ -40,6 +47,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   // * Authorizing user ==================================== >
   const { data, isError, isLoading } = useQuery({
     queryKey: keys.userInfo.all,
+    initialData: ssrUserInfo ?? undefined,
     queryFn: getUserInfo,
   });
 
@@ -60,3 +68,4 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 };
 
 export { AuthContex, AuthProvider };
+export type { AuthProviderInput };
