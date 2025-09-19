@@ -58,6 +58,13 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
             },
           },
         },
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: "none",
+            },
+          },
+        },
       },
     });
   }, [mode]);
