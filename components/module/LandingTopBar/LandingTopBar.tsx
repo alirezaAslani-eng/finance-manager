@@ -6,9 +6,13 @@ import BedtimeRoundedIcon from "@mui/icons-material/BedtimeRounded";
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import { ControllThemeContext } from "@/context/ControllThemeContext";
 import Link from "next/link";
+import { AuthContex } from "@/context";
 
 function LandingTopBar() {
-  const { changeMode, mode } = useContext(ControllThemeContext)
+  const { changeMode, mode } = useContext(ControllThemeContext);
+
+  // * AuthContext to handle ui states ================== >
+  const { isLogin, userInfo } = useContext(AuthContex)!;
   return (
     <Box
       component={"header"}
@@ -20,8 +24,14 @@ function LandingTopBar() {
       }}
     >
       {/* SignUp Button */}
-      <Link href={"/auth/signin"}>
-        <MuiButton buttonProps={{sx:{fontSize:{sm:"20px"},borderRadius:"999px"}}}>{"ورود | ثبت نام"}</MuiButton>
+      <Link href={isLogin ? "/my-panel" : "/auth/signin"}>
+        <MuiButton
+          buttonProps={{
+            sx: { fontSize: { sm: "20px" } },
+          }}
+        >
+          {isLogin ? `${userInfo.fullName}` : "ورود | ثبت نام"}
+        </MuiButton>
       </Link>
       {/* Logo ============================= > */}
       <Typography variant="h1" component={"h1"} sx={{ fontSize: "28px" }}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import LandingTopBar from "../LandingTopBar/LandingTopBar";
 import {
   Box,
@@ -10,8 +10,11 @@ import {
 import { MuiButton } from "@/components/ui";
 import Link from "next/link";
 import { HeroDarkIcon, HeroIcon } from "@/assets/svg";
+import { AuthContex } from "@/context";
 
 function Landing() {
+  // * AuthContext to handle ui states ================== >
+  const { isLogin, userInfo } = useContext(AuthContex)!;
   const isMedium = useMediaQuery("(min-width:900px)");
   const { palette } = useTheme();
   return (
@@ -66,11 +69,11 @@ function Landing() {
 
           {/* Signin Button ----- > */}
           <Box sx={{ mt: "35px" }}>
-            <Link href={"/auth/signin"}>
+            <Link href={isLogin ? "/my-panel" : "/auth/signin"}>
               <MuiButton
                 buttonProps={{ size: "large", sx: { fontSize: "18px" } }}
               >
-                {"همین الان شروع کن"}
+                {isLogin ? `وارد پنل شوید` : "همین الان شروع کن"}
               </MuiButton>
             </Link>
           </Box>
