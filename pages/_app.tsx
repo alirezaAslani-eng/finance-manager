@@ -6,6 +6,7 @@ import { AuthProvider, MuiThemeProvider, SignupProvider } from "@/context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthProviderInput } from "@/context/AuthContext";
 
 // * Load Dana Medume Font as Gloabal ================= >
 const danaMediume = font({
@@ -17,11 +18,12 @@ const peydaMedium = font({
   variable: "--peyda-md",
 });
 
-function _app({ Component, pageProps }: AppProps) {
+type GlobalAppProps = AuthProviderInput;
+function _app({ Component, pageProps }: AppProps<GlobalAppProps>) {
   return (
     <QueryClientProvider client={queryClient}>
       <SignupProvider>
-        <AuthProvider>
+        <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
           <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
             <MuiThemeProvider>
               {/* Normalize Css ================== >*/}
@@ -38,3 +40,5 @@ function _app({ Component, pageProps }: AppProps) {
 }
 
 export default _app;
+
+export type { GlobalAppProps };
