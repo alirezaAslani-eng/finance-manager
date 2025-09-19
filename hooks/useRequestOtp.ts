@@ -17,7 +17,7 @@ function useRequestOtp(
 
   const {
     userInfo: { phone },
-  } = useContext(AuthContex);
+  } = useContext(AuthContex)!;
 
   const { mutateAsync, isPending: isRequesting } = useMutation({
     mutationFn: postVerifySMS,

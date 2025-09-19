@@ -1,4 +1,4 @@
-export { loginSchema, userSchema } from "./userSchema";
+export { userSchema } from "./userSchema";
 export {sendCodeSchema,verifySchema} from "./otpSchema";
 export { default as accountSchema } from "./accountSchema";
 export { default as transactionSchema } from "./transactionSchema";

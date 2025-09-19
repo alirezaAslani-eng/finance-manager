@@ -16,7 +16,7 @@ function useRegister() {
 
   // * Signup Context to set userInfo because user need to verify phone number after they verify we use Provided data from AuthContext and Register user
   const { cacheSignupInfo, signupInfo } = useContext(SignupContext);
-  const { setInfo } = useContext(AuthContex);
+  const { setInfo } = useContext(AuthContex)!;
 
   // * Mutation to create a user ===================== >
   const { mutateAsync } = useMutation({ mutationFn: postOneUser });

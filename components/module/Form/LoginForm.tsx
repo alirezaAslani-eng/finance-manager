@@ -58,7 +58,7 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
   } = useForm({ resolver: zodResolver(phoneSchema) });
 
   // * user Auth contex to set user phone if it was valid ===================== >
-  const { setInfo } = useContext(AuthContex);
+  const { setInfo } = useContext(AuthContex)!;
 
   // * Submit and check user phone ============== >
   const isValidPhone = useCheckUserPhone();
@@ -153,7 +153,7 @@ const VerifyCodeForm = ({
   // * user phone from context ================ >
   const {
     userInfo: { phone },
-  } = useContext(AuthContex);
+  } = useContext(AuthContex)!;
 
   // * Form state and Schema Handler ================== >
   const {
