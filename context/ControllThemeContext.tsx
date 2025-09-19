@@ -1,65 +1,69 @@
 import { createTheme, ThemeProvider } from "@mui/material";
+import { blue, red } from "@mui/material/colors";
 import {
   PropsWithChildren,
   useCallback,
   useState,
   createContext,
   useMemo,
-  useEffect,
 } from "react";
-
-
 
 type themeModeType = "dark" | "light";
 interface ControllThemeProvider_face {
-  changeMode: (mode: themeModeType) => void;
+  changeMode: () => void;
+  mode: "dark" | "light";
 }
 
 const ControllThemeContext = createContext({} as ControllThemeProvider_face);
 
-
-
 function MuiThemeProvider({ children }: PropsWithChildren) {
-
-
   // * Mui Base Theme Configuration =============================== >
-
 
   // * == > theme mode state
   const [mode, setMode] = useState<themeModeType>("light");
-  useEffect(() => {
-    setMode((localStorage.getItem("theme") as "dark") || "light");
-  }, []);
-
-
-
 
   // * == > controll theme
-  const changeMode = useCallback((mode: themeModeType) => {
-    localStorage.setItem("theme", mode);
-    setMode(mode);
+  const changeMode = useCallback(() => {
+    setMode((prev) => {
+      if (prev == "dark") return "light";
+      else if ((prev = "light")) return "dark";
+      return "light";
+    });
   }, []);
-
-
-
 
   // * == > MuiTheme
   const theme = useMemo(() => {
     return createTheme({
       palette: {
-        mode,
+        mode: mode,
+        primary: {
+          main: blue[500],
+        },
+        error: {
+          main: red[500],
+          300: red[300],
+        },
       },
       typography: {
-        fontFamily: "var(--dana-md), Vazir, sans-serif",
+        fontFamily: "var(--dana-md)",
+        h1: {
+          fontFamily: "var(--peyda-md)",
+        },
+      },
+      components: {
+        MuiCssBaseline: {
+          styleOverrides: {
+            a: {
+              textDecoration: "none",
+            },
+          },
+        },
       },
     });
   }, [mode]);
 
-
-  
-
   return (
-    <ControllThemeContext value={{ changeMode }}>
+    <ControllThemeContext value={{ changeMode, mode: mode }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ControllThemeContext>
   );
