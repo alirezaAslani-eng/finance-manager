@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { blue, red } from "@mui/material/colors";
+import { blue, red, grey } from "@mui/material/colors";
 import {
   PropsWithChildren,
   useCallback,
@@ -34,6 +34,13 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
   // * == > MuiTheme
   const theme = useMemo(() => {
     return createTheme({
+      custom: {
+        resetButton: {
+          minHeight: "0px",
+          minWidth: "0px",
+          padding: "0px",
+        },
+      },
       palette: {
         mode: mode,
         primary: {
@@ -43,7 +50,11 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           main: red[500],
           300: red[300],
         },
+        grey: {
+          100: grey[100],
+        },
       },
+
       typography: {
         fontFamily: "var(--dana-md)",
         h1: {

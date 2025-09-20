@@ -3,6 +3,7 @@ import type {
   PaletteColor,
   SimplePaletteColorOptions,
   PaletteOptions,
+  ThemeOptions,
 } from "@mui/material/styles";
 
 interface Shades {
@@ -17,13 +18,20 @@ interface Shades {
   800?: string;
   900?: string;
 }
+interface CustomStyle {
+  resetButton: {
+    minHeight: "0px";
+    minWidth: "0px";
+    padding:"0px"
+  };
+}
 declare module "@mui/material/styles" {
   interface PaletteColor extends Shades {}
   interface SimplePaletteColorOptions extends Shades {}
-  interface Palette {
-    white: Shades;
+  interface Theme {
+    custom: CustomStyle;
   }
-  interface PaletteOptions {
-    white: Shades;
+  interface ThemeOptions {
+    custom: CustomStyle;
   }
 }
