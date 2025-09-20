@@ -7,7 +7,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
-import { CustomPageProps, PageComponent } from "@/types/page.types";
+import { CustomPageProps } from "@/types/page.types";
 
 // * Load Dana Medume Font as Gloabal ================= >
 const danaMediume = font({
@@ -30,16 +30,18 @@ function _app({
     <QueryClientProvider client={queryClient}>
       <SignupProvider>
         <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-          <Layout>
-            <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
-              <MuiThemeProvider>
-                {/* Normalize Css ================== >*/}
-                <CssBaseline />
+          <div className={`${danaMediume.variable} ${peydaMedium.variable}`}>
+            <MuiThemeProvider>
+              {/* Normalize Css ================== >*/}
+              <CssBaseline />
+              <Layout>
                 {/* Render Page ================== >*/}
-                <Component {...pageProps} />
-              </MuiThemeProvider>
-            </main>
-          </Layout>
+                <main>
+                  <Component {...pageProps} />
+                </main>
+              </Layout>
+            </MuiThemeProvider>
+          </div>
         </AuthProvider>
       </SignupProvider>
       <ReactQueryDevtools initialIsOpen={false} />
