@@ -1,4 +1,4 @@
-import { MuiButton } from "@/components/ui";
+import { Brand, MuiButton, ThemeButton } from "@/components/ui";
 import { Box, Typography, useTheme } from "@mui/material";
 import React, { useContext } from "react";
 // * Icon ================ >
@@ -34,23 +34,9 @@ function LandingTopBar() {
         </MuiButton>
       </Link>
       {/* Logo ============================= > */}
-      <Typography variant="h1" component={"h1"} sx={{ fontSize: "28px" }}>
-        {"هزینه یار"}
-      </Typography>
+      <Brand />
       {/* Theme Button =========================== > */}
-      <MuiButton
-        buttonProps={{
-          onClick: changeMode,
-          sx: {
-            padding: "10px",
-            minHeight: "0",
-            minWidth: "0",
-            borderRadius: "999px",
-          },
-        }}
-      >
-        {mode == "light" ? <BedtimeRoundedIcon /> : <WbSunnyRoundedIcon />}
-      </MuiButton>
+      <ThemeButton />
     </Box>
   );
 }
