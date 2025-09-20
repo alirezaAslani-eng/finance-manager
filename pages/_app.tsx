@@ -1,12 +1,13 @@
 import { Box, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import font from "next/font/local";
 import { AuthProvider, MuiThemeProvider, SignupProvider } from "@/context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
+import { CustomPageProps, PageComponent } from "@/types/page.types";
 
 // * Load Dana Medume Font as Gloabal ================= >
 const danaMediume = font({
@@ -19,19 +20,26 @@ const peydaMedium = font({
 });
 
 type GlobalAppProps = AuthProviderInput;
-function _app({ Component, pageProps }: AppProps<GlobalAppProps>) {
+function _app({
+  Component,
+  pageProps,
+}: AppProps<GlobalAppProps> & { Component: CustomPageProps }) {
+  const Layout =
+    Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
   return (
     <QueryClientProvider client={queryClient}>
       <SignupProvider>
         <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-          <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
-            <MuiThemeProvider>
-              {/* Normalize Css ================== >*/}
-              <CssBaseline />
-              {/* Render Page ================== >*/}
-              <Component {...pageProps} />
-            </MuiThemeProvider>
-          </main>
+          <Layout>
+            <main className={`${danaMediume.variable} ${peydaMedium.variable}`}>
+              <MuiThemeProvider>
+                {/* Normalize Css ================== >*/}
+                <CssBaseline />
+                {/* Render Page ================== >*/}
+                <Component {...pageProps} />
+              </MuiThemeProvider>
+            </main>
+          </Layout>
         </AuthProvider>
       </SignupProvider>
       <ReactQueryDevtools initialIsOpen={false} />
