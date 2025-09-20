@@ -1,9 +1,7 @@
 import { postOneUser } from "@/api/post";
-import { keys, queryClient } from "@/config/react-query";
 import { AuthContex, SignupContext } from "@/context";
 import { BadResponse } from "@/lib/utils";
 import { userSchema, verifySchema } from "@/lib/validations";
-import { SignupResponse_type } from "@/types/user.types";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -17,6 +15,9 @@ function useRegister() {
   // * Signup Context to set userInfo because user need to verify phone number after they verify we use Provided data from AuthContext and Register user
   const { cacheSignupInfo, signupInfo } = useContext(SignupContext);
   const { setInfo } = useContext(AuthContex)!;
+
+  // * AuthContext to refetch user ================== >
+  const { refetchMe } = useContext(AuthContex)!;
 
   // * Mutation to create a user ===================== >
   const { mutateAsync } = useMutation({ mutationFn: postOneUser });
@@ -48,7 +49,8 @@ function useRegister() {
   const verifyUser = async (formInfo: Infer<typeof verifySchema>) => {
     try {
       await mutateAsync({ otpCode: formInfo.otpCode, ...signupInfo! });
-      replace("/");
+      await refetchMe();
+      replace("/my-panel");
     } catch (err) {
       const error = err as BadResponse;
       if (error.type == "verify" || error.type == "client") {

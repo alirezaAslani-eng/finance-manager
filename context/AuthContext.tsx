@@ -14,6 +14,7 @@ interface provider {
   userInfo: GetMeOutput;
   isLogin: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
+  refetchMe: () => Promise<void>;
 }
 interface AuthProviderInput {
   // * ssrUserInfo is for info which is injected from SSR PAGE
@@ -45,11 +46,16 @@ const AuthProvider = ({
   }, []);
 
   // * Authorizing user ==================================== >
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading, refetch } = useQuery({
     queryKey: keys.userInfo.all,
     initialData: ssrUserInfo ?? undefined,
     queryFn: getUserInfo,
   });
+
+  // * Refetch Query method ================= >
+  const refetchMe = useCallback(async (): Promise<void> => {
+    await refetch();
+  }, []);
 
   // * Updating State ==================== >
   useEffect(() => {
@@ -61,7 +67,7 @@ const AuthProvider = ({
   }, [isLoading, isError]);
 
   return (
-    <AuthContex.Provider value={{ setInfo, userInfo, isLogin }}>
+    <AuthContex.Provider value={{ setInfo, userInfo, isLogin, refetchMe }}>
       {children}
     </AuthContex.Provider>
   );
