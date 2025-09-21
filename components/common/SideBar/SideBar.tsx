@@ -1,15 +1,6 @@
-import { Brand } from "@/components/ui";
-import {
-  Box,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-} from "@mui/material";
+import { Brand, SideBarButton } from "@/components/ui";
+import { menuList } from "@/constant/staticData";
+import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
 import React from "react";
 
 function SideBar() {
@@ -33,13 +24,8 @@ function SideBar() {
       </Toolbar>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{"Icon"}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+        {menuList.map((info) => (
+          <SideBarButton menuItem={{ ...info }} />
         ))}
       </List>
     </Drawer>
