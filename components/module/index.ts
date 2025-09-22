@@ -5,3 +5,5 @@ export { default as RegisterForm } from "./Form/RegisterForm";
 export { default as TopBarSearchBox } from "./SearchBox/TopBarSearchBox";
 export { default as RecentTransactions } from "./Transactions/RecentTransactions";
 export { default as Slider } from "./Slider/Slider";
+export { default as Accounts } from "./Accounts/Accounts";
+export { default as Transactions } from "./Transactions/Transactions";
