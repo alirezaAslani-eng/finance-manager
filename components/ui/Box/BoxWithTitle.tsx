@@ -1,7 +1,6 @@
-import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import { Box, Typography, useTheme } from "@mui/material";
 import type { BoxProps } from "@mui/material";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 import MuiButton from "../Button/MuiButton";
 import { muiTheme } from "@/utils";
 import Link from "next/link";
@@ -9,21 +8,19 @@ import Link from "next/link";
 interface myProp {
   title: string;
   boxProps?: BoxProps;
-  hasButton?: boolean;
-  link?: string;
+  Button?: ReactNode;
 }
 function BoxWithTitle({
   children,
   title = "عنوان تستی",
   boxProps,
-  hasButton=true,
-  link,
+  Button,
 }: PropsWithChildren<myProp>) {
   const { palette, alpha } = useTheme();
   const backgroundColor = alpha(palette.primary.main, 0.2);
   return (
     <Box
-    boxShadow={"initial"}
+      boxShadow={"initial"}
       {...boxProps}
       sx={{
         backgroundColor,
@@ -54,18 +51,7 @@ function BoxWithTitle({
           {title}
         </Typography>
         {/* Link ============================= > */}
-        {hasButton ? (
-          <Link href={link || ""}>
-            <MuiButton
-              buttonProps={{
-                sx: { display: "flex", alignItems: "center", gap: "8px" },
-              }}
-            >
-              مشاهده همه
-              <NorthWestRoundedIcon />
-            </MuiButton>
-          </Link>
-        ) : undefined}
+        {Button}
       </Box>
       {/* Content ==================== > */}
       {/* space between content and title is from children  */}
