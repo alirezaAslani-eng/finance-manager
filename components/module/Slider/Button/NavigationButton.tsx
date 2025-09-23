@@ -26,40 +26,36 @@ function NavigationButton({ instance }: myProps) {
     p: "10px",
     borderRadius: "999px",
     backgroundColor: theme.alpha(theme.palette.primary.main, 0.8),
+    position: "absolute",
+    top: "50%",
+    translate: "0 -50%",
+    zIndex: "2",
   };
   return (
-    <Box
-      position={"absolute"}
-      sx={{
-        top: "50%",
-        left: "0",
-        translate: "0 -50%",
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: "2",
-      }}
-    >
+    <>
       <MuiButton
         buttonProps={{
+          sx: {
+            ...button_style,
+            right: "0",
+          },
           onClick: prevSlide,
-          sx: button_style,
         }}
       >
-               <ArrowCircleRightRoundedIcon />
-
+        <ArrowCircleRightRoundedIcon />
       </MuiButton>
       <MuiButton
         buttonProps={{
           onClick: nextSlide,
-          sx: button_style,
+          sx: {
+            ...button_style,
+            left: "0",
+          },
         }}
       >
-         <ArrowCircleLeftRoundedIcon />
+        <ArrowCircleLeftRoundedIcon />
       </MuiButton>
-      
-    </Box>
+    </>
   );
 }
 
