@@ -6,4 +6,6 @@ export { default as TopBarSearchBox } from "./SearchBox/TopBarSearchBox";
 export { default as RecentTransactions } from "./Transactions/RecentTransactions";
 export { default as Slider } from "./Slider/Slider";
 export { default as Accounts } from "./Accounts/Accounts";
+export { default as HeadingFilter } from "./Heading/HeadingFilter";
+export { default as SidebarFilter } from "./Sidebar/SidebarFilter";
 export { default as Transactions } from "./Transactions/Transactions";

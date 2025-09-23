@@ -1,6 +1,8 @@
 export { default as MuiButton } from "./Button/MuiButton";
 export { default as ThemeButton } from "./Button/ThemeButton";
+export { default as SwitchButton } from "./Button/SwitchButton";
 export { default as SideBarButton } from "./Button/SideBarButton";
+export { default as RequestOtpButton } from "./Button/RequestOtpButton";
 export { default as MuiChartBar } from "./Chart/MuiChartBar";
 export { default as MuiTextField } from "./Input/MuiTextField";
 export { default as MuiCheckBox } from "./CheckBox/MuiCheckBox";
