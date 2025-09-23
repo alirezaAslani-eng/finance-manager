@@ -66,6 +66,10 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           styleOverrides: {
             a: {
               textDecoration: "none",
+
+              ["&:active"]: {
+                color: "transparent",
+              },
             },
           },
         },

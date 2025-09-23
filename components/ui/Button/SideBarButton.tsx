@@ -3,20 +3,23 @@ import { muiTheme } from "@/utils";
 import {
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Typography,
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 function SideBarButton({ menuItem }: { menuItem: MenuItemFace }) {
+  const { pathname } = useRouter();
+  // * Style =============== >
+  const isActive = menuItem.link == pathname;
   const { palette } = useTheme();
   const textColor = {
     color: muiTheme(palette.mode, {
-      dark: palette.primary.main,
-      light: palette.grey[800],
+      dark: isActive ? palette.primary.main : palette.grey[100],
+      light: isActive ? palette.primary.main : palette.grey[700],
     }),
   };
   return (
