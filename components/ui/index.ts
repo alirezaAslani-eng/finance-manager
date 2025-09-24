@@ -13,3 +13,4 @@ export { default as TransactionCard } from "./Card/TransactionCard";
 export { default as BoxWithTitle } from "./Box/BoxWithTitle";
 export { default as AccountCard } from "./Card/AccountCard";
 export { default as MuiSlider } from "./Input/MuiSlider";
+export { default as DateField } from "./Input/DateField";
