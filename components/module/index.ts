@@ -9,3 +9,4 @@ export { default as Accounts } from "./Accounts/Accounts";
 export { default as HeadingFilter } from "./Heading/HeadingFilter";
 export { default as SidebarFilter } from "./Sidebar/SidebarFilter";
 export { default as Transactions } from "./Transactions/Transactions";
+export { default as PriceFilter } from "./Input/PriceFilter";
