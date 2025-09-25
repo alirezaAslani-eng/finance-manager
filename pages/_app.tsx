@@ -50,5 +50,5 @@ function _app({
 }
 
 export default _app;
-
+export { danaMediume, peydaMedium };
 export type { GlobalAppProps };
