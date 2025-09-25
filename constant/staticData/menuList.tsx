@@ -9,7 +9,7 @@ const menuList: MenuList = [
   { id: crypto.randomUUID(), icon: <HomeRoundedIcon/> , text: "داشبورد", link: "/my-panel" },
   { id: crypto.randomUUID(), icon: <ReceiptLongRoundedIcon/> , text: "تراکنش ها", link: "/my-panel/transactions" },
   { id: crypto.randomUUID(), icon: <AddchartRoundedIcon/> , text: "تراکنش جدید", link: "/my-panel/transactions/add" },
-  { id: crypto.randomUUID(), icon: <AddCardRoundedIcon/> , text: "حساب جدید", link: "" },
+  { id: crypto.randomUUID(), icon: <AddCardRoundedIcon/> , text: "حساب جدید", link: "/my-panel/account/add" },
   { id: crypto.randomUUID(), icon: <AccountCircleRoundedIcon/> , text: "اطلاعات من", link: "" },
 ];
 export default menuList;
