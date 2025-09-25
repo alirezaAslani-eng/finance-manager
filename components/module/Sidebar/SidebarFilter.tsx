@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
-import { Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import PriceFilter from "../Input/PriceFilter";
 import Datefilter from "../Input/Datefilter";
 import { MuiButton, MuiSelectInput } from "@/components/ui";
+import { danaMediume, peydaMedium } from "@/pages/_app";
 interface Myprops {
   open?: boolean;
   onClose?: () => any;
@@ -21,6 +21,7 @@ const SidebarFilter = ({ onClose, open }: Myprops) => {
         open={open}
         onClose={closeMe}
         variant="temporary"
+        className={`${danaMediume.className}`}
       >
         <Box
           sx={{
@@ -78,6 +79,7 @@ function Title({ children }: { children: string }) {
         p: "8px",
         borderRadius: "20px",
       }}
+      className={peydaMedium.className}
     >
       <Typography variant="h1" sx={{ fontSize: "20px" }}>
         {children}
