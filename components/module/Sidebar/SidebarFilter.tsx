@@ -6,13 +6,22 @@ import { Typography, useTheme } from "@mui/material";
 import PriceFilter from "../Input/PriceFilter";
 import Datefilter from "../Input/Datefilter";
 import { MuiButton, MuiSelectInput } from "@/components/ui";
-
-const SidebarFilter = () => {
-  const [open, setOpen] = useState(true);
+interface Myprops {
+  open?: boolean;
+  onClose?: () => any;
+}
+const SidebarFilter = ({ onClose, open }: Myprops) => {
+  const closeMe = (): void => {
+    onClose && onClose();
+  };
 
   return (
     <>
-      <Drawer open={open} onClose={() => {}} variant="permanent">
+      <Drawer
+        open={open}
+        onClose={closeMe}
+        variant="temporary"
+      >
         <Box
           sx={{
             width: "300px",

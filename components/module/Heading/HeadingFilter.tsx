@@ -3,7 +3,10 @@ import { Box, SxProps, Typography, useTheme } from "@mui/material";
 import React from "react";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
-function HedingFilter() {
+interface MyProps {
+  onSidebar?: (e:boolean) => any;
+}
+function HedingFilter({ onSidebar }: MyProps) {
   // Style ================== >
   const theme = useTheme();
   const butto_sx: SxProps = {
@@ -13,6 +16,11 @@ function HedingFilter() {
     display: "flex",
     alignItems: "center",
     gap: "8px",
+  };
+
+  // * Events ================= >
+  const openSidebar = () => {
+    onSidebar && onSidebar(true);
   };
   return (
     <Box
@@ -26,7 +34,7 @@ function HedingFilter() {
       <SwitchButton />
 
       <Box component={"aside"}>
-        <MuiButton buttonProps={{ sx: { ...butto_sx } }}>
+        <MuiButton buttonProps={{ sx: { ...butto_sx }, onClick: openSidebar }}>
           <AutoAwesomeIcon />
           <Typography>جستجو پیشرفته</Typography>
         </MuiButton>
