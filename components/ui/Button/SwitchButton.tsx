@@ -4,7 +4,22 @@ import CallMadeRoundedIcon from "@mui/icons-material/CallMadeRounded";
 import MuiButton from "./MuiButton";
 import { Box, Typography, useTheme } from "@mui/material";
 import type { SxProps } from "@mui/material";
-function SwitchButton() {
+
+interface MyProps {
+  // * render El === >
+  allButton?: boolean;
+  // * variant of Mui component true = contained & false = outlined === >
+  isInComeActive?: boolean;
+  isExpenseActive?: boolean;
+  // * buttons type ================= >
+  type?: "button" | "submit";
+}
+function SwitchButton({
+  allButton = true,
+  isExpenseActive,
+  isInComeActive,
+  type = "button",
+}: MyProps) {
   const theme = useTheme();
   const butto_sx: SxProps = {
     ...theme.custom.resetButton,
@@ -21,15 +36,17 @@ function SwitchButton() {
         sx={{ display: "flex", alignItems: "center", gap: "10px" }}
       >
         {/* All Button ================== > */}
-        <MuiButton buttonProps={{ sx: { ...butto_sx } }}>
-          <Typography>همه</Typography>
-        </MuiButton>
+        {allButton && (
+          <MuiButton buttonProps={{ sx: { ...butto_sx } }}>
+            <Typography>همه</Typography>
+          </MuiButton>
+        )}
         {/* Income Button Button ================== > */}
         <MuiButton
           buttonProps={{
-            variant: "outlined",
-            color: "info",
+            variant: isInComeActive ? "contained" : "outlined",
             sx: { ...butto_sx },
+            type,
           }}
         >
           <CallReceivedRoundedIcon />
@@ -38,9 +55,10 @@ function SwitchButton() {
         {/* Expense Button Button ================== > */}
         <MuiButton
           buttonProps={{
-            variant: "outlined",
+            variant: isExpenseActive ? "contained" : "outlined",
             color: "error",
             sx: { ...butto_sx },
+            type,
           }}
         >
           <CallMadeRoundedIcon />
