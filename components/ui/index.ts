@@ -11,6 +11,7 @@ export { default as MuiProgress } from "./Loader/MuiProgress";
 export { default as Brand } from "./Logo/Brand";
 export { default as TransactionCard } from "./Card/TransactionCard";
 export { default as BoxWithTitle } from "./Box/BoxWithTitle";
+export { default as UserCircle } from "./Box/UserCircle";
 export { default as AccountCard } from "./Card/AccountCard";
 export { default as MuiSlider } from "./Input/MuiSlider";
 export { default as DateField } from "./Input/DateField";
