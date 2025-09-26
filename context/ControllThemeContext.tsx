@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, GlobalStyles, ThemeProvider } from "@mui/material";
 import { blue, red, grey } from "@mui/material/colors";
 import {
   PropsWithChildren,
@@ -86,6 +86,40 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
 
   return (
     <ControllThemeContext value={{ changeMode, mode: mode }}>
+      <GlobalStyles
+        styles={`
+        @keyframes opacity-appear {
+        0%{
+        box-shadow:0px 0px 0px 0px transparent;
+        opacity:0;
+        }
+        50%{
+         opacity:1;
+        }
+        100%{}
+        }
+        @keyframes fade-down {
+        0%{
+        transform: translateY(-30px);
+        opacity:0;
+        }
+        100%{
+        transform: translateY(0);       
+        opacity:1;
+        }
+        }
+        @keyframes fade-left {
+        0%{
+        transform: translateX(30px);
+        opacity:0;
+        }
+        100%{
+        transform: translateX(0)        
+        opacity:1;
+        }
+        }
+        `}
+      />
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ControllThemeContext>
   );
