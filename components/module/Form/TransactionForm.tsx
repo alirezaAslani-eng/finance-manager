@@ -40,7 +40,7 @@ function TransactionForm() {
               dark: palette.grey[100],
             }),
           },
-          m: "20px 0px",
+          p: "20px 0px",
         }}
       >
         {"تراکنش جدید"}

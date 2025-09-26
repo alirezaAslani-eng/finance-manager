@@ -8,7 +8,7 @@ import React from "react";
 const index: PageComponent = () => {
   return (
     <Container>
-      <Box sx={{mt:"30px"}}>
+      <Box sx={{ pt: "30px" }}>
         {/* User's name Heading Section ==================== > */}
         <UserCircle />
         <Box sx={{ mt: "30px" }}>

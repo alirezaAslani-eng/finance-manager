@@ -36,9 +36,9 @@ function _app({
               <CssBaseline />
               <Layout>
                 {/* Render Page ================== >*/}
-                <main>
+               
                   <Component {...pageProps} />
-                </main>
+             
               </Layout>
             </MuiThemeProvider>
           </div>

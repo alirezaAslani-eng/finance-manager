@@ -13,7 +13,9 @@ export default function PanelLayout({ children }: React.PropsWithChildren) {
       <Box sx={{ flex: "1", minWidth: "0" }}>
         {/* Top Bar ============================= > */}
         <MuiAppBar />
-        {children}
+        <Box component={"main"} sx={{ minHeight: `calc(100svh - 64px)` }}>
+          {children}
+        </Box>
       </Box>
     </Box>
   );
