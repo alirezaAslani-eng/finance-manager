@@ -1,4 +1,5 @@
 import type { MenuItemFace } from "@/constant/staticData/types/menuList.types";
+import { useIsActiveLink } from "@/hooks";
 import { muiTheme } from "@/utils";
 import {
   ListItem,
@@ -12,9 +13,8 @@ import { useRouter } from "next/router";
 import React from "react";
 
 function SideBarButton({ menuItem }: { menuItem: MenuItemFace }) {
-  const { pathname } = useRouter();
+  const { isActive } = useIsActiveLink(menuItem.link);
   // * Style =============== >
-  const isActive = menuItem.link == pathname;
   const { palette } = useTheme();
   const textColor = {
     color: muiTheme(palette.mode, {
