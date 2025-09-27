@@ -3,6 +3,7 @@ import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import React from "react";
+import Link from "next/link";
 
 interface MyProp {
   onlyInfo?: boolean;
@@ -61,36 +62,39 @@ function AccountCard({ onlyInfo }: MyProp) {
 
       <Divider />
       {/* Footer =============================== > */}
-      {!onlyInfo && <Box
-        sx={{
-          p: "8px 10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: alpha(palette.primary.main, 0.1),
-        }}
-      >
-        {/* Enable Button ======================== > */}
-        <MuiButton
-          buttonProps={{
-            variant: "outlined",
-            sx: footerButton_sx,
+      {!onlyInfo && (
+        <Box
+          sx={{
+            p: "8px 10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: alpha(palette.primary.main, 0.1),
           }}
         >
-          <DoneRoundedIcon />
-          <Typography sx={{ fontSize: "12px" }}>فعال کردن کارت</Typography>
-        </MuiButton>
-        {/* Edit Button ============================== > */}
-
-        <MuiButton
-          buttonProps={{
-            variant: "outlined",
-            sx: footerButton_sx,
-          }}
-        >
-          <EditNoteRoundedIcon />
-        </MuiButton>
-      </Box>}
+          {/* Enable Button ======================== > */}
+          <MuiButton
+            buttonProps={{
+              variant: "outlined",
+              sx: footerButton_sx,
+            }}
+          >
+            <DoneRoundedIcon />
+            <Typography sx={{ fontSize: "12px" }}>فعال کردن کارت</Typography>
+          </MuiButton>
+          {/* Edit Button ============================== > */}
+          <Link href={"/my-panel/account/add?edit=1"}>
+            <MuiButton
+              buttonProps={{
+                variant: "outlined",
+                sx: footerButton_sx,
+              }}
+            >
+              <EditNoteRoundedIcon />
+            </MuiButton>
+          </Link>
+        </Box>
+      )}
     </Box>
   );
 }

@@ -12,7 +12,10 @@ import { Box, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-function AccountForm() {
+interface MyProps {
+  edit?: boolean;
+}
+function AccountForm({ edit }: MyProps) {
   // * Form Handler ======================== >
   const {
     control,
@@ -44,7 +47,7 @@ function AccountForm() {
           p: "20px 0px",
         }}
       >
-        {"ثبت کارت جدید"}
+        {edit ? "ویرایش حساب بانکی" : "ثبت کارت جدید"}
       </Typography>
 
       {/* Form ====================== > */}
@@ -90,7 +93,7 @@ function AccountForm() {
               type: "submit",
             }}
           >
-            {"ثبت کارت جدید"}
+            {edit ? "ثبت تغیرات" : "ثبت کارت جدید"}
           </MuiButton>
         </Box>
       </Box>
