@@ -8,6 +8,9 @@ import {
   Divider,
 } from "@mui/material";
 import type { CardProps } from "@mui/material";
+import MuiButton from "../Button/MuiButton";
+import ModeRoundedIcon from "@mui/icons-material/ModeRounded";
+import Link from "next/link";
 
 interface MyProps {
   amount: number;
@@ -45,6 +48,7 @@ function TransactionDetalCard({
           display="flex"
           justifyContent="space-between"
           alignItems="center"
+          flexWrap={"wrap"}
           mb={2}
         >
           <Typography
@@ -54,20 +58,39 @@ function TransactionDetalCard({
           >
             {type === "income" ? "+" : "-"} {amount.toLocaleString()} {"تومان"}
           </Typography>
+          {/* Edit Button ============================= > */}
+          <Link href={"/my-panel/transactions/1?edit=true"}>
+            <MuiButton
+              buttonProps={{
+                variant: "text",
+                sx: {
+                  ...theme.custom.resetButton,
+                  p: "10px",
+                  color: amountColor,
+                },
+              }}
+            >
+              {"ویرایش"}
+              <ModeRoundedIcon />
+            </MuiButton>
+          </Link>
         </Box>
         {/* Current Balance ========================== > */}
         <Typography gutterBottom>
-             موجودی بعد از تراکنش :{"  "}
+          موجودی بعد از تراکنش :{"  "}
           <Typography component={"span"} color={currentBalanceColor}>
             {balance.toLocaleString()}
           </Typography>{" "}
           {"تومان"}
         </Typography>
         <Divider sx={{ my: "10px" }} />
+        {/* Date ========================== > */}
         <Typography gutterBottom>تاریخ : {"1404/12/13"}</Typography>
         <Divider sx={{ my: "10px" }} />
+        {/* Day ========================== > */}
         <Typography gutterBottom>روز : {"دو شنبه"}</Typography>
         <Divider sx={{ my: "10px" }} />
+        {/* Time ========================== > */}
         <Typography gutterBottom>ساعت : {"22:44"}</Typography>
       </CardContent>
     </Card>
