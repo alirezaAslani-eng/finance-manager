@@ -4,7 +4,10 @@ import { Box, Divider, Typography, useTheme } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import React from "react";
 
-function AccountCard() {
+interface MyProp {
+  onlyInfo?: boolean;
+}
+function AccountCard({ onlyInfo }: MyProp) {
   const theme = useTheme();
   const { palette, alpha } = theme;
 
@@ -58,7 +61,7 @@ function AccountCard() {
 
       <Divider />
       {/* Footer =============================== > */}
-      <Box
+      {!onlyInfo && <Box
         sx={{
           p: "8px 10px",
           display: "flex",
@@ -87,7 +90,7 @@ function AccountCard() {
         >
           <EditNoteRoundedIcon />
         </MuiButton>
-      </Box>
+      </Box>}
     </Box>
   );
 }
