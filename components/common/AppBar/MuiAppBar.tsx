@@ -3,7 +3,7 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
-import { TopBarSearchBox } from "@/components/module";
+import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { muiTheme } from "@/utils";
 import Link from "next/link";
 const drawerWidth = 240;
@@ -63,9 +63,24 @@ function TopBar() {
                 sx: button_sx,
               }}
             />
-            {/* SearchBox ==================== > */}
-            <TopBarSearchBox />
           </Box>
+          {/* Logout Button ===================== > */}
+          <MuiButton
+            buttonProps={{
+              color: "error",
+              sx: {
+                ...theme.custom.resetButton,
+                p: "8px",
+                borderRadius: "999px",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+              },
+            }}
+          >
+            {"خروج"}
+            <PowerSettingsNewRoundedIcon />
+          </MuiButton>
         </Box>
       </Toolbar>
     </AppBar>
