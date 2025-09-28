@@ -11,7 +11,10 @@ import { Box, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-function TransactionForm() {
+interface MyProps {
+  edit?: boolean;
+}
+function TransactionForm({ edit }: MyProps) {
   // * Form Handler ======================== >
   const {
     control,
@@ -43,7 +46,7 @@ function TransactionForm() {
           p: "20px 0px",
         }}
       >
-        {"تراکنش جدید"}
+        {edit ? "ویرایش تراکنش" : "تراکنش جدید"}
       </Typography>
 
       {/* Form ====================== > */}
