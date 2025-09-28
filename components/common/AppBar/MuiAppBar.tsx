@@ -9,24 +9,21 @@ import Link from "next/link";
 const drawerWidth = 240;
 function TopBar() {
   const theme = useTheme();
-  const { palette } = theme;
+  const { palette, alpha } = theme;
   // * Custom Theme ============ >
 
   const button_sx = {
-    backgroundColor: muiTheme(palette.mode, {
-      dark: palette.primary.main,
-      light: "transparent",
-    }),
-    color: muiTheme(palette.mode, {
-      dark: "",
-      light: palette.grey[50],
-    }),
     padding: "8px",
   };
   return (
     <AppBar
       position="sticky"
       sx={{
+        backgroundColor: muiTheme(palette.mode, {
+          light: alpha(palette.grey[50], 0.5),
+          dark: alpha(palette.grey[900], 0.5),
+        }),
+        backdropFilter: "blur(20px)",
         width: "100%",
         top: "0",
         right: "0",
