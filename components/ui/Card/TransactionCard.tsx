@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import ArrowOutwardRoundedIcon from "@mui/icons-material/ArrowOutwardRounded";
-import { MuiButton } from "@/components/ui";
+import { MuiButton, TextPrice } from "@/components/ui";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 
@@ -20,9 +20,7 @@ const TransactionCard = () => {
           <Typography gutterBottom variant="h5" component="div">
             خرید میوه
           </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            20,000
-          </Typography>
+          <TextPrice price={20_000} priceProps={{ sx: { fontSize: "26px" } }} />
         </Stack>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
           امروز دو کیلو میوه برای مهمونی خریدم که اینم یک مت طولانی و تستی هست
@@ -38,7 +36,9 @@ const TransactionCard = () => {
           p: "10px",
         }}
       >
-        <Link href={""}>
+        <Link
+          href={{ pathname: "/my-panel/transactions/[id]", query: { id: "1" } }}
+        >
           <MuiButton
             buttonProps={{
               sx: {
