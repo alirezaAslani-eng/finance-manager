@@ -1,8 +1,17 @@
 import * as React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { IncludeKeyType } from "@/types/utils";
+import { blue } from "@mui/material/colors";
 
+interface MyProps<ChartItem extends object> {
+  dataKey: keyof IncludeKeyType<ChartItem, string | number>;
+  labelKey: keyof IncludeKeyType<ChartItem, string | number>;
+  data: ChartItem[];
+  barColor?: string;
+}
 
-const expenses = [
+// ! Fake Data ==================== >
+const transactions = [
   { category: "خونه", amount: 1200 },
   { category: "خوراک", amount: 800 },
   { category: "حمل و نقل", amount: 400 },
@@ -14,10 +23,12 @@ const expenses = [
   { category: "قبض‌ها", amount: 450 },
   { category: "سایر", amount: 700 },
 ];
-export default function BarGradient() {
+// ! Fake Data ==================== <
+
+const BarGradient = () => {
   return (
     <BarChart
-      dataset={expenses}
+      dataset={transactions}
       yAxis={[
         {
           disableLine: true,
@@ -39,11 +50,16 @@ export default function BarGradient() {
       ]}
       series={[
         {
-          dataKey: "amount",
+          dataKey:"amount",
         },
       ]}
       slotProps={{
         barLabel: { style: { fill: "#fff" } },
+        bar: {
+          style: {
+            fill: blue[600],
+          },
+        },
       }}
       barLabel={"value"}
       margin={{ left: -45, right: -5 }}
@@ -51,4 +67,6 @@ export default function BarGradient() {
       <linearGradient />
     </BarChart>
   );
-}
+};
+
+export default BarGradient;
