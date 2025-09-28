@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Typography, Box, useTheme, Grid, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
 import { PanelLayout } from "@/layout";
 import { AccountCard, TransactionDetalCard } from "@/components/ui";
 import { muiTheme } from "@/utils";
-import { useRouter } from "next/router";
 import { TransactionForm } from "@/components/module";
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import type { GlobalAppProps } from "@/pages/_app";
@@ -15,12 +14,13 @@ interface PageProps {
 }
 const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
   const { palette } = useTheme();
-
   return (
     <Container sx={{ pt: "30px" }}>
       {isEditable ? (
-        <TransactionForm />
+        // * Edit Transaction's info ================ >
+        <TransactionForm edit />
       ) : (
+        // * Show Transaction's info ===================== >
         <Grid container spacing={2}>
           <Grid size={4}>
             {/* Important Details ================ > */}
