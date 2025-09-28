@@ -1,8 +1,8 @@
 import { Accounts, RecentTransactions } from "@/components/module";
-import { BoxWithTitle, MuiChartBar } from "@/components/ui";
+import { MuiChartBar } from "@/components/ui";
 import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const RecentTransAction_gap = "20px";
@@ -28,13 +28,22 @@ const index: PageComponent = () => {
           <Accounts />
         </Box>
       </Box>
-      <Box sx={{ width: "100%", height: "400px", mt: "35px" }}>
+      {/* Charts ================== > */}
+      <Box
+        sx={{
+          width: "100%",
+          mt: "35px",
+        }}
+      >
         {/* BarChart ======================= >*/}
-        <BoxWithTitle title="گزارش ماهانه">
+        <Box>
+          <Typography variant="h1" fontSize={"32px"}>
+            {"گزارش خرج ماهانه"}
+          </Typography>
           <Box height={"400px"}>
             <MuiChartBar />
           </Box>
-        </BoxWithTitle>
+        </Box>
       </Box>
     </Box>
   );
