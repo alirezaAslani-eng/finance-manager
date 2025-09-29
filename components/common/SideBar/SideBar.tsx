@@ -1,11 +1,30 @@
-import { Brand, SideBarButton } from "@/components/ui";
+import { Brand, MuiButton, SideBarButton } from "@/components/ui";
 import { menuList } from "@/constant/staticData";
 import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
+import type { DrawerProps } from "@mui/material";
 import React from "react";
-
-function SideBar() {
+import { danaMediume, peydaMedium } from "@/pages/_app";
+import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
+interface MyProps {
+  drawerProps?: DrawerProps;
+  onClose?: () => any;
+  onLogout?: () => any;
+}
+function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
+  // * Events ======================= >
+  const closeMe = () => {
+    onClose && onClose();
+  };
+  const logout = () => {
+    onLogout && onLogout();
+  };
+  // * JSX ==================================================== >
   return (
     <Drawer
+      variant="permanent"
+      anchor="right"
+      {...drawerProps}
+      onClose={closeMe}
       sx={{
         width: "240px",
         flexShrink: 0,
@@ -13,21 +32,57 @@ function SideBar() {
           width: "240px",
           boxSizing: "border-box",
         },
+        ...drawerProps?.sx,
       }}
-      variant="permanent"
-      anchor="right"
     >
       <Toolbar>
-        <Box sx={{ textAlign: "center", width: "100%" }}>
+        <Box
+          className={peydaMedium.className}
+          sx={{ textAlign: "center", width: "100%" }}
+        >
           <Brand textProps={{ color: "primary" }} />
         </Box>
       </Toolbar>
       <Divider />
-      <List>
-        {menuList.map((info) => (
-          <SideBarButton menuItem={{ ...info }} />
-        ))}
-      </List>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
+        {/* // * MenuList ==================== > */}
+        <List className={danaMediume.className}>
+          {menuList.map((info) => (
+            <Box onClick={closeMe}>
+              <SideBarButton menuItem={{ ...info }} />
+            </Box>
+          ))}
+        </List>
+
+        {/* // * Logout Button ====================== > */}
+        <Box padding={"10px"} className={danaMediume.className}>
+          <MuiButton
+            buttonProps={{
+              onClick: logout,
+              className: danaMediume.className,
+              color: "error",
+              fullWidth: true,
+              sx: {
+                display: "flex",
+                padding: "10px",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "10px",
+              },
+            }}
+          >
+            {"خروج از پنل"}
+            <PowerSettingsNewRoundedIcon />
+          </MuiButton>
+        </Box>
+      </Box>
     </Drawer>
   );
 }
