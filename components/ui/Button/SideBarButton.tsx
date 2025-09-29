@@ -8,11 +8,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import type { ListItemButtonProps } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
-function SideBarButton({ menuItem }: { menuItem: MenuItemFace }) {
+interface MyProps {
+  menuItem: MenuItemFace;
+  buttonProps?: ListItemButtonProps;
+}
+function SideBarButton({ menuItem, buttonProps }: MyProps) {
   const { isActive } = useIsActiveLink(menuItem.link);
   // * Style =============== >
   const { palette } = useTheme();
@@ -25,7 +29,7 @@ function SideBarButton({ menuItem }: { menuItem: MenuItemFace }) {
   return (
     <Link href={menuItem.link}>
       <ListItem key={menuItem.id} disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={buttonProps?.onClick}>
           <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
           <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
         </ListItemButton>
