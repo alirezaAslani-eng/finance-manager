@@ -1,10 +1,10 @@
 import { MuiButton, SwitchButton } from "@/components/ui";
 import { Box, SxProps, Typography, useTheme } from "@mui/material";
 import React from "react";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-
+import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
+import { useBreakePoints } from "@/hooks";
 interface MyProps {
-  onSidebar?: (e:boolean) => any;
+  onSidebar?: (e: boolean) => any;
 }
 function HedingFilter({ onSidebar }: MyProps) {
   // Style ================== >
@@ -17,6 +17,8 @@ function HedingFilter({ onSidebar }: MyProps) {
     alignItems: "center",
     gap: "8px",
   };
+  // * Breakepoints ================ >
+  const { is_after_600 } = useBreakePoints();
 
   // * Events ================= >
   const openSidebar = () => {
@@ -27,7 +29,9 @@ function HedingFilter({ onSidebar }: MyProps) {
       sx={{
         display: "flex",
         justifyContent: "space-between",
+        flexWrap: "wrap",
         alignItems: "center",
+        gap: "10px",
       }}
     >
       {/* Switch Button between income and expense ================> */}
@@ -35,8 +39,8 @@ function HedingFilter({ onSidebar }: MyProps) {
 
       <Box component={"aside"}>
         <MuiButton buttonProps={{ sx: { ...butto_sx }, onClick: openSidebar }}>
-          <AutoAwesomeIcon />
-          <Typography>جستجو پیشرفته</Typography>
+          <TuneRoundedIcon />
+          {is_after_600 && <Typography>جستجو پیشرفته</Typography>}
         </MuiButton>
       </Box>
     </Box>

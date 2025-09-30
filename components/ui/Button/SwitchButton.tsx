@@ -4,6 +4,7 @@ import CallMadeRoundedIcon from "@mui/icons-material/CallMadeRounded";
 import MuiButton from "./MuiButton";
 import { Box, Typography, useTheme } from "@mui/material";
 import type { SxProps } from "@mui/material";
+import { useBreakePoints } from "@/hooks";
 
 interface MyProps {
   // * render El === >
@@ -20,7 +21,11 @@ function SwitchButton({
   isInComeActive,
   type = "button",
 }: MyProps) {
+  // * Breakpoints ===================== >
+  const { is_after_600 } = useBreakePoints();
+  // * Theme ================ >
   const theme = useTheme();
+  // * Button style ============== >
   const butto_sx: SxProps = {
     ...theme.custom.resetButton,
     borderRadius: "18px",
@@ -45,12 +50,13 @@ function SwitchButton({
         <MuiButton
           buttonProps={{
             variant: isInComeActive ? "contained" : "outlined",
-            sx: { ...butto_sx },
+            color: "success",
+            sx: { ...butto_sx, color: theme.palette.grey[50] },
             type,
           }}
         >
           <CallReceivedRoundedIcon />
-          <Typography>واریز</Typography>
+          {is_after_600 && <Typography>واریز</Typography>}{" "}
         </MuiButton>
         {/* Expense Button Button ================== > */}
         <MuiButton
@@ -62,7 +68,7 @@ function SwitchButton({
           }}
         >
           <CallMadeRoundedIcon />
-          <Typography>بر داشت</Typography>
+          {is_after_600 && <Typography>بر داشت</Typography>}
         </MuiButton>
       </Box>
     </>
