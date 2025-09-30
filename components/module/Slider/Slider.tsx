@@ -1,4 +1,3 @@
-import { NavigationButton } from "./Button";
 import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper } from "swiper/react";
@@ -14,11 +13,9 @@ import { Navigation } from "swiper/modules";
 
 type ChildrenType = SwiperProps["children"];
 interface myProps {
-  children: ChildrenType;
-  NavButton?: React.FC<{ instance: SwiperType }>;
-}
+  children: ChildrenType;}
 
-const Slider = ({ children, NavButton = NavigationButton }: myProps) => {
+const Slider = ({ children }: myProps) => {
   const [instance, setInstance] = useState<SwiperType | null>(null);
 
   return (
@@ -31,7 +28,6 @@ const Slider = ({ children, NavButton = NavigationButton }: myProps) => {
         className="mySwiper"
       >
         {children}
-        <NavButton instance={instance as SwiperType} />
       </Swiper>
     </>
   );

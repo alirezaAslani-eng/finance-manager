@@ -4,8 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import React from "react";
 // Import Swiper React components
-import { SwiperSlide, useSwiper } from "swiper/react";
-import { NavigationButton } from "../Slider/Button";
+import { SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -85,7 +84,7 @@ function DesktopCards() {
           mt: "20px",
         }}
       >
-        <Slider NavButton={NavigationButton}>
+        <Slider>
           {isTablet ? DesktopContent : MobileContent}
           {/* <NavButton /> */}
         </Slider>

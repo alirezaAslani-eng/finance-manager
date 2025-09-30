@@ -51,7 +51,7 @@ function SwitchButton({
           buttonProps={{
             variant: isInComeActive ? "contained" : "outlined",
             color: "success",
-            sx: { ...butto_sx, color: theme.palette.grey[50] },
+            sx: { ...butto_sx },
             type,
           }}
         >
