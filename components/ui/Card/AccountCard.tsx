@@ -1,4 +1,4 @@
-import { MuiButton } from "@/components/ui";
+import { MuiButton, TextPrice } from "@/components/ui";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
@@ -23,7 +23,7 @@ function AccountCard({ onlyInfo }: MyProp) {
   return (
     <Box
       sx={{
-        width: "100%",
+        maxWidth: "100%",
         borderRadius: "25px",
         overflow: "hidden",
       }}
@@ -43,21 +43,41 @@ function AccountCard({ onlyInfo }: MyProp) {
         <Typography
           component={"span"}
           display={"block"}
-          sx={{ fontSize: "26px", color: palette.grey[50] }}
+          sx={{
+            // * Responsive fontSize ====>
+            fontSize: {
+              xs: "24px",
+              _700: "26px",
+              md: "20px",
+              lg: "26px",
+              xl: "20px",
+            },
+            color: palette.grey[50],
+          }}
         >
           {"6037 6976 8508 5414"}
         </Typography>
-        {/* Current Balance ========================= > */}
-        <Typography
-          component={"span"}
-          display={"block"}
-          sx={{ fontSize: "20px", color: palette.grey[50] }}
-        >{`مجودی : ${"20,000,000"}`}</Typography>
+
         {/* Owner name =================================> */}
         <Typography
-          component={"p"}
-          sx={{ color: palette.grey[50] }}
-        >{`به نام : ${"مریم اصلانی"}`}</Typography>
+          component={"span"}
+          sx={{
+            color: palette.grey[50],
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px ",
+            flexWrap: "wrap",
+          }}
+        >
+          {`به نام : ${"مریم اصلانی"}`}
+          {/* // * Current balance =================== > */}
+          <TextPrice
+            price={50000000}
+            normal
+            priceProps={{ sx: { fontSize: "20px", color: "grey[50]" } }}
+          />
+        </Typography>
       </Box>
 
       <Divider />
