@@ -1,18 +1,20 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import type { TypographyProps } from "@mui/material";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 interface MyProps {
   price?: string | number;
   unitProps?: TypographyProps;
   priceProps?: TypographyProps;
   type?: "expense" | "income";
+  normal?: boolean;
 }
 function TextPrice({
   price = 300000,
   priceProps,
   unitProps,
   type = "income",
+  normal,
 }: MyProps) {
   const color = type == "income" ? "success.main" : "error.main";
   return (
@@ -23,13 +25,13 @@ function TextPrice({
         alignItems: "center",
         gap: "5px",
         fontSize: "32px",
+        color: color,
         ...priceProps?.sx,
       }}
       component={"span"}
-      color={color}
     >
       {/* Price ========================> */}
-      {type == "expense" ? "-" : "+"} {price?.toLocaleString()}
+      {!normal ? (type == "expense" ? "-" : "+") : ""} {price?.toLocaleString()}
       {/* unit ========================> */}
       <Typography
         component={"span"}
