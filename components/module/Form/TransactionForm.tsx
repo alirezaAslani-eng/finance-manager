@@ -53,7 +53,7 @@ function TransactionForm({ edit }: MyProps) {
       <Box onSubmit={handleSubmit(submiter)} component={"form"}>
         <Grid container spacing={2}>
           {/* Price Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiTextField
               errorText={errors?.["amount"]?.message}
               textFieldProps={{
@@ -63,7 +63,7 @@ function TransactionForm({ edit }: MyProps) {
             />
           </Grid>
           {/* Account Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiSelectInput
             //   errorText={errors?.["account"]?.message}
             //   textFieldProps={{
@@ -73,7 +73,7 @@ function TransactionForm({ edit }: MyProps) {
             />
           </Grid>
           {/* Category Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiSelectInput
             //   errorText={errors?.["category"]?.message}
             //   textFieldProps={{
