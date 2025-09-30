@@ -90,6 +90,9 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
             root: {
               textTransform: "none",
             },
+            containedSuccess: {
+              color:grey[50]
+            },
           },
         },
       },
