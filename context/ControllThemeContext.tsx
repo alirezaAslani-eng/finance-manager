@@ -50,6 +50,7 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           xl: 1536,
           // * Custom needed breakepoints =========== >
           _700: 700,
+          _600: 600,
         },
       },
       palette: {

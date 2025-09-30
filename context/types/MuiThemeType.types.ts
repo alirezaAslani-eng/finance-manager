@@ -36,5 +36,6 @@ declare module "@mui/material/styles" {
   }
   interface BreakpointOverrides {
     _700: true;
+    _600: true;
   }
 }
