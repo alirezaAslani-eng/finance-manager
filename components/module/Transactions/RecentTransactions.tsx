@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import Link from "next/link";
+import { useBreakePoints } from "@/hooks";
 interface myProp {
   containerProps?: BoxProps;
 }
@@ -29,7 +30,10 @@ const RecentTransactions = ({ containerProps }: myProp) => {
         {...containerProps}
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(2,1fr)",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2,1fr)",
+          },
           gap: "20px",
           mt: "20px",
           ...containerProps?.sx,
