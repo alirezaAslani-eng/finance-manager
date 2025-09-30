@@ -1,16 +1,20 @@
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
-import { Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import PriceFilter from "../Input/PriceFilter";
 import Datefilter from "../Input/Datefilter";
 import { MuiButton, MuiSelectInput } from "@/components/ui";
 import { danaMediume, peydaMedium } from "@/pages/_app";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 interface Myprops {
   open?: boolean;
   onClose?: () => any;
 }
 const SidebarFilter = ({ onClose, open }: Myprops) => {
+  // * Theme ================== >
+  const theme = useTheme();
+  // * Events ================= >
   const closeMe = (): void => {
     onClose && onClose();
   };
@@ -25,7 +29,7 @@ const SidebarFilter = ({ onClose, open }: Myprops) => {
       >
         <Box
           sx={{
-            width: "300px",
+            width: "280px",
             padding: "20px 25px",
           }}
         >
@@ -33,6 +37,21 @@ const SidebarFilter = ({ onClose, open }: Myprops) => {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {/* Apply Button ========== > */}
             <MuiButton>{"اعمال فیلتر"}</MuiButton>
+            {/* // * Close Button ==================== > */}
+            <MuiButton
+              buttonProps={{
+                onClick: closeMe,
+                variant: "outlined",
+                color: "error",
+                sx: {
+                  ...theme.custom.resetButton,
+                  borderRadius: "999px",
+                  p: "8px",
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </MuiButton>
           </Box>
           {/* Body Sidebar ================= > */}
           <Box sx={{ mt: "20px" }}>
