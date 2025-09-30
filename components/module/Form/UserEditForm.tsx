@@ -34,7 +34,7 @@ function UserEditForm() {
       <Box onSubmit={handleSubmit(submiter)} component={"form"}>
         <Grid container spacing={2}>
           {/* FullName Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <MuiTextField
               errorText={errors?.["fullName"]?.message}
               textFieldProps={{
@@ -45,7 +45,7 @@ function UserEditForm() {
             />
           </Grid>
           {/* Username Field ================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <MuiTextField
               errorText={errors?.["userName"]?.message}
               textFieldProps={{
@@ -56,7 +56,7 @@ function UserEditForm() {
             />
           </Grid>
           {/* Email Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <MuiTextField
               errorText={errors?.["email"]?.message}
               textFieldProps={{
@@ -67,7 +67,7 @@ function UserEditForm() {
             />
           </Grid>
           {/* Phone Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <MuiTextField
               errorText={errors?.["phone"]?.message}
               textFieldProps={{

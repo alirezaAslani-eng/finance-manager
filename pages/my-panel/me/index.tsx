@@ -10,7 +10,9 @@ const index: PageComponent = () => {
     <Container>
       <Box sx={{ pt: "30px" }}>
         {/* User's name Heading Section ==================== > */}
-        <UserCircle />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <UserCircle />
+        </Box>
         <Box sx={{ mt: "30px" }}>
           <UserEditForm />
         </Box>
