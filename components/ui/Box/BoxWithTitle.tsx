@@ -1,9 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import React, { PropsWithChildren, ReactNode } from "react";
-import MuiButton from "../Button/MuiButton";
 import { muiTheme } from "@/utils";
-import Link from "next/link";
 
 interface myProp {
   title: string;
@@ -25,7 +23,10 @@ function BoxWithTitle({
       sx={{
         backgroundColor,
         padding: "20px",
-        borderRadius: "20px",
+        borderRadius: {
+          xs:"0px",
+          md:"20px"
+        },
         ...boxProps?.sx,
       }}
     >
@@ -35,13 +36,15 @@ function BoxWithTitle({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          flexWrap: "wrap",
+          gap: "10px",
         }}
       >
         {/* Title ====================== > */}
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: "32px" },
+            fontSize: { xs: "25px", sm: "32px" },
             color: muiTheme(palette.mode, {
               dark: palette.grey[200],
               light: palette.grey[900],
