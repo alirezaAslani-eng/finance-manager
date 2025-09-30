@@ -22,7 +22,7 @@ interface CustomStyle {
   resetButton: {
     minHeight: "0px";
     minWidth: "0px";
-    padding:"0px"
+    padding: "0px";
   };
 }
 declare module "@mui/material/styles" {
@@ -33,5 +33,8 @@ declare module "@mui/material/styles" {
   }
   interface ThemeOptions {
     custom: CustomStyle;
+  }
+  interface BreakpointOverrides {
+    _700: true;
   }
 }
