@@ -54,7 +54,7 @@ function AccountForm({ edit }: MyProps) {
       <Box onSubmit={handleSubmit(submiter)} component={"form"}>
         <Grid container spacing={2}>
           {/* Owner's name Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiTextField
               errorText={errors?.["accountName"]?.message}
               textFieldProps={{
@@ -64,7 +64,7 @@ function AccountForm({ edit }: MyProps) {
             />
           </Grid>
           {/* Card Number Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiTextField
               errorText={errors?.["cardNumber"]?.message}
               textFieldProps={{
@@ -74,7 +74,7 @@ function AccountForm({ edit }: MyProps) {
             />
           </Grid>
           {/* Current Balance Field =================================== > */}
-          <Grid size={4}>
+          <Grid size={{ xs: 12, _600: 4 }}>
             <MuiTextField
               errorText={errors?.["currentBalance"]?.message}
               textFieldProps={{
@@ -89,7 +89,10 @@ function AccountForm({ edit }: MyProps) {
           <MuiButton
             buttonProps={{
               size: "large",
-              sx: { fontSize: "18px" },
+              sx: {
+                fontSize: "18px",
+                width: { xs: "100%", _600: "fit-content" },
+              },
               type: "submit",
             }}
           >
