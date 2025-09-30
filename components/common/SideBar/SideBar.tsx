@@ -5,12 +5,15 @@ import type { DrawerProps } from "@mui/material";
 import React from "react";
 import { danaMediume, peydaMedium } from "@/pages/_app";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
+import { useBreakePoints } from "@/hooks";
 interface MyProps {
   drawerProps?: DrawerProps;
   onClose?: () => any;
   onLogout?: () => any;
 }
 function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
+  // * Breakepoints =================== >
+  const { isTablet } = useBreakePoints();
   // * Events ======================= >
   const closeMe = () => {
     onClose && onClose();
@@ -62,26 +65,28 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
         </List>
 
         {/* // * Logout Button ====================== > */}
-        <Box padding={"10px"} className={danaMediume.className}>
-          <MuiButton
-            buttonProps={{
-              onClick: logout,
-              className: danaMediume.className,
-              color: "error",
-              fullWidth: true,
-              sx: {
-                display: "flex",
-                padding: "10px",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: "10px",
-              },
-            }}
-          >
-            {"خروج از پنل"}
-            <PowerSettingsNewRoundedIcon />
-          </MuiButton>
-        </Box>
+        {!isTablet && (
+          <Box padding={"10px"} className={danaMediume.className}>
+            <MuiButton
+              buttonProps={{
+                onClick: logout,
+                className: danaMediume.className,
+                color: "error",
+                fullWidth: true,
+                sx: {
+                  display: "flex",
+                  padding: "10px",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "10px",
+                },
+              }}
+            >
+              {"خروج از پنل"}
+              <PowerSettingsNewRoundedIcon />
+            </MuiButton>
+          </Box>
+        )}
       </Box>
     </Drawer>
   );
