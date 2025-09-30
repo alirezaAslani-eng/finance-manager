@@ -41,6 +41,17 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           padding: "0px",
         },
       },
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 900,
+          lg: 1200,
+          xl: 1536,
+          // * Custom needed breakepoints =========== >
+          _700: 700,
+        },
+      },
       palette: {
         mode: mode,
         primary: {
