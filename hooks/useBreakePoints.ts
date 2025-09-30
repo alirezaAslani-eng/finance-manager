@@ -10,7 +10,10 @@ function useBreakePoints(option: Option = {}) {
   const isTablet = useMediaQuery(
     `(min-width:${breakepoints.md + increase - decrease}px)`
   );
-  return { isTablet };
+  const is_after_600 = useMediaQuery(
+    `(min-width:${breakepoints.sm + increase - decrease}px)`
+  );
+  return { isTablet , is_after_600 };
 }
 
 export default useBreakePoints;
