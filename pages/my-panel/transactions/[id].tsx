@@ -22,7 +22,7 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
       ) : (
         // * Show Transaction's info ===================== >
         <Grid container spacing={2}>
-          <Grid size={4}>
+          <Grid size={{ xs: 12, lg: 4 }}>
             {/* Important Details ================ > */}
             <TransactionDetalCard />
             {/* Accout Card ========================== > */}
@@ -34,7 +34,7 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
             </Box>
           </Grid>
           {/* Description ===================== >*/}
-          <Grid size={8}>
+          <Grid size={{ xs: 12, lg: 8 }}>
             {/* Category ================= > */}
             <Typography
               variant="h1"

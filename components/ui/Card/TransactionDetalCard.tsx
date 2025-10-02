@@ -19,7 +19,7 @@ interface MyProps {
   cardProps?: CardProps;
 }
 function TransactionDetalCard({
-  amount = 300_000,
+  amount = 8000000000,
   balance = 200_000,
   type = "expense",
   cardProps,
@@ -54,7 +54,7 @@ function TransactionDetalCard({
           <Typography
             variant="h1"
             color={amountColor}
-            sx={{ fontSize: "34px" }}
+            sx={{ fontSize: { xs: "24px", md: "30px" } }}
           >
             {type === "income" ? "+" : "-"} {amount.toLocaleString()} {"تومان"}
           </Typography>
@@ -76,7 +76,7 @@ function TransactionDetalCard({
           </Link>
         </Box>
         {/* Current Balance ========================== > */}
-        <Typography gutterBottom>
+        <Typography>
           موجودی بعد از تراکنش :{"  "}
           <Typography component={"span"} color={currentBalanceColor}>
             {balance.toLocaleString()}
@@ -85,13 +85,13 @@ function TransactionDetalCard({
         </Typography>
         <Divider sx={{ my: "10px" }} />
         {/* Date ========================== > */}
-        <Typography gutterBottom>تاریخ : {"1404/12/13"}</Typography>
+        <Typography>تاریخ : {"1404/12/13"}</Typography>
         <Divider sx={{ my: "10px" }} />
         {/* Day ========================== > */}
-        <Typography gutterBottom>روز : {"دو شنبه"}</Typography>
+        <Typography>روز : {"دو شنبه"}</Typography>
         <Divider sx={{ my: "10px" }} />
         {/* Time ========================== > */}
-        <Typography gutterBottom>ساعت : {"22:44"}</Typography>
+        <Typography>ساعت : {"22:44"}</Typography>
       </CardContent>
     </Card>
   );
