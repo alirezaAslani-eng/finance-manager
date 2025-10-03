@@ -17,3 +17,4 @@ export { default as MuiSlider } from "./Input/MuiSlider";
 export { default as DateField } from "./Input/DateField";
 export { default as MuiSelectInput } from "./Input/MuiSelectInput";
 export { default as TextPrice } from "./Text/TextPrice";
+export { default as NoData } from "./Fallback/NoData";
