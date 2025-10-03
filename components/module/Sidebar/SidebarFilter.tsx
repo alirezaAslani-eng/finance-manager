@@ -7,6 +7,7 @@ import Datefilter from "../Input/Datefilter";
 import { MuiButton, MuiSelectInput } from "@/components/ui";
 import { danaMediume, peydaMedium } from "@/pages/_app";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import RestartAltRoundedIcon from "@mui/icons-material/RestartAltRounded";
 interface Myprops {
   open?: boolean;
   onClose?: () => any;
@@ -35,8 +36,22 @@ const SidebarFilter = ({ onClose, open }: Myprops) => {
         >
           {/* Header =================== > */}
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            {/* Apply Button ========== > */}
+            {/*  // * Restart Button ========== > */}
+            <MuiButton
+              buttonProps={{
+                variant: "outlined",
+                sx: {
+                  ...theme.custom.resetButton,
+                  borderRadius: "999px",
+                  p: "8px",
+                },
+              }}
+            >
+              <RestartAltRoundedIcon />
+            </MuiButton>
+            {/* // * Apply Button ========== > */}
             <MuiButton>{"اعمال فیلتر"}</MuiButton>
+
             {/* // * Close Button ==================== > */}
             <MuiButton
               buttonProps={{
