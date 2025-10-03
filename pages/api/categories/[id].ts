@@ -1,18 +1,28 @@
 import { categoryServivces } from "@/lib/services";
-import { apiHandler, checkOwnerOf, throwError } from "@/lib/utils";
+import {
+  apiHandler,
+  checkOwnerOf,
+  payloadToken,
+  throwError,
+} from "@/lib/utils";
 import { categorySchema } from "@/lib/validations";
 import { category_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 
-
 const handler: handler_type = async (req, res) => {
   // * Check is it a user and is it owner of this document ====================== >
-  const payloadInfo = (await checkOwnerOf({
+  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  throwError(!payloadInfo, {
+    message: "اول وارد حساب شوید",
+    statusCode: 401,
+    type: "client",
+  });
+  (await checkOwnerOf({
+    userId: payloadInfo._id,
     modelID: req.query.id as string,
     mustBeOwnerOf: category_model,
-    req,
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
 
   // * Check Params (id) ============= >

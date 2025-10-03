@@ -1,5 +1,5 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf, throwError } from "@/lib/utils";
+import { apiHandler, checkOwnerOf, payloadToken, throwError } from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
 import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -9,12 +9,21 @@ const handler: handler_type = async (req, res) => {
   // * Services =============== >
   const { removeTransaction, getOneTransaction, editOneTransaction } =
     transactionServices;
+
+  // * Check is it a user and is it owner of this document ====================== >
+  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  throwError(!payloadInfo, {
+    message: "اول وارد حساب شوید",
+    statusCode: 401,
+    type: "client",
+  });
   // * Authorize user and check theme if they access to mutate a transaction ================= >
-  const payloadInfo = (await checkOwnerOf({
+  (await checkOwnerOf({
+    userId: payloadInfo._id,
     modelID: req.query.id as string,
     mustBeOwnerOf: transaction_model,
-    req,
   })) as PayloadToken_type; // ! Might Throw Error ====================== <
+
   // * Check params ================== >
   throwError(!isValidObjectId(req.query.id), {
     message: "id is not valid",

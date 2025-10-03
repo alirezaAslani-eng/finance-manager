@@ -1,5 +1,10 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf, throwError } from "@/lib/utils";
+import {
+  apiHandler,
+  checkOwnerOf,
+  payloadToken,
+  throwError,
+} from "@/lib/utils";
 import { accountSchema } from "@/lib/validations";
 import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -7,11 +12,18 @@ import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 
 const handler: handler_type = async (req, res) => {
-  const payloadInfo = (await checkOwnerOf({
+  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  throwError(!payloadInfo, {
+    message: "اول وارد حساب شوید",
+    statusCode: 401,
+    type: "client",
+  });
+  await checkOwnerOf({
+    userId: payloadInfo._id,
     modelID: req.query.id as string,
     mustBeOwnerOf: account_model,
-    req,
-  })) as PayloadToken_type; // ! Might Throw Error
+  }); // ! Might Throw Error
+
   // * Check params (id) ============= >
   throwError(!isValidObjectId(req.query.id), {
     message: "id is not valid",

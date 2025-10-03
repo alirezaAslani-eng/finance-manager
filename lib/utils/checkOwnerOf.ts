@@ -7,29 +7,15 @@ import { NextApiRequest } from "next";
 
 interface Props {
   mustBeOwnerOf: Model<any>;
-  req: NextApiRequest;
+  userId: string;
   modelID: string;
 }
 
 const checkOwnerOf = async ({
   mustBeOwnerOf,
   modelID,
-  req,
+  userId,
 }: Props): Promise<void | PayloadToken_type> => {
-  // * User Token =================================== >
-  const token = req.cookies.token;
-
-  // * Get Payload ========================== >
-  const payloadInfo = payloadToken(token) as PayloadToken_type;
-
-  throwError(!payloadInfo, {
-    message: "اول وارد حساب شوید",
-    statusCode: 401,
-    type: "client",
-  });
-
-  const { _id: userId } = payloadInfo;
-
   // * Does it exist ==================== >
   const document_exist = await mustBeOwnerOf.findOne({
     _id: modelID,
@@ -48,8 +34,7 @@ const checkOwnerOf = async ({
     statusCode: 403,
     type: "client",
   });
-
-  return payloadInfo;
 };
 
 export default checkOwnerOf;
+
