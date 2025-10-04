@@ -20,7 +20,7 @@ type PayloadToken_type = {
 type GetMeOutput = Pick<
   User_face,
   "email" | "fullName" | "phone" | "role" | "userName"
->;
+> & { _id: string };
 
 type SignupResponse_type = Omit<User_face, "password">;
 // * Type ====>

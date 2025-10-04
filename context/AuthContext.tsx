@@ -33,6 +33,7 @@ const AuthProvider = ({
     phone: "",
     userName: "",
     role: "USER",
+    _id: "",
   });
 
   // * Login state ============================ >

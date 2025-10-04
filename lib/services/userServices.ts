@@ -54,7 +54,7 @@ const userServices = {
           $and: [{ email: payloadInfo.email }],
         },
         undefined,
-        { select: "-password" }
+        { select: "-password -createdAt -updatedAt -__v" }
       )
       .populate("categories")
       .populate("accounts")
