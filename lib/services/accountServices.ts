@@ -69,6 +69,10 @@ const accountServices = {
     const get_res = await account_model.findOne({ _id });
     return get_res;
   },
+  async hasAccount(userID: string) {
+    const userHasAccount = await account_model.findOne({ user: userID });
+    return !!userHasAccount;
+  },
 };
 
 export default accountServices;
