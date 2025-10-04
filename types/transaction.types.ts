@@ -9,6 +9,16 @@ interface Transaction_face {
   reason: string;
   user: User_face;
   account: Account_face;
-  category:Category_face
+  category: Category_face;
 }
-export type { Transaction_face };
+
+type RecentTransactionType = Pick<
+  Transaction_face,
+  "amount" | "category" | "reason" | "type" | "user"
+> & {
+  _id: string;
+  user: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+};
+export type { Transaction_face, RecentTransactionType };

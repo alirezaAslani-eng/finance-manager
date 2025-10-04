@@ -8,6 +8,7 @@ import {
 import { conect } from "../db";
 import type { InferSchemaType, Document } from "mongoose";
 import { checkExist, throwError } from "../utils";
+import { RecentTransactionType } from "@/types/transaction.types";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -96,6 +97,17 @@ const transactionServices = {
     await conect();
     const get_res = await transaction_model.findOne({ _id });
     return get_res;
+  },
+  async getRecentTransaction(userID: string): Promise<RecentTransactionType[]> {
+    await conect();
+    const recentTransaction = await transaction_model
+      .find({ user: userID }, undefined, {
+        select: "-__v -account -accountBalance",
+      })
+      .sort({ createdAt: -1 })
+      .limit(4)
+      .lean<RecentTransactionType[]>();
+    return recentTransaction;
   },
 };
 
