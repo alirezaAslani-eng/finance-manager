@@ -2,7 +2,7 @@ import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
 import { throwError } from "../utils";
-
+import { ServiceOptions } from "./types/services.types";
 // * Account Schema type ============== >
 type Account_type = InferSchemaType<typeof account_schema>;
 
@@ -15,17 +15,23 @@ const accountServices = {
     return !!!isUnique;
   },
 
-  createAccount: async function (accountInfo: Account_type) {
+  createAccount: async function (
+    accountInfo: Account_type,
+    options: Pick<ServiceOptions, "uniqCheck"> = {}
+  ) {
+    const { uniqCheck = true } = options;
     const { cardNumber } = accountInfo;
     await conect();
 
     // * cardNumber Field must be Unique ============== >
-    const isUnique = await accountServices.isUniqueCardNumber(cardNumber);
-    throwError(!isUnique, {
-      message: "شماره کارت صحیح نمیباشد",
-      statusCode: 409,
-      type: "client",
-    });
+    if (uniqCheck) {
+      const isUnique = await accountServices.isUniqueCardNumber(cardNumber);
+      throwError(!isUnique, {
+        message: "شماره کارت صحیح نمیباشد",
+        statusCode: 409,
+        type: "client",
+      });
+    }
 
     // * Create Query ================ >
     const create_res = await account_model.create({
