@@ -3,8 +3,12 @@ import { Typography, useTheme, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
 import { muiTheme } from "@/utils";
 import { InitForm } from "@/components/module";
+import { useInitUser } from "@/hooks";
 
 const init: PageComponent = () => {
+  // * Use Init User ======================= >
+  const { initUser } = useInitUser();
+  // * Style ======================= >
   const {
     palette: { mode, grey },
   } = useTheme();
@@ -44,6 +48,7 @@ const init: PageComponent = () => {
       {/* Form ======================= > */}
 
       <InitForm
+        onSubmit={initUser}
         formContainerProps={{
           sx: {
             width: "min(100%,500px)",
