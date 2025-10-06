@@ -14,3 +14,4 @@ export { default as Transactions } from "./Transactions/Transactions";
 export { default as PriceFilter } from "./Input/PriceFilter";
 export { default as Datefilter } from "./Input/Datefilter";
 export { default as LoadeingErrorHandler } from "./WaitHandler/LoadeingErrorHandler";
+export { default as InitForm } from "./Form/InitForm";
