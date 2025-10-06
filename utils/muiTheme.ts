@@ -1,13 +1,16 @@
-interface ThemeOptions {
-  dark: string;
-  light: string;
+interface ThemeOptions<T extends string> {
+  dark: T;
+  light: T;
 }
 
-function muiTheme(mode: "dark" | "light", { dark, light }: ThemeOptions) {
+function muiTheme<OutPutType extends string>(
+  mode: "dark" | "light",
+  { dark, light }: ThemeOptions<OutPutType>
+): OutPutType {
   if (mode == "light") {
-    return light;
+    return light as OutPutType;
   }
-  return dark;
+  return dark as OutPutType;
 }
 
 export default muiTheme;
