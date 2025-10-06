@@ -120,7 +120,7 @@ function RegisterForm({
           errorText={errors?.["email"]?.message}
         />
         <MuiTextField
-          textFieldProps={{ ...register("password"), placeholder: "رمز عبور" }}
+          textFieldProps={{ ...register("password"), placeholder: "رمز عبور",type:"password" }}
           errorText={errors?.["password"]?.message}
         />
         <input type="hidden" {...register("otpCode")} defaultValue={"00000"} />

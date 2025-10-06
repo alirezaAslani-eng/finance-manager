@@ -111,7 +111,7 @@ const InitForm=({ formContainerProps = {}, onSubmit }: MyPropa)=> {
             size: "large",
           }}
         >
-          ثبت اطلاعات
+           {"ادامه و ورود"}
         </MuiButton>
       </Box>
     </Box>
