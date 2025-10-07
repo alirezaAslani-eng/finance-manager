@@ -27,14 +27,18 @@ const AuthProvider = ({
   ssrUserInfo,
 }: PropsWithChildren<AuthProviderInput>) => {
   // * User info state ==================================== >
-  const [userInfo, setUserInfo] = useState<GetMeOutput>({
-    email: "",
-    fullName: "",
-    phone: "",
-    userName: "",
-    role: "USER",
-    _id: "",
-  });
+  const [userInfo, setUserInfo] = useState<GetMeOutput>(
+    ssrUserInfo ?? {
+      _id: "",
+      accounts: [],
+      categories: [],
+      email: "",
+      fullName: "",
+      phone: "",
+      userName: "",
+      role: "USER",
+    } // * User Info comes from SSR or CSR
+  );
 
   // * Login state ============================ >
   const [isLogin, setIslogin] = useState<boolean>(false);
