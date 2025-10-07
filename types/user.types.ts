@@ -1,3 +1,6 @@
+import { Account_face } from "./account.types";
+import { Category_face } from "./category.types";
+
 enum UserRolesEnum {
   USER = "USER",
   ADMIN = "ADMIN",
@@ -20,7 +23,14 @@ type PayloadToken_type = {
 type GetMeOutput = Pick<
   User_face,
   "email" | "fullName" | "phone" | "role" | "userName"
-> & { _id: string };
+> & {
+  _id: string;
+  accounts: ({ _id: string } & Pick<
+    Account_face,
+    "accountName" | "cardNumber" | "currentBalance"
+  >)[];
+  categories: ({ _id: string } & Pick<Category_face, "name">)[];
+};
 
 type SignupResponse_type = Omit<User_face, "password">;
 // * Type ====>
