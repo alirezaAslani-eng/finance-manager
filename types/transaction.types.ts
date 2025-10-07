@@ -14,8 +14,8 @@ interface Transaction_face {
 
 type RecentTransactionType = Pick<
   Transaction_face,
-  "amount" | "category" | "reason" | "type" | "user"
-> & {
+  "amount" | "reason" | "type"
+> & { category: { name: Pick<Transaction_face["category"], "name"> } } & {
   _id: string;
   user: string;
   createdAt: Date | string;

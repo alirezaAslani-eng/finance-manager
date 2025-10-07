@@ -49,6 +49,7 @@ const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
           }}
         >
           <RecentTransactions
+            recentTransactions={recentTransactions}
             containerProps={{ sx: { gap: RecentTransAction_gap } }}
           />
         </Box>

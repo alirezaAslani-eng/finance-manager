@@ -1,14 +1,24 @@
-import { BoxWithTitle, MuiButton, TransactionCard } from "@/components/ui";
+import {
+  BoxWithTitle,
+  MuiButton,
+  NoData,
+  TransactionCard,
+} from "@/components/ui";
 import { Box } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import Link from "next/link";
-import { useBreakePoints } from "@/hooks";
+import { RecentTransactionType } from "@/types/transaction.types";
+import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
 interface myProp {
   containerProps?: BoxProps;
+  recentTransactions: RecentTransactionType[];
 }
 // TODO logic of showing and transactions and get theme from server
-const RecentTransactions = ({ containerProps }: myProp) => {
+const RecentTransactions = ({
+  containerProps,
+  recentTransactions = [],
+}: myProp) => {
   return (
     <BoxWithTitle
       title="تراکنش های اخیر"
@@ -26,24 +36,36 @@ const RecentTransactions = ({ containerProps }: myProp) => {
         </Link>
       }
     >
-      <Box
-        {...containerProps}
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "repeat(2,1fr)",
-          },
-          gap: "20px",
-          mt: "20px",
-          ...containerProps?.sx,
+      <LoadeingErrorHandler
+        dataCheck={{
+          check: !!recentTransactions.length,
+          error: (
+            <NoData
+              buttonText="ایجاد اولین تراکنش"
+              noDataText="هنوز تراکنشی ایجاد نشده"
+              link="/my-panel/transactions/add"
+            />
+          ),
         }}
       >
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
-      </Box>
+        <Box
+          {...containerProps}
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2,1fr)",
+            },
+            gap: "20px",
+            mt: "20px",
+            ...containerProps?.sx,
+          }}
+        >
+          {recentTransactions.map(({}) => {
+            return <TransactionCard />;
+          })}
+        </Box>
+      </LoadeingErrorHandler>
     </BoxWithTitle>
   );
 };
