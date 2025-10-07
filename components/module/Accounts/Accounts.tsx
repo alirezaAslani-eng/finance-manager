@@ -2,7 +2,7 @@ import { AccountCard, BoxWithTitle, MuiButton } from "@/components/ui";
 import { Slider } from "@/components/module";
 import { Box, useTheme } from "@mui/material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import React from "react";
+import React, { useContext } from "react";
 // Import Swiper React components
 import { SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -11,14 +11,20 @@ import "swiper/css/navigation";
 // import required modules
 import Link from "next/link";
 import { useBreakePoints, usePaginationArray } from "@/hooks";
+import { GetMeOutput } from "@/types/user.types";
 
 const data = [1, 8, 8, 8, 6, 8, 8, 8];
-// TODO logic => get dynamic data
-function DesktopCards() {
-  const theme = useTheme();
-  const { pagedData } = usePaginationArray(data);
+
+interface MyProps extends Pick<GetMeOutput, "accounts"> {}
+function Accounts({ accounts = [] }: MyProps) {
+  // * Paged 4 item per a slide ===================== >
+  const { pagedData } = usePaginationArray(accounts);
+
   // * Responsive Hook ==================== >
   const { isTablet } = useBreakePoints({ decrease: 200 });
+
+  // * Style ============ >
+  const theme = useTheme();
 
   // *  After Mobile breake point it renders a grid structure  =============== >
   const DesktopContent = pagedData.map((item) => {
@@ -32,19 +38,35 @@ function DesktopCards() {
             gap: "20px",
           }}
         >
-          {item.map((slide) => {
-            return <AccountCard />;
+          {item.map((account) => {
+            return (
+              <AccountCard
+                key={crypto.randomUUID()}
+                accountName={account.accountName}
+                cardNumber={account.cardNumber}
+                currentBalance={account.currentBalance}
+              />
+            );
           })}
         </Box>
       </SwiperSlide>
     );
   });
   // *  Before Desktop breake point it renders a simple list of accounts  =============== >
-  const MobileContent = data.map((item) => {
+  const MobileContent = accounts.map((item) => {
     return (
       <SwiperSlide>
         <Box display={"flex"} justifyContent={"center"}>
-          <AccountCard />
+          {accounts.map((account) => {
+            return (
+              <AccountCard
+                key={crypto.randomUUID()}
+                accountName={account.accountName}
+                cardNumber={account.cardNumber}
+                currentBalance={account.currentBalance}
+              />
+            );
+          })}
         </Box>
       </SwiperSlide>
     );
@@ -93,4 +115,4 @@ function DesktopCards() {
   );
 }
 
-export default DesktopCards;
+export default Accounts;

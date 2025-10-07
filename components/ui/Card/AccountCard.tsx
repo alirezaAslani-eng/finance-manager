@@ -4,11 +4,18 @@ import { Box, Divider, Typography, useTheme } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import React from "react";
 import Link from "next/link";
+import { Account_face } from "@/types/account.types";
 
-interface MyProp {
+interface MyProp
+  extends Pick<Account_face, "accountName" | "cardNumber" | "currentBalance"> {
   onlyInfo?: boolean;
 }
-function AccountCard({ onlyInfo }: MyProp) {
+function AccountCard({
+  onlyInfo,
+  accountName,
+  cardNumber,
+  currentBalance = 0,
+}: MyProp) {
   const theme = useTheme();
   const { palette, alpha } = theme;
 
@@ -55,7 +62,7 @@ function AccountCard({ onlyInfo }: MyProp) {
             color: palette.grey[50],
           }}
         >
-          {"6037 6976 8508 5414"}
+          {cardNumber}
         </Typography>
 
         {/* Owner name =================================> */}
@@ -70,10 +77,10 @@ function AccountCard({ onlyInfo }: MyProp) {
             flexWrap: "wrap",
           }}
         >
-          {`به نام : ${"مریم اصلانی"}`}
+          {`به نام : ${accountName}`}
           {/* // * Current balance =================== > */}
           <TextPrice
-            price={50000000}
+            price={currentBalance}
             normal
             priceProps={{ sx: { fontSize: "20px", color: "grey[50]" } }}
           />
