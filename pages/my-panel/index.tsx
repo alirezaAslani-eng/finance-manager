@@ -1,21 +1,21 @@
 import { Accounts, RecentTransactions } from "@/components/module";
-import { useBreakePoints } from "@/hooks";
-import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
 import { Box } from "@mui/material";
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { transactionServices } from "@/lib/services";
+import { parseDoc } from "@/lib/utils";
+import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import type { GlobalAppProps } from "../_app";
 import type { MainPageProps } from "@/types/pages/mainPage.types";
-import {
-  accountServices,
-  transactionServices,
-  userServices,
-} from "@/lib/services";
-import { parseDoc, redirect } from "@/lib/utils";
-import { GetMeOutput } from "@/types/user.types";
+import { PanelLayout } from "@/layout";
+import { withAuth } from "@/lib/hoc";
+import { useContext } from "react";
+import { AuthContex } from "@/context";
 
 const RecentTransAction_gap = "20px";
 const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
+  const {
+    userInfo: { accounts },
+  } = useContext(AuthContex)!;
   return (
     <Box
       sx={{
@@ -63,7 +63,7 @@ const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
             },
           }}
         >
-          <Accounts />
+          <Accounts accounts={accounts} />
         </Box>
       </Box>
     </Box>
@@ -74,37 +74,22 @@ index.Layout = PanelLayout;
 
 export default index;
 
-const getServerSideProps: GetServerSideProps<
-  GlobalAppProps & MainPageProps
-> = async (context: GetServerSidePropsContext) => {
-  // * Context =================== >
-  const { req } = context;
-
-  // * User Services ================ >>
-  const { getUserInfo } = userServices;
+const ssr: WrappedGetserverSideProps<GlobalAppProps & MainPageProps> = async (
+  _,
+  { user }
+) => {
+  // * Services ================ >>
   const { getRecentTransaction } = transactionServices;
-  const { hasAccount } = accountServices;
-
-  // * Auth User redirect or return userInfo ================= >
-  const userInfo = (await getUserInfo(req.cookies.token)) as GetMeOutput;
-  const isAuth = redirect(!!!userInfo, { destination: "/auth/signin" });
-  if (isAuth) return isAuth;
 
   // * Get Recent Transactions =================== >
-  const recentTransactions = await getRecentTransaction(userInfo._id);
-
-  // * Dose User have Account ============== >
-  const userHasAccount = await hasAccount(userInfo._id);  
-  const has = redirect(!!!userHasAccount, {
-    destination: "/my-panel/init",
-  });
-  if (has) return has;
+  const recentTransactions = await getRecentTransaction(user._id);
 
   return {
     props: {
       recentTransactions: parseDoc(recentTransactions),
-      ssrUserInfo: parseDoc(userInfo),
+      ssrUserInfo: parseDoc(user),
     },
   };
 };
-export { getServerSideProps };
+
+export const getServerSideProps = withAuth(ssr);
