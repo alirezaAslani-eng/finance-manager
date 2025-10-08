@@ -4,47 +4,55 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import type { SelectProps } from "@mui/material/Select";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
+import { Typography, useTheme } from "@mui/material";
 
 // * Types ===================== >
 interface Item {
   value: string;
-  text: string;
+  text: ReactNode;
 }
 interface MyProps {
-  value?: Item[];
-  onChange?: (e: SelectChangeEvent) => any;
+  selectItems?: Item[];
   inputProps?: SelectProps;
+  errorText: string | undefined | null;
 }
 //  * Default Value ======================== >
 const defProp: Partial<MyProps> = {
-  value: [{ text: "", value: "" }],
+  selectItems: [{ text: "", value: "" }],
 };
 
 function MuiSelectInput({
   inputProps,
-  value = defProp.value,
-  onChange = () => {},
+  selectItems = defProp.selectItems,
+  errorText,
 }: MyProps) {
-  const [selectValue, setValue] = useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setValue(event.target.value as string);
-    onChange(event);
-  };
+  const { palette } = useTheme();
 
   return (
-    <FormControl fullWidth>
+    <FormControl
+      fullWidth
+      sx={{ display: "flex", flexDirection: "column", gap: "5px" }}
+    >
       <InputLabel>{inputProps?.label || "label"}</InputLabel>
       <Select
-        value={selectValue}
         label={inputProps?.label || "label"}
-        onChange={handleChange}
+        {...inputProps}
+        error={!!errorText}
       >
-        {value?.map(({ text, value }) => {
-          return <MenuItem value={value}>{text}</MenuItem>;
+        {selectItems?.map(({ text, value }) => {
+          return (
+            <MenuItem key={crypto.randomUUID()} value={value}>
+              {text}
+            </MenuItem>
+          );
         })}
       </Select>
+      {!!errorText && (
+        <Typography component={"span"} sx={{ color: palette.error.main }}>
+          {errorText}
+        </Typography>
+      )}
     </FormControl>
   );
 }
