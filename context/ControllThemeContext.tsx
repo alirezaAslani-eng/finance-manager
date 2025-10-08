@@ -1,5 +1,6 @@
 import { createTheme, GlobalStyles, ThemeProvider } from "@mui/material";
 import { blue, red, grey } from "@mui/material/colors";
+import { CSSProperties } from "@mui/material/styles";
 import {
   PropsWithChildren,
   useCallback,
@@ -30,6 +31,8 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
       return "light";
     });
   }, []);
+
+  //  * == > Overrides
 
   // * == > MuiTheme
   const theme = useMemo(() => {
@@ -77,11 +80,10 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
         MuiCssBaseline: {
           styleOverrides: {
             a: {
-              textDecoration: "none",
-
-              ["&:active"]: {
-                color: "transparent",
-              },
+              ["&"]: {
+                color: "inherit",
+                textDecoration:"none"
+              } as CSSProperties,
             },
           },
         },
@@ -91,7 +93,7 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
               textTransform: "none",
             },
             containedSuccess: {
-              color:grey[50]
+              color: grey[50],
             },
           },
         },
