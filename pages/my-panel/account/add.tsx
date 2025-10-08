@@ -6,15 +6,17 @@ import { useRouter } from "next/router";
 import React from "react";
 import type { GlobalAppProps } from "@/pages/_app";
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useAddccount } from "@/hooks";
 
 interface PageProps {
   isEdit: boolean;
 }
 
 const add: PageComponent<PageProps> = ({ isEdit }) => {
+  const { addAccount } = useAddccount();
   return (
     <Container>
-      <AccountForm edit={isEdit} />
+      <AccountForm edit={isEdit} onSubmit={addAccount} />
     </Container>
   );
 };

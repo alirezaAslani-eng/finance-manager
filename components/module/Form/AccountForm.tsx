@@ -6,6 +6,7 @@ import {
   SwitchButton,
 } from "@/components/ui";
 import { accountSchema, transactionSchema } from "@/lib/validations";
+import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
@@ -14,11 +15,11 @@ import { useForm } from "react-hook-form";
 
 interface MyProps {
   edit?: boolean;
+  onSubmit?: (accountInfo: AccountSchemaType) => Promise<void>;
 }
-function AccountForm({ edit }: MyProps) {
+function AccountForm({ edit, onSubmit }: MyProps) {
   // * Form Handler ======================== >
   const {
-    control,
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -27,7 +28,9 @@ function AccountForm({ edit }: MyProps) {
   });
 
   // * Submiter ======================== >
-  const submiter = async () => {};
+  const submiter = async (form: unknown) => {
+    onSubmit && (await onSubmit(form as AccountSchemaType));
+  };
 
   // * style ================ >
   const { palette } = useTheme();
@@ -58,6 +61,7 @@ function AccountForm({ edit }: MyProps) {
             <MuiTextField
               errorText={errors?.["accountName"]?.message}
               textFieldProps={{
+                disabled: isSubmitting,
                 ...register("accountName"),
                 placeholder: "نام صاحب کارت",
               }}
@@ -68,6 +72,7 @@ function AccountForm({ edit }: MyProps) {
             <MuiTextField
               errorText={errors?.["cardNumber"]?.message}
               textFieldProps={{
+                disabled: isSubmitting,
                 ...register("cardNumber"),
                 placeholder: "شماره کارت (۱۶ رقم)",
               }}
@@ -78,6 +83,7 @@ function AccountForm({ edit }: MyProps) {
             <MuiTextField
               errorText={errors?.["currentBalance"]?.message}
               textFieldProps={{
+                disabled: isSubmitting,
                 ...register("currentBalance", { valueAsNumber: true }),
                 placeholder: "مجودی فعلی حساب",
               }}
@@ -88,6 +94,7 @@ function AccountForm({ edit }: MyProps) {
         <Box sx={{ mt: "20px" }}>
           <MuiButton
             buttonProps={{
+              disabled: isSubmitting,
               size: "large",
               sx: {
                 fontSize: "18px",
