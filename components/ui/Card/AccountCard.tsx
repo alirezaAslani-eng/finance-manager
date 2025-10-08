@@ -7,7 +7,10 @@ import Link from "next/link";
 import { Account_face } from "@/types/account.types";
 
 interface MyProp
-  extends Pick<Account_face, "accountName" | "cardNumber" | "currentBalance"> {
+  extends Pick<
+    Account_face,
+    "accountName" | "cardNumber" | "currentBalance" | "isActive"
+  > {
   onlyInfo?: boolean;
 }
 function AccountCard({
@@ -15,6 +18,7 @@ function AccountCard({
   accountName,
   cardNumber,
   currentBalance = 0,
+  isActive,
 }: MyProp) {
   const theme = useTheme();
   const { palette, alpha } = theme;
@@ -102,12 +106,15 @@ function AccountCard({
           {/* Enable Button ======================== > */}
           <MuiButton
             buttonProps={{
-              variant: "outlined",
+              variant: isActive ? "contained" : "outlined",
               sx: footerButton_sx,
             }}
           >
-            <DoneRoundedIcon />
-            <Typography sx={{ fontSize: "12px" }}>فعال کردن کارت</Typography>
+            {isActive ? (
+              <DoneRoundedIcon />
+            ) : (
+              <Typography sx={{ fontSize: "14px" }}>{"فعال کردن"}</Typography>
+            )}
           </MuiButton>
           {/* Edit Button ============================== > */}
           <Link href={"/my-panel/account/add?edit=1"}>

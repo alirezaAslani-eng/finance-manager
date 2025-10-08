@@ -41,6 +41,7 @@ function Accounts({ accounts = [] }: MyProps) {
           {item.map((account) => {
             return (
               <AccountCard
+                isActive={account.isActive}
                 key={crypto.randomUUID()}
                 accountName={account.accountName}
                 cardNumber={account.cardNumber}
@@ -53,20 +54,17 @@ function Accounts({ accounts = [] }: MyProps) {
     );
   });
   // *  Before Desktop breake point it renders a simple list of accounts  =============== >
-  const MobileContent = accounts.map((item) => {
+  const MobileContent = accounts.map((account) => {
     return (
       <SwiperSlide>
         <Box display={"flex"} justifyContent={"center"}>
-          {accounts.map((account) => {
-            return (
-              <AccountCard
-                key={crypto.randomUUID()}
-                accountName={account.accountName}
-                cardNumber={account.cardNumber}
-                currentBalance={account.currentBalance}
-              />
-            );
-          })}
+          <AccountCard
+            isActive={account.isActive}
+            key={crypto.randomUUID()}
+            accountName={account.accountName}
+            cardNumber={account.cardNumber}
+            currentBalance={account.currentBalance}
+          />
         </Box>
       </SwiperSlide>
     );
