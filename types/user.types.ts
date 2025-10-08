@@ -27,7 +27,7 @@ type GetMeOutput = Pick<
   _id: string;
   accounts: ({ _id: string } & Pick<
     Account_face,
-    "accountName" | "cardNumber" | "currentBalance"
+    "accountName" | "cardNumber" | "currentBalance" | "isActive"
   >)[];
   categories: ({ _id: string } & Pick<Category_face, "name">)[];
 };
