@@ -7,6 +7,10 @@ import type { SxProps } from "@mui/material";
 import { useBreakePoints } from "@/hooks";
 
 interface MyProps {
+  // * Events === >
+  onIncomeClick?: (...args: any) => void;
+  onExpenseClick?: (...args: any) => void;
+  onAllClick?: (...args: any) => void;
   // * render El === >
   allButton?: boolean;
   // * variant of Mui component true = contained & false = outlined === >
@@ -14,12 +18,23 @@ interface MyProps {
   isExpenseActive?: boolean;
   // * buttons type ================= >
   type?: "button" | "submit";
+  inComeDesabled?: boolean;
+  expenseDisabled?: boolean;
+  allDisabled?: boolean;
+  disabled?: boolean;
 }
 function SwitchButton({
   allButton = true,
   isExpenseActive,
   isInComeActive,
+  disabled,
+  allDisabled,
+  expenseDisabled,
+  inComeDesabled,
   type = "button",
+  onAllClick,
+  onExpenseClick,
+  onIncomeClick,
 }: MyProps) {
   // * Breakpoints ===================== >
   const { is_after_600 } = useBreakePoints();
@@ -34,6 +49,17 @@ function SwitchButton({
     alignItems: "center",
     gap: "8px",
   };
+
+  // * Events ================== >
+  const incomeClick = () => {
+    onIncomeClick && onIncomeClick();
+  };
+  const expenseClick = () => {
+    onExpenseClick && onExpenseClick();
+  };
+  const allClick = () => {
+    onAllClick && onAllClick();
+  };
   return (
     <>
       <Box
@@ -42,13 +68,21 @@ function SwitchButton({
       >
         {/* All Button ================== > */}
         {allButton && (
-          <MuiButton buttonProps={{ sx: { ...butto_sx } }}>
+          <MuiButton
+            buttonProps={{
+              onClick: allClick,
+              sx: { ...butto_sx },
+              disabled: allDisabled || disabled,
+            }}
+          >
             <Typography>همه</Typography>
           </MuiButton>
         )}
         {/* Income Button Button ================== > */}
         <MuiButton
           buttonProps={{
+            onClick: incomeClick,
+            disabled: inComeDesabled || disabled,
             variant: isInComeActive ? "contained" : "outlined",
             color: "success",
             sx: { ...butto_sx },
@@ -61,6 +95,8 @@ function SwitchButton({
         {/* Expense Button Button ================== > */}
         <MuiButton
           buttonProps={{
+            onClick: expenseClick,
+            disabled: expenseDisabled || disabled,
             variant: isExpenseActive ? "contained" : "outlined",
             color: "error",
             sx: { ...butto_sx },
