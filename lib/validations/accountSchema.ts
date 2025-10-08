@@ -7,5 +7,7 @@ const accountSchema = object({
   cardNumber: string().regex(/^[0-9]{16}$/, "شماره کارت نا معتبر هست"),
   currentBalance: number().min(0, "مقدار حداقل 0 میتونه باشه"),
 });
+type AccountSchemaType = Infer<typeof accountSchema>;
 
+export type { AccountSchemaType };
 export default accountSchema;
