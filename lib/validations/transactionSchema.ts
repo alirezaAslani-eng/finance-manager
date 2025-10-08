@@ -1,4 +1,5 @@
 import { number, object, string, enum as enum_ } from "zod";
+import type { Infer } from "zod";
 
 const transactionSchema = object({
   amount: number().min(0, "مقدار تراکنش حداقل 0 میتوانه باشه"),
@@ -9,5 +10,7 @@ const transactionSchema = object({
   account: string().nonempty("تراکنش برای کدوم کارت بانکی هست"),
   category: string().nonempty("تراکنش برای کدام دسته بندی هست"),
 });
+type transactionSchemaType = Infer<typeof transactionSchema>;
 
+export type { transactionSchemaType };
 export default transactionSchema;
