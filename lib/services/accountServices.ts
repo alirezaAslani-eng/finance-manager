@@ -4,6 +4,10 @@ import type { InferSchemaType } from "mongoose";
 import { throwError } from "../utils";
 import { ServiceOptions } from "./types/services.types";
 // * Account Schema type ============== >
+type InputAccount_type = Pick<
+  InferSchemaType<typeof account_schema>,
+  "accountName" | "cardNumber" | "currentBalance" | "user"
+>;
 type Account_type = InferSchemaType<typeof account_schema>;
 
 const accountServices = {
@@ -15,12 +19,31 @@ const accountServices = {
     return !!!isUnique;
   },
 
+  async isFirstAccount(userID: string) {
+    await conect();
+    const isFirst = await account_model.findOne({ user: userID });
+    return !!!isFirst;
+  },
+  async findActiveAccount(userID: string) {
+    await conect();
+    const findedAccount = await account_model.findOne(
+      {
+        user: userID,
+        isActive: true,
+      },
+      undefined,
+      { select: "user _id" }
+    );
+    return findedAccount as
+      | (Pick<Account_type, "user"> & { _id: string })
+      | null;
+  },
   createAccount: async function (
-    accountInfo: Account_type,
+    accountInfo: InputAccount_type,
     options: Pick<ServiceOptions, "uniqCheck"> = {}
   ) {
     const { uniqCheck = true } = options;
-    const { cardNumber } = accountInfo;
+    const { cardNumber, user } = accountInfo;
     await conect();
 
     // * cardNumber Field must be Unique ============== >
@@ -33,11 +56,15 @@ const accountServices = {
       });
     }
 
+    // * First user's card must be active =============== >
+    const isActive = await accountServices.isFirstAccount(user as string);
+
     // * Create Query ================ >
     const create_res = await account_model.create({
       ...accountInfo,
       cardNumber: cardNumber.trim(),
-    });
+      isActive,
+    } as Account_type);
     return create_res;
   },
 
@@ -47,7 +74,7 @@ const accountServices = {
     return dl_res;
   },
 
-  async editAccount(_id: any, body: Account_type) {
+  async editAccount(_id: any, body: InputAccount_type) {
     await conect();
     const { cardNumber } = body;
 

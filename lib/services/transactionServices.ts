@@ -9,6 +9,7 @@ import { conect } from "../db";
 import type { InferSchemaType, Document } from "mongoose";
 import { checkExist, throwError } from "../utils";
 import { RecentTransactionType } from "@/types/transaction.types";
+import accountServices from "./accountServices";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -100,10 +101,16 @@ const transactionServices = {
   },
   async getRecentTransaction(userID: string): Promise<RecentTransactionType[]> {
     await conect();
+    // * Find user's actived Account =============== >
+    const { findActiveAccount } = accountServices;
+    const activedAccount = await findActiveAccount(userID);
+
+    // * Get recent transaction based on user's actived acount's _id ========== >
     const recentTransaction = await transaction_model
-      .find({ user: userID }, undefined, {
-        select: "-__v -account -accountBalance",
+      .find({ user: userID, account: activedAccount?._id }, undefined, {
+        select: "-__v -accountBalance -updatedAt",
       })
+      .populate("category")
       .sort({ createdAt: -1 })
       .limit(4)
       .lean<RecentTransactionType[]>();
