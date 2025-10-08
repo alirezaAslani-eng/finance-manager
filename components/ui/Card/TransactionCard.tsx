@@ -8,13 +8,29 @@ import { MuiButton, TextPrice } from "@/components/ui";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import { muiTheme } from "@/utils";
+import { RecentTransactionType } from "@/types/transaction.types";
 
-const TransactionCard = () => {
+type Transaction = Pick<
+  RecentTransactionType,
+  "_id" | "amount" | "category" | "reason" | "createdAt" | "type"
+>;
+interface MyProps extends Transaction {}
+
+const TransactionCard = ({
+  _id,
+  amount = 0,
+  category,
+  createdAt,
+  reason,
+  type,
+}: MyProps) => {
   const theme = useTheme();
   const {
     palette: { grey, mode },
     alpha,
   } = theme;
+  console.log(category);
+  
   return (
     <Card variant="outlined" sx={{ width: "auto", borderRadius: "20px" }}>
       <Box sx={{ p: 2 }}>
@@ -34,11 +50,12 @@ const TransactionCard = () => {
             // * Responsive fontSize ===================== >
             sx={{ fontSize: { xs: "18px", sm: "22px" } }}
           >
-            متن دسته بندی طولانی
+            {category?.name}
           </Typography>
           {/* // * Price ================ > */}
           <TextPrice
-            price={20_000}
+            price={amount}
+            type={type == "0" ? "expense" : "income"}
             // * Responsive fontSize ===================== >
             priceProps={{ sx: { fontSize: { xs: "24px", sm: "26px" } } }}
           />
@@ -54,8 +71,7 @@ const TransactionCard = () => {
             }),
           }}
         >
-          امروز دو کیلو میوه برای مهمونی خریدم که اینم یک مت طولانی و برا تست
-          این ui پنل مدیریت خرج های خونه
+          {reason}
         </Typography>
       </Box>
       <Divider />
@@ -69,7 +85,7 @@ const TransactionCard = () => {
         }}
       >
         <Link
-          href={{ pathname: "/my-panel/transactions/[id]", query: { id: "1" } }}
+          href={{ pathname: "/my-panel/transactions/[id]", query: { id: _id } }}
         >
           <MuiButton
             buttonProps={{
@@ -88,7 +104,7 @@ const TransactionCard = () => {
           </MuiButton>
         </Link>
         {/* Date ===================== > */}
-        <Typography>1404/12/01</Typography>
+        <Typography>{createdAt as string}</Typography>
       </Box>
     </Card>
   );

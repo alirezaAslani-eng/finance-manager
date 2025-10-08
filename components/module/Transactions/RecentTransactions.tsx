@@ -61,8 +61,8 @@ const RecentTransactions = ({
             ...containerProps?.sx,
           }}
         >
-          {recentTransactions.map(({}) => {
-            return <TransactionCard />;
+          {recentTransactions.map((transaction) => {
+            return <TransactionCard {...transaction} />;
           })}
         </Box>
       </LoadeingErrorHandler>
