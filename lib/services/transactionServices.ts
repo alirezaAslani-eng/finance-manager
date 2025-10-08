@@ -26,7 +26,7 @@ const amountHandler = async (
   let amount = 0;
   // * type 0 = spend / type 1 = income ================= >
   if (body.type == "0") {
-    throwError(account.currentBalance <= 0, {
+    throwError(account.currentBalance - body.amount < 0, {
       message:
         "مجودی حساب برای ثبت تراکنش کافی نمیباشد لطفا مجودی فعلی را افزایش دهید",
       statusCode: 400,
