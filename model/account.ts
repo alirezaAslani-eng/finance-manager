@@ -14,6 +14,14 @@ type schemaType = Omit<Account_face, "user"> & overridedType;
 
 const account_schema = new Schema<schemaType>(
   {
+    currentBalance: { type: Number, required: true, min: 0 },
+    isActive: {
+      type: Boolean,
+      required: true,
+    },
+    user: {
+      type: Types.ObjectId,
+    },
     accountName: {
       type: String,
       required: true,
@@ -25,10 +33,6 @@ const account_schema = new Schema<schemaType>(
       required: true,
       match: /^[0-9]{16}$/,
       unique: true,
-    },
-    currentBalance: { type: Number, required: true, min: 0 },
-    user: {
-      type: Types.ObjectId,
     },
   },
   { timestamps: true }
