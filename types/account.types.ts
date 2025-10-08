@@ -1,6 +1,7 @@
 import { User_face } from "./user.types";
 
 interface Account_face {
+  isActive: boolean;
   accountName: string;
   cardNumber: string;
   currentBalance: number;
