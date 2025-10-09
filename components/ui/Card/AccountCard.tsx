@@ -12,6 +12,7 @@ interface MyProp
     "accountName" | "cardNumber" | "currentBalance" | "isActive"
   > {
   onlyInfo?: boolean;
+  _id: string;
 }
 function AccountCard({
   onlyInfo,
@@ -19,6 +20,7 @@ function AccountCard({
   cardNumber,
   currentBalance = 0,
   isActive,
+  _id,
 }: MyProp) {
   const theme = useTheme();
   const { palette, alpha } = theme;
@@ -117,7 +119,7 @@ function AccountCard({
             )}
           </MuiButton>
           {/* Edit Button ============================== > */}
-          <Link href={"/my-panel/account/add?edit=1"}>
+          <Link href={`/my-panel/account/add?edit=${_id}`}>
             <MuiButton
               buttonProps={{
                 variant: "outlined",

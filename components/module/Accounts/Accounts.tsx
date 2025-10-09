@@ -41,6 +41,7 @@ function Accounts({ accounts = [] }: MyProps) {
           {item.map((account) => {
             return (
               <AccountCard
+                _id={account._id}
                 isActive={account.isActive}
                 key={crypto.randomUUID()}
                 accountName={account.accountName}
@@ -59,6 +60,7 @@ function Accounts({ accounts = [] }: MyProps) {
       <SwiperSlide>
         <Box display={"flex"} justifyContent={"center"}>
           <AccountCard
+            _id={account._id}
             isActive={account.isActive}
             key={crypto.randomUUID()}
             accountName={account.accountName}
