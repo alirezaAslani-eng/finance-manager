@@ -47,7 +47,6 @@ const handler: handler_type = async (req, res) => {
         accountName,
         cardNumber,
         currentBalance,
-        user: payloadInfo._id,
       }); // ! Might throw Error <<<<<<<<
       return res.status(204).json(""); // ? RESPONSE <<<-------
     }

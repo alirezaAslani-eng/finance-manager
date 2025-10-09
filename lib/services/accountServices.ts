@@ -4,6 +4,7 @@ import { isValidObjectId, type InferSchemaType } from "mongoose";
 import { parseDoc, throwError } from "../utils";
 import { ServiceOptions } from "./types/services.types";
 import { AccountSchemaType } from "../validations/accountSchema";
+import { getChangedKeys } from "@/utils";
 // * Account Schema type ============== >
 type InputAccount_type = Pick<
   InferSchemaType<typeof account_schema>,
@@ -75,25 +76,32 @@ const accountServices = {
     return dl_res;
   },
 
-  async editAccount(_id: any, body: InputAccount_type) {
+  async editAccount(_id: any, body: Omit<InputAccount_type, "user">) {
     await conect();
-    const { cardNumber } = body;
-
-    // * cardNumber Field must be Unique ============== >
-    const isUnique = await accountServices.isUniqueCardNumber(cardNumber);
-    throwError(!isUnique, {
-      message: "شماره کارت صحیح نمیباشد",
-      statusCode: 409,
-      type: "client",
+    // * find the document that will be updated because we need to check which field has updated value ============= >
+    const willEdit = await account_model.findOne({ _id }, undefined, {
+      select: "cardNumber accountName currentBalance",
     });
+    // * Updated Keys ===================== >
+    const updatedFields = getChangedKeys(parseDoc(willEdit), body);
+
+    // * Check unique if user changed card number ============== >
+    if (updatedFields?.cardNumber) {
+      // * cardNumber Field must be Unique ============== >
+      const isUnique = await accountServices.isUniqueCardNumber(
+        updatedFields.cardNumber
+      );
+      throwError(!isUnique, {
+        message: "شماره کارت صحیح نمیباشد",
+        statusCode: 409,
+        type: "client",
+      });
+    }
 
     // * Edit Query ================== >
     const edit_res = await account_model.findOneAndUpdate(
       { _id },
-      {
-        ...body,
-        cardNumber: cardNumber.trim(),
-      }
+      updatedFields
     );
     return edit_res;
   },
