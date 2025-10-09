@@ -39,6 +39,11 @@ const AuthProvider = ({
       role: "USER",
     } // * User Info comes from SSR or CSR
   );
+  //  * if user info comes from server by client navigations ====== >
+  useEffect(() => {
+    if (!ssrUserInfo) return;
+    setUserInfo(ssrUserInfo);
+  }, [ssrUserInfo]);
 
   // * Login state ============================ >
   const [isLogin, setIslogin] = useState<boolean>(false);

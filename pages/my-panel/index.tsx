@@ -88,7 +88,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps & MainPageProps> = async (
   return {
     props: {
       recentTransactions: parseDoc(recentTransactions),
-      ssrUserInfo: parseDoc(user),
+      ssrUserInfo: user,
     },
   };
 };
