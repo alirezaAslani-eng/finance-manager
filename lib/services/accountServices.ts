@@ -1,8 +1,9 @@
 import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
-import type { InferSchemaType } from "mongoose";
-import { throwError } from "../utils";
+import { isValidObjectId, type InferSchemaType } from "mongoose";
+import { parseDoc, throwError } from "../utils";
 import { ServiceOptions } from "./types/services.types";
+import { AccountSchemaType } from "../validations/accountSchema";
 // * Account Schema type ============== >
 type InputAccount_type = Pick<
   InferSchemaType<typeof account_schema>,
@@ -99,8 +100,12 @@ const accountServices = {
 
   async getOneAccount(_id: any) {
     await conect();
-    const get_res = await account_model.findOne({ _id });
-    return get_res;
+    const isValidId = isValidObjectId(_id);
+    if (!isValidId) return null;
+    const get_res = await account_model.findOne({ _id }, undefined, {
+      select: "accountName cardNumber currentBalance -_id",
+    });
+    return get_res as AccountSchemaType | null;
   },
   async hasAccount(userID: string) {
     const userHasAccount = await account_model.findOne({ user: userID });
