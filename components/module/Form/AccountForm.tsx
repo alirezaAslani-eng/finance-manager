@@ -1,11 +1,5 @@
-import {
-  AccountCard,
-  MuiButton,
-  MuiSelectInput,
-  MuiTextField,
-  SwitchButton,
-} from "@/components/ui";
-import { accountSchema, transactionSchema } from "@/lib/validations";
+import { MuiButton, MuiTextField } from "@/components/ui";
+import { accountSchema } from "@/lib/validations";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,21 +10,31 @@ import { useForm } from "react-hook-form";
 interface MyProps {
   edit?: boolean;
   onSubmit?: (accountInfo: AccountSchemaType) => Promise<void>;
+  defaultValues?: AccountSchemaType;
 }
-function AccountForm({ edit, onSubmit }: MyProps) {
+function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
   // * Form Handler ======================== >
   const {
+    getValues,
+    reset,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
     handleSubmit,
   } = useForm({
     resolver: zodResolver(accountSchema),
+    defaultValues,
   });
 
   // * Submiter ======================== >
   const submiter = async (form: unknown) => {
     onSubmit && (await onSubmit(form as AccountSchemaType));
+    // * make form dirty after edit ================== >
+    if (edit) {
+      reset(getValues());
+    }
   };
+ 
+  
 
   // * style ================ >
   const { palette } = useTheme();
@@ -92,19 +96,21 @@ function AccountForm({ edit, onSubmit }: MyProps) {
         </Grid>
         {/* Submit Button ===================== > */}
         <Box sx={{ mt: "20px" }}>
-          <MuiButton
-            buttonProps={{
-              disabled: isSubmitting,
-              size: "large",
-              sx: {
-                fontSize: "18px",
-                width: { xs: "100%", _600: "fit-content" },
-              },
-              type: "submit",
-            }}
-          >
-            {edit ? "ثبت تغیرات" : "ثبت کارت جدید"}
-          </MuiButton>
+          {(edit ? isDirty : true) && (
+            <MuiButton
+              buttonProps={{
+                disabled: isSubmitting,
+                size: "large",
+                sx: {
+                  fontSize: "18px",
+                  width: { xs: "100%", _600: "fit-content" },
+                },
+                type: "submit",
+              }}
+            >
+              {edit ? "ثبت تغیرات" : "ثبت کارت جدید"}
+            </MuiButton>
+          )}
         </Box>
       </Box>
     </Box>
