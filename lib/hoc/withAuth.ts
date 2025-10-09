@@ -1,7 +1,7 @@
 import { GlobalAppProps } from "@/pages/_app";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { accountServices, userServices } from "../services";
-import { redirect } from "../utils";
+import { parseDoc, redirect } from "../utils";
 import { GetMeOutput } from "@/types/user.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 
@@ -26,7 +26,7 @@ const withAuth = (ssr: WrappedGetserverSideProps): GetServerSideProps => {
     });
     if (has) return has;
 
-    return ssr(context, { user: userInfo });
+    return ssr(context, { user: parseDoc(userInfo) });
   };
   return wrraped;
 };
