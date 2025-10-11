@@ -39,7 +39,6 @@ function useRecentTransactions(
     initialData: initialData ?? undefined,
   });
 
-  console.log(data);
   
   // * Client Set data or update real-time ================== >
   useEffect(() => {

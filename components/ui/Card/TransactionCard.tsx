@@ -29,7 +29,6 @@ const TransactionCard = ({
     palette: { grey, mode },
     alpha,
   } = theme;
-  console.log(category);
   
   return (
     <Card variant="outlined" sx={{ width: "auto", borderRadius: "20px" }}>

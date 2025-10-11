@@ -1,6 +1,6 @@
 import { object } from "zod";
 import type { Infer } from "zod";
-import accountSchema from "./accountSchema";
+import {accountSchema} from "./accountSchema";
 import categorySchema from "./categorySchema";
 
 const initSchema = object({
