@@ -40,6 +40,27 @@ const accountServices = {
       | (Pick<Account_type, "user"> & { _id: string })
       | null;
   },
+  async changeActiveAccount(userID: string, accountID: string) {
+    await conect();
+    //  * Find previous Actived Account and unActive it=================== >
+    const prevActive = await account_model
+      .findOneAndUpdate(
+        {
+          user: userID,
+          isActive: true,
+        } as Partial<Account_type>,
+        { isActive: false } as Partial<Account_type>
+      )
+      .lean();
+    // * Active requested account ==================== >
+    const activedAccount = await account_model.findOneAndUpdate(
+      {
+        _id: accountID,
+        user: userID,
+      } as Partial<Account_type> & { _id: string },
+      { isActive: true } as Partial<Account_type>
+    );
+  },
   createAccount: async function (
     accountInfo: InputAccount_type,
     options: Pick<ServiceOptions, "uniqCheck"> = {}
