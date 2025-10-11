@@ -33,8 +33,6 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
       reset(getValues());
     }
   };
- 
-  
 
   // * style ================ >
   const { palette } = useTheme();
@@ -61,7 +59,7 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
       <Box onSubmit={handleSubmit(submiter)} component={"form"}>
         <Grid container spacing={2}>
           {/* Owner's name Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
+          <Grid size={{ xs: 12, _600: edit ? 6 : 4 }}>
             <MuiTextField
               errorText={errors?.["accountName"]?.message}
               textFieldProps={{
@@ -72,7 +70,7 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
             />
           </Grid>
           {/* Card Number Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
+          <Grid size={{ xs: 12, _600: edit ? 6 : 4 }}>
             <MuiTextField
               errorText={errors?.["cardNumber"]?.message}
               textFieldProps={{
@@ -83,16 +81,18 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
             />
           </Grid>
           {/* Current Balance Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
-            <MuiTextField
-              errorText={errors?.["currentBalance"]?.message}
-              textFieldProps={{
-                disabled: isSubmitting,
-                ...register("currentBalance", { valueAsNumber: true }),
-                placeholder: "مجودی فعلی حساب",
-              }}
-            />
-          </Grid>
+          {!edit && (
+            <Grid size={{ xs: 12, _600: 4 }}>
+              <MuiTextField
+                errorText={errors?.["currentBalance"]?.message}
+                textFieldProps={{
+                  disabled: isSubmitting,
+                  ...register("currentBalance", { valueAsNumber: true }),
+                  placeholder: "مجودی فعلی حساب",
+                }}
+              />
+            </Grid>
+          )}
         </Grid>
         {/* Submit Button ===================== > */}
         <Box sx={{ mt: "20px" }}>
