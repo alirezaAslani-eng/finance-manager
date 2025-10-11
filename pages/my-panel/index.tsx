@@ -10,9 +10,16 @@ import { PanelLayout } from "@/layout";
 import { withAuth } from "@/lib/hoc";
 import { useContext } from "react";
 import { AuthContex } from "@/context";
+import {useRecentTransactions} from "@/hooks";
 
 const RecentTransAction_gap = "20px";
 const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
+
+  // * Recent Transactions ===================== >
+  const { transactions } = useRecentTransactions({
+    initialData: recentTransactions, // * SSR Data <<
+  });
+
   const {
     userInfo: { accounts },
   } = useContext(AuthContex)!;
@@ -49,7 +56,7 @@ const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
           }}
         >
           <RecentTransactions
-            recentTransactions={recentTransactions}
+            recentTransactions={transactions}
             containerProps={{ sx: { gap: RecentTransAction_gap } }}
           />
         </Box>
