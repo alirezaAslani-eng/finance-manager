@@ -74,7 +74,7 @@ const AuthProvider = ({
     // * user is authorized successfully =================>
     setIslogin(true);
     setUserInfo(data as GetMeOutput);
-  }, [isLoading, isError]);
+  }, [isLoading, isError,data]);
 
   return (
     <AuthContex.Provider value={{ setInfo, userInfo, isLogin, refetchMe }}>
