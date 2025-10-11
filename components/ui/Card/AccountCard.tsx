@@ -5,6 +5,7 @@ import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import React from "react";
 import Link from "next/link";
 import { Account_face } from "@/types/account.types";
+import { useActiveAccount } from "@/hooks";
 
 interface MyProp
   extends Pick<
@@ -13,6 +14,8 @@ interface MyProp
   > {
   onlyInfo?: boolean;
   _id: string;
+  // * Events ======= >
+  onEnable?: (_id: string) => void;
 }
 function AccountCard({
   onlyInfo,
@@ -21,10 +24,11 @@ function AccountCard({
   currentBalance = 0,
   isActive,
   _id,
+  onEnable = () => {},
 }: MyProp) {
+  // * Style ===================== >
   const theme = useTheme();
   const { palette, alpha } = theme;
-
   const footerButton_sx = {
     ...theme.custom.resetButton,
     borderRadius: "999px",
@@ -33,6 +37,12 @@ function AccountCard({
     alignItems: "center",
     gap: "5px",
   };
+
+  // * Events =============== >
+  const enable = () => {
+    onEnable(_id);
+  };
+
   return (
     <Box
       sx={{
@@ -108,6 +118,7 @@ function AccountCard({
           {/* Enable Button ======================== > */}
           <MuiButton
             buttonProps={{
+              onClick: enable,
               variant: isActive ? "contained" : "outlined",
               sx: footerButton_sx,
             }}

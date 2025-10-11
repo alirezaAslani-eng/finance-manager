@@ -2,7 +2,7 @@ import { AccountCard, BoxWithTitle, MuiButton } from "@/components/ui";
 import { Slider } from "@/components/module";
 import { Box, useTheme } from "@mui/material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 // Import Swiper React components
 import { SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 // import required modules
 import Link from "next/link";
-import { useBreakePoints, usePaginationArray } from "@/hooks";
+import { useActiveAccount, useBreakePoints, usePaginationArray } from "@/hooks";
 import { GetMeOutput } from "@/types/user.types";
 
 const data = [1, 8, 8, 8, 6, 8, 8, 8];
@@ -23,54 +23,70 @@ function Accounts({ accounts = [] }: MyProps) {
   // * Responsive Hook ==================== >
   const { isTablet } = useBreakePoints({ decrease: 200 });
 
+  // * Enable Account Hook ====================== >
+  const { activeAccount } = useActiveAccount();
+
   // * Style ============ >
   const theme = useTheme();
 
+  // * Enable Handler ================= >
+  const enableHandler = (_id: string) => {
+    activeAccount({ _id });
+  };
+
   // *  After Mobile breake point it renders a grid structure  =============== >
-  const DesktopContent = pagedData.map((item) => {
-    return (
-      <SwiperSlide>
-        <Box
-          display={"grid"}
-          sx={{
-            gridTemplateColumns: "repeat(2,1fr)",
-            mt: "20px",
-            gap: "20px",
-          }}
-        >
-          {item.map((account) => {
-            return (
-              <AccountCard
-                _id={account._id}
-                isActive={account.isActive}
-                key={crypto.randomUUID()}
-                accountName={account.accountName}
-                cardNumber={account.cardNumber}
-                currentBalance={account.currentBalance}
-              />
-            );
-          })}
-        </Box>
-      </SwiperSlide>
-    );
-  });
+  const DesktopContent = useMemo(
+    () =>
+      pagedData.map((item) => {
+        return (
+          <SwiperSlide>
+            <Box
+              display={"grid"}
+              sx={{
+                gridTemplateColumns: "repeat(2,1fr)",
+                mt: "20px",
+                gap: "20px",
+              }}
+            >
+              {item.map((account) => {
+                return (
+                  <AccountCard
+                    onEnable={enableHandler}
+                    _id={account._id}
+                    isActive={account.isActive}
+                    key={crypto.randomUUID()}
+                    accountName={account.accountName}
+                    cardNumber={account.cardNumber}
+                    currentBalance={account.currentBalance}
+                  />
+                );
+              })}
+            </Box>
+          </SwiperSlide>
+        );
+      }),
+    [pagedData, accounts]
+  );
   // *  Before Desktop breake point it renders a simple list of accounts  =============== >
-  const MobileContent = accounts.map((account) => {
-    return (
-      <SwiperSlide>
-        <Box display={"flex"} justifyContent={"center"}>
-          <AccountCard
-            _id={account._id}
-            isActive={account.isActive}
-            key={crypto.randomUUID()}
-            accountName={account.accountName}
-            cardNumber={account.cardNumber}
-            currentBalance={account.currentBalance}
-          />
-        </Box>
-      </SwiperSlide>
-    );
-  });
+  const MobileContent = useMemo(() => {
+    return accounts.map((account) => {
+      return (
+        <SwiperSlide>
+          <Box display={"flex"} justifyContent={"center"}>
+            <AccountCard
+              onEnable={enableHandler}
+              _id={account._id}
+              isActive={account.isActive}
+              key={crypto.randomUUID()}
+              accountName={account.accountName}
+              cardNumber={account.cardNumber}
+              currentBalance={account.currentBalance}
+            />
+          </Box>
+        </SwiperSlide>
+      );
+    });
+  }, [accounts]);
 
   return (
     <BoxWithTitle
@@ -115,4 +131,4 @@ function Accounts({ accounts = [] }: MyProps) {
   );
 }
 
-export default Accounts;
+export default React.memo(Accounts);
