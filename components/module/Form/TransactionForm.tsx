@@ -10,9 +10,9 @@ import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
   edit?: boolean;
-  onSubmit: (info: transactionSchemaType) => Promise<void>;
+  onSubmit?: (info: transactionSchemaType) => Promise<void>;
 }
-function TransactionForm({ edit, onSubmit }: MyProps) {
+function TransactionForm({ edit, onSubmit = async () => {} }: MyProps) {
   // * Form Handler ======================== >
   const {
     control,
@@ -35,7 +35,7 @@ function TransactionForm({ edit, onSubmit }: MyProps) {
 
   // * Submiter ======================== >
   const submiter = async (form: unknown) => {
-    onSubmit && (await onSubmit(form as transactionSchemaType));
+    await onSubmit(form as transactionSchemaType);
   };
 
   //  * Input select options ========================== >

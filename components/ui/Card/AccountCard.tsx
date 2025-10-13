@@ -8,12 +8,14 @@ import { Account_face } from "@/types/account.types";
 import { useActiveAccount } from "@/hooks";
 
 interface MyProp
-  extends Pick<
-    Account_face,
-    "accountName" | "cardNumber" | "currentBalance" | "isActive"
+  extends Partial<
+    Pick<
+      Account_face,
+      "accountName" | "cardNumber" | "currentBalance" | "isActive"
+    >
   > {
   onlyInfo?: boolean;
-  _id: string;
+  _id?: string;
   // * Events ======= >
   onEnable?: (_id: string) => void;
 }
@@ -40,7 +42,7 @@ function AccountCard({
 
   // * Events =============== >
   const enable = () => {
-    onEnable(_id);
+    onEnable(_id || "");
   };
 
   return (
@@ -96,7 +98,7 @@ function AccountCard({
           {`به نام : ${accountName}`}
           {/* // * Current balance =================== > */}
           <TextPrice
-            price={currentBalance}
+            price={currentBalance || 0}
             normal
             priceProps={{ sx: { fontSize: "20px", color: "grey[50]" } }}
           />
