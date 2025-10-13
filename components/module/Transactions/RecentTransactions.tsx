@@ -14,7 +14,6 @@ interface myProp {
   containerProps?: BoxProps;
   recentTransactions: RecentTransactionType[];
 }
-// TODO logic of showing and transactions and get theme from server
 const RecentTransactions = ({
   containerProps,
   recentTransactions = [],
@@ -40,7 +39,9 @@ const RecentTransactions = ({
         dataCheck={{
           check: !!recentTransactions.length,
           error: (
+        
             <NoData
+            containerProps={{sx:{py:"20px"}}}
               buttonText="ایجاد اولین تراکنش"
               noDataText="هنوز تراکنشی ایجاد نشده"
               link="/my-panel/transactions/add"

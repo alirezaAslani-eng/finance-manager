@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import noDataPic from "@/assets/images/icons/noTransaction.png";
 import { Box, Typography, useTheme } from "@mui/material";
+import type { BoxProps } from "@mui/material";
 import MuiButton from "../Button/MuiButton";
 import Link from "next/link";
 import { muiTheme } from "@/utils";
@@ -10,11 +11,13 @@ interface MyProp {
   noDataText?: string;
   link?: string;
   buttonText?: string;
+  containerProps?: BoxProps;
 }
 function NoData({
   noDataText = "اطلاعاتی وجود ندارد",
   buttonText = "ایجاد اطلاعات",
   link = "/",
+  containerProps = {},
 }: MyProp) {
   // * Style ==================== >
   const theme = useTheme();
@@ -23,18 +26,17 @@ function NoData({
   } = theme;
   return (
     <Box
+      {...containerProps}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         gap: "20px",
+        height: "100%",
+        ...containerProps?.sx,
       }}
     >
-      {/* // * Icon =========================== > */}
-      <Box sx={{ width: "200px", height: "200px", position: "relative" }}>
-        <Image style={{ objectFit: "cover" }} src={noDataPic} alt="" fill />
-      </Box>
       {/* //  * Text =========================== > */}
       <Typography
         component={"span"}
@@ -54,7 +56,7 @@ function NoData({
               ...theme.custom.resetButton,
               borderRadius: "999px",
               p: "15px",
-              fontSize:"18px"
+              fontSize: "18px",
             },
           }}
         >
