@@ -92,10 +92,8 @@ function TransactionDetalCard({
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            mt: "10px",
             justifyContent: "end",
+            mt: "10px",
           }}
         >
           {/* // * Edit ====================== > */}
@@ -113,20 +111,6 @@ function TransactionDetalCard({
               <ModeRoundedIcon />
             </MuiButton>
           </Link>
-          {/* // * Remove ============================= > */}
-          <MuiButton
-            buttonProps={{
-              variant: "outlined",
-              color: "error",
-              sx: {
-                ...theme.custom.resetButton,
-                p: "10px",
-                borderRadius: "999px",
-              },
-            }}
-          >
-            <DeleteRoundedIcon />
-          </MuiButton>
         </Box>
       </CardContent>
     </Card>
