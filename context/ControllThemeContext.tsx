@@ -75,6 +75,12 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
         h1: {
           fontFamily: "var(--peyda-md)",
         },
+        subtitle1: {
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 2,
+          overflow: "hidden",
+        },
       },
       components: {
         MuiCssBaseline: {
@@ -82,7 +88,7 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
             a: {
               ["&"]: {
                 color: "inherit",
-                textDecoration:"none"
+                textDecoration: "none",
               } as CSSProperties,
             },
           },
