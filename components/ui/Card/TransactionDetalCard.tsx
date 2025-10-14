@@ -11,23 +11,32 @@ import type { CardProps } from "@mui/material";
 import MuiButton from "../Button/MuiButton";
 import ModeRoundedIcon from "@mui/icons-material/ModeRounded";
 import Link from "next/link";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 interface MyProps {
-  amount: number;
-  balance: number;
-  type: "expense" | "income"; // deposit یا withdraw
+  _id?: string;
+  amount?: number;
+  balance?: number;
+  type?: "expense" | "income";
+  date?: string;
+  houre?: string;
+  accountNumber?: string;
   cardProps?: CardProps;
 }
 function TransactionDetalCard({
   amount = 8000000000,
   balance = 200_000,
   type = "expense",
+  _id = "",
   cardProps,
+  date = "1404/04/09",
+  houre = "2 عصر",
+  accountNumber = "",
 }: Partial<MyProps>) {
   const theme = useTheme();
   const {
     alpha,
-    palette: { success, error },
+    palette: { success, error, primary },
   } = theme;
   //  * State Color =============== >
   const amountColor = type == "income" ? success.main : error.main;
@@ -44,13 +53,7 @@ function TransactionDetalCard({
     >
       <CardContent>
         {/* Price ====================== > */}
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          flexWrap={"wrap"}
-          mb={2}
-        >
+        <Box mb={2}>
           <Typography
             variant="h1"
             color={amountColor}
@@ -58,22 +61,6 @@ function TransactionDetalCard({
           >
             {type === "income" ? "+" : "-"} {amount.toLocaleString()} {"تومان"}
           </Typography>
-          {/* Edit Button ============================= > */}
-          <Link href={"/my-panel/transactions/1?edit=true"}>
-            <MuiButton
-              buttonProps={{
-                variant: "text",
-                sx: {
-                  ...theme.custom.resetButton,
-                  p: "10px",
-                  color: amountColor,
-                },
-              }}
-            >
-              {"ویرایش"}
-              <ModeRoundedIcon />
-            </MuiButton>
-          </Link>
         </Box>
         {/* Current Balance ========================== > */}
         <Typography>
@@ -83,15 +70,64 @@ function TransactionDetalCard({
           </Typography>{" "}
           {"تومان"}
         </Typography>
+        {/* Acccount number ================= > */}
+        <Typography mt={"10px"}>
+          {type == "expense" ? "از حساب" : "به حساب"}
+          {" : "}
+          <Typography component={"span"} color="primary">
+            {accountNumber
+              .replace(/(.{4})(?=.)/g, "$1-")
+              .split("-")
+              .reverse()
+              .join("-")}
+          </Typography>
+        </Typography>
         <Divider sx={{ my: "10px" }} />
         {/* Date ========================== > */}
-        <Typography>تاریخ : {"1404/12/13"}</Typography>
-        <Divider sx={{ my: "10px" }} />
-        {/* Day ========================== > */}
-        <Typography>روز : {"دو شنبه"}</Typography>
+        <Typography>تاریخ : {date}</Typography>
         <Divider sx={{ my: "10px" }} />
         {/* Time ========================== > */}
-        <Typography>ساعت : {"22:44"}</Typography>
+        <Typography>ساعت : {houre}</Typography>
+        {/* Edit and Remove Button ============================= > */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            mt: "10px",
+            justifyContent: "end",
+          }}
+        >
+          {/* // * Edit ====================== > */}
+          <Link href={`/my-panel/transactions/${_id}?edit=true`}>
+            <MuiButton
+              buttonProps={{
+                variant: "outlined",
+                sx: {
+                  ...theme.custom.resetButton,
+                  p: "10px",
+                  borderRadius: "999px",
+                },
+              }}
+            >
+              <ModeRoundedIcon />
+            </MuiButton>
+          </Link>
+          {/* // * Remove ============================= > */}
+          <MuiButton
+            buttonProps={{
+              variant: "outlined",
+              color: "error",
+              sx: {
+                ...theme.custom.resetButton,
+                p: "10px",
+                borderRadius: "999px",
+              },
+            }}
+          >
+            <DeleteRoundedIcon />
+          </MuiButton>
+        </Box>
       </CardContent>
     </Card>
   );
