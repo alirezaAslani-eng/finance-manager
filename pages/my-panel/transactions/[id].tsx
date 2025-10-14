@@ -5,15 +5,36 @@ import { PanelLayout } from "@/layout";
 import { AccountCard, TransactionDetalCard } from "@/components/ui";
 import { muiTheme } from "@/utils";
 import { TransactionForm } from "@/components/module";
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import type { GlobalAppProps } from "@/pages/_app";
+import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
+import type { WrappedGetserverSideProps } from "@/types/ssr.types";
+import { withAuth } from "@/lib/hoc";
+import { transactionServices } from "@/lib/services";
+import { check_id, checkOwnerOf, parseDoc, redirect } from "@/lib/utils";
+import { transaction_model } from "@/model";
+import type { GetOneTransactionServiceType } from "@/lib/services/types/services.types";
 
-interface PageProps {
-  // * is content editable or readonly ================= >
-  isEditable: boolean;
-}
-const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
+const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
+  isEditable,
+  transactionInfo,
+}) => {
   const { palette } = useTheme();
+
+  // * transaction Info from SSR ================= >
+  const {
+    _id,
+    account,
+    accountBalance,
+    amount,
+    category,
+    createdAt,
+    reason,
+    type,
+  } = transactionInfo;
+
+  const date = new Date(createdAt).toLocaleString("fa-IR", {
+    timeZone: "Asia/Tehran",
+  });
   return (
     <Container sx={{ pt: "30px" }}>
       {isEditable ? (
@@ -23,15 +44,16 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
         // * Show Transaction's info ===================== >
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, lg: 4 }}>
-            {/* Important Details ================ > */}
-            <TransactionDetalCard />
-            {/* Accout Card ========================== > */}
-            <Box sx={{ mt: "20px" }}>
-              <Typography variant="h1" sx={{ fontSize: "26px", mb: "20px" }}>
-                {"از حساب : "}
-              </Typography>
-              <AccountCard onlyInfo />
-            </Box>
+            {/* //* Important Details ================ > */}
+            <TransactionDetalCard
+              _id={_id}
+              amount={amount}
+              balance={accountBalance}
+              type={type == "0" ? "expense" : "income"}
+              accountNumber={account.cardNumber}
+              date={date.split(",")[0]}
+              houre={date.split(",")[1]}
+            />
           </Grid>
           {/* Description ===================== >*/}
           <Grid size={{ xs: 12, lg: 8 }}>
@@ -46,7 +68,7 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
                 }),
               }}
             >
-              {"متن دسته بندی"}
+              {category.name}
             </Typography>
             {/* Description ================== > */}
             <Typography
@@ -59,7 +81,7 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
                 }),
               }}
             >
-              {`این افسانه‌ی ژاپنی به زیبایی مفهوم «پایداری در چرخه‌ی تغییرات» را نشان می‌دهد. در فرهنگ‌های شرقی، طبیعت اغلب آینه‌ای برای درک زندگی است؛ درست مانند درخت که با هر برگ‌ریزان، نه پایان که نوید تولدی دوباره را می‌دهد. این یادآور می‌شود که هر کاهشی، بستر رشد تازه‌ای است و امید همواره در پس هر تحولی جای دارد.`}
+              {reason}
             </Typography>
           </Grid>
         </Grid>
@@ -71,11 +93,45 @@ const TransactionDetails: PageComponent<PageProps> = ({ isEditable }) => {
 TransactionDetails.Layout = PanelLayout;
 export default TransactionDetails;
 
-export const getServerSideProps: GetServerSideProps<
-  GlobalAppProps & PageProps
-> = async (context: GetServerSidePropsContext) => {
-  const { query } = context;
+const ssr: WrappedGetserverSideProps<
+  GlobalAppProps & TransactionInfoPageProps
+> = async (context, { user }) => {
+  const { query, params } = context;
+
+  // * dynamic id =============== >
+  const _id = params?.id as string;
+
+  // * check _id ============== >
+  const isValid_id = await check_id({ _id, model: transaction_model });
+  const redirectOfId = redirect(!isValid_id, { destination: "/404" }); // ! redirect 404 <<<
+  if (redirectOfId) return redirectOfId;
+
+  // * Services ====================== >
+  const { getOneTransaction } = transactionServices;
+
+  // * user must be owner of this info ============= >
+  const isAccessTo = await checkOwnerOf(
+    {
+      modelID: _id,
+      mustBeOwnerOf: transaction_model,
+      userId: user._id,
+    },
+    { autoError: false }
+  );
+  const isAccess = redirect(!isAccessTo, { destination: "/404" }); // ! redirect 404 <<<
+  if (isAccess) return isAccess;
+
+  // * get info of transaction ================== >
+  const info = await getOneTransaction(params?.id as string);
+
   return {
-    props: { isEditable: query.edit === "true" },
+    props: {
+      isEditable: query.edit === "true",
+      transactionInfo: parseDoc(info!),
+    },
   };
 };
+
+export const getServerSideProps = withAuth(ssr, {
+  checkHasAccount: false,
+});
