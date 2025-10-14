@@ -6,10 +6,11 @@ import {
   transaction_schema,
 } from "@/model";
 import { conect } from "../db";
-import type { InferSchemaType, Document } from "mongoose";
+import type { InferSchemaType } from "mongoose";
 import { checkExist, throwError } from "../utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import accountServices from "./accountServices";
+import { GetOneTransactionServiceType } from "./types/services.types";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -90,13 +91,18 @@ const transactionServices = {
 
     const get_res = await transaction_model
       .find({ user: userID }, "-__v")
-      .populate({ path: "user", select: "fullName" })
       .populate({ path: "account", select: "-__v" });
     return get_res;
   },
-  async getOneTransaction(_id: any) {
+  async getOneTransaction(
+    _id: any
+  ): Promise<GetOneTransactionServiceType | null> {
     await conect();
-    const get_res = await transaction_model.findOne({ _id });
+    const get_res = await transaction_model
+      .findOne({ _id }, undefined, { select: "-__v" })
+      .populate({ path: "account", select: "-createdAt -updatedAt -__v" })
+      .populate({ path: "category", select: "-createdAt -updatedAt -__v" })
+      .lean<GetOneTransactionServiceType>();
     return get_res;
   },
   async getRecentTransaction(userID: string): Promise<RecentTransactionType[]> {

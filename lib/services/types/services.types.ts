@@ -1,5 +1,32 @@
+import { transaction_schema } from "@/model";
+import { Transaction_face } from "@/types/transaction.types";
+import { InferSchemaType } from "mongoose";
+
 interface ServiceOptions {
   uniqCheck?: boolean;
 }
+interface GetOneTransactionServiceType {
+  _id: string;
+  type: Transaction_face["type"];
+  amount: number;
+  accountBalance: number;
+  reason: string;
+  user: string;
+  account: {
+    _id: string;
+    currentBalance: number;
+    isActive: boolean;
+    user: string;
+    accountName: string;
+    cardNumber: string;
+  };
+  category: {
+    _id: string;
+    name: string;
+    user: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
 
-export type {ServiceOptions}
+export type { ServiceOptions, GetOneTransactionServiceType };
