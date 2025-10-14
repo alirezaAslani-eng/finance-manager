@@ -11,3 +11,4 @@ export { default as checkExist } from "./checkExist";
 export { default as sendVerifySMS } from "./sendVerifySMS";
 export { default as redirect } from "./redirect";
 export { default as parseDoc } from "./parseDoc";
+export { default as check_id } from "./check_id";
