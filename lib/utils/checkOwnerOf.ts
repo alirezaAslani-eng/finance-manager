@@ -1,5 +1,5 @@
 import payloadToken from "./payloadToken";
-import { throwError } from ".";
+import { parseDoc, throwError } from ".";
 // * Types ===================== >
 import type { Model } from "mongoose";
 import type { PayloadToken_type } from "@/types/user.types";
@@ -11,30 +11,52 @@ interface Props {
   modelID: string;
 }
 
-const checkOwnerOf = async ({
-  mustBeOwnerOf,
-  modelID,
-  userId,
-}: Props): Promise<void | PayloadToken_type> => {
+interface Options {
+  autoError?: boolean;
+}
+
+function checkOwnerOf(
+  requiredProps: Props,
+  opt?: { autoError?: true }
+): Promise<void>;
+
+function checkOwnerOf(
+  requiredProps: Props,
+  opt?: { autoError?: false }
+): Promise<boolean>;
+
+async function checkOwnerOf(
+  { mustBeOwnerOf, modelID, userId }: Props,
+  opt: Options = {}
+): Promise<void | boolean> {
+  const { autoError = true } = opt;
+
   // * Does it exist ==================== >
   const document_exist = await mustBeOwnerOf.findOne({
     _id: modelID,
   });
 
-  throwError(!document_exist, {
-    message: "Not Found",
-    statusCode: 404,
-    type: "client",
-  });
+  // * Check if user is owner off Document ========================= >
+  const isOwner = parseDoc(document_exist)?.user == String(userId);
 
-  // * Check if user is owner of Document ========================= >
-  // document's user prop has to contain the same (id) as (payload._id) it means user must be its owner!
-  throwError(document_exist.user != userId, {
-    message: "dosen't access",
-    statusCode: 403,
-    type: "client",
-  });
-};
+  if (autoError) {
+    throwError(!document_exist, {
+      message: "Not Found",
+      statusCode: 404,
+      type: "client",
+    }); // ! Error Not Found =============== <
+  }
+  if (autoError) {
+    throwError(!isOwner, {
+      message: "dosen't access",
+      statusCode: 403,
+      type: "client",
+    }); // ! Error user Dos not Access ================ <
+  }
+
+  // * When the auto error is false ============= >
+
+  return isOwner;
+}
 
 export default checkOwnerOf;
-
