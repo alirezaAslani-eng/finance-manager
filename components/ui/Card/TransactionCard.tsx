@@ -1,6 +1,7 @@
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import Typography from "@mui/material/Typography";
 import ArrowOutwardRoundedIcon from "@mui/icons-material/ArrowOutwardRounded";
 import { MuiButton, TextPrice } from "@/components/ui";
@@ -9,11 +10,14 @@ import Link from "next/link";
 import { muiTheme } from "@/utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import { useState } from "react";
 type Transaction = Pick<
   RecentTransactionType,
   "_id" | "amount" | "category" | "reason" | "createdAt" | "type"
 >;
-interface MyProps extends Transaction {}
+interface MyProps extends Transaction {
+  onRemove?: (id: string) => void;
+}
 
 const TransactionCard = ({
   _id,
@@ -22,26 +26,54 @@ const TransactionCard = ({
   createdAt,
   reason,
   type,
+  onRemove = () => {},
 }: MyProps) => {
+  // * is in Remove state ======== >
+  const [isRemoveState, setIsRemoveState] = useState<boolean>(false);
+
+  // * MUI theme ======= >
   const theme = useTheme();
   const {
-    palette: { grey, mode, primary, success, error },
+    palette: { grey, mode, success, error },
     alpha,
   } = theme;
 
+  // * Date ========== >
   const date = new Date(createdAt).toLocaleDateString("fa-IR", {
     timeZone: "Asia/Tehran",
   });
+
+  // * Remove event === >
+  const removeMe = () => {
+    onRemove(_id);
+  };
+
+  // * State handler === >
+  const removeStateToggle = () => {
+    setIsRemoveState((prev) => !prev);
+  };
   return (
     <Card
       variant="outlined"
       sx={{
+        position: "relative",
         borderRadius: "20px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
       }}
     >
+      {/* // * cover for remove state ==== > */}
+      {isRemoveState && (
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            backgroundColor: alpha(error.main, 0.2),
+          }}
+        ></Box>
+      )}
       <Box sx={{ p: 2 }}>
         <Box
           sx={{
@@ -114,31 +146,35 @@ const TransactionCard = ({
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <Link
-            href={{
-              pathname: "/my-panel/transactions/[id]",
-              query: { id: _id },
-            }}
-          >
-            <MuiButton
-              buttonProps={{
-                sx: {
-                  ...theme.custom.resetButton,
-                  borderRadius: "999px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                  p: "10px",
-                },
+          {/* // * Dont show info button when state is remove ========== > */}
+          {!isRemoveState && (
+            <Link
+              href={{
+                pathname: "/my-panel/transactions/[id]",
+                query: { id: _id },
               }}
             >
-              <ArrowOutwardRoundedIcon />
-            </MuiButton>
-          </Link>
+              <MuiButton
+                buttonProps={{
+                  sx: {
+                    ...theme.custom.resetButton,
+                    borderRadius: "999px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    p: "10px",
+                  },
+                }}
+              >
+                <ArrowOutwardRoundedIcon />
+              </MuiButton>
+            </Link>
+          )}
           {/* // * remove Button ==================== > */}
           <MuiButton
             buttonProps={{
-              variant: "outlined",
+              onClick: isRemoveState ? removeMe : removeStateToggle,
+              variant: isRemoveState ? "contained" : "outlined",
               color: "error",
               sx: {
                 ...theme.custom.resetButton,
@@ -147,8 +183,23 @@ const TransactionCard = ({
               },
             }}
           >
-            <DeleteOutlineRoundedIcon />
+            {isRemoveState ? <DoneRoundedIcon /> : <DeleteOutlineRoundedIcon />}
           </MuiButton>
+          {/* // * Close Remove State =========== > */}
+          {isRemoveState && (
+            <MuiButton
+              buttonProps={{
+                onClick: removeStateToggle,
+                sx: {
+                  ...theme.custom.resetButton,
+                  borderRadius: "999px",
+                  p: "10px",
+                },
+              }}
+            >
+              <CloseRoundedIcon />
+            </MuiButton>
+          )}
         </Box>
         {/* Date ===================== > */}
         <Typography>{date}</Typography>
