@@ -15,6 +15,9 @@ import { GetOneTransactionServiceType } from "./types/services.types";
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
 
+/**
+ * it decreases or increases the current balance and retirn it
+ */
 const amountHandler = async (
   body: Omit<TransActionType, "accountBalance">
 ): Promise<number> => {
@@ -51,8 +54,11 @@ const transactionServices = {
   async createTransaction(body: Omit<TransActionType, "accountBalance">) {
     await conect();
 
+    // * category id is a relation for transaction (it must be existed) ======== >
     await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
+
     const amount = await amountHandler(body);
+
     // * Create A Transaction ============================================== >
     const create_res = await transaction_model.create({
       ...body,
@@ -63,9 +69,30 @@ const transactionServices = {
 
     return create_res;
   },
-  async removeTransaction(_id: any) {
-    const remove_res = await transaction_model.findOneAndDelete({ _id });
-    return remove_res;
+  async removeTransaction(_id: string) {
+    // * Delete One Transaction ============= >
+    const transaction = await transaction_model.findOneAndDelete({ _id });
+    // * get these values to decrease or increase curent balance =============== >
+    const type = transaction.type;
+    const amount = transaction.amount;
+    const account_id = transaction.account;
+
+    // * change current balance after delete ================= >
+    await transactionServices.changeCurrentBalance(
+      account_id,
+      type == "0" ? amount : -amount
+    );
+  },
+  async changeCurrentBalance(accountID: string, incOrDecNumber: number) {
+    await account_model.findOneAndUpdate(
+      { _id: accountID },
+      // * increase or decrease ================= >
+      {
+        $inc: {
+          currentBalance: incOrDecNumber,
+        } as Partial<AccountType>,
+      }
+    );
   },
   async editOneTransaction(
     _id: any,
