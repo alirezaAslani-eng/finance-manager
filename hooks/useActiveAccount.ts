@@ -1,16 +1,17 @@
 import { putActiveAccount } from "@/api/put";
-import { keys, queryClient } from "@/config/react-query";
+import { keys } from "@/config/react-query";
 import { AuthContex } from "@/context";
 import { BadResponse } from "@/lib/utils";
 import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
-import { useMutation } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 
 function useActiveAccount() {
   const [isPending, setIsPending] = useState(false);
   const { mutateAsync } = useMutation({
     mutationFn: putActiveAccount,
   });
+  const queryClient = useQueryClient();
 
   const { refetchMe } = useContext(AuthContex)!;
   const activeAccount = async (infoToActive: ActiveAccountSchemaType) => {
