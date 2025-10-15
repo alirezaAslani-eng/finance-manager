@@ -11,3 +11,4 @@ export { default as useAddccount } from "./useAddccount";
 export { default as useEditAccount } from "./useEditAccount";
 export { default as useRecentTransactions } from "./useRecentTransactions";
 export { default as useActiveAccount } from "./useActiveAccount";
+export { default as useRemoveTransaction } from "./useRemoveTransaction";

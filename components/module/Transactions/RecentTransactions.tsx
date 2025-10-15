@@ -10,6 +10,7 @@ import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import Link from "next/link";
 import { RecentTransactionType } from "@/types/transaction.types";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
+import { useRemoveTransaction } from "@/hooks";
 interface myProp {
   containerProps?: BoxProps;
   recentTransactions: RecentTransactionType[];
@@ -18,6 +19,7 @@ const RecentTransactions = ({
   containerProps,
   recentTransactions = [],
 }: myProp) => {
+  const { removeTransaction } = useRemoveTransaction();
   return (
     <BoxWithTitle
       title="تراکنش های اخیر"
@@ -39,9 +41,8 @@ const RecentTransactions = ({
         dataCheck={{
           check: !!recentTransactions.length,
           error: (
-        
             <NoData
-            containerProps={{sx:{py:"20px"}}}
+              containerProps={{ sx: { py: "20px" } }}
               buttonText="ایجاد اولین تراکنش"
               noDataText="هنوز تراکنشی ایجاد نشده"
               link="/my-panel/transactions/add"
@@ -63,7 +64,14 @@ const RecentTransactions = ({
           }}
         >
           {recentTransactions.map((transaction) => {
-            return <TransactionCard {...transaction} />;
+            return (
+              <TransactionCard
+                {...transaction}
+                onRemove={(id) => {
+                  removeTransaction(id);
+                }}
+              />
+            );
           })}
         </Box>
       </LoadeingErrorHandler>
