@@ -41,6 +41,7 @@ function NoData({
       <Typography
         component={"span"}
         variant="h1"
+        textAlign={"center"}
         sx={{
           fontSize: "28px",
           color: muiTheme(mode, { light: grey[800], dark: grey[100] }),
