@@ -1,5 +1,10 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, checkOwnerOf, payloadToken, throwError } from "@/lib/utils";
+import {
+  apiHandler,
+  checkOwnerOf,
+  payloadToken,
+  throwError,
+} from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
 import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -17,23 +22,22 @@ const handler: handler_type = async (req, res) => {
     statusCode: 401,
     type: "client",
   });
-  // * Authorize user and check theme if they access to mutate a transaction ================= >
-  (await checkOwnerOf({
-    userId: payloadInfo._id,
-    modelID: req.query.id as string,
-    mustBeOwnerOf: transaction_model,
-  })) as PayloadToken_type; // ! Might Throw Error ====================== <
-
   // * Check params ================== >
   throwError(!isValidObjectId(req.query.id), {
     message: "id is not valid",
     statusCode: 400,
     type: "dev",
   }); // ! Might throw Error <<<<<<<<
+  // * check if they access to mutate a transaction ================= >
+  await checkOwnerOf({
+    userId: payloadInfo._id,
+    modelID: req.query.id as string,
+    mustBeOwnerOf: transaction_model,
+  }); // ! Might Throw Error ====================== <
 
   switch (req.method as "DELETE" | "GET" | "PUT") {
     case "DELETE": {
-      await removeTransaction(req.query.id); // ! Might Throw Error ====================== <
+      await removeTransaction(req.query.id as string); // ! Might Throw Error ====================== <
       return res.status(204).json(null);
     }
     case "GET": {
