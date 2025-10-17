@@ -1,12 +1,13 @@
 import { transactionServices } from "@/lib/services";
 import {
   apiHandler,
+  checkExist,
   checkOwnerOf,
   payloadToken,
   throwError,
 } from "@/lib/utils";
-import { transactionSchema } from "@/lib/validations";
-import { transaction_model } from "@/model";
+import { transactionEditSchema } from "@/lib/validations";
+import { category_model, transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
@@ -46,20 +47,18 @@ const handler: handler_type = async (req, res) => {
     }
     case "PUT": {
       // * Zod Validation ==================== >
-      const { amount, reason, type, account, category } =
-        transactionSchema.parse(req.body); // ! Might Throw Error ====================== <
+      const { reason, category } = transactionEditSchema.parse(req.body); // ! Might Throw Error ====================== <
 
-      const edit_res = await editOneTransaction(req.query.id, {
-        // from client --- >
-        amount,
+      // * Check (category & account) which are relation for transaction they must be existed =============== >
+      await checkExist(category_model, { _id: category }); // ! Might Throw Error ====================== <
+
+      await editOneTransaction(req.query.id, {
+        // * from client --- >
         reason,
-        type,
-        account,
         category,
-        user: payloadInfo._id, // * Relation <<<
-      }); // ! Might Throw Error ====================== <
+      });
 
-      return res.json(edit_res);
+      return res.status(204).json(true);
     }
     default: {
       throwError(true, {

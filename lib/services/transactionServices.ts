@@ -7,10 +7,11 @@ import {
 } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
-import { checkExist, throwError } from "../utils";
+import { checkExist, parseDoc, throwError } from "../utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import accountServices from "./accountServices";
 import { GetOneTransactionServiceType } from "./types/services.types";
+import { getChangedKeys } from "@/utils";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -96,22 +97,11 @@ const transactionServices = {
   },
   async editOneTransaction(
     _id: any,
-    body: Omit<TransActionType, "accountBalance">
+    body: Pick<TransActionType, "category" | "reason">
   ) {
     await conect();
-    // * Check (category) it must be valid an _id and existed =============== >
-    await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
-
-    // * get final amount of transaction it could be decrased or increased ====================== >
-    const amount = await amountHandler(body); // ! Might Throw Error ====================== <
-
-    // * Start Updating Document ======================== >
-    const updatedInfo: TransActionType = { ...body, accountBalance: amount };
-    const update_res = await transaction_model.findOneAndUpdate(
-      { _id },
-      updatedInfo
-    );
-    return update_res;
+    // * Only Edit "reason" and "category" ============= >
+    await transaction_model.findOneAndUpdate({ _id }, body);
   },
   async getTransactions(userID: string) {
     await conect();

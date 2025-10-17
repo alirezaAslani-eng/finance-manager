@@ -10,7 +10,15 @@ const transactionSchema = object({
   account: string().nonempty("تراکنش برای کدوم کارت بانکی هست"),
   category: string().nonempty("تراکنش برای کدام دسته بندی هست"),
 });
-type transactionSchemaType = Infer<typeof transactionSchema>;
 
-export type { transactionSchemaType };
-export default transactionSchema;
+const transactionEditSchema = transactionSchema.pick({
+  category: true,
+  reason: true,
+});
+
+//  * Schema Type ================ >
+type transactionSchemaType = Infer<typeof transactionSchema>;
+type transactionEditSchemaType = Infer<typeof transactionEditSchema>;
+export type { transactionSchemaType, transactionEditSchemaType };
+// * Schema ========== >
+export { transactionSchema, transactionEditSchema };
