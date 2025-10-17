@@ -9,10 +9,9 @@ import React, { useContext, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
-  edit?: boolean;
   onSubmit?: (info: transactionSchemaType) => Promise<void>;
 }
-function TransactionForm({ edit, onSubmit = async () => {} }: MyProps) {
+function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   // * Form Handler ======================== >
   const {
     control,
@@ -23,8 +22,8 @@ function TransactionForm({ edit, onSubmit = async () => {} }: MyProps) {
   } = useForm({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
-      account: "",
-      category: "",
+      account: "", // * to fix uncontroled warn
+      category: "", // * to fix uncontroled warn
     },
   });
 
@@ -48,7 +47,7 @@ function TransactionForm({ edit, onSubmit = async () => {} }: MyProps) {
 
   const categoriesSelect = useMemo(() => {
     return categories.map((category) => ({
-      text: `${category.name} ویرابش`,
+      text: `${category.name}`,
       value: category._id,
     }));
   }, [categories]);
@@ -71,7 +70,7 @@ function TransactionForm({ edit, onSubmit = async () => {} }: MyProps) {
           p: "20px 0px",
         }}
       >
-        {edit ? "ویرایش تراکنش" : "تراکنش جدید"}
+        تراکنش جدید
       </Typography>
 
       {/* Form ====================== > */}
