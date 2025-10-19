@@ -14,6 +14,9 @@ const transactionSchema = object({
 const transactionEditSchema = transactionSchema.pick({
   category: true,
   reason: true,
+  account: true,
+  amount: true,
+  type: true,
 });
 
 //  * Schema Type ================ >
