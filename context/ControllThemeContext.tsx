@@ -1,3 +1,4 @@
+import { muiTheme } from "@/utils";
 import { createTheme, GlobalStyles, ThemeProvider } from "@mui/material";
 import { blue, red, grey } from "@mui/material/colors";
 import { CSSProperties } from "@mui/material/styles";
@@ -58,6 +59,9 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
       },
       palette: {
         mode: mode,
+        background: {
+          default: muiTheme(mode, { light: "#fff", dark: "#121212" }),
+        },
         primary: {
           main: blue[500],
         },
