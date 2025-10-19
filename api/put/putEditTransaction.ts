@@ -1,0 +1,22 @@
+import type { BadResponse } from "@/lib/utils";
+import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
+
+const putEditTransaction = async (
+  updatedInfo: transactionEditSchemaType & { _id: string }
+): Promise<true | BadResponse> => {
+  const res = await fetch(`/api/transactions/${updatedInfo._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedInfo),
+  });
+
+  if (!res.ok) {
+    const jsonRes = await res.json();
+    throw jsonRes as BadResponse;
+  }
+  return true;
+};
+
+export default putEditTransaction;
