@@ -39,6 +39,10 @@ const transaction_schema = new Schema<schemaType>(
       required: true,
       ref: "Category",
     },
+    isLatest: {
+      type: Boolean,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -10,11 +10,12 @@ interface Transaction_face {
   user: User_face;
   account: Account_face;
   category: Category_face;
+  isLatest: boolean;
 }
 
 type RecentTransactionType = Pick<
   Transaction_face,
-  "amount" | "reason" | "type" 
+  "amount" | "reason" | "type" | "isLatest"
 > & { category: Pick<Transaction_face["category"], "name"> } & {
   _id: string;
   user: string;
