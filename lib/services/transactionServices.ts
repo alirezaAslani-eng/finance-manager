@@ -6,12 +6,15 @@ import {
   transaction_schema,
 } from "@/model";
 import { conect } from "../db";
-import type { InferSchemaType } from "mongoose";
-import { checkExist, parseDoc, throwError } from "../utils";
+import {
+  startSession,
+  type ClientSession,
+  type InferSchemaType,
+} from "mongoose";
+import { checkExist, sessionHandler, throwError } from "../utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import accountServices from "./accountServices";
 import { GetOneTransactionServiceType } from "./types/services.types";
-import { getChangedKeys } from "@/utils";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -20,7 +23,8 @@ type AccountType = InferSchemaType<typeof account_schema>;
  * it decreases or increases the current balance and retirn it
  */
 const amountHandler = async (
-  body: Omit<TransActionType, "accountBalance">
+  body: Omit<TransActionType, "accountBalance" | "isLatest">,
+  session?: ClientSession
 ): Promise<number> => {
   // * Check (account) it must be valid as _id and existed in colection =============== >
   const account = await checkExist<AccountType>(account_model, {
@@ -44,31 +48,58 @@ const amountHandler = async (
   }
 
   // * change the current balance of user's account ============================== >
-  await account_model.findOneAndUpdate({ _id: body.account }, {
-    currentBalance: amount,
-  } as Pick<AccountType, "currentBalance">);
+  await account_model.findOneAndUpdate(
+    { _id: body.account },
+    {
+      currentBalance: amount,
+    } as Pick<AccountType, "currentBalance">,
+    { session }
+  );
 
   return amount;
 };
 
 const transactionServices = {
-  async createTransaction(body: Omit<TransActionType, "accountBalance">) {
+  async createTransaction(
+    body: Omit<TransActionType, "accountBalance" | "isLatest">
+  ) {
     await conect();
+    // * Start Session ============= >
+    const session = await startSession();
+    session.startTransaction();
+    const create_result = await sessionHandler(session, {
+      _try: async () => {
+        await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
 
-    // * category id is a relation for transaction (it must be existed) ======== >
-    await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
+        const amount = await amountHandler(body, session); // ! Might Throw Error ====================== <
 
-    const amount = await amountHandler(body);
-
-    // * Create A Transaction ============================================== >
-    const create_res = await transaction_model.create({
-      ...body,
-      accountBalance: amount,
-    } as TransActionType);
-
-    // * reset variable ==== >
-
-    return create_res;
+        // * Find Latest Transaction and false it ===== >
+        await transaction_model.findOneAndUpdate(
+          {
+            user: body.user,
+            account: body.account,
+            isLatest: true,
+          },
+          { isLatest: false },
+          { session }
+        );
+        // * Create Latest Transaction ============================================== >
+        const [created] = await transaction_model.create(
+          [
+            {
+              ...body,
+              accountBalance: amount,
+              isLatest: true,
+            } as TransActionType,
+          ],
+          { session }
+        );
+        // * Successfull result =============== >
+        await session.commitTransaction();
+        return created;
+      },
+    });
+    return create_result;
   },
   async removeTransaction(_id: string) {
     // * Delete One Transaction ============= >
