@@ -12,6 +12,7 @@ interface GetOneTransactionServiceType {
   accountBalance: number;
   reason: string;
   user: string;
+  isLatest: boolean;
   account: {
     _id: string;
     currentBalance: number;
