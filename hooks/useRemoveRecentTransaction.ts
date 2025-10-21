@@ -4,9 +4,9 @@ import type { BadResponse } from "@/lib/utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function useRemoveTransaction() {
+function useRemoveRecentTransaction() {
   const queryClient = useQueryClient();
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: deleteOneTransaction,
   });
 
@@ -14,12 +14,12 @@ function useRemoveTransaction() {
     try {
       await mutateAsync(_id); // * Delete it
 
-      // * refetch user's info to update accounts ============= >
-      await queryClient.invalidateQueries({ queryKey: keys.userInfo.all });
       // * refetch recent transaction to update accounts ============= >
-      await queryClient.invalidateQueries({
+      await queryClient.refetchQueries({
         queryKey: keys.recntTransactions.all,
       });
+      // * refetch user's info to update accounts ============= >
+      await queryClient.refetchQueries({ queryKey: keys.userInfo.all });
     } catch (err) {
       const error = err as BadResponse;
       // TODO Show Error <<<
@@ -27,7 +27,7 @@ function useRemoveTransaction() {
     }
   };
 
-  return { removeTransaction };
+  return { removeTransaction, isPending };
 }
 
-export default useRemoveTransaction;
+export default useRemoveRecentTransaction;
