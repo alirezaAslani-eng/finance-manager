@@ -11,24 +11,15 @@ function useRemoveTransaction() {
   });
 
   const removeTransaction = async (_id: string) => {
-    // * delete one transaction from cache before request to server =============== >
-    // * Delete Recent === >
-    queryClient.setQueryData(
-      keys.recntTransactions.all,
-      (transactions: RecentTransactionType[]) => {
-        console.log(transactions);
-        // * REMOVE FROM CACHE
-        if (!transactions?.length) return transactions;
-        return transactions.filter((transaction) => {
-          return transaction._id != _id;
-        });
-      }
-    );
-    // TODO remove it from all transaction cache <<<
     try {
-      await mutateAsync(_id);
+      await mutateAsync(_id); // * Delete it
+
       // * refetch user's info to update accounts ============= >
       await queryClient.invalidateQueries({ queryKey: keys.userInfo.all });
+      // * refetch recent transaction to update accounts ============= >
+      await queryClient.invalidateQueries({
+        queryKey: keys.recntTransactions.all,
+      });
     } catch (err) {
       const error = err as BadResponse;
       // TODO Show Error <<<
