@@ -11,9 +11,10 @@ import { muiTheme } from "@/utils";
 import { RecentTransactionType } from "@/types/transaction.types";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { useState } from "react";
+import { useDate } from "@/hooks";
 type Transaction = Pick<
   RecentTransactionType,
-  "_id" | "amount" | "category" | "reason" | "createdAt" | "type"
+  "_id" | "amount" | "category" | "reason" | "createdAt" | "type" | "isLatest"
 >;
 interface MyProps extends Transaction {
   onRemove?: (id: string) => void;
@@ -26,6 +27,7 @@ const TransactionCard = ({
   createdAt,
   reason,
   type,
+  isLatest,
   onRemove = () => {},
 }: MyProps) => {
   // * is in Remove state ======== >
@@ -39,9 +41,7 @@ const TransactionCard = ({
   } = theme;
 
   // * Date ========== >
-  const date = new Date(createdAt).toLocaleDateString("fa-IR", {
-    timeZone: "Asia/Tehran",
-  });
+  const { date } = useDate(createdAt);
 
   // * Remove event === >
   const removeMe = () => {
@@ -171,20 +171,26 @@ const TransactionCard = ({
             </Link>
           )}
           {/* // * remove Button ==================== > */}
-          <MuiButton
-            buttonProps={{
-              onClick: isRemoveState ? removeMe : removeStateToggle,
-              variant: isRemoveState ? "contained" : "outlined",
-              color: "error",
-              sx: {
-                ...theme.custom.resetButton,
-                borderRadius: "999px",
-                p: "10px",
-              },
-            }}
-          >
-            {isRemoveState ? <DoneRoundedIcon /> : <DeleteOutlineRoundedIcon />}
-          </MuiButton>
+          {isLatest && (
+            <MuiButton
+              buttonProps={{
+                onClick: isRemoveState ? removeMe : removeStateToggle,
+                variant: isRemoveState ? "contained" : "outlined",
+                color: "error",
+                sx: {
+                  ...theme.custom.resetButton,
+                  borderRadius: "999px",
+                  p: "10px",
+                },
+              }}
+            >
+              {isRemoveState ? (
+                <DoneRoundedIcon />
+              ) : (
+                <DeleteOutlineRoundedIcon />
+              )}
+            </MuiButton>
+          )}
           {/* // * Close Remove State =========== > */}
           {isRemoveState && (
             <MuiButton
