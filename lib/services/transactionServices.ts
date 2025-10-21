@@ -102,20 +102,49 @@ const transactionServices = {
     return create_result;
   },
   async removeTransaction(_id: string) {
-    // * Delete One Transaction ============= >
-    const transaction = await transaction_model.findOneAndDelete({ _id });
-    // * get these values to decrease or increase curent balance =============== >
-    const type = transaction.type;
-    const amount = transaction.amount;
-    const account_id = transaction.account;
+    await conect();
+    const session = await startSession();
+    session.startTransaction();
+    await sessionHandler(session, {
+      _try: async () => {
+        // * Find Transaction ============= >
+        const transaction = await transaction_model.findOne({ _id });
 
-    // * change current balance after delete ================= >
-    await transactionServices.changeCurrentBalance(
-      account_id,
-      type == "0" ? amount : -amount
-    );
+        // * Check if it's latest transaction ========== >>>>
+        throwError(!transaction.isLatest, {
+          message: "فقط آخرین تراکنش مجاز به حذف هست",
+          statusCode: 409,
+          type: "client",
+        }); // ! Might Throw Error <<<<<<<<
+
+        // * Update balance =================== >
+        await transactionServices.changeCurrentBalance(
+          transaction.account,
+          transaction.type == "0" ? transaction.amount : -transaction.amount,
+          session
+        );
+
+        // * Remove Transaction ============ >
+        await transaction_model.findOneAndDelete({ _id }, { session });
+
+        // * Update Latest Tranasction ============ >
+        await transaction_model.findOneAndUpdate(
+          { account: transaction.account },
+          { $set: { isLatest: true } },
+          { session, sort: { createdAt: -1 } }
+        );
+
+        // * Finish =============== >
+        await session.commitTransaction();
+      },
+    });
   },
-  async changeCurrentBalance(accountID: string, incOrDecNumber: number) {
+
+  async changeCurrentBalance(
+    accountID: string,
+    incOrDecNumber: number,
+    session?: ClientSession
+  ) {
     await account_model.findOneAndUpdate(
       { _id: accountID },
       // * increase or decrease ================= >
@@ -123,7 +152,8 @@ const transactionServices = {
         $inc: {
           currentBalance: incOrDecNumber,
         } as Partial<AccountType>,
-      }
+      },
+      { session }
     );
   },
   async editOneTransaction(
