@@ -19,11 +19,11 @@ const handler: handler_type = async (req, res) => {
     statusCode: 401,
     type: "client",
   });
-  (await checkOwnerOf({
+  await checkOwnerOf({
     userId: payloadInfo._id,
     modelID: req.query.id as string,
     mustBeOwnerOf: category_model,
-  })) as PayloadToken_type; // ! Might Throw Error ====================== <
+  }); // ! Might Throw Error ====================== <
 
   // * Check Params (id) ============= >
   throwError(!isValidObjectId(req.query.id), {
