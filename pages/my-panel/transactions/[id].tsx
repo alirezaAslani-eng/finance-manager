@@ -1,10 +1,10 @@
 import React from "react";
-import { Typography, Box, useTheme, Grid, Container } from "@mui/material";
+import { Typography, useTheme, Grid, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
 import { PanelLayout } from "@/layout";
-import { AccountCard, TransactionDetalCard } from "@/components/ui";
+import { TransactionDetalCard } from "@/components/ui";
 import { muiTheme } from "@/utils";
-import { TransactionForm } from "@/components/module";
+import { EditTransactionform } from "@/components/module";
 import type { GlobalAppProps } from "@/pages/_app";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
@@ -12,7 +12,7 @@ import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { check_id, checkOwnerOf, parseDoc, redirect } from "@/lib/utils";
 import { transaction_model } from "@/model";
-import type { GetOneTransactionServiceType } from "@/lib/services/types/services.types";
+import { useDate } from "@/hooks";
 
 const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
   isEditable,
@@ -32,14 +32,22 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
     type,
   } = transactionInfo;
 
-  const date = new Date(createdAt).toLocaleString("fa-IR", {
-    timeZone: "Asia/Tehran",
-  });
+  // * get date of transaction ===== >
+  const { date, time } = useDate(createdAt);
+
   return (
-    <Container sx={{ pt: "30px" }}>
+    <Container sx={{ py: "30px" }}>
       {isEditable ? (
         // * Edit Transaction's info ================ >
-        <TransactionForm edit />
+        <EditTransactionform
+          defaultValues={{
+            category: category._id,
+            reason,
+            account: account._id,
+            amount,
+            type,
+          }}
+        />
       ) : (
         // * Show Transaction's info ===================== >
         <Grid container spacing={2}>
@@ -51,8 +59,8 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
               balance={accountBalance}
               type={type == "0" ? "expense" : "income"}
               accountNumber={account.cardNumber}
-              date={date.split(",")[0]}
-              houre={date.split(",")[1]}
+              date={date}
+              houre={time}
             />
           </Grid>
           {/* Description ===================== >*/}
@@ -128,6 +136,7 @@ const ssr: WrappedGetserverSideProps<
     props: {
       isEditable: query.edit === "true",
       transactionInfo: parseDoc(info!),
+      ssrUserInfo: user,
     },
   };
 };
