@@ -12,7 +12,7 @@ import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { check_id, checkOwnerOf, parseDoc, redirect } from "@/lib/utils";
 import { transaction_model } from "@/model";
-import { useDate } from "@/hooks";
+import { useDate, useEditTransaction } from "@/hooks";
 
 const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
   isEditable,
@@ -30,16 +30,22 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
     createdAt,
     reason,
     type,
+    isLatest,
   } = transactionInfo;
 
   // * get date of transaction ===== >
   const { date, time } = useDate(createdAt);
+
+  // * edit transaction hook ==== >>
+  const { editTransaction } = useEditTransaction(_id);
 
   return (
     <Container sx={{ py: "30px" }}>
       {isEditable ? (
         // * Edit Transaction's info ================ >
         <EditTransactionform
+          onSubmit={editTransaction}
+          isLatestTransaction={isLatest}
           defaultValues={{
             category: category._id,
             reason,

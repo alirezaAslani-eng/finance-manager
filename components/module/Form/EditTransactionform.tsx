@@ -1,6 +1,4 @@
 import {
-  ConfrimModal,
-  MuiAlert,
   MuiButton,
   MuiSelectInput,
   MuiTextField,
@@ -55,7 +53,7 @@ function EditTransactionform({
 
   const accountOptions = useMemo(() => {
     return accounts.map((account) => {
-      return { text: account.accountName, value: account._id };
+      return { text: `${account.accountName} ${account.cardNumber}`, value: account._id };
     });
   }, [accounts]);
 
@@ -104,7 +102,7 @@ function EditTransactionform({
                     selectItems={accountOptions}
                     errorText={errors?.["account"]?.message}
                     inputProps={{
-                      disabled: isLatestTransaction ? true : isSubmitting,
+                      disabled: !isLatestTransaction ? true : isSubmitting,
                       ...field,
                       label: "حساب",
                     }}
@@ -118,7 +116,7 @@ function EditTransactionform({
             <MuiTextField
               errorText={errors?.["amount"]?.message}
               textFieldProps={{
-                disabled: isLatestTransaction ? true : isSubmitting,
+                disabled: !isLatestTransaction ? true : isSubmitting,
                 ...register("amount", { valueAsNumber: true }),
                 placeholder: "مقدار تراکنش",
               }}
@@ -147,7 +145,7 @@ function EditTransactionform({
               <MuiToggleButton
                 inputProps={{
                   ...field,
-                  disabled: isLatestTransaction ? true : isSubmitting,
+                  disabled: !isLatestTransaction ? true : isSubmitting,
                 }}
                 onChange={field.onChange}
               >
