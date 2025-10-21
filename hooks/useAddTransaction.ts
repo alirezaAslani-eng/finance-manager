@@ -11,9 +11,13 @@ function useAddTransaction() {
   const addTransaction = async (transactionInfo: transactionSchemaType) => {
     try {
       await mutateAsync(transactionInfo);
-      // * update recent transactions after add one ========== >
+      // * invalid recent transactions after add one ========== >
       await queryClient.invalidateQueries({
         queryKey: keys.recntTransactions.all,
+      });
+      // * invalid user info to update current balance ========== >
+      await queryClient.invalidateQueries({
+        queryKey: keys.userInfo.all,
       });
       // TODO Show Success Message ================== >
     } catch (err) {
