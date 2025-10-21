@@ -4,7 +4,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import Typography from "@mui/material/Typography";
 import ArrowOutwardRoundedIcon from "@mui/icons-material/ArrowOutwardRounded";
-import { MuiButton, TextPrice } from "@/components/ui";
+import { MuiButton, MuiProgress, TextPrice } from "@/components/ui";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import { muiTheme } from "@/utils";
@@ -18,6 +18,7 @@ type Transaction = Pick<
 >;
 interface MyProps extends Transaction {
   onRemove?: (id: string) => void;
+  isRemoving?: boolean;
 }
 
 const TransactionCard = ({
@@ -28,6 +29,7 @@ const TransactionCard = ({
   reason,
   type,
   isLatest,
+  isRemoving,
   onRemove = () => {},
 }: MyProps) => {
   // * is in Remove state ======== >
@@ -170,10 +172,12 @@ const TransactionCard = ({
               </MuiButton>
             </Link>
           )}
-          {/* // * remove Button ==================== > */}
+          {/* // * Remove Section ==================== > */}
+
           {isLatest && (
             <MuiButton
               buttonProps={{
+                disabled: isRemoving,
                 onClick: isRemoveState ? removeMe : removeStateToggle,
                 variant: isRemoveState ? "contained" : "outlined",
                 color: "error",
@@ -195,6 +199,7 @@ const TransactionCard = ({
           {isRemoveState && (
             <MuiButton
               buttonProps={{
+                disabled: isRemoving,
                 onClick: removeStateToggle,
                 sx: {
                   ...theme.custom.resetButton,

@@ -10,7 +10,7 @@ import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import Link from "next/link";
 import { RecentTransactionType } from "@/types/transaction.types";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
-import { useRemoveTransaction } from "@/hooks";
+import { useRemoveRecentTransaction } from "@/hooks";
 interface myProp {
   containerProps?: BoxProps;
   recentTransactions: RecentTransactionType[];
@@ -19,7 +19,7 @@ const RecentTransactions = ({
   containerProps,
   recentTransactions = [],
 }: myProp) => {
-  const { removeTransaction } = useRemoveTransaction();
+  const { removeTransaction, isPending } = useRemoveRecentTransaction();
   return (
     <BoxWithTitle
       title="تراکنش های اخیر"
@@ -66,7 +66,8 @@ const RecentTransactions = ({
           {recentTransactions.map((transaction) => {
             return (
               <TransactionCard
-                key={crypto.randomUUID()}
+                key={transaction._id}
+                isRemoving={isPending}
                 {...transaction}
                 onRemove={(id) => {
                   removeTransaction(id);
