@@ -66,6 +66,7 @@ const RecentTransactions = ({
           {recentTransactions.map((transaction) => {
             return (
               <TransactionCard
+                key={crypto.randomUUID()}
                 {...transaction}
                 onRemove={(id) => {
                   removeTransaction(id);
