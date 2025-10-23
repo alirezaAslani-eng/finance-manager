@@ -6,6 +6,7 @@ import React from "react";
 import { danaMediume, peydaMedium } from "@/pages/_app";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { useBreakePoints } from "@/hooks";
+import SideBarItems from "./SideBarItems";
 interface MyProps {
   drawerProps?: DrawerProps;
   onClose?: () => any;
@@ -57,11 +58,7 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
       >
         {/* // * MenuList ==================== > */}
         <List className={danaMediume.className}>
-          {menuList.map((info) => (
-            <Box onClick={closeMe}>
-              <SideBarButton menuItem={{ ...info }} />
-            </Box>
-          ))}
+          <SideBarItems onSideBarClick={closeMe} />
         </List>
 
         {/* // * Logout Button ====================== > */}
