@@ -31,6 +31,7 @@ function MuiSelectInput({
 
   return (
     <FormControl
+      error={!!errorText}
       fullWidth
       sx={{ display: "flex", flexDirection: "column", gap: "5px" }}
     >
@@ -40,13 +41,15 @@ function MuiSelectInput({
         {...inputProps}
         error={!!errorText}
       >
-        {selectItems?.map(({ text, value }) => {
-          return (
-            <MenuItem key={crypto.randomUUID()} value={value}>
-              {text}
-            </MenuItem>
-          );
-        })}
+        <Box maxHeight={"300px"}>
+          {selectItems?.map(({ text, value }) => {
+            return (
+              <MenuItem key={crypto.randomUUID()} value={value}>
+                {text}
+              </MenuItem>
+            );
+          })}
+        </Box>
       </Select>
       {!!errorText && (
         <Typography component={"span"} sx={{ color: palette.error.main }}>
