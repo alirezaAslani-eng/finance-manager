@@ -22,7 +22,6 @@ function EditTransactionform({
   defaultValues = {
     category: "",
     reason: "",
-    account: "",
     amount: 0,
     type: "1",
   },
@@ -53,7 +52,10 @@ function EditTransactionform({
 
   const accountOptions = useMemo(() => {
     return accounts.map((account) => {
-      return { text: `${account.accountName} ${account.cardNumber}`, value: account._id };
+      return {
+        text: `${account.accountName} ${account.cardNumber}`,
+        value: account._id,
+      };
     });
   }, [accounts]);
 
@@ -72,7 +74,7 @@ function EditTransactionform({
       >
         <Grid container spacing={2}>
           {/* // * Category field ============== >>> */}
-          <Grid size={{ xs: 12, _700: 4 }}>
+          <Grid size={{ xs: 12, _700: 6 }}>
             <Controller
               name="category"
               control={control}
@@ -91,28 +93,8 @@ function EditTransactionform({
               }}
             />
           </Grid>
-          {/* // * Account field ============== >>> */}
-          <Grid size={{ xs: 12, _700: 4 }}>
-            <Controller
-              name="account"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <MuiSelectInput
-                    selectItems={accountOptions}
-                    errorText={errors?.["account"]?.message}
-                    inputProps={{
-                      disabled: !isLatestTransaction ? true : isSubmitting,
-                      ...field,
-                      label: "حساب",
-                    }}
-                  />
-                );
-              }}
-            />
-          </Grid>
           {/* // * Amount field ============== >>> */}
-          <Grid size={{ xs: 12, _700: 4 }}>
+          <Grid size={{ xs: 12, _700: 6 }}>
             <MuiTextField
               errorText={errors?.["amount"]?.message}
               textFieldProps={{

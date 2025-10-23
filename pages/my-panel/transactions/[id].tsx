@@ -49,7 +49,6 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
           defaultValues={{
             category: category._id,
             reason,
-            account: account._id,
             amount,
             type,
           }}
