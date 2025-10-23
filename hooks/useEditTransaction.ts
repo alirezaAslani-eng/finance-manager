@@ -6,11 +6,11 @@ import { useRouter } from "next/router";
 
 function useEditTransaction(_id: string) {
   const { mutateAsync } = useMutation({ mutationFn: putEditTransaction });
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const editTransaction = async (info: transactionEditSchemaType) => {
     try {
       await mutateAsync({ _id, ...info });
-      replace(`/my-panel/transactions/${_id}`);
+      push(`/my-panel/transactions/${_id}`);
     } catch (err) {
       const error = err as BadResponse;
       console.log(error);
