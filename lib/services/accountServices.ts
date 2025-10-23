@@ -43,7 +43,7 @@ const accountServices = {
   async changeActiveAccount(userID: string, accountID: string) {
     await conect();
     //  * Find previous Actived Account and unActive it=================== >
-    const prevActive = await account_model
+    await account_model
       .findOneAndUpdate(
         {
           user: userID,
@@ -53,7 +53,7 @@ const accountServices = {
       )
       .lean();
     // * Active requested account ==================== >
-    const activedAccount = await account_model.findOneAndUpdate(
+    await account_model.findOneAndUpdate(
       {
         _id: accountID,
         user: userID,
