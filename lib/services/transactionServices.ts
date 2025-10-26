@@ -6,11 +6,7 @@ import {
   transaction_schema,
 } from "@/model";
 import { conect } from "../db";
-import {
-  startSession,
-  type ClientSession,
-  type InferSchemaType,
-} from "mongoose";
+import type { ClientSession, InferSchemaType } from "mongoose";
 import { checkExist, parseDoc, sessionHandler, throwError } from "../utils";
 import {
   RecentTransactionType,
@@ -98,9 +94,9 @@ const transactionServices = {
   async createTransaction(
     body: Omit<TransActionType, "accountBalance" | "isLatest">
   ) {
-    await conect();
+    const con = await conect();
     // * Start Session ============= >
-    const session = await startSession();
+    const session = await con.startSession();
     session.startTransaction();
     const create_result = await sessionHandler(session, {
       _try: async () => {
@@ -137,13 +133,17 @@ const transactionServices = {
     return create_result;
   },
   async removeTransaction(_id: string) {
-    await conect();
-    const session = await startSession();
+    const con = await conect();
+    const session = await con.startSession();
     session.startTransaction();
     await sessionHandler(session, {
       _try: async () => {
         // * Find Transaction ============= >
-        const transaction = await transaction_model.findOne({ _id });
+        const transaction = await transaction_model.findOne(
+          { _id },
+          undefined,
+          { session }
+        );
 
         // * Check if it's latest transaction ========== >>>>
         throwError(!transaction.isLatest, {
@@ -174,7 +174,6 @@ const transactionServices = {
       },
     });
   },
-
   async changeCurrentBalance(
     accountID: string,
     incOrDecNumber: number,
@@ -207,7 +206,7 @@ const transactionServices = {
     _id: any,
     body: Pick<TransActionType, "category" | "reason" | "amount" | "type">
   ) {
-    await conect();
+    const con = await conect();
 
     // * Get Old transaction ================ >
     const oldTransaction = await transaction_model.findOne({ _id });
@@ -218,7 +217,7 @@ const transactionServices = {
     if (!changedFields || !Object.keys(changedFields)?.length) return; // * when user changed nothing <<
 
     if (changedFields?.amount || changedFields?.type) {
-      const session = await startSession();
+      const session = await con.startSession();
       session.startTransaction();
       // * Edit Session ============= >
       await sessionHandler(session, {
