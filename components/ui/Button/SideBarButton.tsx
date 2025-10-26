@@ -1,4 +1,3 @@
-import type { MenuItemFace } from "@/constant/staticData/types/menuList.types";
 import { useIsActiveLink } from "@/hooks";
 import { muiTheme } from "@/utils";
 import {
@@ -10,15 +9,15 @@ import {
 } from "@mui/material";
 import type { ListItemButtonProps } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface MyProps {
-  menuItem: MenuItemFace;
+  menuItem?: Partial<{ link: string; icon: ReactNode; text: string }>;
   buttonProps?: ListItemButtonProps;
   noLink?: boolean;
 }
 function SideBarButton({ menuItem, buttonProps, noLink }: MyProps) {
-  const { isActive } = useIsActiveLink(menuItem.link);
+  const { isActive } = useIsActiveLink(menuItem?.link || "");
   // * Style =============== >
   const { palette } = useTheme();
   const textColor = {
@@ -30,18 +29,18 @@ function SideBarButton({ menuItem, buttonProps, noLink }: MyProps) {
   return (
     <>
       {noLink ? (
-        <ListItem key={menuItem.id} disablePadding>
+        <ListItem disablePadding>
           <ListItemButton onClick={buttonProps?.onClick}>
-            <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
-            <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
+            <Typography sx={{ ...textColor }}>{menuItem?.text}</Typography>
+            <ListItemText primary={menuItem?.icon} sx={{ ...textColor }} />
           </ListItemButton>
         </ListItem>
       ) : (
-        <Link href={menuItem.link}>
-          <ListItem key={menuItem.id} disablePadding>
+        <Link href={menuItem?.link || ""}>
+          <ListItem disablePadding>
             <ListItemButton onClick={buttonProps?.onClick}>
-              <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
-              <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
+              <Typography sx={{ ...textColor }}>{menuItem?.text}</Typography>
+              <ListItemText primary={menuItem?.icon} sx={{ ...textColor }} />
             </ListItemButton>
           </ListItem>
         </Link>
