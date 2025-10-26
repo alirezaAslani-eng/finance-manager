@@ -15,8 +15,9 @@ import React from "react";
 interface MyProps {
   menuItem: MenuItemFace;
   buttonProps?: ListItemButtonProps;
+  noLink?: boolean;
 }
-function SideBarButton({ menuItem, buttonProps }: MyProps) {
+function SideBarButton({ menuItem, buttonProps, noLink }: MyProps) {
   const { isActive } = useIsActiveLink(menuItem.link);
   // * Style =============== >
   const { palette } = useTheme();
@@ -27,14 +28,25 @@ function SideBarButton({ menuItem, buttonProps }: MyProps) {
     }),
   };
   return (
-    <Link href={menuItem.link}>
-      <ListItem key={menuItem.id} disablePadding>
-        <ListItemButton onClick={buttonProps?.onClick}>
-          <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
-          <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
-        </ListItemButton>
-      </ListItem>
-    </Link>
+    <>
+      {noLink ? (
+        <ListItem key={menuItem.id} disablePadding>
+          <ListItemButton onClick={buttonProps?.onClick}>
+            <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
+            <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
+          </ListItemButton>
+        </ListItem>
+      ) : (
+        <Link href={menuItem.link}>
+          <ListItem key={menuItem.id} disablePadding>
+            <ListItemButton onClick={buttonProps?.onClick}>
+              <Typography sx={{ ...textColor }}>{menuItem.text}</Typography>
+              <ListItemText primary={menuItem.icon} sx={{ ...textColor }} />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+      )}
+    </>
   );
 }
 
