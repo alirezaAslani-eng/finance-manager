@@ -1,32 +1,25 @@
-import { PropsWithChildren, useState } from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import { PropsWithChildren } from "react";
 import Button from "@mui/material/Button";
-import type { SxProps } from "@mui/material";
-// * Modal wrapper style --- >
-const style: SxProps = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-};
-// * Props type --- >
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 interface MyProps {
   isOpen: boolean;
   onClose?: () => void;
 }
-// * Component ---- >
-const ModalHandler = ({
-  children,
+
+const ModalHandlerl = ({
   isOpen,
   onClose,
+  children,
 }: PropsWithChildren<MyProps>) => {
   return (
-    <Modal open={isOpen} onClose={onClose}>
-      {/* // * Your Modal --- > */}
-      <Box sx={style}>{children}</Box>
-    </Modal>
+    <Dialog open={isOpen} onClose={onClose} >
+      <>{children}</>
+    </Dialog>
   );
 };
 
-export default ModalHandler;
+export default ModalHandlerl;
