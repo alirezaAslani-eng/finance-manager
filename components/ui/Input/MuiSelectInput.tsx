@@ -41,15 +41,13 @@ function MuiSelectInput({
         {...inputProps}
         error={!!errorText}
       >
-        <Box maxHeight={"300px"}>
-          {selectItems?.map(({ text, value }) => {
-            return (
-              <MenuItem key={crypto.randomUUID()} value={value}>
-                {text}
-              </MenuItem>
-            );
-          })}
-        </Box>
+        {selectItems?.map(({ text, value }) => {
+          return (
+            <MenuItem key={crypto.randomUUID()} value={value}>
+              {text}
+            </MenuItem>
+          );
+        })}
       </Select>
       {!!errorText && (
         <Typography component={"span"} sx={{ color: palette.error.main }}>
