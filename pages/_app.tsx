@@ -13,6 +13,7 @@ import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
 import { CustomPageProps } from "@/types/page.types";
+import { ModalGroup } from "@/components/common";
 
 // * Load Dana Medume Font as Gloabal ================= >
 const danaMediume = font({
@@ -33,18 +34,25 @@ function _app({
     Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
   return (
     <QueryClientProvider client={queryClient}>
+      {/* // * Signup Context ----------- >  */}
       <SignupProvider>
+        {/* // * Auth Context ----------- >  */}
         <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
+          {/* // * Modal Context ----------- >  */}
           <ModalProvider>
+            {/* // * div tag to add font variable ----------- >  */}
             <div className={`${danaMediume.variable} ${peydaMedium.variable}`}>
+              {/* // * Mui Theme Context ----------- >  */}
               <MuiThemeProvider>
-                {/* Normalize Css ================== >*/}
+                {/* // * Normalize Css --------- >*/}
                 <CssBaseline />
+                {/* // * Layout ------ > */}
                 <Layout>
-                  {/* Render Page ================== >*/}
-
+                  {/* // * Page ------- > */}
                   <Component {...pageProps} />
                 </Layout>
+                {/* // * Modals ------ > */}
+                <ModalGroup />
               </MuiThemeProvider>
             </div>
           </ModalProvider>
