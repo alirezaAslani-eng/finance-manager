@@ -40,9 +40,9 @@ const handler: handler_type = async (req, res) => {
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     case "PUT": {
-      const info = categorySchema.parse(req.body);
+      const { name } = categorySchema.parse(req.body);
       await editOneCategory(req.query.id as string, {
-        ...info,
+        name,
         user: payloadInfo._id,
       });
       return res.status(204).json(""); // ? RESPONSE <----------

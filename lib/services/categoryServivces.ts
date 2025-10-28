@@ -44,7 +44,10 @@ const categoryServivces = {
     return dl_res;
   },
 
-  async editOneCategory(_id: string, updatedInfo: CreateCategoryInputService) {
+  async editOneCategory(
+    _id: string,
+    updatedInfo: CreateCategoryInputService
+  ): Promise<CreatedCategoryReturnService> {
     const { name, user } = updatedInfo;
     await conect();
 
@@ -65,9 +68,10 @@ const categoryServivces = {
       {
         _id,
       },
-      { $set: { name: name.trim() } }
+      { $set: { name: name.trim() } },
+      { new: true }
     );
-    return update_res;
+    return update_res as CreatedCategoryReturnService;
   },
 
   async isUniqueCategoryName(
