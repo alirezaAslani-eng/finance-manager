@@ -65,7 +65,7 @@ const categoryServivces = {
       {
         _id,
       },
-      { ...updatedInfo, name: name.trim() }
+      { $set: { name: name.trim() } }
     );
     return update_res;
   },
