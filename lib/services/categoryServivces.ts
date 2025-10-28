@@ -25,16 +25,6 @@ const categoryServivces = {
       type: "client",
     });
 
-    // * each user must have maximum 10 categories ============================== >
-    const userCategories = await category_model.find({
-      user: categoryInfo.user,
-    });
-
-    throwError(userCategories.length == 10, {
-      message: "حد اکثر ۱۰ تا دسته بندی مجاز هست",
-      statusCode: 400, // 👈 چون statusCode نداشتی
-      type: "client",
-    });
 
     // * Create Query ======================= >
     const create_res = await category_model.create({
