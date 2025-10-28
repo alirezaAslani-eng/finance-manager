@@ -4,12 +4,17 @@ import type { InferSchemaType } from "mongoose";
 import { throwError, payloadToken } from "../utils";
 import { NextApiRequest } from "next";
 import { PayloadToken_type } from "@/types/user.types";
+import {
+  CreateCategoryInputService,
+  CreatedCategoryReturnService,
+} from "./types/services.types";
 
 // * Category Schema type ============== >
-type Category_type = InferSchemaType<typeof category_schema>;
-type CreatedCategory = Category_type & { _id: string };
+
 const categoryServivces = {
-  async createCategory(categoryInfo: Category_type): Promise<CreatedCategory> {
+  async createCategory(
+    categoryInfo: CreateCategoryInputService
+  ): Promise<CreatedCategoryReturnService> {
     const { name, user } = categoryInfo;
     await conect();
 
@@ -30,7 +35,7 @@ const categoryServivces = {
       ...categoryInfo,
       name: name.trim(),
     });
-    return create_res as CreatedCategory;
+    return create_res as CreatedCategoryReturnService;
   },
 
   async removeCategory(_id: any) {
@@ -39,7 +44,7 @@ const categoryServivces = {
     return dl_res;
   },
 
-  async editOneCategory(_id: string, updatedInfo: Category_type) {
+  async editOneCategory(_id: string, updatedInfo: CreateCategoryInputService) {
     const { name, user } = updatedInfo;
     await conect();
 

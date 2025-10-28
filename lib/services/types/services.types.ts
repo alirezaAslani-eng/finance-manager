@@ -1,4 +1,4 @@
-import { transaction_schema } from "@/model";
+import { category_schema, transaction_schema } from "@/model";
 import { Transaction_face } from "@/types/transaction.types";
 import { InferSchemaType } from "mongoose";
 
@@ -30,4 +30,12 @@ interface GetOneTransactionServiceType {
   updatedAt: string;
 }
 
-export type { ServiceOptions, GetOneTransactionServiceType };
+type CreateCategoryInputService = InferSchemaType<typeof category_schema>;
+type CreatedCategoryReturnService = CreateCategoryInputService & { _id: string };
+
+export type {
+  ServiceOptions,
+  GetOneTransactionServiceType,
+  CreateCategoryInputService,
+  CreatedCategoryReturnService,
+};
