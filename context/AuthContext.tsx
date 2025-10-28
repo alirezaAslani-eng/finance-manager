@@ -1,5 +1,6 @@
 import { getUserInfo } from "@/api/get";
 import { keys } from "@/config/react-query";
+import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
 import { GetMeOutput } from "@/types/user.types";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -15,6 +16,7 @@ interface provider {
   isLogin: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
   refetchMe: () => Promise<void>;
+  addCategory: (category: CreatedCategoryReturnService) => void;
 }
 interface AuthProviderInput {
   // * ssrUserInfo is for info which is injected from SSR PAGE
@@ -55,6 +57,16 @@ const AuthProvider = ({
     });
   }, []);
 
+  // * A Method To Add Category =========== >
+  const addCategory = useCallback((category: CreatedCategoryReturnService) => {
+    setUserInfo((prev) => {
+      return {
+        ...prev,
+        categories: [...prev.categories.slice().reverse(), category].reverse(),
+      };
+    })
+  }, []);
+
   // * Authorizing user ==================================== >
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: keys.userInfo.all,
@@ -74,10 +86,12 @@ const AuthProvider = ({
     // * user is authorized successfully =================>
     setIslogin(true);
     setUserInfo(data as GetMeOutput);
-  }, [isLoading, isError,data]);
+  }, [isLoading, isError, data]);
 
   return (
-    <AuthContex.Provider value={{ setInfo, userInfo, isLogin, refetchMe }}>
+    <AuthContex.Provider
+      value={{ setInfo, userInfo, isLogin, refetchMe, addCategory }}
+    >
       {children}
     </AuthContex.Provider>
   );
