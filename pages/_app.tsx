@@ -2,7 +2,12 @@ import { Box, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import React, { PropsWithChildren } from "react";
 import font from "next/font/local";
-import { AuthProvider, MuiThemeProvider, SignupProvider } from "@/context";
+import {
+  AuthProvider,
+  ModalProvider,
+  MuiThemeProvider,
+  SignupProvider,
+} from "@/context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -30,18 +35,19 @@ function _app({
     <QueryClientProvider client={queryClient}>
       <SignupProvider>
         <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-          <div className={`${danaMediume.variable} ${peydaMedium.variable}`}>
-            <MuiThemeProvider>
-              {/* Normalize Css ================== >*/}
-              <CssBaseline />
-              <Layout>
-                {/* Render Page ================== >*/}
-               
+          <ModalProvider>
+            <div className={`${danaMediume.variable} ${peydaMedium.variable}`}>
+              <MuiThemeProvider>
+                {/* Normalize Css ================== >*/}
+                <CssBaseline />
+                <Layout>
+                  {/* Render Page ================== >*/}
+
                   <Component {...pageProps} />
-             
-              </Layout>
-            </MuiThemeProvider>
-          </div>
+                </Layout>
+              </MuiThemeProvider>
+            </div>
+          </ModalProvider>
         </AuthProvider>
       </SignupProvider>
       <ReactQueryDevtools initialIsOpen={false} />
