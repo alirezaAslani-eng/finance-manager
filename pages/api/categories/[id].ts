@@ -12,6 +12,12 @@ import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 
 const handler: handler_type = async (req, res) => {
+  // * Check Params (id) ============= >
+  throwError(!isValidObjectId(req.query.id), {
+    message: "id is not valid",
+    statusCode: 400,
+    type: "dev",
+  }); // ! Might throw Error <<<<<<<<
   // * Check is it a user and is it owner of this document ====================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
@@ -25,12 +31,6 @@ const handler: handler_type = async (req, res) => {
     mustBeOwnerOf: category_model,
   }); // ! Might Throw Error ====================== <
 
-  // * Check Params (id) ============= >
-  throwError(!isValidObjectId(req.query.id), {
-    message: "id is not valid",
-    statusCode: 400,
-    type: "dev",
-  }); // ! Might throw Error <<<<<<<<
   // * Services  ======================== >
   const { removeCategory, editOneCategory } = categoryServivces;
 
