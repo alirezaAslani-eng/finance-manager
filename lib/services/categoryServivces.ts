@@ -7,9 +7,9 @@ import { PayloadToken_type } from "@/types/user.types";
 
 // * Category Schema type ============== >
 type Category_type = InferSchemaType<typeof category_schema>;
-
+type CreatedCategory = Category_type & { _id: string };
 const categoryServivces = {
-  async createCategory(categoryInfo: Category_type) {
+  async createCategory(categoryInfo: Category_type): Promise<CreatedCategory> {
     const { name, user } = categoryInfo;
     await conect();
 
@@ -25,13 +25,12 @@ const categoryServivces = {
       type: "client",
     });
 
-
     // * Create Query ======================= >
     const create_res = await category_model.create({
       ...categoryInfo,
       name: name.trim(),
     });
-    return create_res;
+    return create_res as CreatedCategory;
   },
 
   async removeCategory(_id: any) {
