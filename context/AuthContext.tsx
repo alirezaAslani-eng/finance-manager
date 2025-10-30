@@ -11,7 +11,7 @@ import {
   useState,
 } from "react";
 
-interface provider {
+interface Provider {
   userInfo: GetMeOutput;
   isLogin: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
@@ -22,7 +22,7 @@ interface AuthProviderInput {
   // * ssrUserInfo is for info which is injected from SSR PAGE
   ssrUserInfo?: GetMeOutput;
 }
-const AuthContex = createContext({} as provider | null);
+const AuthContex = createContext({} as Provider | null);
 
 const AuthProvider = ({
   children,
@@ -59,12 +59,8 @@ const AuthProvider = ({
 
   // * A Method To Add Category =========== >
   const addCategory = useCallback((category: CreatedCategoryReturnService) => {
-    setUserInfo((prev) => {
-      return {
-        ...prev,
-        categories: [...prev.categories.slice().reverse(), category].reverse(),
-      };
-    })
+    userInfo.categories.unshift(category);
+    setUserInfo(userInfo);
   }, []);
 
   // * Authorizing user ==================================== >
