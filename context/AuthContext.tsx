@@ -17,6 +17,7 @@ interface Provider {
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
   refetchMe: () => Promise<void>;
   addCategory: (category: CreatedCategoryReturnService) => void;
+  editCategory: (updatedCategory: { newName: string; _id: string }) => void;
 }
 interface AuthProviderInput {
   // * ssrUserInfo is for info which is injected from SSR PAGE
@@ -63,6 +64,21 @@ const AuthProvider = ({
     setUserInfo(userInfo);
   }, []);
 
+  // * A Method to Edit Category =========== >
+  const editCategory: Provider["editCategory"] = useCallback(
+    (updatedCategory) => {
+      // * Find index of category that will be edited ======= >
+      const categoryIndex = userInfo.categories.findIndex(
+        (item) => item._id == updatedCategory._id
+      );
+      // * update category ==== >
+      userInfo.categories[categoryIndex];
+      // * rerender ==== >
+      setUserInfo(userInfo);
+    },
+    []
+  );
+
   // * Authorizing user ==================================== >
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: keys.userInfo.all,
@@ -86,7 +102,14 @@ const AuthProvider = ({
 
   return (
     <AuthContex.Provider
-      value={{ setInfo, userInfo, isLogin, refetchMe, addCategory }}
+      value={{
+        setInfo,
+        userInfo,
+        isLogin,
+        refetchMe,
+        addCategory,
+        editCategory,
+      }}
     >
       {children}
     </AuthContex.Provider>
