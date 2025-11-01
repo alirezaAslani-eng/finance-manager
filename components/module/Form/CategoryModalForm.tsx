@@ -97,6 +97,7 @@ function CategoryModalForm({
         >
           <MuiButton
             buttonProps={{
+              type: "submit",
               onClick: handleSubmit(submiter),
               disabled: edit ? isSubmitting || !isDirty : isSubmitting,
             }}
