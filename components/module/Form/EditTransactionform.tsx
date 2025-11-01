@@ -4,7 +4,7 @@ import {
   MuiTextField,
   MuiToggleButton,
 } from "@/components/ui";
-import { AuthContex } from "@/context";
+import { AuthContex, ModalContext } from "@/context";
 import { transactionEditSchema } from "@/lib/validations";
 import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,21 +50,17 @@ function EditTransactionform({
     });
   }, [categories]);
 
-  const accountOptions = useMemo(() => {
-    return accounts.map((account) => {
-      return {
-        text: `${account.accountName} ${account.cardNumber}`,
-        value: account._id,
-      };
-    });
-  }, [accounts]);
-
   // * submiter ================= >
   const submit = async (f: unknown) => {
     await onSubmit(f as transactionEditSchemaType);
     reset(getValues());
   };
 
+  // * Modal Context to open edit category modal ==== >
+  const { openEditCategoryModal } = useContext(ModalContext)!;
+  const editCategoryOptionClick = (categoryId: string) => {
+    openEditCategoryModal({ categoryId });
+  };
   return (
     <>
       <Box
@@ -81,6 +77,8 @@ function EditTransactionform({
               render={({ field }) => {
                 return (
                   <MuiSelectInput
+                    isEditable
+                    onEditOption={editCategoryOptionClick}
                     selectItems={categoryOptions}
                     errorText={errors?.["category"]?.message}
                     inputProps={{
