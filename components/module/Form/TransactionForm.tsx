@@ -5,7 +5,7 @@ import type { transactionSchemaType } from "@/lib/validations/transactionSchema"
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
-import React, { useContext, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
@@ -22,7 +22,6 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   } = useForm({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
-      account: "", // * to fix uncontroled warn
       category: "", // * to fix uncontroled warn
     },
   });
@@ -32,18 +31,15 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
     userInfo: { accounts, categories },
   } = useContext(AuthContex)!;
 
+  // * Auto Fill input ==== >
+  useEffect(() => {
+    setValue("account", accounts.find((item) => item.isActive)?._id || "");
+  }, [accounts]);
+
   // * Submiter ======================== >
   const submiter = async (form: unknown) => {
     await onSubmit(form as transactionSchemaType);
   };
-
-  //  * Input select options ========================== >
-  const selectAccounts = useMemo(() => {
-    return accounts.map((account) => ({
-      text: `${account.cardNumber}  ${account.accountName}`,
-      value: account._id,
-    }));
-  }, [accounts]);
 
   const categoriesSelect = useMemo(() => {
     return categories.map((category) => ({
@@ -86,7 +82,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
       <Box component={"form"} onSubmit={handleSubmit(submiter)}>
         <Grid container spacing={2}>
           {/* Price Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <MuiTextField
               errorText={errors?.["amount"]?.message}
               textFieldProps={{
@@ -96,28 +92,8 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
               }}
             />
           </Grid>
-          {/* Account Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
-            <Controller
-              control={control}
-              name="account"
-              render={({ field }) => {
-                return (
-                  <MuiSelectInput
-                    errorText={errors?.["account"]?.message}
-                    selectItems={selectAccounts}
-                    inputProps={{
-                      ...field,
-                      disabled: isSubmitting,
-                      label: "انتخاب کارت",
-                    }}
-                  />
-                );
-              }}
-            />
-          </Grid>
           {/* Category Field =================================== > */}
-          <Grid size={{ xs: 12, _600: 4 }}>
+          <Grid size={{ xs: 12, _600: 6 }}>
             <Controller
               control={control}
               name="category"
@@ -151,6 +127,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
             sx: { mt: "20px" },
           }}
         />
+        <input type="hidden" {...register("account")} />
         {/* Submit Button ===================== > */}
         <Box sx={{ mt: "20px" }}>
           <SwitchButton
