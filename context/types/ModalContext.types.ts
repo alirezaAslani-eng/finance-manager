@@ -3,7 +3,6 @@ interface ModalProvidedValue {
   editCategoryModalState: {
     isOpen: boolean;
     categoryId: string;
-    newName: string;
   };
   openAddCategoryModal: () => void;
   closeAddCategoryModal: () => void;

@@ -21,7 +21,6 @@ function ModalProvider({ children }: PropsWithChildren) {
   >({
     isOpen: false,
     categoryId: "",
-    newName: "",
   });
 
   // * Dispatcher --- >
@@ -38,21 +37,16 @@ function ModalProvider({ children }: PropsWithChildren) {
 
   const openEditCategoryModal: ModalProvidedValue["openEditCategoryModal"] =
     useCallback(
-      (
-        updatedCategory: Pick<
-          typeof editCategoryModalState,
-          "categoryId" | "newName"
-        >
-      ) => {
-        const { categoryId, newName } = updatedCategory;
-        setEditCategoryModalState({ isOpen: true, categoryId, newName });
+      (updatedCategory: Pick<typeof editCategoryModalState, "categoryId">) => {
+        const { categoryId } = updatedCategory;
+        setEditCategoryModalState({ isOpen: true, categoryId });
       },
       []
     );
 
   const closeEditCategoryModal: ModalProvidedValue["closeEditCategoryModal"] =
     useCallback(() => {
-      setEditCategoryModalState({ categoryId: "", isOpen: false, newName: "" });
+      setEditCategoryModalState({ categoryId: "", isOpen: false });
     }, []);
 
   // * Provider Values ================================================= >
