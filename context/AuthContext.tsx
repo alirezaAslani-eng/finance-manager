@@ -60,8 +60,9 @@ const AuthProvider = ({
 
   // * A Method To Add Category =========== >
   const addCategory = useCallback((category: CreatedCategoryReturnService) => {
-    userInfo.categories.unshift(category);
-    setUserInfo(userInfo);
+    setUserInfo((prev) => {
+      return { ...prev, categories: [category, ...prev.categories] };
+    });
   }, []);
 
   // * A Method to Edit Category =========== >
@@ -71,12 +72,15 @@ const AuthProvider = ({
       const categoryIndex = userInfo.categories.findIndex(
         (item) => item._id == updatedCategory._id
       );
-      // * update category ==== >
-      userInfo.categories[categoryIndex];
-      // * rerender ==== >
-      setUserInfo(userInfo);
+      const updatedCategories = [...userInfo.categories];
+      // * Mutate ==== >
+      updatedCategories[categoryIndex].name = updatedCategory.newName;
+      // * Set And Rerender ======= >
+      setUserInfo((prev) => {
+        return { ...prev, categories: updatedCategories };
+      });
     },
-    []
+    [userInfo]
   );
 
   // * Authorizing user ==================================== >
