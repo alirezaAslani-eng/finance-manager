@@ -6,10 +6,7 @@ interface ModalProvidedValue {
   };
   openAddCategoryModal: () => void;
   closeAddCategoryModal: () => void;
-  openEditCategoryModal: (openState: {
-    newName: string;
-    categoryId: string;
-  }) => void;
+  openEditCategoryModal: (openState: { categoryId: string }) => void;
   closeEditCategoryModal: () => void;
 }
 
