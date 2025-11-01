@@ -1,5 +1,5 @@
 import { MuiSelectInput, MuiTextField, SwitchButton } from "@/components/ui";
-import { AuthContex } from "@/context";
+import { AuthContex, ModalContext } from "@/context";
 import { transactionSchema } from "@/lib/validations";
 import type { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { muiTheme } from "@/utils";
@@ -54,6 +54,15 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
 
   // * style ================ >
   const { palette } = useTheme();
+
+  // * Modal Context to open edit category modal ====== >
+  const { openEditCategoryModal } = useContext(ModalContext);
+
+  // * Category Select input Edit Event ======= >
+  const editCategoryClick = (categoryId: string) => {
+    openEditCategoryModal({ categoryId });
+  };
+
   return (
     <Box>
       {/* Title ==================== > */}
@@ -115,6 +124,8 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
               render={({ field }) => {
                 return (
                   <MuiSelectInput
+                    isEditable
+                    onEditOption={editCategoryClick}
                     errorText={errors?.["category"]?.message}
                     selectItems={categoriesSelect}
                     inputProps={{
