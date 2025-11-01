@@ -37,6 +37,7 @@ const category_row: SxProps = {
 
 interface MyProps {
   onSubmit?: (categoryInfo: CategorySchemaType) => Promise<void>;
+  onClose?: () => void;
   edit?: boolean;
   defaultValues?: CategorySchemaType;
 }
@@ -44,6 +45,7 @@ function CategoryModalForm({
   onSubmit = async () => {},
   edit = false,
   defaultValues,
+  onClose,
 }: MyProps) {
   // * Input Config =================== >
   const {
@@ -112,6 +114,7 @@ function CategoryModalForm({
           </MuiButton>
           <MuiButton
             buttonProps={{
+              onClick: onClose,
               variant: "text",
               color: "error",
               disabled: isSubmitting,

@@ -9,34 +9,37 @@ function ModalGroup() {
   const ModalStates = useContext(ModalContext);
 
   // * Category Modal Satate ================= >
-  const { closeAddCategoryModal, isOpenAddCategoryModal } = ModalStates;
+  const {
+    closeAddCategoryModal,
+    closeEditCategoryModal,
+    isOpenAddCategoryModal,
+  } = ModalStates;
 
   // * Edit Category state ==== >
   const {
-    editCategoryModalState: {
-      isOpen: isOpenEditCategoryModal,
-      newName: newCategoryName,
-      categoryId,
-    },
+    editCategoryModalState: { isOpen: isOpenEditCategoryModal, categoryId },
   } = ModalStates;
 
   // * Add Category Hook ================== >
   const { addCategory } = useAddCategory();
 
   // * Edit Category Hook ============== >
-  const { editCategory } = useEditCategory(categoryId);
-
+  const { editCategory, oldCategoryName } = useEditCategory(categoryId);
+  const closeCategoryModal = isOpenEditCategoryModal
+    ? closeEditCategoryModal
+    : closeAddCategoryModal;
   return (
     <>
       {/* // * Category Modal : Can be oopen for edit and also for create a category ======= > */}
       <ModalHandler
         isOpen={isOpenEditCategoryModal || isOpenAddCategoryModal}
-        onClose={closeAddCategoryModal}
+        onClose={closeCategoryModal}
       >
         <CategoryModalForm
           onSubmit={isOpenEditCategoryModal ? editCategory : addCategory}
+          onClose={closeCategoryModal}
           edit={isOpenEditCategoryModal} // * edit state
-          defaultValues={{ name: newCategoryName }} // * default value for edit state
+          defaultValues={{ name: oldCategoryName }} // * default value for edit state
         />
       </ModalHandler>
     </>
