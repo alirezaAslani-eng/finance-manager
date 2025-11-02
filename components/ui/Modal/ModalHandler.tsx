@@ -11,7 +11,11 @@ const ModalHandlerl = ({
   children,
 }: PropsWithChildren<MyProps>) => {
   return (
-    <Dialog open={isOpen} onClose={onClose} >
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      PaperProps={{ sx: { backgroundColor: "transparent" } }}
+    >
       <>{children}</>
     </Dialog>
   );
