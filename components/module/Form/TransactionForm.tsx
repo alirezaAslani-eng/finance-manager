@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
-  onSubmit?: (info: transactionSchemaType) => Promise<void>;
+  onSubmit?: (info: transactionSchemaType) => Promise<void> | void;
 }
 function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   // * Form Handler ======================== >
