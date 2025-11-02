@@ -29,6 +29,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   // * Auth Context to access to user's accounts and categories ==================== >
   const {
     userInfo: { accounts, categories },
+    isAuthing,
   } = useContext(AuthContex)!;
 
   // * Auto Fill input ==== >
@@ -106,7 +107,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
                     selectItems={categoriesSelect}
                     inputProps={{
                       ...field,
-                      disabled: isSubmitting,
+                      disabled: isAuthing || isSubmitting,
                       label: "دسته بندی",
                     }}
                   />
