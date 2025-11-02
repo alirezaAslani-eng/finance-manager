@@ -54,7 +54,6 @@ function useAddTransaction() {
       });
       // * Close Modal and clean state === >
       closeModal();
-      setTransaction(null);
       // TODO Show Success Message ================== >
     } catch (err) {
       const error = err as BadResponse;
