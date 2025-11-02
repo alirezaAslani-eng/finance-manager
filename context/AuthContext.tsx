@@ -14,6 +14,7 @@ import {
 interface Provider {
   userInfo: GetMeOutput;
   isLogin: boolean;
+  isAuthing: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
   refetchMe: () => Promise<void>;
   addCategory: (category: CreatedCategoryReturnService) => void;
@@ -84,7 +85,12 @@ const AuthProvider = ({
   );
 
   // * Authorizing user ==================================== >
-  const { data, isError, isLoading, refetch } = useQuery({
+  const {
+    data,
+    isError,
+    isLoading: isAuthing,
+    refetch,
+  } = useQuery({
     queryKey: keys.userInfo.all,
     initialData: ssrUserInfo ?? undefined,
     queryFn: getUserInfo,
@@ -97,12 +103,12 @@ const AuthProvider = ({
 
   // * Updating State ==================== >
   useEffect(() => {
-    if (isLoading) return;
+    if (isAuthing) return;
     if (isError) return;
     // * user is authorized successfully =================>
     setIslogin(true);
     setUserInfo(data as GetMeOutput);
-  }, [isLoading, isError, data]);
+  }, [isAuthing, isError, data]);
 
   return (
     <AuthContex.Provider
@@ -110,6 +116,7 @@ const AuthProvider = ({
         setInfo,
         userInfo,
         isLogin,
+        isAuthing,
         refetchMe,
         addCategory,
         editCategory,
