@@ -5,10 +5,17 @@ import { parseDoc, throwError } from "../utils";
 import { ServiceOptions } from "./types/services.types";
 import { AccountSchemaType } from "../validations/accountSchema";
 import { getChangedKeys } from "@/utils";
+import { identyfyBank } from "@/utils";
+import { Bank } from "@/constant/types/banks.types";
 // * Account Schema type ============== >
 type InputAccount_type = Pick<
   InferSchemaType<typeof account_schema>,
-  "accountName" | "cardNumber" | "currentBalance" | "user"
+  | "accountName"
+  | "cardNumber"
+  | "currentBalance"
+  | "user"
+  | "bankIcon"
+  | "bankName"
 >;
 type Account_type = InferSchemaType<typeof account_schema>;
 
@@ -122,7 +129,7 @@ const accountServices = {
     // * Edit Query ================== >
     const edit_res = await account_model.findOneAndUpdate(
       { _id },
-      updatedFields
+      { $set: updatedFields }
     );
     return edit_res;
   },
@@ -139,6 +146,10 @@ const accountServices = {
   async hasAccount(userID: string) {
     const userHasAccount = await account_model.findOne({ user: userID });
     return !!userHasAccount;
+  },
+  IdentyfyAccount(cardNumber: string): Bank | undefined {
+    const accountDetails = identyfyBank(cardNumber);
+    return accountDetails;
   },
 };
 
