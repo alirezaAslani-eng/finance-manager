@@ -6,5 +6,7 @@ interface Account_face {
   cardNumber: string;
   currentBalance: number;
   user: User_face;
+  bankName: string;
+  bankIcon: string;
 }
 export type { Account_face };

@@ -34,6 +34,15 @@ const account_schema = new Schema<schemaType>(
       match: /^[0-9]{16}$/,
       unique: true,
     },
+    bankIcon: {
+      type: String,
+      required: true,
+    },
+    bankName: {
+      type: String,
+      required: true,
+      maxlength: 20,
+    },
   },
   { timestamps: true }
 );
