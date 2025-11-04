@@ -6,7 +6,7 @@ import { PayloadToken_type } from "@/types/user.types";
 
 const handler: handler_type = async (req, res) => {
   // * Services ================== >
-  const { createAccount } = accountServices;
+  const { createAccount, IdentyfyAccount } = accountServices;
   // * Payload Info ============================================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
@@ -21,12 +21,23 @@ const handler: handler_type = async (req, res) => {
       const { cardNumber, currentBalance, accountName } = accountSchema.parse(
         req.body
       );
+      // * Identyfy Account ======= >
+      const bankInfo = IdentyfyAccount(cardNumber)!;
+
+      throwError(!bankInfo, {
+        message: "شماره کارت نامعتبر هست",
+        statusCode: 400,
+        type: "client",
+      }); // ! Might Thow Code =========== <
+
       // * Create Account ========== >
       const create_res = await createAccount({
         cardNumber,
         currentBalance,
         accountName,
         user: payloadInfo._id,
+        bankIcon: bankInfo.bank_logo,
+        bankName: bankInfo.bank_name,
       }); // ! Might Throw Error ================== <
 
       return res.json(create_res);

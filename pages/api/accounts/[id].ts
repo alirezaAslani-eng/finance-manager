@@ -31,7 +31,8 @@ const handler: handler_type = async (req, res) => {
     type: "dev",
   }); // ! Might throw Error <<<<<<<<
   // * Services ================== >
-  const { removeAccount, editAccount, getOneAccount } = accountServices;
+  const { removeAccount, editAccount, getOneAccount, IdentyfyAccount } =
+    accountServices;
   switch (req.method as "DELETE" | "PUT" | "GET") {
     case "DELETE": {
       await removeAccount(req.query.id); // ! Might throw Error <<<<<<<<
@@ -42,11 +43,20 @@ const handler: handler_type = async (req, res) => {
       const { accountName, cardNumber, currentBalance } = accountSchema.parse(
         req.body
       );
+      // * Identyfy Account ======= >
+      const bankInfo = IdentyfyAccount(cardNumber)!;
+      throwError(!bankInfo, {
+        message: "شماره کارت نامعتبر هست",
+        statusCode: 400,
+        type: "client",
+      }); // ! Might Thow Code =========== <
       // * Start Updating Account ============== >
       await editAccount(req.query.id, {
         accountName,
         cardNumber,
         currentBalance,
+        bankIcon: bankInfo.bank_logo,
+        bankName: bankInfo.bank_name,
       }); // ! Might throw Error <<<<<<<<
       return res.status(204).json(""); // ? RESPONSE <<<-------
     }
