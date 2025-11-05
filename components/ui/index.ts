@@ -22,6 +22,6 @@ export { default as NoData } from "./Fallback/NoData";
 export { default as MuiAlert } from "./Alert/MuiAlert";
 export { default as MuiToggleButton } from "./Button/MuiToggleButton";
 export { default as ModalHandler } from "./Modal/ModalHandler";
-export { default as DeletableChip } from "./Chip/DeletableChip";
+export { default as MuiChip } from "./Chip/MuiChip";
 export { default as ScrollShadowBox } from "./Box/ScrollShadowBox";
 export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";

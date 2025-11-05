@@ -1,5 +1,5 @@
 import {
-  DeletableChip,
+  MuiChip,
   MuiButton,
   MuiTextField,
   ScrollShadowBox,
@@ -165,7 +165,7 @@ function CategoryModalForm({
               {/* // * Desktop Section =========== > */}
               {is_after_540 &&
                 categories.map((item) => {
-                  return <DeletableChip key={item._id} text={item.name} />;
+                  return <MuiChip key={item._id} text={item.name} />;
                 })}
               {/* // * Mobile Section =========== > */}
               {!is_after_540 && (
@@ -173,17 +173,13 @@ function CategoryModalForm({
                   <Box sx={category_row}>
                     {halfedCategories?.[0]?.length &&
                       halfedCategories[0].map((item) => {
-                        return (
-                          <DeletableChip key={item._id} text={item.name} />
-                        );
+                        return <MuiChip key={item._id} text={item.name} />;
                       })}
                   </Box>
                   <Box sx={category_row}>
                     {halfedCategories?.[1]?.length &&
                       halfedCategories[1].map((item) => {
-                        return (
-                          <DeletableChip key={item._id} text={item.name} />
-                        );
+                        return <MuiChip key={item._id} text={item.name} />;
                       })}
                   </Box>
                 </>
