@@ -26,5 +26,5 @@ function MuiTextField({ textFieldProps = {}, errorText }: myProps) {
     </Box>
   );
 }
-
+export type { myProps as MuiTextFieldProps };
 export default MuiTextField;
