@@ -27,6 +27,7 @@ function AccountInput({ errorText, textFieldProps, control }: MyProps) {
                   },
                   fontSize: "32px",
                 },
+                inputProps: { maxLength: 19 },
                 ...textFieldProps,
                 onChange: (e) => {
                   cardNumberHandler(e.target.value);
