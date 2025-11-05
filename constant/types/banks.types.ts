@@ -4,5 +4,8 @@ interface Bank {
   bank_title: string;
   bank_logo: string;
 }
+interface BankList {
+  [key: `${number}`]: Bank;
+}
 
-export type { Bank };
+export type { Bank, BankList };

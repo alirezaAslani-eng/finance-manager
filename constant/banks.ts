@@ -1,222 +1,222 @@
-import { Bank } from "./types/banks.types";
+import { BankList } from "./types/banks.types";
 
-const banks: Bank[] = [
-  {
+const banks: BankList = {
+  "627381": {
     card_no: 627381,
     bank_name: "ansar",
     bank_title: "بانک انصار",
-    bank_logo: "/ansar-05.svg",
+    bank_logo: "/bankIcons/ansar-05.svg",
   },
-  {
+  "636214": {
     card_no: 636214,
     bank_name: "ayandeh",
     bank_title: "بانک آینده",
-    bank_logo: "/ayande-03.svg",
+    bank_logo: "/bankIcons/ayande-03.svg",
   },
-  {
+  "502938": {
     card_no: 502938,
     bank_name: "dey",
     bank_title: "بانک دی",
-    bank_logo: "/day-12.svg",
+    bank_logo: "/bankIcons/day-12.svg",
   },
-  {
+  "627412": {
     card_no: 627412,
     bank_name: "eghtesad_novin",
     bank_title: "بانک اقتصادنوین",
-    bank_logo: "/eghtesad-04.svg",
+    bank_logo: "/bankIcons/eghtesad-04.svg",
   },
-  {
+  "628157": {
     card_no: 628157,
     bank_name: "etebari_tosee",
     bank_title: "موسسه اعتباری توسعه",
-    bank_logo: "/tose-11.svg",
+    bank_logo: "/bankIcons/tose-11.svg",
   },
-  {
+  "505416": {
     card_no: 505416,
     bank_name: "gardeshgari",
     bank_title: "بانک گردشگری",
-    bank_logo: "/gardeshgari-20.svg",
+    bank_logo: "/bankIcons/gardeshgari-20.svg",
   },
-  {
+  "639599": {
     card_no: 639599,
     bank_name: "ghavvamin",
     bank_title: "بانک قوامین",
-    bank_logo: "/ghavvamin-31.svg",
+    bank_logo: "/bankIcons/ghavvamin-31.svg",
   },
-  {
+  "627488": {
     card_no: 627488,
     bank_name: "kar_afarin",
     bank_title: "بانک کارآفرین",
-    bank_logo: "/karafarin-06.svg",
+    bank_logo: "/bankIcons/karafarin-06.svg",
   },
-  {
+  "502910": {
     card_no: 502910,
     bank_name: "kar_afarin",
     bank_title: "بانک کارآفرین",
-    bank_logo: "/karafarin-06.svg",
+    bank_logo: "/bankIcons/karafarin-06.svg",
   },
-  {
+  "603770": {
     card_no: 603770,
     bank_name: "keshavarzi",
     bank_title: "بانک کشاورزی",
-    bank_logo: "/keshavarzi-07.svg",
+    bank_logo: "/bankIcons/keshavarzi-07.svg",
   },
-  {
+  "639217": {
     card_no: 639217,
     bank_name: "keshavarzi",
     bank_title: "بانک کشاورزی",
-    bank_logo: "/keshavarzi-07.svg",
+    bank_logo: "/bankIcons/keshavarzi-07.svg",
   },
-  {
+  "628023": {
     card_no: 628023,
     bank_name: "maskan",
     bank_title: "بانک مسکن",
-    bank_logo: "/maskan-26.svg",
+    bank_logo: "/bankIcons/maskan-26.svg",
   },
-  {
+  "639370": {
     card_no: 639370,
     bank_name: "mehr_e_eghtesad",
     bank_title: "بانک مهر اقتصاد",
-    bank_logo: "/mehreghtesad-14.svg",
+    bank_logo: "/bankIcons/mehreghtesad-14.svg",
   },
-  {
+  "606373": {
     card_no: 606373,
     bank_name: "mehr_e_iranian",
     bank_title: "بانک قرض الحسنه مهر ایرانیان",
-    bank_logo: "/mehriran-15.svg",
+    bank_logo: "/bankIcons/mehriran-15.svg",
   },
-  {
+  "603799": {
     card_no: 603799,
     bank_name: "meli",
     bank_title: "بانک ملی ایران",
-    bank_logo: "/melli-22.svg",
+    bank_logo: "/bankIcons/melli-22.svg",
   },
-  {
+  "610433": {
     card_no: 610433,
     bank_name: "mellat",
     bank_title: "بانک ملت",
-    bank_logo: "/mellat-02.svg",
+    bank_logo: "/bankIcons/mellat-02.svg",
   },
-  {
+  "991975": {
     card_no: 991975,
     bank_name: "mellat",
     bank_title: "بانک ملت",
-    bank_logo: "/mellat-02.svg",
+    bank_logo: "/bankIcons/mellat-02.svg",
   },
-  {
+  "111111": {
     card_no: 111111,
     bank_name: "ok",
     bank_title: "همه کارتخوان‌ها",
-    bank_logo: "/shetab.svg",
+    bank_logo: "/bankIcons/shetab.svg",
   },
-  {
+  "622106": {
     card_no: 622106,
     bank_name: "parsian",
     bank_title: "بانک پارسیان",
-    bank_logo: "/pasargad-21.svg",
+    bank_logo: "/bankIcons/pasargad-21.svg",
   },
-  {
+  "502229": {
     card_no: 502229,
     bank_name: "pasargad",
     bank_title: "بانک پاسارگاد",
-    bank_logo: "/pasargad-10.svg",
+    bank_logo: "/bankIcons/pasargad-10.svg",
   },
-  {
+  "639347": {
     card_no: 639347,
     bank_name: "pasargad",
     bank_title: "بانک پاسارگاد",
-    bank_logo: "/pasargad-10.svg",
+    bank_logo: "/bankIcons/pasargad-10.svg",
   },
-  {
+  "627760": {
     card_no: 627760,
     bank_name: "post_bank",
     bank_title: "پست بانک ایران",
-    bank_logo: "/post-09.svg",
+    bank_logo: "/bankIcons/post-09.svg",
   },
-  {
+  "589463": {
     card_no: 589463,
     bank_name: "refah",
     bank_title: "بانک رفاه",
-    bank_logo: "/refahkargaran-28.svg",
+    bank_logo: "/bankIcons/refahkargaran-28.svg",
   },
-  {
+  "627961": {
     card_no: 627961,
     bank_name: "saanat_va_maadan",
     bank_title: "بانک صنعت و معدن",
-    bank_logo: "/sanatmadan-16.svg",
+    bank_logo: "/bankIcons/sanatmadan-16.svg",
   },
-  {
+  "603769": {
     card_no: 603769,
     bank_name: "saderat",
     bank_title: "بانک صادرات",
-    bank_logo: "/saderat-29.svg",
+    bank_logo: "/bankIcons/saderat-29.svg",
   },
-  {
+  "621986": {
     card_no: 621986,
     bank_name: "saman",
     bank_title: "بانک سامان",
-    bank_logo: "/saman-01.svg",
+    bank_logo: "/bankIcons/saman-01.svg",
   },
-  {
+  "639607": {
     card_no: 639607,
     bank_name: "sarmayeh",
     bank_title: "بانک سرمایه",
-    bank_logo: "/sarmaye-17.svg",
+    bank_logo: "/bankIcons/sarmaye-17.svg",
   },
-  {
+  "589210": {
     card_no: 589210,
     bank_name: "sepah",
     bank_title: "بانک سپه",
-    bank_logo: "/sepah-24.svg",
+    bank_logo: "/bankIcons/sepah-24.svg",
   },
-  {
+  "504706": {
     card_no: 504706,
     bank_name: "shahr",
     bank_title: "بانک شهر",
-    bank_logo: "/shahr-25.svg",
+    bank_logo: "/bankIcons/shahr-25.svg",
   },
-  {
+  "502806": {
     card_no: 502806,
     bank_name: "shahr",
     bank_title: "بانک شهر",
-    bank_logo: "/shahr-25.svg",
+    bank_logo: "/bankIcons/shahr-25.svg",
   },
-  {
+  "639346": {
     card_no: 639346,
     bank_name: "sina",
     bank_title: "بانک سینا",
-    bank_logo: "/sina-23.svg",
+    bank_logo: "/bankIcons/sina-23.svg",
   },
-  {
+  "627353": {
     card_no: 627353,
     bank_name: "tejarat",
     bank_title: "بانک تجارت",
-    bank_logo: "/tejarat-13.svg",
+    bank_logo: "/bankIcons/tejarat-13.svg",
   },
-  {
+  "585983": {
     card_no: 585983,
     bank_name: "tejarat",
     bank_title: "بانک تجارت",
-    bank_logo: "/tejarat-13.svg",
+    bank_logo: "/bankIcons/tejarat-13.svg",
   },
-  {
+  "636949": {
     card_no: 636949,
     bank_name: "tejarat",
     bank_title: "بانک حکمت",
-    bank_logo: "/hekmat-30.svg",
+    bank_logo: "/bankIcons/hekmat-30.svg",
   },
-  {
+  "627648": {
     card_no: 627648,
     bank_name: "tosee_saderat",
     bank_title: "بانک توسعه صادرات",
-    bank_logo: "/tosesaderat-18.svg",
+    bank_logo: "/bankIcons/tosesaderat-18.svg",
   },
-  {
+  "502908": {
     card_no: 502908,
     bank_name: "tosee_taavon",
     bank_title: "بانک توسعه تعاون",
-    bank_logo: "/tosetaavon-19.svg",
+    bank_logo: "/bankIcons/tosetaavon-19.svg",
   },
-];
+};
 
 export default banks;
