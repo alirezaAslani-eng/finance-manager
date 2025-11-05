@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, Stack, useTheme } from "@mui/material";
 import { muiTheme } from "@/utils";
 import { useForm } from "react-hook-form";
-import { MuiButton, MuiTextField } from "@/components/ui";
+import { AccountInput, MuiButton, MuiTextField } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initSchema } from "@/lib/validations";
 import type { BoxProps } from "@mui/material";
@@ -12,12 +12,13 @@ interface MyPropa {
   formContainerProps?: BoxProps;
   onSubmit?: (data: InitSchemaType) => Promise<void>;
 }
-const InitForm=({ formContainerProps = {}, onSubmit }: MyPropa)=> {
+const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
   // * Form Config ================== >
   const {
     register,
     formState: { isSubmitting, errors },
     handleSubmit,
+    control,
   } = useForm({ resolver: zodResolver(initSchema) });
 
   // * Style =================== >
@@ -61,10 +62,10 @@ const InitForm=({ formContainerProps = {}, onSubmit }: MyPropa)=> {
               fullWidth: true,
             }}
           />
-          <MuiTextField
+          <AccountInput
+            control={control}
             errorText={errors?.["cardNumber"]?.message}
             textFieldProps={{
-              ...register("cardNumber"),
               label: "شماره کارت",
               placeholder: "شماره کارت (۱۶ رقم)",
               fullWidth: true,
@@ -111,11 +112,11 @@ const InitForm=({ formContainerProps = {}, onSubmit }: MyPropa)=> {
             size: "large",
           }}
         >
-           {"ادامه و ورود"}
+          {"ادامه و ورود"}
         </MuiButton>
       </Box>
     </Box>
   );
-}
+};
 
 export default InitForm;

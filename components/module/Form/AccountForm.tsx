@@ -1,4 +1,4 @@
-import { MuiButton, MuiTextField } from "@/components/ui";
+import { AccountInput, MuiButton, MuiTextField } from "@/components/ui";
 import { accountSchema } from "@/lib/validations";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { muiTheme } from "@/utils";
@@ -19,6 +19,7 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
     reset,
     register,
     formState: { errors, isSubmitting, isDirty },
+    control,
     handleSubmit,
   } = useForm({
     resolver: zodResolver(accountSchema),
@@ -59,7 +60,7 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
       <Box onSubmit={handleSubmit(submiter)} component={"form"}>
         <Grid container spacing={2}>
           {/* Owner's name Field =================================== > */}
-          <Grid size={{ xs: 12, _600: edit ? 6 : 4 }}>
+          <Grid size={{ xs: 12, lg: edit ? 6 : 4 }}>
             <MuiTextField
               errorText={errors?.["accountName"]?.message}
               textFieldProps={{
@@ -70,19 +71,20 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
             />
           </Grid>
           {/* Card Number Field =================================== > */}
-          <Grid size={{ xs: 12, _600: edit ? 6 : 4 }}>
-            <MuiTextField
+          <Grid size={{ xs: 12, lg: edit ? 6 : 4 }}>
+            <AccountInput
+              control={control}
               errorText={errors?.["cardNumber"]?.message}
               textFieldProps={{
                 disabled: isSubmitting,
-                ...register("cardNumber"),
+
                 placeholder: "شماره کارت (۱۶ رقم)",
               }}
             />
           </Grid>
           {/* Current Balance Field =================================== > */}
           {!edit && (
-            <Grid size={{ xs: 12, _600: 4 }}>
+            <Grid size={{ xs: 12, lg: 4 }}>
               <MuiTextField
                 errorText={errors?.["currentBalance"]?.message}
                 textFieldProps={{
@@ -103,7 +105,7 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
                 size: "large",
                 sx: {
                   fontSize: "18px",
-                  width: { xs: "100%", _600: "fit-content" },
+                  width: { xs: "100%", _700: "fit-content" },
                 },
                 type: "submit",
               }}
