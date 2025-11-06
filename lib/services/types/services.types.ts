@@ -1,6 +1,10 @@
 import { category_schema, transaction_schema } from "@/model";
-import { Transaction_face } from "@/types/transaction.types";
-import { InferSchemaType } from "mongoose";
+import {
+  MongoTransaction,
+  Transaction_face,
+  TransactionList,
+} from "@/types/transaction.types";
+import { InferSchemaType, Types } from "mongoose";
 
 interface ServiceOptions {
   uniqCheck?: boolean;
@@ -31,11 +35,23 @@ interface GetOneTransactionServiceType {
 }
 
 type CreateCategoryInputService = InferSchemaType<typeof category_schema>;
-type CreatedCategoryReturnService = CreateCategoryInputService & { _id: string };
+type CreatedCategoryReturnService = CreateCategoryInputService & {
+  _id: string;
+};
 
+type InitialTransationsServiceOutPut = Promise<{
+  lastId: string;
+  initial_transactions: TransactionList;
+}>;
+type LoadMoreTransactionServiceOutPut = Promise<{
+  more_transactions: TransactionList;
+  lastId: string;
+}>;
 export type {
   ServiceOptions,
   GetOneTransactionServiceType,
   CreateCategoryInputService,
   CreatedCategoryReturnService,
+  InitialTransationsServiceOutPut,
+  LoadMoreTransactionServiceOutPut,
 };
