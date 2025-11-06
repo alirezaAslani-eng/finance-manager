@@ -9,11 +9,15 @@ import { conect } from "../db";
 import type { ClientSession, InferSchemaType } from "mongoose";
 import { checkExist, parseDoc, sessionHandler, throwError } from "../utils";
 import {
+  MongoTransaction,
   RecentTransactionType,
   Transaction_face,
 } from "@/types/transaction.types";
 import accountServices from "./accountServices";
-import { GetOneTransactionServiceType } from "./types/services.types";
+import {
+  GetOneTransactionServiceType,
+  InitialTransationsServiceOutPut,
+} from "./types/services.types";
 import { getChangedKeys } from "@/utils";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
@@ -264,7 +268,26 @@ const transactionServices = {
     });
     return !!transaction;
   },
-  async getTransactions(userID: string) {
+
+  async initialTransactions(userID: string): InitialTransationsServiceOutPut {
+    await conect();
+    // * initial load is limited only 50 transactions ----- >
+    const initial_transactions = await transaction_model
+      .find({ user: userID }, "-__v -updatedAt -account -accountBalance")
+      // * Latest -- >
+      .sort({ _id: -1 })
+      // * Limitation --- >
+      .limit(50)
+      .populate("category", "-__v -user")
+      .lean<MongoTransaction[]>();
+
+    return {
+      initial_transactions: parseDoc(initial_transactions),
+      lastId: parseDoc(
+        initial_transactions[initial_transactions.length - 1]._id
+      ),
+    };
+  },
     await conect();
 
     const get_res = await transaction_model
