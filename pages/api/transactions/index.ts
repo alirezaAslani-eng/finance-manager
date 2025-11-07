@@ -1,12 +1,11 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, checkExist, payloadToken, throwError } from "@/lib/utils";
+import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { transactionSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
-import { Transaction_face } from "@/types/transaction.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
   // * Services =============== >
-  const { createTransaction, getTransactions } = transactionServices;
+  const { createTransaction, loadMoreTransactions } = transactionServices;
   // * Authorize user ====================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
@@ -33,10 +32,6 @@ const handler: handler_type = async (req, res) => {
       }); // ! Might Throw Error =================== <
 
       return res.json(create_res);
-    }
-    case "GET": {
-      const get_res = await getTransactions(payloadInfo._id);
-      return res.json(get_res);
     }
     default: {
       throwError(true, {
