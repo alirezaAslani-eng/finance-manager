@@ -40,12 +40,12 @@ type CreatedCategoryReturnService = CreateCategoryInputService & {
 };
 
 type InitialTransationsServiceOutPut = Promise<{
-  lastId: string;
+  nextCursor: string;
   initial_transactions: TransactionList;
 }>;
 type LoadMoreTransactionServiceOutPut = Promise<{
   more_transactions: TransactionList;
-  lastId: string;
+  nextCursor: string;
 }>;
 export type {
   ServiceOptions,

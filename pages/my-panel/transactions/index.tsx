@@ -15,7 +15,7 @@ import React, { useState } from "react";
 
 const index: PageComponent<AllTransactionPageProps> = ({
   hasMore,
-  lastId,
+  nextCursor,
   transactions,
 }) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);

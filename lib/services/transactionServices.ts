@@ -283,7 +283,7 @@ const transactionServices = {
 
     return {
       initial_transactions: parseDoc(initial_transactions),
-      lastId: parseDoc(
+      nextCursor: parseDoc(
         initial_transactions[initial_transactions.length - 1]._id
       ),
     };

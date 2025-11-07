@@ -2,7 +2,7 @@ import { TransactionList } from "@/types/transaction.types";
 
 interface AllTransactionResponse {
   transactions: TransactionList;
-  lastId: string;
+  nextCursor: string;
   hasMore: boolean;
 }
 
