@@ -6,6 +6,7 @@ import {
   transaction_schema,
 } from "@/model";
 import { conect } from "../db";
+import mongoose from "mongoose";
 import type { ClientSession, InferSchemaType } from "mongoose";
 import { checkExist, parseDoc, sessionHandler, throwError } from "../utils";
 import {
@@ -17,6 +18,7 @@ import accountServices from "./accountServices";
 import {
   GetOneTransactionServiceType,
   InitialTransationsServiceOutPut,
+  LoadMoreTransactionServiceOutPut,
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
 // * TransAction schema type
@@ -262,10 +264,14 @@ const transactionServices = {
     _id: string,
     session?: ClientSession
   ): Promise<boolean> {
-    const transaction = await transaction_model.findOne({
-      _id,
-      isLatest: true,
-    });
+    const transaction = await transaction_model.findOne(
+      {
+        _id,
+        isLatest: true,
+      },
+      undefined,
+      { session }
+    );
     return !!transaction;
   },
 
@@ -288,13 +294,29 @@ const transactionServices = {
       ),
     };
   },
+  async loadMoreTransactions(
+    lastID: string, // * Last _id of loaded transaction <<
+    userID: string
+  ): LoadMoreTransactionServiceOutPut {
     await conect();
+    const more_transactions = await transaction_model
+      .find(
+        { user: userID, _id: { $lt: new mongoose.Types.ObjectId(lastID) } },
+        "-__v -updatedAt -account -accountBalance"
+      )
+      // * Latest --- >
+      .sort({ _id: -1 })
+      // * load only 20 transaction more ---- >
+      .limit(20)
+      .populate("category", "-__v -user")
+      .lean<MongoTransaction[]>();
 
-    const get_res = await transaction_model
-      .find({ user: userID }, "-__v")
-      .populate({ path: "account", select: "-__v" });
-    return get_res;
+    return {
+      more_transactions: parseDoc(more_transactions),
+      nextCursor: parseDoc(more_transactions[more_transactions.length - 1]._id),
+    };
   },
+
   async getOneTransaction(
     _id: any
   ): Promise<GetOneTransactionServiceType | null> {
