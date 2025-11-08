@@ -4,6 +4,7 @@ import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { AllTransactionResponse } from "../../types/transactionApi.types";
+import { allTransactionsConfig } from "@/lib/constant";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
   const { loadMoreTransactions, initialTransactions } = transactionServices;
@@ -14,11 +15,11 @@ const handler: handler_type = async (req, res) => {
     message: "اول وارد حساب شوید",
     statusCode: 401,
     type: "client",
-  });
+  }); // ! Might throw Error <<<<<<<<
 
   switch (req.method as "GET") {
     case "GET": {
-      if (lastTransactionId.length) {
+      if (lastTransactionId != "null") {
         // * Check nextCursor which is _id ================== >
         throwError(!isValidObjectId(lastTransactionId), {
           message: "id is not valid",
@@ -37,7 +38,7 @@ const handler: handler_type = async (req, res) => {
           nextCursor,
           hasMore: !!more_transactions.length,
         };
-        return res.json(response);
+        return res.status(200).json(response);
       } else {
         const init = await initialTransactions(payloadInfo._id);
 
@@ -46,9 +47,12 @@ const handler: handler_type = async (req, res) => {
         const response: AllTransactionResponse = {
           transactions: initial_transactions,
           nextCursor,
-          hasMore: initial_transactions.length < 50 ? false : true,
+          hasMore:
+            initial_transactions.length < allTransactionsConfig.initialLimit
+              ? false
+              : true,
         };
-        return res.json(response);
+        return res.status(200).json(response);
       }
     }
     default: {

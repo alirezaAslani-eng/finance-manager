@@ -4,7 +4,7 @@ import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
 const putEditTransaction = async (
   updatedInfo: transactionEditSchemaType & { _id: string }
 ): Promise<true | BadResponse> => {
-  const res = await fetch(`/api/transactions/${updatedInfo._id}`, {
+  const res = await fetch(`/api/transactions/${updatedInfo._id}/one`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

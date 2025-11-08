@@ -3,7 +3,7 @@ import type { BadResponse } from "@/lib/utils";
 const deleteOneTransaction = async (
   id: string
 ): Promise<true | BadResponse> => {
-  const res = await fetch(`/api/transactions/${id}`, {
+  const res = await fetch(`/api/transactions/${id}/one`, {
     method: "DELETE",
   });
 

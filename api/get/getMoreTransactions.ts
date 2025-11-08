@@ -4,7 +4,9 @@ import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
 const getMoreTransactions = async (
   nextCursor: string
 ): Promise<AllTransactionResponse> => {
-  const res = await fetch(`/api/transactions/pagination/${nextCursor}`);
+  const res = await fetch(
+    `/api/transactions/${nextCursor ?? null}/pagination`,
+  );
   const jsonRes = await res.json();
   if (!res.ok) {
     throw jsonRes as BadResponse;
