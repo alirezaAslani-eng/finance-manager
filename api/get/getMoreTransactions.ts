@@ -6,6 +6,10 @@ const getMoreTransactions = async (
 ): Promise<AllTransactionResponse> => {
   const res = await fetch(
     `/api/transactions/${nextCursor ?? null}/pagination`,
+    {
+      method: "GET",
+      cache: "no-store",
+    }
   );
   const jsonRes = await res.json();
   if (!res.ok) {
