@@ -1,15 +1,27 @@
+import { InferSchemaType } from "mongoose";
 import { conect } from "../db";
 import { throwError } from "../utils";
 import { InitSchemaType } from "../validations/initSchema";
 import accountServices from "./accountServices";
 import categoryServivces from "./categoryServivces";
-
+import { account_schema } from "@/model";
+type AccountModelType = InferSchemaType<typeof account_schema>;
 const initServices = {
   async initializeUser(
-    info: InitSchemaType & { userID: string }
+    info: InitSchemaType & { userID: string } & Pick<
+        AccountModelType,
+        "bankName" | "bankIcon"
+      >
   ): Promise<void> {
-    const { accountName, cardNumber, categoryName, currentBalance, userID } =
-      info;
+    const {
+      accountName,
+      cardNumber,
+      categoryName,
+      currentBalance,
+      userID,
+      bankIcon,
+      bankName,
+    } = info;
 
     // * Account & Category Services ===================== >
     const { createCategory } = categoryServivces;
@@ -30,6 +42,8 @@ const initServices = {
         cardNumber,
         currentBalance,
         user: userID,
+        bankIcon,
+        bankName,
       },
       { uniqCheck: false }
     ); // ! Might Throw Error ============= <
