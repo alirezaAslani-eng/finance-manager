@@ -21,6 +21,7 @@ import {
   LoadMoreTransactionServiceOutPut,
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
+import { allTransactionsConfig } from "../constant";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -283,14 +284,14 @@ const transactionServices = {
       // * Latest -- >
       .sort({ _id: -1 })
       // * Limitation --- >
-      .limit(50)
+      .limit(allTransactionsConfig.initialLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
     return {
       initial_transactions: parseDoc(initial_transactions),
       nextCursor: parseDoc(
-        initial_transactions[initial_transactions.length - 1]._id
+        initial_transactions[initial_transactions.length - 1]?._id ?? null
       ),
     };
   },
@@ -307,13 +308,15 @@ const transactionServices = {
       // * Latest --- >
       .sort({ _id: -1 })
       // * load only 20 transaction more ---- >
-      .limit(20)
+      .limit(allTransactionsConfig.loadMoreLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
     return {
       more_transactions: parseDoc(more_transactions),
-      nextCursor: parseDoc(more_transactions[more_transactions.length - 1]._id),
+      nextCursor: parseDoc(
+        more_transactions[more_transactions.length - 1]?._id ?? null
+      ),
     };
   },
 
