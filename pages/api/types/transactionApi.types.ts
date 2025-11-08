@@ -2,7 +2,7 @@ import { TransactionList } from "@/types/transaction.types";
 
 interface AllTransactionResponse {
   transactions: TransactionList;
-  nextCursor: string;
+  nextCursor: string | null;
   hasMore: boolean;
 }
 

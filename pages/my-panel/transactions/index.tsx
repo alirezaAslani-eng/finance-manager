@@ -50,12 +50,12 @@ const ssr: WrappedGetserverSideProps<
   const { initialTransactions } = transactionServices;
   // * Get 50 initialzed transactions ==== >
   const initializeTransaction = await initialTransactions(user._id);
-  const { initial_transactions, lastId } = initializeTransaction;
+  const { initial_transactions, nextCursor } = initializeTransaction;
   return {
     props: {
       ssrUserInfo: user,
       transactions: initial_transactions,
-      lastId,
+      nextCursor,
       // * less than 50 means user can't request to server to load more transactions
       hasMore: initial_transactions.length < 50 ? false : true,
     },

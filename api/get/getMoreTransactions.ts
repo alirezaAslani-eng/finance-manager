@@ -2,7 +2,7 @@ import type { BadResponse } from "@/lib/utils";
 import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
 
 const getMoreTransactions = async (
-  nextCursor: string
+  nextCursor: string | null
 ): Promise<AllTransactionResponse> => {
   const res = await fetch(
     `/api/transactions/${nextCursor ?? null}/pagination`,
