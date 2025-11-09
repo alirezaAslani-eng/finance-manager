@@ -3,21 +3,22 @@ import {
   SidebarFilter,
   Transactions,
 } from "@/components/module";
+import { transactionsInfinitQueryConfig } from "@/config/react-query";
 import { PanelLayout } from "@/layout";
+import { allTransactionsConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
+import { BadResponse } from "@/lib/utils";
 import { GlobalAppProps } from "@/pages/_app";
+import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
-import { AllTransactionPageProps } from "@/types/pages/AllTransactionsProp.type";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
+import { TransactionList } from "@/types/transaction.types";
 import { Box } from "@mui/material";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-const index: PageComponent<AllTransactionPageProps> = ({
-  hasMore,
-  nextCursor,
-  transactions,
-}) => {
+const index: PageComponent = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
   //  * Events ====================>
   const openSidebar = () => {
@@ -44,20 +45,35 @@ const index: PageComponent<AllTransactionPageProps> = ({
 index.Layout = PanelLayout;
 export default index;
 
-const ssr: WrappedGetserverSideProps<
-  GlobalAppProps & AllTransactionPageProps
-> = async (context, { user }) => {
+const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (_, { user }) => {
+  const queryClient = new QueryClient();
   const { initialTransactions } = transactionServices;
-  // * Get 50 initialzed transactions ==== >
-  const initializeTransaction = await initialTransactions(user._id);
-  const { initial_transactions, nextCursor } = initializeTransaction;
+
+  // *  Initial Transactions === >
+  const { queryKey, initialPageParam } = transactionsInfinitQueryConfig;
+  await queryClient.prefetchInfiniteQuery<
+    AllTransactionResponse,
+    BadResponse,
+    TransactionList
+  >({
+    initialPageParam,
+    queryKey,
+    queryFn: async () => {
+      const initializeTransaction = await initialTransactions(user._id);
+      const { initial_transactions, nextCursor } = initializeTransaction;
+      return {
+        nextCursor,
+        transactions: initial_transactions,
+        hasMore:
+          initial_transactions.length == allTransactionsConfig.initialLimit,
+      };
+    },
+  });
+
   return {
     props: {
       ssrUserInfo: user,
-      transactions: initial_transactions,
-      nextCursor,
-      // * less than 50 means user can't request to server to load more transactions
-      hasMore: initial_transactions.length < 50 ? false : true,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

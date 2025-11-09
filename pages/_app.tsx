@@ -8,7 +8,11 @@ import {
   MuiThemeProvider,
   SignupProvider,
 } from "@/context";
-import { QueryClientProvider } from "@tanstack/react-query";
+import {
+  type DehydratedState,
+  HydrationBoundary,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { queryClient } from "@/config/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
@@ -25,7 +29,7 @@ const peydaMedium = font({
   variable: "--peyda-md",
 });
 
-type GlobalAppProps = AuthProviderInput;
+type GlobalAppProps = AuthProviderInput & { dehydratedState?: DehydratedState };
 function _app({
   Component,
   pageProps,
@@ -34,31 +38,35 @@ function _app({
     Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
   return (
     <QueryClientProvider client={queryClient}>
-      {/* // * Signup Context ----------- >  */}
-      <SignupProvider>
-        {/* // * Auth Context ----------- >  */}
-        <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-          {/* // * Modal Context ----------- >  */}
-          <ModalProvider>
-            {/* // * div tag to add font variable ----------- >  */}
-            <div className={`${danaMediume.variable} ${peydaMedium.variable}`}>
-              {/* // * Mui Theme Context ----------- >  */}
-              <MuiThemeProvider>
-                {/* // * Normalize Css --------- >*/}
-                <CssBaseline />
-                {/* // * Layout ------ > */}
-                <Layout>
-                  {/* // * Page ------- > */}
-                  <Component {...pageProps} />
-                </Layout>
-                {/* // * Modals ------ > */}
-                <ModalGroup />
-              </MuiThemeProvider>
-            </div>
-          </ModalProvider>
-        </AuthProvider>
-      </SignupProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <HydrationBoundary state={pageProps?.dehydratedState}>
+        {/* // * Signup Context ----------- >  */}
+        <SignupProvider>
+          {/* // * Auth Context ----------- >  */}
+          <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
+            {/* // * Modal Context ----------- >  */}
+            <ModalProvider>
+              {/* // * div tag to add font variable ----------- >  */}
+              <div
+                className={`${danaMediume.variable} ${peydaMedium.variable}`}
+              >
+                {/* // * Mui Theme Context ----------- >  */}
+                <MuiThemeProvider>
+                  {/* // * Normalize Css --------- >*/}
+                  <CssBaseline />
+                  {/* // * Layout ------ > */}
+                  <Layout>
+                    {/* // * Page ------- > */}
+                    <Component {...pageProps} />
+                  </Layout>
+                  {/* // * Modals ------ > */}
+                  <ModalGroup />
+                </MuiThemeProvider>
+              </div>
+            </ModalProvider>
+          </AuthProvider>
+        </SignupProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </HydrationBoundary>
     </QueryClientProvider>
   );
 }
