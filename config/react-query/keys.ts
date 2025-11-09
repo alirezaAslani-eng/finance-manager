@@ -5,6 +5,9 @@ const keys = {
   recntTransactions: {
     all: ["recent-transactions"],
   },
+  allTransactions: {
+    all: ["all-transactions"],
+  },
 } as const;
 
 export default keys;
