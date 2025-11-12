@@ -1,4 +1,4 @@
-import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { TransactionList } from "@/types/transaction.types";
 
 // * Output Type ---- >

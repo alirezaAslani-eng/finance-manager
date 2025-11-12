@@ -2,7 +2,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 import { UseGetAllTransactions } from "./types/useGetAllTransactions.types";
 import { transactionsInfinitQueryConfig } from "@/config/react-query";
-import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 
 const useGetAllTransactions: UseGetAllTransactions = () => {
   // * IninitQuery ============ >s

@@ -10,7 +10,7 @@ import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
 import { GlobalAppProps } from "@/pages/_app";
-import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
@@ -49,7 +49,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (_, { user }) => {
   const queryClient = new QueryClient();
   const { initialTransactions } = transactionServices;
 
-  // *  Initial Transactions === >
+  // *  Prefetch Initial Transactions (Without Filtering) === >
   const { queryKey, initialPageParam } = transactionsInfinitQueryConfig;
   await queryClient.prefetchInfiniteQuery<
     AllTransactionResponse,

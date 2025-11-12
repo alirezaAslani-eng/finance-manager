@@ -3,7 +3,7 @@ import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import { AllTransactionResponse } from "../../types/transactionApi.types";
+import { AllTransactionResponse } from "../../../../types/api/transactionApi.types";
 import { allTransactionsConfig } from "@/lib/constant";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
