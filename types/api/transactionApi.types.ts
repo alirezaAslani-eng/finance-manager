@@ -5,5 +5,7 @@ interface AllTransactionResponse {
   nextCursor: string | null;
   hasMore: boolean;
 }
+interface FilteredTransactionResonse extends AllTransactionResponse {}
 
-export type { AllTransactionResponse };
+
+export type { AllTransactionResponse, FilteredTransactionResonse };
