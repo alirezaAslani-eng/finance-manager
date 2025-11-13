@@ -13,3 +13,4 @@ export { default as redirect } from "./redirect";
 export { default as parseDoc } from "./parseDoc";
 export { default as check_id } from "./check_id";
 export { default as sessionHandler } from "./sessionHandler";
+export { default as transactionFilterHandler } from "./transactionFilterHandler";

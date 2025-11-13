@@ -7,8 +7,14 @@ import {
 } from "@/model";
 import { conect } from "../db";
 import mongoose from "mongoose";
-import type { ClientSession, InferSchemaType } from "mongoose";
-import { checkExist, parseDoc, sessionHandler, throwError } from "../utils";
+import type { ClientSession, InferSchemaType, RootFilterQuery } from "mongoose";
+import {
+  checkExist,
+  parseDoc,
+  sessionHandler,
+  throwError,
+  transactionFilterHandler,
+} from "../utils";
 import {
   MongoTransaction,
   RecentTransactionType,
@@ -22,6 +28,7 @@ import {
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
 import { allTransactionsConfig } from "../constant";
+import { TrnasactionFilterURLQueries } from "@/types/api/transactionApi.types";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -276,18 +283,31 @@ const transactionServices = {
     return !!transaction;
   },
 
-  async initialTransactions(userID: string): InitialTransationsServiceOutPut {
+  async initialTransactions(
+    userID: string,
+    queries?: Omit<TrnasactionFilterURLQueries, "filter">
+  ): InitialTransationsServiceOutPut {
     await conect();
-    // * initial load is limited only 50 transactions ----- >
+    // *  Queries and sort ======== >>>
+    const { query, sort_id, resetFilter } = transactionFilterHandler({
+      defaultQuery: { user: userID },
+      queries: queries ?? {},
+    });
+
+    // * initial load is limited only 50 transactions maybe with filters----- >
     const initial_transactions = await transaction_model
-      .find({ user: userID }, "-__v -updatedAt -account -accountBalance")
+      .find(query, "-__v -updatedAt -account -accountBalance")
       // * Latest -- >
-      .sort({ _id: -1 })
+      .sort({ _id: sort_id })
       // * Limitation --- >
       .limit(allTransactionsConfig.initialLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
+    // * Clean up Filters ======== >
+    resetFilter();
+
+    // * Return ============== >
     return {
       initial_transactions: parseDoc(initial_transactions),
       nextCursor: parseDoc(
@@ -297,21 +317,40 @@ const transactionServices = {
   },
   async loadMoreTransactions(
     lastID: string, // * Last _id of loaded transaction <<
-    userID: string
+    userID: string,
+    queries?: TrnasactionFilterURLQueries
   ): LoadMoreTransactionServiceOutPut {
     await conect();
+
+    // *  Query and sort ======== >>>
+    const { query, sort_id, resetFilter } = transactionFilterHandler({
+      defaultQuery: { user: userID },
+      queries: queries ?? {},
+    });
+
+    // * Load More Query With Filters ================= >
     const more_transactions = await transaction_model
       .find(
-        { user: userID, _id: { $lt: new mongoose.Types.ObjectId(lastID) } },
+        {
+          ...query,
+          _id:
+            sort_id == -1
+              ? { $lt: new mongoose.Types.ObjectId(lastID) }
+              : { $gt: new mongoose.Types.ObjectId(lastID) },
+        },
         "-__v -updatedAt -account -accountBalance"
       )
       // * Latest --- >
-      .sort({ _id: -1 })
+      .sort({ _id: sort_id })
       // * load only 20 transaction more ---- >
       .limit(allTransactionsConfig.loadMoreLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
+    // * Clean up Filters ============== >
+    resetFilter();
+
+    // * Return Next Cursor ==== >
     return {
       more_transactions: parseDoc(more_transactions),
       nextCursor: parseDoc(
