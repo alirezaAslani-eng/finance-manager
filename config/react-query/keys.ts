@@ -7,6 +7,7 @@ const keys = {
   },
   allTransactions: {
     all: ["all-transactions"],
+    filtered: ["filtered-transactions"],
   },
 } as const;
 

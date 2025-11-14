@@ -1,6 +1,9 @@
 import { getMoreTransactions } from "@/api/get";
 import { BadResponse } from "@/lib/utils";
-import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
+import {
+  AllTransactionResponse,
+  FilteredTransactionResonse,
+} from "@/types/api/transactionApi.types";
 import { TransactionList } from "@/types/transaction.types";
 import { UseInfiniteQueryOptions } from "@tanstack/react-query";
 import { keys } from ".";
@@ -20,7 +23,7 @@ const transactionsInfinitQueryConfig: UseInfiniteQueryOptions<
   gcTime: 0,
   // * This queryFn always run in client when user click on more items ==== >
   queryFn: ({ pageParam }) => {
-    return getMoreTransactions(pageParam);
+    return getMoreTransactions(pageParam, { filter: false });
   },
   // * first lastPage is from prefetched data ===== >
   getNextPageParam: (lastPage) => {
@@ -34,6 +37,24 @@ const transactionsInfinitQueryConfig: UseInfiniteQueryOptions<
     });
     return transformed;
   },
-};
+} as const;
 
-export { transactionsInfinitQueryConfig };
+const filteredTransactionsInfinitQueryConfig: UseInfiniteQueryOptions<
+  FilteredTransactionResonse,
+  BadResponse,
+  TransactionList,
+  typeof keys.allTransactions.filtered,
+  null | string
+> = {
+  initialPageParam: null,
+  queryKey: keys.allTransactions.filtered,
+  gcTime: 0,
+  staleTime: Infinity,
+  getNextPageParam: transactionsInfinitQueryConfig.getNextPageParam,
+  select: transactionsInfinitQueryConfig.select,
+} as const;
+
+export {
+  transactionsInfinitQueryConfig,
+  filteredTransactionsInfinitQueryConfig,
+};

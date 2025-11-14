@@ -14,4 +14,4 @@ interface AllTransactionsOutputHook {
 // * Hook Type ---- >
 type UseGetAllTransactions = () => AllTransactionsOutputHook;
 
-export type { UseGetAllTransactions };
+export type { UseGetAllTransactions, AllTransactionsOutputHook };
