@@ -1,11 +1,19 @@
 import type { BadResponse } from "@/lib/utils";
-import { AllTransactionResponse } from "@/pages/api/types/transactionApi.types";
+import {
+  AllTransactionResponse,
+  TransactionFilterQueries,
+} from "@/types/api/transactionApi.types";
+import { transacctionQueryBuilder } from "@/utils";
 
 const getMoreTransactions = async (
-  nextCursor: string | null
+  nextCursor: string | null,
+  queries: TransactionFilterQueries
 ): Promise<AllTransactionResponse> => {
+  const parsedQueries = transacctionQueryBuilder(queries);
   const res = await fetch(
-    `/api/transactions/${nextCursor ?? null}/pagination`,
+    `/api/transactions/${
+      nextCursor ?? null
+    }/pagination${parsedQueries}`,
     {
       method: "GET",
       cache: "no-store",
