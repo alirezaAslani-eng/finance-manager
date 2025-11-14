@@ -1,7 +1,9 @@
-import { Box, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import React, { PropsWithChildren } from "react";
 import font from "next/font/local";
+import { NuqsAdapter } from "nuqs/adapters/next/pages";
+
 import {
   AuthProvider,
   ModalProvider,
@@ -39,33 +41,36 @@ function _app({
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={pageProps?.dehydratedState}>
-        {/* // * Signup Context ----------- >  */}
-        <SignupProvider>
-          {/* // * Auth Context ----------- >  */}
-          <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-            {/* // * Modal Context ----------- >  */}
-            <ModalProvider>
-              {/* // * div tag to add font variable ----------- >  */}
-              <div
-                className={`${danaMediume.variable} ${peydaMedium.variable}`}
-              >
-                {/* // * Mui Theme Context ----------- >  */}
-                <MuiThemeProvider>
-                  {/* // * Normalize Css --------- >*/}
-                  <CssBaseline />
-                  {/* // * Layout ------ > */}
-                  <Layout>
-                    {/* // * Page ------- > */}
-                    <Component {...pageProps} />
-                  </Layout>
-                  {/* // * Modals ------ > */}
-                  <ModalGroup />
-                </MuiThemeProvider>
-              </div>
-            </ModalProvider>
-          </AuthProvider>
-        </SignupProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* // * unqs Adapter for SSR ----------------- >*/}
+        <NuqsAdapter>
+          {/* // * Signup Context ----------- >  */}
+          <SignupProvider>
+            {/* // * Auth Context ----------- >  */}
+            <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
+              {/* // * Modal Context ----------- >  */}
+              <ModalProvider>
+                {/* // * div tag to add font variable ----------- >  */}
+                <div
+                  className={`${danaMediume.variable} ${peydaMedium.variable}`}
+                >
+                  {/* // * Mui Theme Context ----------- >  */}
+                  <MuiThemeProvider>
+                    {/* // * Normalize Css --------- >*/}
+                    <CssBaseline />
+                    {/* // * Layout ------ > */}
+                    <Layout>
+                      {/* // * Page ------- > */}
+                      <Component {...pageProps} />
+                    </Layout>
+                    {/* // * Modals ------ > */}
+                    <ModalGroup />
+                  </MuiThemeProvider>
+                </div>
+              </ModalProvider>
+            </AuthProvider>
+          </SignupProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </NuqsAdapter>
       </HydrationBoundary>
     </QueryClientProvider>
   );
