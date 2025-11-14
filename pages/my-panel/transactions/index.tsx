@@ -3,22 +3,28 @@ import {
   SidebarFilter,
   Transactions,
 } from "@/components/module";
-import { transactionsInfinitQueryConfig } from "@/config/react-query";
+import { keys } from "@/config/react-query";
+import { useGetAllTransactions, useGetFilteredTransactions } from "@/hooks";
 import { PanelLayout } from "@/layout";
 import { allTransactionsConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
 import { GlobalAppProps } from "@/pages/_app";
-import { AllTransactionResponse } from "@/types/api/transactionApi.types";
+import {
+  AllTransactionResponse,
+  FilteredTransactionResonse,
+  TrnasactionFilterURLQueries,
+} from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
+import { TransactionListPageProps } from "@/types/pages/transactionListPageProps.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
 import { Box } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-const index: PageComponent = () => {
+const index: PageComponent<TransactionListPageProps> = ({ isFiltered }) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
   //  * Events ====================>
   const openSidebar = () => {
@@ -45,19 +51,43 @@ const index: PageComponent = () => {
 index.Layout = PanelLayout;
 export default index;
 
-const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (_, { user }) => {
+const ssr: WrappedGetserverSideProps<
+  GlobalAppProps & TransactionListPageProps
+> = async (context, { user }) => {
+  // * Context to access to queries which are filter parameters ==== >
+  const { query } = context;
+
+  // * Prefetch State filtered transactions or all transactions  ===== >
+  const isFiltered = query.filter == "true";
+
+  // * includes only needed queries to filter ==== >
+  const queries: Omit<TrnasactionFilterURLQueries, "filter"> = {
+    accounts: query.accounts,
+    categories: query?.categories,
+    fromDate: query?.fromDate,
+    toDate: query?.toDate,
+    minAmount: query?.minAmount,
+    maxAmount: query?.maxAmount,
+    old: query?.old,
+    type: query?.type,
+  };
+
+  // * QueryClient for prefetch transactions ============= >
   const queryClient = new QueryClient();
+
+  // * Services to initial transactions  =============== >
   const { initialTransactions } = transactionServices;
 
+  // * Render Page For All Transactions ================= >
+  if (!isFiltered) {
   // *  Prefetch Initial Transactions (Without Filtering) === >
-  const { queryKey, initialPageParam } = transactionsInfinitQueryConfig;
   await queryClient.prefetchInfiniteQuery<
     AllTransactionResponse,
     BadResponse,
     TransactionList
   >({
-    initialPageParam,
-    queryKey,
+      initialPageParam: null,
+      queryKey: keys.allTransactions.all,
     queryFn: async () => {
       const initializeTransaction = await initialTransactions(user._id);
       const { initial_transactions, nextCursor } = initializeTransaction;
@@ -69,11 +99,45 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (_, { user }) => {
       };
     },
   });
-
+    // * SSR Render ================= <<
+    return {
+      props: {
+        ssrUserInfo: user,
+        dehydratedState: dehydrate(queryClient),
+        isFiltered,
+      },
+    };
+  }
+  // * Render For Filtered Transactions =============== >
+  await queryClient.prefetchInfiniteQuery<
+    FilteredTransactionResonse,
+    BadResponse,
+    TransactionList,
+    typeof keys.allTransactions.filtered,
+    null | string
+  >({
+    initialPageParam: null,
+    queryKey: keys.allTransactions.filtered,
+    queryFn: async () => {
+      const filtered_init = await initialTransactions(user._id, queries);
+      const { initial_transactions: init_filtered_trs, nextCursor } =
+        filtered_init;
+      return {
+        nextCursor,
+        transactions: init_filtered_trs,
+        hasMore:
+          init_filtered_trs.length < allTransactionsConfig.initialLimit
+            ? false
+            : true,
+      };
+    },
+  });
+  // * SSR Render ================= <<
   return {
     props: {
       ssrUserInfo: user,
       dehydratedState: dehydrate(queryClient),
+      isFiltered,
     },
   };
 };
