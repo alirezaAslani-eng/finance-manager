@@ -3,35 +3,53 @@ import { Box, Typography } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import React, { useState } from "react";
 
+type PriceFilterOnChange = (val: {
+  from: null | number;
+  to: null | number;
+}) => void;
 interface myProps {
   containerProps?: BoxProps;
+  fromValue?: number | null;
+  toValue?: number | null;
+  onChange?: PriceFilterOnChange;
+  max?: number;
 }
-function PriceFilter({ containerProps }: myProps) {
-  const [from, setFrom] = useState(0);
-  const [to, setTo] = useState(0);
-  // todo add a prop to send filtered price to out of the component
+function PriceFilter({
+  containerProps,
+  onChange,
+  fromValue,
+  toValue,
+  max = 500_000,
+}: myProps) {
   return (
     <Box {...containerProps}>
       {/* From ================= > */}
       <Box>
-        <Typography>{`از ${from.toLocaleString()} تومان`}</Typography>
+        <Typography>{`از ${
+          fromValue?.toLocaleString() ?? 0
+        } تومان`}</Typography>
         <MuiSlider
           onChange={(val) => {
-            setFrom(val);
+            onChange && onChange({ from: val, to: toValue ?? 0 });
           }}
+          value={fromValue ?? undefined}
+          max={max}
         />
       </Box>
       {/* To ======================= > */}
       <Box>
-        <Typography>{`تا ${to.toLocaleString()} تومان`}</Typography>
+        <Typography>{`تا ${toValue?.toLocaleString() ?? 0} تومان`}</Typography>
         <MuiSlider
           onChange={(val) => {
-            setTo(val);
+            onChange && onChange({ from: fromValue ?? 0, to: val });
           }}
+          value={toValue ?? undefined}
+          max={max}
         />
       </Box>
     </Box>
   );
 }
 
+export type { PriceFilterOnChange };
 export default PriceFilter;

@@ -3,26 +3,26 @@ import React, { useState } from "react";
 
 interface myProps {
   max?: number;
+  value?: number;
   onChange?: (num: number) => any;
 }
-function MuiSlider({ max = 500_000, onChange = () => {} }: myProps) {
-  const [value, setValue] = useState(0);
+function MuiSlider({ max = 500_000, onChange = () => {}, value }: myProps) {
+  const [_value, setValue] = useState(0);
   const handleChange = (_: Event, v: number) => {
-    setValue(v);
+    if (!value) {
+      setValue(v);
+    }
     onChange(v);
   };
+
   return (
     <>
       <Slider
-        marks={[
-          { value: 0,  },
-          { value: 5000000 },
-        ]}
-        step={100000}
-        valueLabelDisplay="auto"
         min={0}
         max={max}
-        value={value}
+        step={!max ? Math.floor(max / 4) : 100}
+        valueLabelDisplay="auto"
+        value={value ?? _value}
         onChange={handleChange}
       />
     </>
