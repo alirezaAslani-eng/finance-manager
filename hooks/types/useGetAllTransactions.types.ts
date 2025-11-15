@@ -1,6 +1,11 @@
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { TransactionList } from "@/types/transaction.types";
 
+// * Hook Input ---- >
+interface HookInput {
+  // * Filter State ==== >
+  isFilter: boolean;
+}
 // * Output Type ---- >
 interface AllTransactionsOutputHook {
   // * Data ==== >
@@ -12,6 +17,6 @@ interface AllTransactionsOutputHook {
   loadMore: () => void;
 }
 // * Hook Type ---- >
-type UseGetAllTransactions = () => AllTransactionsOutputHook;
+type UseGetAllTransactions = (input: HookInput) => AllTransactionsOutputHook;
 
 export type { UseGetAllTransactions, AllTransactionsOutputHook };

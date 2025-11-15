@@ -4,10 +4,10 @@ import { UseGetAllTransactions } from "./types/useGetAllTransactions.types";
 import { transactionsInfinitQueryConfig } from "@/config/react-query";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 
-const useGetAllTransactions: UseGetAllTransactions = () => {
+const useGetAllTransactions: UseGetAllTransactions = ({ isFilter }) => {
   // * IninitQuery ============ >s
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery(transactionsInfinitQueryConfig);
+    useInfiniteQuery({ enabled: !isFilter, ...transactionsInfinitQueryConfig });
 
   const queryClient = useQueryClient();
   // * Reset cached data directly ===== >
