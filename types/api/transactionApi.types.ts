@@ -19,8 +19,8 @@ interface TransactionFilterQueries {
   maxAmount?: number;
   type?: Transaction_face["type"];
   old?: boolean;
-  accounts?: string[] | string;
-  categories?: string | string[];
+  accounts?: string[];
+  categories?: string[];
 }
 
 type URLFilterQueries = keyof TransactionFilterQueries;
