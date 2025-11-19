@@ -3,20 +3,20 @@ import { Box, Typography } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import React, { useState } from "react";
 
-type PriceFilterOnChange = (val: {
-  from: null | number;
-  to: null | number;
-}) => void;
+type FromOnChange = (val: number) => void;
+type ToOnChange = (val: number) => void;
 interface myProps {
   containerProps?: BoxProps;
-  fromValue?: number | null;
-  toValue?: number | null;
-  onChange?: PriceFilterOnChange;
+  fromValue?: number;
+  toValue?: number;
+  fromOnChange?: FromOnChange;
+  toOnChange?: ToOnChange;
   max?: number;
 }
 function PriceFilter({
   containerProps,
-  onChange,
+  fromOnChange,
+  toOnChange,
   fromValue,
   toValue,
   max = 500_000,
@@ -30,9 +30,9 @@ function PriceFilter({
         } تومان`}</Typography>
         <MuiSlider
           onChange={(val) => {
-            onChange && onChange({ from: val, to: toValue ?? 0 });
+            fromOnChange && fromOnChange(val);
           }}
-          value={fromValue ?? undefined}
+          value={fromValue}
           max={max}
         />
       </Box>
@@ -41,9 +41,9 @@ function PriceFilter({
         <Typography>{`تا ${toValue?.toLocaleString() ?? 0} تومان`}</Typography>
         <MuiSlider
           onChange={(val) => {
-            onChange && onChange({ from: fromValue ?? 0, to: val });
+            toOnChange && toOnChange(val);
           }}
-          value={toValue ?? undefined}
+          value={toValue}
           max={max}
         />
       </Box>
@@ -51,5 +51,5 @@ function PriceFilter({
   );
 }
 
-export type { PriceFilterOnChange };
+export type { FromOnChange, ToOnChange };
 export default PriceFilter;
