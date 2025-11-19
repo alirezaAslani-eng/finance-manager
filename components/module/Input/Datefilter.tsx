@@ -1,45 +1,42 @@
-import { Box, BoxProps, Typography } from "@mui/material";
-import DatePicker, { Calendar } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import React, { useEffect, useState } from "react";
-import type { Value } from "react-multi-date-picker";
-import { DateField, MuiButton } from "@/components/ui";
+import { Box, BoxProps } from "@mui/material";
+import { DateField } from "@/components/ui";
 
-interface OnFilterProps {
-  date: {
-    from: Date;
-    to: Date;
-  };
-}
 interface myProps {
   containerProps?: BoxProps;
-  onFilter?: (date: OnFilterProps) => any;
+  fromOnchange?: (date: Date) => void;
+  toOnchange?: (date: Date) => void;
+  fromDateVal?: Date | null;
+  toDateVal?: Date | null;
 }
-function Datefilter({ containerProps, onFilter = () => {} }: myProps) {
-  const now = new Date();
-  const afterNow = new Date(now);
-  afterNow.setDate(afterNow.getDate() + 30);
-  const [fromDate, setFromDate] = useState<Date>(now);
-  const [toDate, setToDate] = useState<Date>(afterNow);
-
-  const to_Date = ({ date }: { date: Date }) => {
-    setToDate(date);
+function Datefilter({
+  containerProps,
+  fromOnchange,
+  toOnchange,
+  fromDateVal,
+  toDateVal,
+}: myProps) {
+  const to_Date = (date: Date) => {
+    toOnchange && toOnchange(date);
   };
-  const from_Date = ({ date }: { date: Date }) => {
-    setFromDate(date);
+  const from_Date = (date: Date) => {
+    fromOnchange && fromOnchange(date);
   };
-
   return (
     <Box {...containerProps}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         {/* Start Date ==================== > */}
-        <DateField placeholder="از تاریخ : " onChange={from_Date} />
+        <DateField
+          placeholder="از تاریخ : "
+          onChange={from_Date}
+          // * undefined = default date value
+          value={fromDateVal ?? undefined}
+        />
         {/* End Date ==================== > */}
         <DateField
           placeholder="تا تاریخ : "
           onChange={to_Date}
-          defaultValue={toDate}
+          // * undefined = default date value
+          value={toDateVal ?? undefined}
         />
       </Box>
     </Box>

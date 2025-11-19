@@ -51,5 +51,5 @@ function PriceFilter({
   );
 }
 
-export type { FromOnChange, ToOnChange };
+
 export default PriceFilter;
