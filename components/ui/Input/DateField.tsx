@@ -1,73 +1,69 @@
-import { Box, Menu, TextField, TextFieldProps, useTheme } from "@mui/material";
+import { Menu, TextField, TextFieldProps } from "@mui/material";
 import { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { ReactElement, useState } from "react";
-import DateObject, { DateType } from "react-date-object";
+import { useState } from "react";
+import DateObject from "react-date-object";
+import { useDate } from "@/hooks";
 
 interface myProps {
-  onChange?: ({ date }: { date: Date }) => any;
-  defaultValue?: Date;
+  onChange?: (date: Date) => any;
+  value?: Date;
   placeholder?: string;
   inputProps?: TextFieldProps;
 }
 const DateField = ({
-  onChange = () => {},
-  placeholder = "",
+  onChange,
+  placeholder,
   inputProps,
+  value,
 }: myProps) => {
-  const _Date = new Date();
-  const now = _Date.toLocaleDateString("fa-IR");
-  // * Main Date value ========================== >
-  const [date, setDate] = useState<DateType | undefined>(_Date);
-
-  // * Undestandable Date format ================== >
-  const [faDate, setFaDate] = useState<`${string} ${string} ${string}`>(
-    `${placeholder} ${now} `
-  );
+  // * main Date value ===== >
+  const [date, setDate] = useState(new Date());
 
   // * Drop down state ======================== >
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
   // * Instance of Dropdown menu ================ >
-  const [menuInstance, setMenuInstance] = useState<null | Element>(null);
+  const [textFieldCurrentTarget, setTextFieldCurrentTarget] =
+    useState<null | Element>(null);
+
+  // * Data Picker event =================== >
+  const changeHandler = (date: DateObject | null) => {
+    const main_date = date?.toDate() as Date;
+    // * set Date to parent or internal state ===================== >
+    if (value) onChange && onChange(main_date);
+    else setDate(main_date);
+  };
 
   // * Drop down Event ======================== >
   const closeMenu = () => {
     setIsOpenMenu(false);
-    setMenuInstance(null);
-  };
-  const openeMenu = (e: React.MouseEvent) => {
-    setIsOpenMenu(true);
-    setMenuInstance(e.currentTarget);
-  };
-  // * Data Picker event =================== >
-  const changeHandler = (date: DateObject | null) => {
-    const main_date = date?.toDate() as Date;
-    // * set Date ===================== >
-    setDate(main_date);
-    // * set Persian Date ===================== >
-    const local_date = date?.toDate().toLocaleDateString("fa-IR");
-    setFaDate(
-      `${placeholder} ${local_date as string} ${
-        now == local_date ? "(امروز)" : ""
-      }`
-    );
-    onChange({ date: main_date });
+    setTextFieldCurrentTarget(null);
   };
 
+  const openeMenu = (e: React.MouseEvent) => {
+    setIsOpenMenu(true);
+    setTextFieldCurrentTarget(e.currentTarget);
+  };
+
+  const { date: fa_date } = useDate(value || date);
   return (
     <>
       <TextField
-        value={faDate}
+        value={`${placeholder} : ${fa_date}`}
         onClick={openeMenu}
         sx={{ width: "100%" }}
         {...inputProps}
       />
-      <Menu anchorEl={menuInstance} open={isOpenMenu} onClose={closeMenu}>
+      <Menu
+        anchorEl={textFieldCurrentTarget}
+        open={isOpenMenu}
+        onClose={closeMenu}
+      >
         <Calendar
           // * Value Handling ================= >
-          value={date}
+          value={value ?? date}
           onChange={changeHandler}
           // * Language ================== >
           calendar={persian}
@@ -79,10 +75,3 @@ const DateField = ({
 };
 
 export default DateField;
-
-//   const button_sx: SxProps = {
-//     ...theme.custom.resetButton,
-//     width: "100%",
-//     padding: "5px",
-//     borderRadius: "0px",
-//   };
