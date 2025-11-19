@@ -14,7 +14,7 @@ interface myProps {
 }
 const DateField = ({ onChange, placeholder, inputProps, value }: myProps) => {
   // * main Date value ===== >
-  const [date, setDate] = useState(new Date());
+  const date = new Date();
 
   // * Drop down state ======================== >
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
@@ -27,7 +27,6 @@ const DateField = ({ onChange, placeholder, inputProps, value }: myProps) => {
   const changeHandler = (date: DateObject | null) => {
     const main_date = date?.toDate() as Date;
     // * set Date to parent or internal state ===================== >
-    if (!value) setDate(main_date);
     onChange && onChange(main_date);
   };
 
@@ -42,7 +41,7 @@ const DateField = ({ onChange, placeholder, inputProps, value }: myProps) => {
     setTextFieldCurrentTarget(e.currentTarget);
   };
 
-  const { date: fa_date } = useDate(value || date);
+  const { date: fa_date } = useDate(value ?? date);
   return (
     <>
       <TextField
