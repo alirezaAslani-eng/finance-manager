@@ -51,7 +51,7 @@ const DateField = ({
   return (
     <>
       <TextField
-        value={`${placeholder} : ${fa_date}`}
+        value={`${placeholder}${fa_date}`}
         onClick={openeMenu}
         sx={{ width: "100%" }}
         {...inputProps}
