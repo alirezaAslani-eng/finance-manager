@@ -1,6 +1,7 @@
-import { Box, BoxProps, SxProps } from "@mui/material";
-import { DateField, MuiButton } from "@/components/ui";
+import { Box, BoxProps, Stack, SxProps } from "@mui/material";
+import { DateField, MuiButton, MuiChip } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { endOfDay, startOfDay } from "@/utils";
 interface myProps {
   containerProps?: BoxProps;
   fromOnchange?: (date: Date) => void;
@@ -20,19 +21,16 @@ const cancelButton_sx: SxProps = {
 };
 function Datefilter({
   containerProps,
-  fromOnchange,
-  toOnchange,
+  fromOnchange = () => {},
+  toOnchange = () => {},
   fromDateVal,
   toDateVal,
-  onCancelFromDate,
-  onCancelToDate,
+  onCancelFromDate = () => {},
+  onCancelToDate = () => {},
 }: myProps) {
-  const to_Date = (date: Date) => {
-    toOnchange && toOnchange(date);
-  };
-  const from_Date = (date: Date) => {
-    fromOnchange && fromOnchange(date);
-  };
+  const to_Date = (date: Date) => toOnchange(startOfDay(date));
+  const from_Date = (date: Date) => fromOnchange(endOfDay(date));
+
   return (
     <Box {...containerProps}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>

@@ -5,3 +5,5 @@ export { default as SSRHandler } from "./SSRHandler";
 export { default as identyfyBank } from "./identyfyBank";
 export { default as cardNumberFormatter } from "./cardNumberFormatter";
 export { default as transacctionQueryBuilder } from "./transacctionQueryBuilder";
+export { default as startOfDay } from "./startOfDay";
+export { default as endOfDay } from "./endOfDay";
