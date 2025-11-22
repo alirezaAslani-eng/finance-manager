@@ -296,7 +296,7 @@ const transactionServices = {
 
     // * initial load is limited only 50 transactions maybe with filters----- >
     const initial_transactions = await transaction_model
-      .find(query, "-__v -updatedAt -account -accountBalance")
+      .find(query, "-__v -updatedAt -accountBalance")
       // * Latest -- >
       .sort({ _id: sort_id })
       // * Limitation --- >
@@ -338,7 +338,7 @@ const transactionServices = {
               ? { $lt: new mongoose.Types.ObjectId(lastID) }
               : { $gt: new mongoose.Types.ObjectId(lastID) },
         },
-        "-__v -updatedAt -account -accountBalance"
+        "-__v -updatedAt -accountBalance"
       )
       // * Latest --- >
       .sort({ _id: sort_id })

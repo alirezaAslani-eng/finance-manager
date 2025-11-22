@@ -23,6 +23,7 @@ type Transaction = Pick<
   _id: string;
   createdAt: string;
   category: Pick<Transaction_face["category"], "name"> & { _id: string };
+  account: string;
 };
 type RecentTransactionType = Transaction;
 
