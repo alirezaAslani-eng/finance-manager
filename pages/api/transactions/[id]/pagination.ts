@@ -5,7 +5,6 @@ import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import {
   AllTransactionResponse,
-  FilteredTransactionResonse,
   TrnasactionFilterURLQueries,
 } from "../../../../types/api/transactionApi.types";
 import { allTransactionsConfig } from "@/lib/constant";
@@ -20,8 +19,7 @@ const handler: handler_type = async (req, res) => {
     type: "client",
   }); // ! Might throw Error <<<<<<<<
 
-  // * Filter Queries and Filter State =========== >
-  const isFiltered = req.query?.filter == "true";
+  // * Filter's Queries =========== >
   const queries: Omit<TrnasactionFilterURLQueries, "filter"> = {
     accounts: req.query?.accounts,
     categories: req.query?.categories,
@@ -32,7 +30,6 @@ const handler: handler_type = async (req, res) => {
     toDate: req.query?.toDate,
     type: req.query?.type,
   };
-  console.log("LOG -> Queries", queries);
 
   switch (req.method as "GET") {
     case "GET": {
@@ -51,42 +48,19 @@ const handler: handler_type = async (req, res) => {
         );
         const { more_transactions, nextCursor } = loadMore;
 
-        // * Response For Filtered Transactions ===================== >
-        if (isFiltered) {
-          const filteredTransactions: FilteredTransactionResonse = {
-            transactions: more_transactions,
-            nextCursor,
-            hasMore: !!more_transactions.length,
-          } as const;
-          return res.status(200).json(filteredTransactions);
-        }
-        // * Response For Transactions ============================= >
+        // * Response ===================== >
         const transactions: AllTransactionResponse = {
           transactions: more_transactions,
           nextCursor,
           hasMore: !!more_transactions.length,
-        };
+        } as const;
         return res.json(transactions);
       } else {
         const init = await initialTransactions(payloadInfo._id, queries);
 
-        // * Response ================= >
         const { initial_transactions, nextCursor } = init;
 
-        // * Response for Filtered Transactions ============ >
-        if (isFiltered) {
-          const filteredTransactions: FilteredTransactionResonse = {
-            transactions: initial_transactions,
-            nextCursor,
-            hasMore:
-              initial_transactions.length < allTransactionsConfig.initialLimit
-                ? false
-                : true,
-          } as const;
-          return res.json(filteredTransactions);
-        }
-
-        // * Response for Transactions ============ >
+        // * Response ================= >
         const transactions: AllTransactionResponse = {
           transactions: initial_transactions,
           nextCursor,
