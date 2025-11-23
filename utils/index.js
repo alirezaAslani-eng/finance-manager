@@ -7,3 +7,4 @@ export { default as cardNumberFormatter } from "./cardNumberFormatter";
 export { default as transacctionQueryBuilder } from "./transacctionQueryBuilder";
 export { default as startOfDay } from "./startOfDay";
 export { default as endOfDay } from "./endOfDay";
+export { default as identifyDate } from "./identifyDate";

@@ -1,4 +1,14 @@
-import { number, object, string, enum as enum_ } from "zod";
+import { identifyDate } from "@/utils";
+import {
+  number,
+  object,
+  string,
+  enum as enum_,
+  array,
+  date,
+  literal,
+  preprocess,
+} from "zod";
 import type { Infer } from "zod";
 
 const transactionSchema = object({
@@ -18,9 +28,25 @@ const transactionEditSchema = transactionSchema.pick({
   type: true,
 });
 
+const filterSchema = object({
+  accounts: array(string()),
+  categories: array(string()),
+  fromDate: preprocess((val) => identifyDate(val), date().nullable()),
+  toDate: preprocess((val) => identifyDate(val), date().nullable()),
+  maxAmount: number().nullable(),
+  minAmount: number().nullable(),
+  type: enum_(["0", "1"]).nullable(),
+  old: literal(true).nullable(),
+});
+
+type FilterSchemaType = Infer<typeof filterSchema>;
 //  * Schema Type ================ >
 type transactionSchemaType = Infer<typeof transactionSchema>;
 type transactionEditSchemaType = Infer<typeof transactionEditSchema>;
-export type { transactionSchemaType, transactionEditSchemaType };
+export type {
+  transactionSchemaType,
+  transactionEditSchemaType,
+  FilterSchemaType,
+};
 // * Schema ========== >
-export { transactionSchema, transactionEditSchema };
+export { transactionSchema, transactionEditSchema, filterSchema };

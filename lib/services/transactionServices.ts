@@ -28,7 +28,7 @@ import {
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
 import { allTransactionsConfig } from "../constant";
-import { TrnasactionFilterURLQueries } from "@/types/api/transactionApi.types";
+import { FilterSchemaType } from "../validations/transactionSchema";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
 type AccountType = InferSchemaType<typeof account_schema>;
@@ -285,14 +285,15 @@ const transactionServices = {
 
   async initialTransactions(
     userID: string,
-    queries?: Omit<TrnasactionFilterURLQueries, "filter">
+    queries: FilterSchemaType
   ): InitialTransationsServiceOutPut {
     await conect();
     // *  Queries and sort ======== >>>
     const { query, sort_id, resetFilter } = transactionFilterHandler({
       defaultQuery: { user: userID },
-      queries: queries ?? {},
+      queries: queries,
     });
+    
 
     // * initial load is limited only 50 transactions maybe with filters----- >
     const initial_transactions = await transaction_model
@@ -318,14 +319,14 @@ const transactionServices = {
   async loadMoreTransactions(
     lastID: string, // * Last _id of loaded transaction <<
     userID: string,
-    queries?: TrnasactionFilterURLQueries
+    queries: FilterSchemaType
   ): LoadMoreTransactionServiceOutPut {
     await conect();
 
     // *  Query and sort ======== >>>
     const { query, sort_id, resetFilter } = transactionFilterHandler({
       defaultQuery: { user: userID },
-      queries: queries ?? {},
+      queries: queries,
     });
 
     // * Load More Query With Filters ================= >

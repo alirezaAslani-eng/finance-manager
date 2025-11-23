@@ -3,15 +3,15 @@ import { apiHandler, payloadToken, throwError } from "@/lib/utils";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import {
-  AllTransactionResponse,
-  TrnasactionFilterURLQueries,
-} from "../../../../types/api/transactionApi.types";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { allTransactionsConfig } from "@/lib/constant";
+import { filterSchema } from "@/lib/validations";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
+  // * Services ============ >
   const { loadMoreTransactions, initialTransactions } = transactionServices;
-  // * Check is it a user and is it owner of this document ====================== >
+
+  // * Check is it our user ====================== >
   const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
     message: "اول وارد حساب شوید",
@@ -19,20 +19,12 @@ const handler: handler_type = async (req, res) => {
     type: "client",
   }); // ! Might throw Error <<<<<<<<
 
-  // * Filter's Queries =========== >
-  const queries: Omit<TrnasactionFilterURLQueries, "filter"> = {
-    accounts: req.query?.accounts,
-    categories: req.query?.categories,
-    fromDate: req.query?.fromDate,
-    maxAmount: req.query?.maxAmount,
-    minAmount: req.query?.minAmount,
-    old: req.query?.old,
-    toDate: req.query?.toDate,
-    type: req.query?.type,
-  };
+  switch (req.method as "POST") {
+    case "POST": {
+      // * Filter Parameters From Body ==================== >
+      const queries = filterSchema.parse(req.body); // ! Might Thow Error <<<<<<<
 
-  switch (req.method as "GET") {
-    case "GET": {
+      
       if (lastTransactionId != "null") {
         // * Check nextCursor which is _id ================== >
         throwError(!isValidObjectId(lastTransactionId), {

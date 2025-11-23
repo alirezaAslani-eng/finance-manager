@@ -1,6 +1,7 @@
 import { TrnasactionFilterURLQueries } from "@/types/api/transactionApi.types";
 import { RootFilterQuery } from "mongoose";
 import React from "react";
+import { FilterSchemaType } from "../validations/transactionSchema";
 
 interface Input {
   /**
@@ -10,7 +11,7 @@ interface Input {
   /**
    * queries to filter
    */
-  queries: Omit<TrnasactionFilterURLQueries, "filter">;
+  queries: FilterSchemaType;
 }
 interface Output {
   /**
@@ -41,22 +42,21 @@ const transactionFilterHandler: GetTransactionQuery = (input) => {
       accounts,
       categories,
     } = queries;
-    if (type) query.type = type == "0" ? "0" : "1";
-    if (fromDate && typeof fromDate == "string") {
-      query.timestamp = query.timestamp || {};
-      query.timestamp.$gte = new Date(fromDate);
+    if (fromDate) {
+      query.createdAt = query.createdAt || {};
+      query.createdAt.$gte = fromDate;
     }
-    if (toDate && typeof toDate == "string") {
-      query.timestamp = query.timestamp || {};
-      query.timestamp.$lte = new Date(toDate);
+    if (toDate) {
+      query.createdAt = query.createdAt || {};
+      query.createdAt.$lte = toDate;
     }
-    if (Number(minAmount)) {
+    if (minAmount !== null) {
       query.amount = query.amount || {};
-      query.amount.$gte = Number(minAmount);
+      query.amount.$gte = minAmount;
     }
-    if (Number(maxAmount)) {
+    if (maxAmount !== null) {
       query.amount = query.amount || {};
-      query.amount.$lte = Number(maxAmount);
+      query.amount.$lte = maxAmount;
     }
     if (accounts) {
       if (typeof accounts == "string") {
