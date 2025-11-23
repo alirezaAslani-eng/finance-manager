@@ -10,21 +10,21 @@ import { allTransactionsConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
+import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 import { GlobalAppProps } from "@/pages/_app";
 import {
   AllTransactionResponse,
-  FilteredTransactionResonse,
   TrnasactionFilterURLQueries,
 } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
-import { TransactionListPageProps } from "@/types/pages/transactionListPageProps.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
+import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
 import { Box } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-const index: PageComponent<TransactionListPageProps> = ({ isFiltered }) => {
+const index: PageComponent = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
   //  * Events ====================>
   const openSidebar = () => {
@@ -36,14 +36,14 @@ const index: PageComponent<TransactionListPageProps> = ({ isFiltered }) => {
 
   return (
     <Box padding={"30px"}>
-      {/* Heading Filter  ========================= > */}
-      <HeadingFilter onSidebar={openSidebar} />
-      {/* Sidebar Advanced Filter ========================= > */}
-      <SidebarFilter open={isOpenSidebar} onClose={closeSidebar} />
-      {/* Transactions ===================== > */}
-      <Box sx={{ mt: "20px" }}>
-        <Transactions />
-      </Box>
+        {/* Heading Filter  ========================= > */}
+        <HeadingFilter onSidebar={openSidebar} />
+        {/* Sidebar Advanced Filter ========================= > */}
+        <SidebarFilter open={isOpenSidebar} onClose={closeSidebar} />
+        {/* Transactions ===================== > */}
+        <Box sx={{ mt: "20px" }}>
+          <Transactions />
+        </Box>
     </Box>
   );
 };
@@ -51,26 +51,15 @@ const index: PageComponent<TransactionListPageProps> = ({ isFiltered }) => {
 index.Layout = PanelLayout;
 export default index;
 
-const ssr: WrappedGetserverSideProps<
-  GlobalAppProps & TransactionListPageProps
-> = async (context, { user }) => {
+const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
+  context,
+  { user }
+) => {
   // * Context to access to queries which are filter parameters ==== >
   const { query } = context;
 
-  // * Prefetch State filtered transactions or all transactions  ===== >
-  const isFiltered = query.filter == "true";
-
   // * includes only needed queries to filter ==== >
-  const queries: Omit<TrnasactionFilterURLQueries, "filter"> = {
-    accounts: query.accounts,
-    categories: query?.categories,
-    fromDate: query?.fromDate,
-    toDate: query?.toDate,
-    minAmount: query?.minAmount,
-    maxAmount: query?.maxAmount,
-    old: query?.old,
-    type: query?.type,
-  };
+  const queries = parseTrsFilterQueries(query as TrnasactionFilterURLQueries);
 
   // * QueryClient for prefetch transactions ============= >
   const queryClient = new QueryClient();
@@ -78,18 +67,19 @@ const ssr: WrappedGetserverSideProps<
   // * Services to initial transactions  =============== >
   const { initialTransactions } = transactionServices;
 
-  // * Render Page For All Transactions ================= >
-  if (!isFiltered) {
-  // *  Prefetch Initial Transactions (Without Filtering) === >
+  // *  Prefetch Initial Transactions  ===== >
   await queryClient.prefetchInfiniteQuery<
     AllTransactionResponse,
     BadResponse,
     TransactionList
   >({
-      initialPageParam: null,
-      queryKey: keys.allTransactions.all,
+    initialPageParam: null,
+    queryKey: keys.allTransactions.all,
     queryFn: async () => {
-      const initializeTransaction = await initialTransactions(user._id);
+      const initializeTransaction = await initialTransactions(
+        user._id,
+        queries // * to filter
+      );
       const { initial_transactions, nextCursor } = initializeTransaction;
       return {
         nextCursor,
@@ -99,45 +89,12 @@ const ssr: WrappedGetserverSideProps<
       };
     },
   });
-    // * SSR Render ================= <<
-    return {
-      props: {
-        ssrUserInfo: user,
-        dehydratedState: dehydrate(queryClient),
-        isFiltered,
-      },
-    };
-  }
-  // * Render For Filtered Transactions =============== >
-  await queryClient.prefetchInfiniteQuery<
-    FilteredTransactionResonse,
-    BadResponse,
-    TransactionList,
-    typeof keys.allTransactions.filtered,
-    null | string
-  >({
-    initialPageParam: null,
-    queryKey: keys.allTransactions.filtered,
-    queryFn: async () => {
-      const filtered_init = await initialTransactions(user._id, queries);
-      const { initial_transactions: init_filtered_trs, nextCursor } =
-        filtered_init;
-      return {
-        nextCursor,
-        transactions: init_filtered_trs,
-        hasMore:
-          init_filtered_trs.length < allTransactionsConfig.initialLimit
-            ? false
-            : true,
-      };
-    },
-  });
+
   // * SSR Render ================= <<
   return {
     props: {
       ssrUserInfo: user,
       dehydratedState: dehydrate(queryClient),
-      isFiltered,
     },
   };
 };
@@ -145,3 +102,36 @@ const ssr: WrappedGetserverSideProps<
 const getServerSideProps = withAuth(ssr);
 
 export { getServerSideProps };
+
+// * Local Helper ========= >
+const parseTrsFilterQueries = function (
+  queries: TrnasactionFilterURLQueries
+): FilterSchemaType {
+  const {
+    accounts,
+    categories,
+    fromDate,
+    toDate,
+    minAmount,
+    maxAmount,
+    old,
+    type,
+  } = queries;
+  const dateOptions = { endOfDaye: true, startOfDay: true };
+  return {
+    accounts: parseAQueryToArray({ query: accounts ?? "" }),
+    categories: parseAQueryToArray({ query: categories ?? "" }),
+    fromDate: identifyDate(fromDate ?? "", dateOptions),
+    toDate: identifyDate(toDate ?? "", dateOptions),
+    maxAmount: identifyNumber(maxAmount ?? ""),
+    minAmount: identifyNumber(minAmount ?? ""),
+    old: old?.length ? (old == "true" ? true : null) : null,
+    type: type?.length
+      ? type === "0"
+        ? "0"
+        : type === "1"
+        ? "1"
+        : null
+      : null,
+  };
+};
