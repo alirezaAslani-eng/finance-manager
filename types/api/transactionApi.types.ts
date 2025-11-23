@@ -1,4 +1,5 @@
-import { Transaction_face, TransactionList } from "@/types/transaction.types";
+import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { TransactionList } from "@/types/transaction.types";
 
 interface AllTransactionResponse {
   transactions: TransactionList;
@@ -10,23 +11,9 @@ interface AllTransactionResponse {
  * More strict type for queries to filter transactions,
  *  it's needed to manage requests and client states
  */
-interface TransactionFilterQueries {
-  fromDate: Date | null;
-  toDate: Date | null;
-  minAmount: number | null;
-  maxAmount: number | null;
-  type: Transaction_face["type"] | null;
-  old: boolean | null;
-  accounts: string[];
-  categories: string[];
-}
 
-type URLFilterQueries = keyof TransactionFilterQueries;
+type URLFilterQueries = keyof FilterSchemaType;
 interface TrnasactionFilterURLQueries
-  extends Partial<Record<URLFilterQueries, string | string[]>> {}
+  extends Record<URLFilterQueries, string | undefined> {}
 
-export type {
-  AllTransactionResponse,
-  TrnasactionFilterURLQueries,
-  TransactionFilterQueries,
-};
+export type { AllTransactionResponse, TrnasactionFilterURLQueries };
