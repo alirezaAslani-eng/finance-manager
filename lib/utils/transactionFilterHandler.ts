@@ -42,6 +42,10 @@ const transactionFilterHandler: GetTransactionQuery = (input) => {
       accounts,
       categories,
     } = queries;
+
+    const accountOrs: { account: string }[] = [];
+    const categoryOrs: { category: string }[] = [];
+    if (type) query.type = type;
     if (fromDate) {
       query.createdAt = query.createdAt || {};
       query.createdAt.$gte = fromDate;
@@ -58,26 +62,17 @@ const transactionFilterHandler: GetTransactionQuery = (input) => {
       query.amount = query.amount || {};
       query.amount.$lte = maxAmount;
     }
-    if (accounts) {
-      if (typeof accounts == "string") {
-        query.account = accounts;
-      } else {
-        query.$or = accounts.map((_id) => ({ account: _id }));
-      }
-    }
-    if (categories) {
-      if (typeof categories == "string") {
-        query.category = categories;
-      } else {
-        query.$or = categories.map((_id) => ({ category: _id }));
-      }
+    accounts.forEach((_id) => accountOrs.push({ account: _id }));
+    categories.forEach((_id) => categoryOrs.push({ category: _id }));
+    if (accounts.length || categories.length) {
+      query.$or = [...accountOrs, ...categoryOrs];
     }
   }
 
   const resetFilter = () => {
     query = defaultQuery;
   };
-  return { query, resetFilter, sort_id: queries?.old ? 1 : -1 };
+  return { query, resetFilter, sort_id: queries.old ? 1 : -1 };
 };
 
 export default transactionFilterHandler;
