@@ -28,8 +28,8 @@ function Datefilter({
   onCancelFromDate = () => {},
   onCancelToDate = () => {},
 }: myProps) {
-  const to_Date = (date: Date) => toOnchange(startOfDay(date));
-  const from_Date = (date: Date) => fromOnchange(endOfDay(date));
+  const to_Date = (date: Date) => toOnchange(endOfDay(date));
+  const from_Date = (date: Date) => fromOnchange(startOfDay(date));
 
   return (
     <Box {...containerProps}>
