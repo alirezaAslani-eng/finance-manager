@@ -1,7 +1,5 @@
-import {
-  AllTransactionResponse,
-  TransactionFilterQueries,
-} from "@/types/api/transactionApi.types";
+import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { TransactionList } from "@/types/transaction.types";
 
 // * Output Type ---- >
@@ -16,7 +14,7 @@ interface AllTransactionsOutputHook {
 }
 // * Hook Type ---- >
 type UseGetAllTransactions = (
-  queries: TransactionFilterQueries
+  queries: FilterSchemaType
 ) => AllTransactionsOutputHook;
 
 export type { UseGetAllTransactions, AllTransactionsOutputHook };
