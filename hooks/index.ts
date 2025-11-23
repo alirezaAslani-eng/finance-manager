@@ -18,3 +18,4 @@ export { default as useActiveAccount } from "./useActiveAccount";
 export { default as useRemoveRecentTransaction } from "./useRemoveRecentTransaction";
 export { default as useDate } from "./useDate";
 export { default as useIdentyfyBank } from "./useIdentyfyBank";
+export { default as useUpdateEffect } from "./useUpdateEffect";
