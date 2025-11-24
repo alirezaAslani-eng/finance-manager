@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import {
   useQueryState,
   parseAsBoolean,
@@ -22,7 +22,11 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { keys } from "@/config/react-query";
 import { Transaction_face } from "@/types/transaction.types";
-import { parseAsTrue } from "@/lib/integration/nuqs/parsers";
+import {
+  parseAsFromDate,
+  parseAsToDate,
+  parseAsTrue,
+} from "@/lib/integration/nuqs/parsers";
 import { useUpdateEffect } from "@/hooks";
 
 // * Context ======= >
@@ -64,12 +68,12 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
   // * Show me transactions which are created in (date >= fromDate ) ====== >
   const [fromDate, setFromDate] = useQueryState<Date>(
     addKey("fromDate"),
-    parseAsIsoDate
+    parseAsFromDate
   );
   // * Show me transactions which are created in (date <= toDate ) ====== >
   const [toDate, setToDate] = useQueryState<Date>(
     addKey("toDate"),
-    parseAsIsoDate
+    parseAsToDate
   );
   /**
    * If this state get updates, it cause a side-effect run
@@ -190,7 +194,8 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
     ]
   );
   // * Restart Transaction Query ==== >
-  const restartTransactionQuery = () => {
+  const restartTransactionQuery = async () => {
+    await queryClient.cancelQueries({ queryKey: keys.allTransactions.all });
     /**
      * this is an InfinitQuery so each filter can have different items and specialy pageParams
      * that's whay it resets the query after applying filter .

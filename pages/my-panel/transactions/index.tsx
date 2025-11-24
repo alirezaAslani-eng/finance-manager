@@ -117,12 +117,11 @@ const parseTrsFilterQueries = function (
     old,
     type,
   } = queries;
-  const dateOptions = { endOfDaye: true, startOfDay: true };
   return {
     accounts: parseAQueryToArray({ query: accounts ?? "" }),
     categories: parseAQueryToArray({ query: categories ?? "" }),
-    fromDate: identifyDate(fromDate ?? "", dateOptions),
-    toDate: identifyDate(toDate ?? "", dateOptions),
+    fromDate: identifyDate(fromDate ?? ""),
+    toDate: identifyDate(toDate ?? ""),
     maxAmount: identifyNumber(maxAmount ?? ""),
     minAmount: identifyNumber(minAmount ?? ""),
     old: old?.length ? (old == "true" ? true : null) : null,
