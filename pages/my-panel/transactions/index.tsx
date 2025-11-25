@@ -74,7 +74,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
     TransactionList
   >({
     initialPageParam: null,
-    queryKey: keys.allTransactions.all,
+    queryKey: keys.allTransactions.all(queries),
     queryFn: async () => {
       const initializeTransaction = await initialTransactions(
         user._id,

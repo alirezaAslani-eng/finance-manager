@@ -54,6 +54,10 @@ interface ProvidedFilterTrsStateValue {
    */
   filterState: FilterTrsStateType;
   /**
+   * use this dynaimc queryKey to mount a new query for each filter
+   */
+  dynamicQueryKey: FilterSchemaType;
+  /**
    * Dispatcher Method
    */
   dispatcher: Dispatcher;

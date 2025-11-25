@@ -5,7 +5,6 @@ import {
   parseAsString,
   parseAsArrayOf,
   parseAsInteger,
-  parseAsIsoDate,
   parseAsStringLiteral,
 } from "nuqs";
 import {
@@ -19,8 +18,7 @@ import {
   removeOneId,
   setAmountHandler,
 } from "./FIlterTrsState.helpers";
-import { useQueryClient } from "@tanstack/react-query";
-import { keys } from "@/config/react-query";
+
 import { Transaction_face } from "@/types/transaction.types";
 import {
   parseAsFromDate,
@@ -28,6 +26,7 @@ import {
   parseAsTrue,
 } from "@/lib/integration/nuqs/parsers";
 import { useUpdateEffect } from "@/hooks";
+import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 
 // * Context ======= >
 const FilterTrsStateContext = createContext({} as ProvidedFilterTrsStateValue);
@@ -87,9 +86,36 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
     }
   };
 
-  // * used queryClient to refetch transactions afetr applying a filter ======= >
-  const queryClient = useQueryClient();
+  /**
+   * This state responsible for only storing filter parameters as a dynamicQueryKey
+   */
+  const [dynamicQueryKey, setDynamicQueryKey] = useState<FilterSchemaType>({
+    accounts,
+    categories,
+    fromDate,
+    maxAmount,
+    minAmount,
+    old,
+    toDate,
+    type,
+  });
 
+  /**
+   * This function update dynamicQueryKey with a new refrence of filter paramters
+   * and cause the query remount and build a new cache or use prevous
+   */
+  const updateQueryKey = () => {
+    setDynamicQueryKey({
+      accounts,
+      categories,
+      fromDate,
+      maxAmount,
+      minAmount,
+      old,
+      toDate,
+      type,
+    });
+  };
   // * Only This Dispatcher can update the states and it has no side effects   === >
   const dispatcher: Dispatcher = useCallback(
     (action) => {
@@ -193,30 +219,17 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
       setMaxAmount,
     ]
   );
-  // * Restart Transaction Query ==== >
-  const restartTransactionQuery = async () => {
-    await queryClient.cancelQueries({ queryKey: keys.allTransactions.all });
-    /**
-     * this is an InfinitQuery so each filter can have different items and specialy pageParams
-     * that's whay it resets the query after applying filter .
-     */
-    queryClient.removeQueries({ queryKey: keys.allTransactions.all });
-    /**
-     * After Removing the query just Refetch it with latest state .
-     */
-    queryClient.refetchQueries({ queryKey: keys.allTransactions.all });
-  };
 
   // * Apply By User =========== >
-  const apply = useCallback(() => {
+  const apply = () => {
     // * Now State is Filtered ====== >
     setFilter(true);
-    restartTransactionQuery();
-  }, [queryClient, setFilter]);
+    updateQueryKey();
+  };
 
   // * Apply By Trigger to refetch transactions with Latest queries ============== >
   useUpdateEffect(() => {
-    restartTransactionQuery();
+    updateQueryKey();
   }, [triggerEffect]);
 
   // * Memoizing, because of children prop might changes or parnet providers might make rerenders ===== >
@@ -232,6 +245,7 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
       toDate,
       type,
     },
+    dynamicQueryKey,
     dispatcher,
     apply,
   };
