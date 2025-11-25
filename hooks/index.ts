@@ -13,7 +13,7 @@ export { default as useEditTransaction } from "./useEditTransaction";
 export { default as useEditAccount } from "./useEditAccount";
 export { default as useEditCategory } from "./useEditCategory";
 export { default as useRecentTransactions } from "./useRecentTransactions";
-export { default as useGetAllTransactions } from "./useGetAllTransactions";
+export { default as useGetInfinitTransactions } from "./useGetInfinitTransactions";
 export { default as useActiveAccount } from "./useActiveAccount";
 export { default as useRemoveRecentTransaction } from "./useRemoveRecentTransaction";
 export { default as useDate } from "./useDate";
