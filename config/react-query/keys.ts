@@ -13,13 +13,14 @@ const keys = {
   },
 
   allTransactions: {
+    mainKey: "transactions",
     /**
-     * each key of FilterSchemaType is transformed to JSON in output 
+     * each key of FilterSchemaType is transformed to JSON in output
      * because SSR prefetchs this key and some keys are not serializable
      */
     all(filters: FilterSchemaType): TransactionsQueryKey {
       return [
-        "transactions",
+        keys.allTransactions.mainKey,
         // * Filter Parmeters ==== >
         JSON.stringify(filters["type"]),
         JSON.stringify(filters["old"]),

@@ -1,5 +1,5 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect } from "react";
 import { UseGetInfinitTransactions } from "./types/useGetInfinitTransactions.types";
 import { keys } from "@/config/react-query";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
@@ -10,8 +10,6 @@ import { useFilterTrsState } from "@/context/transactions";
 import { TransactionsQueryKey } from "@/config/react-query/types/keys.types";
 
 const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
-
-
   // * Transaction's filter & queries states =========== >
   const {
     filterState: {
@@ -27,9 +25,6 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     },
     dynamicQueryKey,
   } = useFilterTrsState();
-
-
-
 
   // * IninitQuery ============ >
   const {
@@ -79,6 +74,12 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     },
   });
 
+  const qrc = useQueryClient();
+  useEffect(() => {
+    return () => {
+      qrc.removeQueries({ queryKey: [keys.allTransactions.mainKey] });
+    };
+  }, []);
   // * Offered Functions ================= >
   const loadMore = useCallback(() => {
     fetchNextPage();
@@ -88,7 +89,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     transactions: data ?? [],
     hasNextPage,
     isFetchingNextPage,
-    isFiltering: isFetching,
+    isFiltering: isFetchingNextPage ? false : isFetching,
     loadMore,
     emprtArrayReason: filter
       ? "نتیجه ای برای این فیلتر بافت نشد"
