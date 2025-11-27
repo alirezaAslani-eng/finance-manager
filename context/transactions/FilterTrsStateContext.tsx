@@ -128,7 +128,7 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
         }
         case "TOGGLE_SORT": {
           // * true = show oldest transactions / null = no filter (default=Latest) ===== >
-          setOld((prev) => prev ?? null);
+          setOld((prev) => (!prev ? true : null));
           break;
         }
         case "ADD_ACCOUNT": {

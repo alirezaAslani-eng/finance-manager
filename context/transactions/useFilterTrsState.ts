@@ -12,6 +12,11 @@ const useFilterTrsState: UseTrsFilterState = () => {
     () => dispatcher({ type: "RESET_FILTER" }),
     [dispatcher]
   );
+  // * Reset Filter =========== >
+  const toggleSort = useCallback(
+    () => dispatcher({ type: "TOGGLE_SORT" }),
+    [dispatcher]
+  );
 
   // * Filter Transactions Based on Amount =========== >
   const setMinAmount = useCallback(
@@ -95,6 +100,7 @@ const useFilterTrsState: UseTrsFilterState = () => {
     setAccount,
     cancelAccount,
     apply,
+    toggleSort,
   };
 };
 
