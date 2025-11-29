@@ -12,9 +12,16 @@ const onlyNumber = (value: string): number => {
 interface MyProps {
   value?: number;
   onChange?: (value: number) => void;
+  placeholder?: string;
+  label?: string;
 }
 
-export default function TomanInput({ onChange, value }: MyProps) {
+export default function TomanInput({
+  onChange,
+  value,
+  placeholder = "مبلغ",
+  label,
+}: MyProps) {
   const [formated, setFormated] = useState<string>(
     value ? converToFaPrice(value) : ""
   );
@@ -38,9 +45,10 @@ export default function TomanInput({ onChange, value }: MyProps) {
 
   return (
     <TextField
-      label="مبلغ"
+      label={label ?? placeholder}
       value={formated}
       onChange={onChangeHandler}
+      placeholder={placeholder}
       inputMode="numeric"
     />
   );
