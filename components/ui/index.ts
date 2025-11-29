@@ -25,4 +25,5 @@ export { default as ModalHandler } from "./Modal/ModalHandler";
 export { default as MuiChip } from "./Chip/MuiChip";
 export { default as ScrollShadowBox } from "./Box/ScrollShadowBox";
 export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";
+export { default as MultipleSelectCheckmarks } from "./Input/MultipleSelectCheckmarks";
 export { default as PriceInput } from "./Input/PriceInput";
