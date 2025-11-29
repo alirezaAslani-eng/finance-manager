@@ -2,7 +2,7 @@ import { Menu, TextField, TextFieldProps } from "@mui/material";
 import { Calendar } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import {  useState } from "react";
+import { useState } from "react";
 import DateObject from "react-date-object";
 import { useDate } from "@/hooks";
 
@@ -12,7 +12,12 @@ interface myProps {
   placeholder?: string;
   inputProps?: TextFieldProps;
 }
-const DateField = ({ onChange, placeholder, inputProps, value }: myProps) => {
+const DateField = ({
+  onChange,
+  placeholder = "",
+  inputProps,
+  value,
+}: myProps) => {
   // * Drop down state ======================== >
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
 
@@ -42,11 +47,13 @@ const DateField = ({ onChange, placeholder, inputProps, value }: myProps) => {
   return (
     <>
       <TextField
-        placeholder={value ? `${placeholder}${fa_date}` : "انتخاب تاریخ"}
+        placeholder={value ? `${"تاریخ"}${fa_date}` : placeholder}
         inputProps={{ readOnly: true }}
         onClick={openeMenu}
         fullWidth
-        sx={{ "& ::placeholder": { opacity: `${value?"1":"0.5"} !important` } }}
+        sx={{
+          "& ::placeholder": { opacity: `${value ? "1" : "0.5"} !important` },
+        }}
         {...inputProps}
       />
       <Menu
