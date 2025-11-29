@@ -1,9 +1,8 @@
-import { Box, BoxProps, Stack, SxProps } from "@mui/material";
-import { DateField, MuiButton, MuiChip } from "@/components/ui";
+import { Box, Stack, SxProps } from "@mui/material";
+import { DateField, MuiButton } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { endOfDay, startOfDay } from "@/utils";
 interface myProps {
-  containerProps?: BoxProps;
   fromOnchange?: (date: Date) => void;
   toOnchange?: (date: Date) => void;
   onCancelToDate?: () => void;
@@ -20,7 +19,6 @@ const cancelButton_sx: SxProps = {
   borderRadius: "999px",
 };
 function Datefilter({
-  containerProps,
   fromOnchange = () => {},
   toOnchange = () => {},
   fromDateVal,
@@ -32,8 +30,14 @@ function Datefilter({
   const from_Date = (date: Date) => fromOnchange(startOfDay(date));
 
   return (
-    <Box {...containerProps}>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+    <>
+      <Stack
+        flexDirection={"row"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        gap={"10px"}
+        
+      >
         {/* Start Date ==================== > */}
         <Box position={"relative"}>
           {fromDateVal && (
@@ -52,8 +56,9 @@ function Datefilter({
               <CloseRoundedIcon />
             </MuiButton>
           )}
+
           <DateField
-            placeholder="از تاریخ : "
+            placeholder="از تاریخ"
             onChange={from_Date}
             // * undefined = default date value
             value={fromDateVal ?? undefined}
@@ -78,15 +83,15 @@ function Datefilter({
             </MuiButton>
           )}
           <DateField
-            placeholder="تا تاریخ : "
+            placeholder="تا تاریخ"
             onChange={to_Date}
             // * undefined = default date value
             value={toDateVal ?? undefined}
           />
         </Box>
-      </Box>
-    </Box>
+      </Stack>
+    </>
   );
 }
 
-export default Datefilter;
+export default Datefilter
