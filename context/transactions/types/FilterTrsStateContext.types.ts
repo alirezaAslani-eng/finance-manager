@@ -106,7 +106,7 @@ type ResetType = {
  */
 type Transaction_Type_ActionType = {
   type: Extract<ActionsType, "TRANSACTION_TYPE">;
-  payload: { value: "0" | "1" };
+  payload: { value: "0" | "1" | null};
 };
 
 /**
