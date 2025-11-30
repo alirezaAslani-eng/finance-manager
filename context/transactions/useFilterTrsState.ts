@@ -4,7 +4,7 @@ import {
   UseTrsFilterReturnedType,
   UseTrsFilterState,
 } from "./types/useFilterTrsState.types";
-import { UseTrsFilterState } from "./types/useFilterTrsState.types";
+import { debounce } from "@mui/material";
 
 const useFilterTrsState: UseTrsFilterState = () => {
   const { dispatcher, filterState, apply, dynamicQueryKey } = useContext(
@@ -24,12 +24,18 @@ const useFilterTrsState: UseTrsFilterState = () => {
 
   // * Filter Transactions Based on Amount =========== >
   const setMinAmount = useCallback(
+    debounce(
       (n: number) => dispatcher({ type: "MIN_AMOUNT", payload: { value: n } }),
+      400
+    ),
     [dispatcher]
   );
 
   const setMaxAmount = useCallback(
+    debounce(
       (n: number) => dispatcher({ type: "MAX_AMOUNT", payload: { value: n } }),
+      400
+    ),
     [dispatcher]
   );
 
