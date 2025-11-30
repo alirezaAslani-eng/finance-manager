@@ -52,7 +52,7 @@ const DateField = ({
         onClick={openeMenu}
         fullWidth
         sx={{
-          "& ::placeholder": { opacity: `${value ? "1" : "0.5"} !important` },
+          "& ::placeholder": { opacity: `${value ? "1" : "0.8"} !important` },
         }}
         {...inputProps}
       />
