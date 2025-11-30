@@ -1,10 +1,4 @@
-import type {
-  Palette,
-  PaletteColor,
-  SimplePaletteColorOptions,
-  PaletteOptions,
-  ThemeOptions,
-} from "@mui/material/styles";
+import type { SxProps, Theme } from "@mui/material/styles";
 
 interface Shades {
   50?: string;
@@ -24,6 +18,7 @@ interface CustomStyle {
     minWidth: "0px";
     padding: "0px";
   };
+  noScroll: SxProps<Theme>;
 }
 declare module "@mui/material/styles" {
   interface PaletteColor extends Shades {}
