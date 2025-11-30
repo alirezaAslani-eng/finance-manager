@@ -44,6 +44,16 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           minWidth: "0px",
           padding: "0px",
         },
+        noScroll: {
+          /* (Chrome, Edge, Safari) */
+          "::-webkit-scrollbar": {
+            width: "0px",
+            height: "0px",
+          },
+          "::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+        },
       },
       breakpoints: {
         values: {
