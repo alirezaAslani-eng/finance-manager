@@ -17,8 +17,9 @@ interface UseTrsFilterReturnedType {
   cancelFromDate: () => void;
   apply: () => void;
   toggleSort: () => void;
+  setType: (value: "0" | "1" | "all") => void;
 }
 
 type UseTrsFilterState = () => UseTrsFilterReturnedType;
 
-export type { UseTrsFilterState };
+export type { UseTrsFilterState,UseTrsFilterReturnedType };

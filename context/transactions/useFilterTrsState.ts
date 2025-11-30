@@ -1,5 +1,9 @@
-import React, { useCallback, useContext } from "react";
+import { useCallback, useContext } from "react";
 import { FilterTrsStateContext } from "./FilterTrsStateContext";
+import {
+  UseTrsFilterReturnedType,
+  UseTrsFilterState,
+} from "./types/useFilterTrsState.types";
 import { UseTrsFilterState } from "./types/useFilterTrsState.types";
 
 const useFilterTrsState: UseTrsFilterState = () => {
@@ -20,12 +24,12 @@ const useFilterTrsState: UseTrsFilterState = () => {
 
   // * Filter Transactions Based on Amount =========== >
   const setMinAmount = useCallback(
-    (n: number) => dispatcher({ type: "MIN_AMOUNT", payload: { value: n } }),
+      (n: number) => dispatcher({ type: "MIN_AMOUNT", payload: { value: n } }),
     [dispatcher]
   );
 
   const setMaxAmount = useCallback(
-    (n: number) => dispatcher({ type: "MAX_AMOUNT", payload: { value: n } }),
+      (n: number) => dispatcher({ type: "MAX_AMOUNT", payload: { value: n } }),
     [dispatcher]
   );
 
@@ -47,6 +51,14 @@ const useFilterTrsState: UseTrsFilterState = () => {
 
   const cancelToDate = useCallback(
     () => dispatcher({ type: "CANCEL_TO_DATE" }),
+    [dispatcher]
+  );
+  const setType: UseTrsFilterReturnedType["setType"] = useCallback(
+    (value) =>
+      dispatcher({
+        type: "TRANSACTION_TYPE",
+        payload: { value: value === "all" ? null : value },
+      }),
     [dispatcher]
   );
 
@@ -101,6 +113,7 @@ const useFilterTrsState: UseTrsFilterState = () => {
     cancelAccount,
     apply,
     toggleSort,
+    setType,
   };
 };
 
