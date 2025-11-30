@@ -2,44 +2,33 @@ import { useState } from "react";
 import type { MouseEvent, PropsWithChildren } from "react";
 import type { ToggleButtonGroupProps } from "@mui/material/ToggleButtonGroup";
 import { Box } from "@mui/material";
-import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-interface MyProps {
-  onChange?: (val: string) => any;
+interface MyProps<T = any> {
+  onChange?: (val: T) => void;
   inputProps?: ToggleButtonGroupProps;
 }
-const MuiToggleButton = ({
+function MuiToggleButton<T = any>({
   inputProps,
   onChange,
   children,
-}: PropsWithChildren<MyProps>) => {
-  const [alignment, setAlignment] = useState<string | null>("");
-
-  const handleAlignment = (
-    _: MouseEvent<HTMLElement>,
-    value: string | null
-  ) => {
-    if (value === null) {
-      setAlignment(alignment);
-      onChange && onChange(alignment as string);
-      return;
-    }
-    setAlignment(value);
+}: PropsWithChildren<MyProps<T>>) {
+  // * Update Value ======= >
+  const handleAlignment = (_: MouseEvent<HTMLElement>, value: T) => {
     onChange && onChange(value);
   };
 
   return (
-    <Box sx={{ direction: "ltr", width: "fit-content" }}>
+    <Box sx={{ direction: "ltr" }}>
       <ToggleButtonGroup
         exclusive
         {...inputProps}
         onChange={handleAlignment}
-        value={inputProps?.value || alignment}
+        value={inputProps?.value}
       >
         {children}
       </ToggleButtonGroup>
     </Box>
   );
-};
+}
 export default MuiToggleButton;
