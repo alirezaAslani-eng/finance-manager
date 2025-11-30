@@ -1,55 +1,45 @@
-import { MuiButton, MuiSlider } from "@/components/ui";
-import { Box, Typography } from "@mui/material";
-import type { BoxProps } from "@mui/material";
-import React, { useState } from "react";
+import { PriceInput } from "@/components/ui";
+import { Box, Stack } from "@mui/material";
 
 type FromOnChange = (val: number) => void;
 type ToOnChange = (val: number) => void;
 interface myProps {
-  containerProps?: BoxProps;
   fromValue?: number;
   toValue?: number;
   fromOnChange?: FromOnChange;
   toOnChange?: ToOnChange;
-  max?: number;
 }
 function PriceFilter({
-  containerProps,
   fromOnChange,
   toOnChange,
   fromValue,
   toValue,
-  max = 500_000,
 }: myProps) {
   return (
-    <Box {...containerProps}>
+    <Stack
+      flexDirection={"row"}
+      justifyContent={"center"}
+      gap={"10px"}
+      alignItems={"center"}
+    >
       {/* From ================= > */}
       <Box>
-        <Typography>{`از ${
-          fromValue?.toLocaleString() ?? 0
-        } تومان`}</Typography>
-        <MuiSlider
-          onChange={(val) => {
-            fromOnChange && fromOnChange(val);
-          }}
+        <PriceInput
+          onChange={fromOnChange}
           value={fromValue}
-          max={max}
+          placeholder="از مبلغ"
         />
       </Box>
       {/* To ======================= > */}
       <Box>
-        <Typography>{`تا ${toValue?.toLocaleString() ?? 0} تومان`}</Typography>
-        <MuiSlider
-          onChange={(val) => {
-            toOnChange && toOnChange(val);
-          }}
+        <PriceInput
+          onChange={toOnChange}
           value={toValue}
-          max={max}
+          placeholder="تا مبلغ"
         />
       </Box>
-    </Box>
+    </Stack>
   );
 }
-
 
 export default PriceFilter;
