@@ -16,15 +16,11 @@ const Transactions = () => {
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
+        display={"grid"}
+        gap={"20px"}
+        gridTemplateColumns={{
             xs: "repeat(1,1fr)",
-            sm: "repeat(2,1fr)",
-            lg: "repeat(3,1fr)",
-            xl: "repeat(4,1fr)",
-          },
-          gap: "20px",
+          _1350: "repeat(2,1fr)",
         }}
       >
         <LoadeingErrorHandler
@@ -63,6 +59,11 @@ const Transactions = () => {
         </MuiButton>
         )}
       </Box>
+
+      {/* // * Empty Array ================ > */}
+      {!isFiltering && !!!transactions?.length && (
+        <NoTransactions center text={emprtArrayReason} />
+      )}
     </Box>
   );
 };
