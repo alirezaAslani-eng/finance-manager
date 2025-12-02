@@ -33,5 +33,6 @@ declare module "@mui/material/styles" {
     _700: true;
     _600: true;
     _540: true;
+    _1350: true;
   }
 }
