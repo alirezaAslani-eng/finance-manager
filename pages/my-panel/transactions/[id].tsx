@@ -34,7 +34,7 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
   } = transactionInfo;
 
   // * get date of transaction ===== >
-  const { date, time } = useDate(createdAt);
+  const { date, time } = useDate(new Date(createdAt ?? ""));
 
   // * edit transaction hook ==== >>
   const { editTransaction } = useEditTransaction(_id);

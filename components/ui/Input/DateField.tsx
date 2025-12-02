@@ -43,11 +43,11 @@ const DateField = ({
     setTextFieldCurrentTarget(e.currentTarget);
   };
 
-  const { date: fa_date } = useDate(value);
+  const { date: fa_date } = useDate(value??new Date());
   return (
     <>
       <TextField
-        placeholder={value ? `${"تاریخ"}${fa_date}` : placeholder}
+        placeholder={value ? `${fa_date}` : placeholder}
         inputProps={{ readOnly: true }}
         onClick={openeMenu}
         fullWidth

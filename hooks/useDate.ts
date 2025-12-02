@@ -1,15 +1,19 @@
-import React from "react";
+import { getFaDate } from "@/utils";
+interface UseDateOutput {
+  date: string;
+  time: string;
+}
 
-function useDate(date: string | Date = new Date()) {
-  //  * Date Seting ============ >>
-  const fa_date = new Date(date).toLocaleString("fa-IR", {
-    timeZone: "Asia/Tehran",
-  });
-  // * Separate Time and Date ======== >>
-  const splited = fa_date.split(",");
+type UseDate = (date: Date) => UseDateOutput;
+const useDate: UseDate = (date: Date = new Date()) => {
+  // * Date validation === >
+  if (isNaN(date.getTime())) return { time: "", date: "" };
+
+  //  * Persian Date and Time ============ >>
+  const { fa_date, fa_time } = getFaDate(date);
 
   // * Return === >>>
-  return { time: splited[1], date: splited[0] };
-}
+  return { time: fa_time, date: fa_date };
+};
 
 export default useDate;
