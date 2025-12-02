@@ -9,3 +9,4 @@ export { default as endOfDay } from "./endOfDay";
 export { default as identifyDate } from "./identifyDate";
 export { default as identifyNumber } from "./identifyNumber";
 export { default as parseAQueryToArray } from "./parseAQueryToArray";
+export { default as getFaDate } from "./getFaDate";
