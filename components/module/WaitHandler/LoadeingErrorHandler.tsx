@@ -1,16 +1,16 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 interface MyProp {
   isLoading?: {
-    loading: React.JSX.Element;
+    loading: ReactNode;
     check: boolean;
   };
   isError?: {
-    error: React.JSX.Element;
+    error: ReactNode;
     check: boolean;
   };
   dataCheck?: {
-    error: React.JSX.Element; //  < -- render this if check == true
+    error: ReactNode; //  < -- render this if check == true
     check: boolean;
   };
 }
