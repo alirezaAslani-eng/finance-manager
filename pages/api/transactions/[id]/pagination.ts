@@ -4,7 +4,7 @@ import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
-import { allTransactionsConfig } from "@/lib/constant";
+import { transactionCursorConfig } from "@/lib/constant";
 import { filterSchema } from "@/lib/validations";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
@@ -24,7 +24,6 @@ const handler: handler_type = async (req, res) => {
       // * Filter Parameters From Body ==================== >
       const queries = filterSchema.parse(req.body); // ! Might Thow Error <<<<<<<
 
-      
       if (lastTransactionId != "null") {
         // * Check nextCursor which is _id ================== >
         throwError(!isValidObjectId(lastTransactionId), {
@@ -57,7 +56,7 @@ const handler: handler_type = async (req, res) => {
           transactions: initial_transactions,
           nextCursor,
           hasMore:
-            initial_transactions.length < allTransactionsConfig.initialLimit
+            initial_transactions.length < transactionCursorConfig.initialLimit
               ? false
               : true,
         } as const;

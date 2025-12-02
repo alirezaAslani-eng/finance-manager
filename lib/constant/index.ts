@@ -1,1 +1,1 @@
-export { default as allTransactionsConfig } from "./transactionsLimitConfig";
+export { default as transactionCursorConfig } from "./transactionCursorConfig";

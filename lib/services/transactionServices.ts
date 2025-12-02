@@ -27,7 +27,7 @@ import {
   LoadMoreTransactionServiceOutPut,
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
-import { allTransactionsConfig } from "../constant";
+import { transactionCursorConfig } from "../constant";
 import { FilterSchemaType } from "../validations/transactionSchema";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;
@@ -293,7 +293,6 @@ const transactionServices = {
       defaultQuery: { user: userID },
       queries: queries,
     });
-    
 
     // * initial load is limited only 50 transactions maybe with filters----- >
     const initial_transactions = await transaction_model
@@ -301,7 +300,7 @@ const transactionServices = {
       // * Latest -- >
       .sort({ _id: sort_id })
       // * Limitation --- >
-      .limit(allTransactionsConfig.initialLimit)
+      .limit(transactionCursorConfig.initialLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
@@ -344,7 +343,7 @@ const transactionServices = {
       // * Latest --- >
       .sort({ _id: sort_id })
       // * load only 20 transaction more ---- >
-      .limit(allTransactionsConfig.loadMoreLimit)
+      .limit(transactionCursorConfig.loadMoreLimit)
       .populate("category", "-__v -user")
       .lean<MongoTransaction[]>();
 
