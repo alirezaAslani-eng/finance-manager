@@ -162,6 +162,7 @@ const FilterPanel = ({ onClose }: Myprops) => {
       {/* // * Category Filter =============== > */}
       <Divider sx={{ my: "30px" }} />
       <MultiSelectModal
+        placeholder="انتخاب دسته بندی"
         onDisable={cancelCategory}
         onEnable={setCategory}
         items={categoriesCheckBoxs}
@@ -192,6 +193,7 @@ const FilterPanel = ({ onClose }: Myprops) => {
       {/* // * Account Filter ==================== > */}
       <Divider sx={{ my: "30px" }} />
       <MultiSelectModal
+        placeholder="انتخاب کارت بانکی"
         onDisable={cancelAccount}
         onEnable={setAccount}
         items={accountsCheckBoxs}

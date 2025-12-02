@@ -38,7 +38,7 @@ function ModalSelect({
   const openSelectList = () => {
     setIsOpen(true);
   };
-  // * Close Modal ======= > 
+  // * Close Modal ======= >
   const closeSelectList = () => {
     setIsOpen(false);
   };
@@ -57,13 +57,15 @@ function ModalSelect({
         justifyContent={"space-between"}
         alignItems={"center"}
       >
+        {/* // * Right side Text ============ > */}
         <Typography
           onClick={openSelectList}
           component={"span"}
           sx={{ cursor: "pointer" }}
         >
-          {"انتخاب دسته بندی"}
+          {placeholder}
         </Typography>
+        {/* // * Chosse button ============ > */}
         <MuiButton
           reset
           buttonProps={{
@@ -72,7 +74,7 @@ function ModalSelect({
             sx: { p: "5px" },
           }}
         >
-          {`${!!itemCount ? `${itemCount} مورد` : placeholder}`}
+          {`${!!itemCount ? `${itemCount} مورد` : "انتخاب"}`}
         </MuiButton>
       </Stack>
 
