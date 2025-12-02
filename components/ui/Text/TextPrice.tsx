@@ -1,46 +1,47 @@
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import type { TypographyProps } from "@mui/material";
 import React from "react";
 
 interface MyProps {
   price?: string | number;
-  unitProps?: TypographyProps;
-  priceProps?: TypographyProps;
   type?: "expense" | "income";
-  normal?: boolean;
+  /**
+   * fontSize of number
+   */
+  fontSize?: TypographyProps["fontSize"];
+  /**
+   * fontSize of unit which is "تومان"
+   */
+  unitFontSize?: TypographyProps["fontSize"];
 }
-function TextPrice({
-  price = 300000,
-  priceProps,
-  unitProps,
-  type = "income",
-  normal,
-}: MyProps) {
-  const color = type == "income" ? "success.main" : "error.main";
+function TextPrice({ price = 300000, type, fontSize, unitFontSize }: MyProps) {
+  const isIncome = type == "income";
+  const color: "error" | "success" | undefined = type
+    ? isIncome
+      ? "success"
+      : "error"
+    : undefined;
+
   return (
-    <Typography
-      {...priceProps}
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: "5px",
-        fontSize: "32px",
-        color: color,
-        ...priceProps?.sx,
-      }}
-      component={"span"}
-    >
-      {/* Price ========================> */}
-      {!normal ? (type == "expense" ? "-" : "+") : ""} {price?.toLocaleString()}
-      {/* unit ========================> */}
+    <Stack flexDirection={"row"} alignItems={"center"} gap={"8px"}>
+      <Typography
+        color={color}
+        fontSize={fontSize ?? "20px"}
+        component={"span"}
+      >
+        {/* Price ========================> */}
+
+        {price?.toLocaleString()}
+        {/* unit ========================> */}
+      </Typography>
       <Typography
         component={"span"}
-        {...unitProps}
-        sx={{ fontSize: "14px", ...unitProps?.sx }}
+        color={color}
+        fontSize={unitFontSize ?? "14px"}
       >
         {"تومان"}
       </Typography>
-    </Typography>
+    </Stack>
   );
 }
 
