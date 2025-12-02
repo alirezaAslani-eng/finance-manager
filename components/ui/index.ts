@@ -19,6 +19,7 @@ export { default as AccountInput } from "./Input/AccountInput";
 export { default as MuiSelectInput } from "./Input/MuiSelectInput";
 export { default as TextPrice } from "./Text/TextPrice";
 export { default as NoData } from "./Fallback/NoData";
+export { default as NoTransactions } from "./Fallback/NoTransactions";
 export { default as MuiAlert } from "./Alert/MuiAlert";
 export { default as MuiToggleButton } from "./Button/MuiToggleButton";
 export { default as ModalHandler } from "./Modal/ModalHandler";
