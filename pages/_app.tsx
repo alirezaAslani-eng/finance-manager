@@ -16,10 +16,14 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { queryClient } from "@/lib/integration/react-query/client";
+import { setAllDefaults } from "@/lib/integration/react-query/client/defaults";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
 import { CustomPageProps } from "@/types/page.types";
 import { ModalGroup } from "@/components/common";
+
+// * set all default queries ======= >
+setAllDefaults();
 
 // * Load Dana Medume Font as Gloabal ================= >
 const danaMediume = font({
