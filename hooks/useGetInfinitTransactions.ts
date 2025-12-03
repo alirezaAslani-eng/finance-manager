@@ -1,13 +1,13 @@
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 import { UseGetInfinitTransactions } from "./types/useGetInfinitTransactions.types";
-import { keys } from "@/config/react-query";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { getMoreTransactions } from "@/api/get";
 import { TransactionList } from "@/types/transaction.types";
 import { BadResponse } from "@/lib/utils";
 import { useFilterTrsState } from "@/context/transactions";
-import { TransactionsQueryKey } from "@/config/react-query/types/keys.types";
+import { keyAllTransactions } from "@/lib/integration/react-query/keys";
+import { TransactionsQueryKey } from "@/lib/integration/react-query/keys/types";
 
 const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
   // * Transaction's filter & queries states =========== >
@@ -42,7 +42,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     null | string
   >({
     initialPageParam: null,
-    queryKey: keys.allTransactions.all(dynamicQueryKey),
+    queryKey: keyAllTransactions.all(dynamicQueryKey),
     // * staleTime of All loaded pages is Infinity because data will updates by SSR or user's filtering action ==== >
     staleTime: Infinity,
     // * gcTime is 0 because in each mount SSR start prefetch and fill the cache with fresh data ===== >
@@ -77,7 +77,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
   const qrc = useQueryClient();
   useEffect(() => {
     return () => {
-      qrc.removeQueries({ queryKey: [keys.allTransactions.mainKey] });
+      qrc.removeQueries({ queryKey: [keyAllTransactions.mainKey] });
     };
   }, []);
   // * Offered Functions ================= >
@@ -92,7 +92,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     isFiltering: isFetchingNextPage ? false : isFetching,
     loadMore,
     emprtArrayReason: filter
-      ? "نتیجه ای برای این فیلتر بافت نشد"
+      ? "نتیجه ای برای این فیلتر یافت نشد"
       : "هنوز تراکنشی وجود ندارد",
     isError,
   };

@@ -1,6 +1,6 @@
 import { putActiveAccount } from "@/api/put";
-import { keys } from "@/config/react-query";
 import { AuthContex } from "@/context";
+import { keyRecentTransactions } from "@/lib/integration/react-query/keys";
 import { BadResponse } from "@/lib/utils";
 import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ function useActiveAccount() {
       await mutateAsync(infoToActive);
       // * Refetch Recent transactions ============== >
       await queryClient.invalidateQueries({
-        queryKey: keys.recntTransactions.all,
+        queryKey: keyRecentTransactions.all,
       });
       // * Refetch user's info to update accounts so that user can see actived account ============== >
       await refetchMe();

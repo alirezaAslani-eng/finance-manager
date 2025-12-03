@@ -1,5 +1,5 @@
 import { getUserInfo } from "@/api/get";
-import { keys } from "@/config/react-query";
+import { keyUserInfo } from "@/lib/integration/react-query/keys";
 import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
 import { GetMeOutput } from "@/types/user.types";
 import { useQuery } from "@tanstack/react-query";
@@ -91,7 +91,7 @@ const AuthProvider = ({
     isLoading: isAuthing,
     refetch,
   } = useQuery({
-    queryKey: keys.userInfo.all,
+    queryKey: keyUserInfo.all,
     initialData: ssrUserInfo ?? undefined,
     queryFn: getUserInfo,
   });

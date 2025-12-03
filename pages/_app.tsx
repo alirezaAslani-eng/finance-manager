@@ -15,7 +15,7 @@ import {
   HydrationBoundary,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { queryClient } from "@/config/react-query";
+import { queryClient } from "@/lib/integration/react-query/client";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
 import { CustomPageProps } from "@/types/page.types";

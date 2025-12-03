@@ -6,7 +6,7 @@ import {
 import { keys } from "@/config/react-query";
 import { useGetAllTransactions, useGetFilteredTransactions } from "@/hooks";
 import { PanelLayout } from "@/layout";
-import { allTransactionsConfig } from "@/lib/constant";
+import { transactionCursorConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
@@ -22,7 +22,8 @@ import { TransactionList } from "@/types/transaction.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
 import { Box } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { JSX, useState } from "react";
+import { keyAllTransactions } from "@/lib/integration/react-query/keys";
 
 const index: PageComponent = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
@@ -74,7 +75,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
     TransactionList
   >({
     initialPageParam: null,
-    queryKey: keys.allTransactions.all(queries),
+    queryKey: keyAllTransactions.all(queries),
     queryFn: async () => {
       const initializeTransaction = await initialTransactions(
         user._id,
@@ -85,7 +86,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
         nextCursor,
         transactions: initial_transactions,
         hasMore:
-          initial_transactions.length == allTransactionsConfig.initialLimit,
+          initial_transactions.length == transactionCursorConfig.initialLimit,
       };
     },
   });

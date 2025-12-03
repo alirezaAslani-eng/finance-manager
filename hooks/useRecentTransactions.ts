@@ -1,6 +1,5 @@
 import { getRecentTransactions } from "@/api/get";
 import { useQuery } from "@tanstack/react-query";
-import { keys } from "@/config/react-query";
 import { RecentTransactionType } from "@/types/transaction.types";
 import { useEffect, useState } from "react";
 import type {
@@ -8,6 +7,7 @@ import type {
   RecentTransactionsHookInput,
   ServiceOutput,
 } from "./types/useRecentTransactions.types";
+import { keyRecentTransactions } from "@/lib/integration/react-query/keys";
 
 // * Hook Overloads ================== >
 function useRecentTransactions(i?: {
@@ -34,12 +34,11 @@ function useRecentTransactions(
   // *  Request from client if there is no initial data ============ >
   const { data, isPending, isError, refetch } = useQuery({
     enabled: !dontFetch, // * << turn off query
-    queryKey: keys.recntTransactions.all,
+    queryKey: keyRecentTransactions.all,
     queryFn: getRecentTransactions,
     initialData: initialData ?? undefined,
   });
 
-  
   // * Client Set data or update real-time ================== >
   useEffect(() => {
     if (dontFetch) return;

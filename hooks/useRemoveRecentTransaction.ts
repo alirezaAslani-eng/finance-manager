@@ -1,7 +1,9 @@
 import { deleteOneTransaction } from "@/api/delete";
-import { keys } from "@/config/react-query";
+import {
+  keyRecentTransactions,
+  keyUserInfo,
+} from "@/lib/integration/react-query/keys";
 import type { BadResponse } from "@/lib/utils";
-import { RecentTransactionType } from "@/types/transaction.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function useRemoveRecentTransaction() {
@@ -16,10 +18,10 @@ function useRemoveRecentTransaction() {
 
       // * refetch recent transaction to update accounts ============= >
       await queryClient.refetchQueries({
-        queryKey: keys.recntTransactions.all,
+        queryKey: keyRecentTransactions.all,
       });
       // * refetch user's info to update accounts ============= >
-      await queryClient.refetchQueries({ queryKey: keys.userInfo.all });
+      await queryClient.refetchQueries({ queryKey: keyUserInfo.all });
     } catch (err) {
       const error = err as BadResponse;
       // TODO Show Error <<<

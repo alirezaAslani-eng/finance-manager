@@ -1,6 +1,9 @@
 import { postOneTransactions } from "@/api/post";
-import { keys } from "@/config/react-query";
 import { AuthContex } from "@/context";
+import {
+  keyRecentTransactions,
+  keyUserInfo,
+} from "@/lib/integration/react-query/keys";
 import { BadResponse } from "@/lib/utils";
 import { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -46,11 +49,11 @@ function useAddTransaction() {
       await mutateAsync(transactionInfo);
       // * invalid recent transactions after add one ========== >
       await queryClient.invalidateQueries({
-        queryKey: keys.recntTransactions.all,
+        queryKey: keyRecentTransactions.all,
       });
       // * invalid user info to update current balance ========== >
       await queryClient.invalidateQueries({
-        queryKey: keys.userInfo.all,
+        queryKey: keyUserInfo.all,
       });
       // * Close Modal and clean state === >
       closeModal();
