@@ -45,8 +45,6 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     queryKey: keyAllTransactions.all(dynamicQueryKey),
     // * staleTime of All loaded pages is Infinity because data will updates by SSR or user's filtering action ==== >
     staleTime: Infinity,
-    // * gcTime is 0 because in each mount SSR start prefetch and fill the cache with fresh data ===== >
-    gcTime: 0,
     // * first lastPage is from prefetched data ===== >
     getNextPageParam: (lastPage) => {
       // * Last data from response tells us if there is more page ----- >
