@@ -46,7 +46,7 @@ export default function TomanInput({
   return (
     <TextField
       label={label ?? placeholder}
-      value={formated}
+      value={formated==="0"?"":formated}
       onChange={onChangeHandler}
       placeholder={placeholder}
       inputMode="numeric"
