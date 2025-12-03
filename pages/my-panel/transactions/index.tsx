@@ -1,17 +1,14 @@
-import {
-  HeadingFilter,
-  SidebarFilter,
-  Transactions,
-} from "@/components/module";
-import { keys } from "@/config/react-query";
-import { useGetAllTransactions, useGetFilteredTransactions } from "@/hooks";
+import { FilterPanel, Transactions } from "@/components/module";
+import { MuiButton } from "@/components/ui";
+import { FilterTrsStateProvider } from "@/context/transactions";
+import { useBreakePoints } from "@/hooks";
 import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
-import { GlobalAppProps } from "@/pages/_app";
+import { GlobalAppProps, peydaMedium } from "@/pages/_app";
 import {
   AllTransactionResponse,
   TrnasactionFilterURLQueries,
@@ -20,12 +17,35 @@ import { PageComponent } from "@/types/page.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
-import { Box } from "@mui/material";
+import { Box, Dialog, Typography } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { JSX, useState } from "react";
+import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import { keyAllTransactions } from "@/lib/integration/react-query/keys";
 
 const index: PageComponent = () => {
+  return (
+    <Box padding={{ xs: "16px", _540: "30px" }}>
+      <FilterTrsStateProvider>
+        {/* // * Filter Modla and Open Filter Modal Button ==== > */}
+        <FilterModalOpener />
+        {/* // * Transactions ===================== > */}
+        <Box sx={{ mt: "20px" }}>
+          <Transactions />
+        </Box>
+      </FilterTrsStateProvider>
+    </Box>
+  );
+};
+
+index.Layout = PanelLayout;
+export default index;
+
+/**
+ * This is a wrrapper of two elements A Filtering Modal and a button that trigger it to open
+ * they are wrapped to avoid sharing open or close state throught the whole page
+ */
+function FilterModalOpener(): JSX.Element {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
   //  * Events ====================>
   const openSidebar = () => {
@@ -35,22 +55,43 @@ const index: PageComponent = () => {
     setIsOpenSidebar(false);
   };
 
+  // * use breakepoints to show a full screen filter panel in mobile size ===== >
+  const { is_after_540 } = useBreakePoints();
   return (
-    <Box padding={"30px"}>
-        {/* Heading Filter  ========================= > */}
-        <HeadingFilter onSidebar={openSidebar} />
-        {/* Sidebar Advanced Filter ========================= > */}
-        <SidebarFilter open={isOpenSidebar} onClose={closeSidebar} />
-        {/* Transactions ===================== > */}
-        <Box sx={{ mt: "20px" }}>
-          <Transactions />
+    <>
+      <MuiButton
+        reset
+        buttonProps={{
+          variant: "outlined",
+          onClick: openSidebar,
+          sx: {
+            padding: {
+              xs: "12px",
+            },
+            borderRadius: "18px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          },
+        }}
+      >
+        <TuneRoundedIcon />
+        <Typography>{"فیلتر ها"}</Typography>
+      </MuiButton>
+      {/* Modal Filter ========================= > */}
+      <Dialog
+        open={isOpenSidebar}
+        onClose={closeSidebar}
+        fullWidth
+        fullScreen={!is_after_540}
+      >
+        <Box padding={"20px"} className={peydaMedium.className}>
+          <FilterPanel onClose={closeSidebar} />
         </Box>
-    </Box>
+      </Dialog>
+    </>
   );
-};
-
-index.Layout = PanelLayout;
-export default index;
+}
 
 const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
   context,
