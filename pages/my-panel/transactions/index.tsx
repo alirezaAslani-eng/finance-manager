@@ -8,7 +8,8 @@ import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { BadResponse } from "@/lib/utils";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
-import { GlobalAppProps, peydaMedium } from "@/pages/_app";
+import type { GlobalAppProps } from "@/types/pages/Global.types";
+import { peyda_md } from "@/utils/font";
 import {
   AllTransactionResponse,
   TrnasactionFilterURLQueries,
@@ -65,13 +66,13 @@ function FilterModalOpener(): JSX.Element {
           variant: "outlined",
           onClick: openSidebar,
           sx: {
-            padding: {
-              xs: "12px",
-            },
-            borderRadius: "18px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
+          padding: {
+            xs: "12px",
+          },
+          borderRadius: "18px",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
           },
         }}
       >
@@ -79,13 +80,14 @@ function FilterModalOpener(): JSX.Element {
         <Typography>{"فیلتر ها"}</Typography>
       </MuiButton>
       {/* Modal Filter ========================= > */}
+
       <Dialog
         open={isOpenSidebar}
         onClose={closeSidebar}
         fullWidth
         fullScreen={!is_after_540}
       >
-        <Box padding={"20px"} className={peydaMedium.className}>
+        <Box padding={"20px"} className={peyda_md.className}>
           <FilterPanel onClose={closeSidebar} />
         </Box>
       </Dialog>

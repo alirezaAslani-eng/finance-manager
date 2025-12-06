@@ -3,9 +3,8 @@ import { Typography, Box, Chip, Divider, Stack, useTheme } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import MuiAlert from "../Alert/MuiAlert";
 import MuiButton from "../Button/MuiButton";
-import { danaMediume } from "@/pages/_app";
+import { dana_md } from "@/utils/font";
 import TextPrice from "../Text/TextPrice";
-import MuiProgress from "../Loader/MuiProgress";
 
 interface MyProps {
   type?: "expense" | "income";
@@ -21,7 +20,7 @@ function FinallDetailsModal({
   type = "expense",
   onAccept = () => {},
   onReject = () => {},
-  isSubmiting ,
+  isSubmiting,
 }: MyProps) {
   const {
     palette: { success, error, background },
@@ -29,7 +28,7 @@ function FinallDetailsModal({
   } = useTheme();
 
   return (
-    <div className={danaMediume.className}>
+    <div className={dana_md.className}>
       <Box
         padding={"20px"}
         sx={{

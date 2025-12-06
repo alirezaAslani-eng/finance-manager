@@ -8,7 +8,7 @@ import { AuthContex } from "@/context";
 import { useBreakePoints, usePaginationArray } from "@/hooks";
 import { categorySchema } from "@/lib/validations";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
-import { danaMediume } from "@/pages/_app";
+import { dana_md } from "@/utils/font"
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Typography, useTheme } from "@mui/material";
@@ -80,7 +80,7 @@ function CategoryModalForm({
   return (
     <>
       <Box
-        className={danaMediume.className || ""}
+        className={dana_md.className || ""}
         component={"form"}
         sx={{
           background: palette.background.default,

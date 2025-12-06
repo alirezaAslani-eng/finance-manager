@@ -1,9 +1,8 @@
-import { Brand, MuiButton, SideBarButton } from "@/components/ui";
-import { menuList } from "@/constant/staticData";
+import { Brand, MuiButton } from "@/components/ui";
 import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
 import type { DrawerProps } from "@mui/material";
 import React from "react";
-import { danaMediume, peydaMedium } from "@/pages/_app";
+import { dana_md, peyda_md } from "@/utils/font";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { useBreakePoints } from "@/hooks";
 import SideBarItems from "./SideBarItems";
@@ -41,7 +40,7 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
     >
       <Toolbar>
         <Box
-          className={peydaMedium.className}
+          className={peyda_md.className}
           sx={{ textAlign: "center", width: "100%" }}
         >
           <Brand textProps={{ color: "primary" }} />
@@ -57,17 +56,17 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
         }}
       >
         {/* // * MenuList ==================== > */}
-        <List className={danaMediume.className}>
+        <List className={dana_md.className}>
           <SideBarItems onSideBarClick={closeMe} />
         </List>
 
         {/* // * Logout Button ====================== > */}
         {!isTablet && (
-          <Box padding={"10px"} className={danaMediume.className}>
+          <Box padding={"10px"} className={dana_md.className}>
             <MuiButton
               buttonProps={{
                 onClick: logout,
-                className: danaMediume.className,
+                className: dana_md.className,
                 color: "error",
                 fullWidth: true,
                 sx: {

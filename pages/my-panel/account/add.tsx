@@ -3,7 +3,7 @@ import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
 import { Box, Container } from "@mui/material";
 import React from "react";
-import type { GlobalAppProps } from "@/pages/_app";
+import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { GetServerSidePropsContext } from "next";
 import { useAddccount, useEditAccount } from "@/hooks";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";

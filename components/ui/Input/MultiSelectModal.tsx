@@ -12,7 +12,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { muiTheme } from "@/utils";
 import { MultipleSelectCheckmarksProps } from "./MultipleSelectCheckmarks";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import { danaMediume } from "@/pages/_app";
+import { dana_md } from "@/utils/font";
 interface MyProps
   extends Pick<
     MultipleSelectCheckmarksProps,
@@ -80,7 +80,7 @@ function ModalSelect({
 
       {/* // * Select Modal ======================= > */}
       <Dialog
-        className={danaMediume.className}
+        className={dana_md.className}
         open={isOpen}
         onClose={closeSelectList}
         // maxWidth={false}

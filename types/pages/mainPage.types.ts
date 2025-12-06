@@ -1,4 +1,4 @@
-import { GlobalAppProps } from "@/pages/_app";
+import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { RecentTransactionType } from "../transaction.types";
 
 interface MainPageProps extends GlobalAppProps {

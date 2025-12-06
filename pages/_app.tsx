@@ -21,19 +21,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderInput } from "@/context/AuthContext";
 import { CustomPageProps } from "@/types/page.types";
 import { ModalGroup } from "@/components/common";
+import { dana_md, peyda_md } from "@/utils/font";
 
 // * set all default queries ======= >
-setAllDefaults();
+setAllDefaults(); // ! Side effet module
 
-// * Load Dana Medume Font as Gloabal ================= >
-const danaMediume = font({
-  src: "../assets/fonts/DanaFaNum-DemiBold.woff2",
-  variable: "--dana-md",
-});
-const peydaMedium = font({
-  src: "../assets/fonts/PeydaWeb-Medium.woff",
-  variable: "--peyda-md",
-});
 
 type GlobalAppProps = AuthProviderInput & { dehydratedState?: DehydratedState };
 function _app({
@@ -54,9 +46,7 @@ function _app({
               {/* // * Modal Context ----------- >  */}
               <ModalProvider>
                 {/* // * div tag to add font variable ----------- >  */}
-                <div
-                  className={`${danaMediume.variable} ${peydaMedium.variable}`}
-                >
+                <div className={`${dana_md.variable} ${peyda_md.variable}`}>
                   {/* // * Mui Theme Context ----------- >  */}
                   <MuiThemeProvider>
                     {/* // * Normalize Css --------- >*/}
@@ -81,5 +71,5 @@ function _app({
 }
 
 export default _app;
-export { danaMediume, peydaMedium };
+export { dana_md as danaMediume, dana_md as peydaMedium };
 export type { GlobalAppProps };

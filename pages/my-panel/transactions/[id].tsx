@@ -5,7 +5,7 @@ import { PanelLayout } from "@/layout";
 import { TransactionDetalCard } from "@/components/ui";
 import { muiTheme } from "@/utils";
 import { EditTransactionform } from "@/components/module";
-import type { GlobalAppProps } from "@/pages/_app";
+import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
