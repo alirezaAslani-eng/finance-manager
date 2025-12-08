@@ -115,6 +115,24 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
             containedSuccess: {
               color: grey[50],
             },
+          sizeSmall: {
+            height: "32px",
+            padding: "0px 12px",
+            fontSize: "14px",
+            borderRadius: "12px",
+          },
+          sizeMedium: {
+            height: "40px",
+            padding: "0px 16px",
+            fontSize: "16px",
+            borderRadius: "14px",
+          },
+          sizeLarge: {
+            height: "48px",
+            padding: "0px 20px",
+            fontSize: "16px",
+            borderRadius: "16px",
+          },
           },
         },
       },
