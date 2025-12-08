@@ -161,6 +161,22 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           },
           },
         },
+      MuiSvgIcon: {
+        defaultProps: {
+          fontSize: "large",
+        },
+        styleOverrides: {
+          fontSizeMedium: {
+            fontSize: "18px",
+          },
+          fontSizeSmall: {
+            fontSize: "20px",
+          },
+          fontSizeLarge: {
+            fontSize: "22px",
+          },
+        },
+      },
       },
     });
 
