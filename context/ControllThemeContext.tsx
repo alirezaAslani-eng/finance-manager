@@ -33,11 +33,8 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
     });
   }, []);
 
-  //  * == > Overrides
-
-  // * == > MuiTheme
-  const theme = useMemo(() => {
-    return createTheme({
+  const theme = createTheme({
+    spacing: 4, //  * << spacing(2) -> 8px
       custom: {
         resetButton: {
           minHeight: "0px",
@@ -121,7 +118,6 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
         },
       },
     });
-  }, [mode]);
 
   return (
     <ControllThemeContext value={{ changeMode, mode: mode }}>
