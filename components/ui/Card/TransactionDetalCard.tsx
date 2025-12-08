@@ -6,12 +6,11 @@ import {
   Box,
   useTheme,
   Divider,
+  Button,
 } from "@mui/material";
 import type { CardProps } from "@mui/material";
-import MuiButton from "../Button/MuiButton";
 import ModeRoundedIcon from "@mui/icons-material/ModeRounded";
 import Link from "next/link";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 interface MyProps {
   _id?: string;
@@ -36,7 +35,7 @@ function TransactionDetalCard({
   const theme = useTheme();
   const {
     alpha,
-    palette: { success, error, primary },
+    palette: { success, error },
   } = theme;
   //  * State Color =============== >
   const amountColor = type == "income" ? success.main : error.main;
@@ -98,18 +97,13 @@ function TransactionDetalCard({
         >
           {/* // * Edit ====================== > */}
           <Link href={`/my-panel/transactions/${_id}?edit=true`}>
-            <MuiButton
-              buttonProps={{
-                variant: "outlined",
-                sx: {
-                  ...theme.custom.resetButton,
-                  p: "10px",
-                  borderRadius: "999px",
-                },
-              }}
+            <Button
+              variant="outlined"
+              size="medium"
+              sx={(tm) => ({ ...(tm.custom.circleButton as object) })}
             >
               <ModeRoundedIcon />
-            </MuiButton>
+            </Button>
           </Link>
         </Box>
       </CardContent>

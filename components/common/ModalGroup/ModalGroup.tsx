@@ -1,7 +1,7 @@
 import { CategoryModalForm } from "@/components/module";
-import { ModalHandler } from "@/components/ui";
 import { ModalContext } from "@/context";
 import { useAddCategory, useEditCategory } from "@/hooks";
+import { Dialog } from "@mui/material";
 import React, { useContext } from "react";
 
 function ModalGroup() {
@@ -31,9 +31,14 @@ function ModalGroup() {
   return (
     <>
       {/* // * Category Modal : Can be oopen for edit and also for create a category ======= > */}
-      <ModalHandler
-        isOpen={isOpenEditCategoryModal || isOpenAddCategoryModal}
+      <Dialog
+        open={isOpenEditCategoryModal || isOpenAddCategoryModal}
         onClose={closeCategoryModal}
+        PaperProps={{
+          style: {
+            width: "min(100%,500px)",
+          },
+        }}
       >
         <CategoryModalForm
           onSubmit={isOpenEditCategoryModal ? editCategory : addCategory}
@@ -41,7 +46,7 @@ function ModalGroup() {
           edit={isOpenEditCategoryModal} // * edit state
           defaultValues={{ name: oldCategoryName }} // * default value for edit state
         />
-      </ModalHandler>
+      </Dialog>
     </>
   );
 }

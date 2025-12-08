@@ -6,8 +6,9 @@ import {
   useTheme,
   Box,
   Button,
+  ToggleButtonGroup,
 } from "@mui/material";
-import { MultiSelectModal, MuiButton, MuiToggleButton } from "@/components/ui";
+import { MultiSelectModal } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
@@ -109,11 +110,9 @@ const FilterPanel = ({ onClose }: Myprops) => {
       {/* // * ------------------------------ Filter Elements -------------------------------- >*/}
       <Stack gap={"20px"}>
         {/* // * Sort Button =========================== > */}
-        <MuiToggleButton
-          inputProps={{
-            fullWidth: true,
-            value: old ? "oldest" : "latest",
-          }}
+        <ToggleButtonGroup
+          fullWidth
+          value={old ? "oldest" : "latest"}
           onChange={toggleSort}
         >
           <ToggleButton color="warning" value={"oldest"}>
@@ -122,15 +121,15 @@ const FilterPanel = ({ onClose }: Myprops) => {
           <ToggleButton color="primary" value={"latest"}>
             {"تراکنش های جدید"}
           </ToggleButton>
-        </MuiToggleButton>
+        </ToggleButtonGroup>
 
         {/* // * Transaction Type ========================= > */}
-        <MuiToggleButton<"0" | "1" | "all">
-          inputProps={{
-            fullWidth: true,
-            value: type ?? "all",
+        <ToggleButtonGroup
+          fullWidth
+          value={type ?? "all"}
+          onChange={(e, v) => {
+            setType(v);
           }}
-          onChange={setType}
         >
           <ToggleButton color="error" value={"0"}>
             {"برداشت از حساب"}
@@ -141,7 +140,7 @@ const FilterPanel = ({ onClose }: Myprops) => {
           <ToggleButton color="primary" value={"all"}>
             {"همه"}
           </ToggleButton>
-        </MuiToggleButton>
+        </ToggleButtonGroup>
       </Stack>
 
       {/* // * Category Filter =============== > */}
@@ -192,9 +191,9 @@ const FilterPanel = ({ onClose }: Myprops) => {
         size="large"
         variant="contained"
         sx={{
-            width: {
-              xs: "100%",
-              sm: "fit-content",
+          width: {
+            xs: "100%",
+            sm: "fit-content",
           },
         }}
       >

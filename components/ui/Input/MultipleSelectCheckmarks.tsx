@@ -1,5 +1,10 @@
 import Checkbox from "@mui/material/Checkbox";
-import { Box, BoxProps, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  BoxProps,
+  InputLabel,
+  Stack,
+} from "@mui/material";
 import { ChangeEvent, memo } from "react";
 
 type SelectArrayType = { text: string; value: string }[];
@@ -29,16 +34,18 @@ function MultipleSelectCheckmarks({
 
   return (
     <Box sx={{ ...containerProps?.sx }}>
-      {items?.map((item) => {
+      {items?.map((item, index) => {
         const { text, value: itemValue } = item;
         return (
           <Stack key={itemValue} flexDirection={"row"} alignItems={"center"}>
             <Checkbox
+              size="large"
+              id={String(index)}
               value={itemValue}
               checked={activedCheckBoxs?.includes(itemValue)}
               onChange={checkedHandler}
             />
-            <Typography>{text}</Typography>
+            <InputLabel htmlFor={String(index)}>{text}</InputLabel>
           </Stack>
         );
       })}
@@ -47,4 +54,4 @@ function MultipleSelectCheckmarks({
 }
 
 export type { MyProps as MultipleSelectCheckmarksProps };
-export default MultipleSelectCheckmarks
+export default MultipleSelectCheckmarks;

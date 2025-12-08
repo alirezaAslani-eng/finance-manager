@@ -35,85 +35,86 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
 
   const theme = createTheme({
     spacing: 4, //  * << spacing(2) -> 8px
-      custom: {
+    custom: {
       /**
        * it removes padding, width, and apply aspect-ratio:1/1 to make button fully rounded
        */
       circleButton: {
-          minWidth: "0px",
-          padding: "0px",
+        minWidth: "0px",
+        padding: "0px",
         aspectRatio: "1/1",
         borderRadius: "999px",
+      },
+      noScroll: {
+        /* (Chrome, Edge, Safari) */
+        "::-webkit-scrollbar": {
+          width: "0px",
+          height: "0px",
         },
-        noScroll: {
-          /* (Chrome, Edge, Safari) */
-          "::-webkit-scrollbar": {
-            width: "0px",
-            height: "0px",
-          },
-          "::-webkit-scrollbar-track": {
-            background: "transparent",
-          },
+        "::-webkit-scrollbar-track": {
+          background: "transparent",
         },
       },
-      breakpoints: {
-        values: {
-          xs: 0,
-          sm: 600,
-          md: 900,
-          lg: 1200,
-          xl: 1536,
-          // * Custom needed breakepoints =========== >
-          _1350: 1350,
-          _700: 700,
-          _600: 600,
-          _540: 540,
-        },
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+        // * Custom needed breakepoints =========== >
+        _1350: 1350,
+        _700: 700,
+        _600: 600,
+        _540: 540,
       },
-      palette: {
-        mode: mode,
-        background: {
-          default: muiTheme(mode, { light: "#fff", dark: "#121212" }),
-        },
-        primary: {
-          main: blue[500],
-        },
-        error: {
-          main: red[500],
-          300: red[300],
-        },
-        grey: {
-          100: grey[100],
-        },
+    },
+    palette: {
+      mode: mode,
+      background: {
+        default: muiTheme(mode, { light: "#fff", dark: "#121212" }),
       },
+      primary: {
+        main: blue[500],
+      },
+      error: {
+        main: red[500],
+        300: red[300],
+      },
+      grey: {
+        100: grey[100],
+      },
+    },
 
-      typography: {
-        fontFamily: "var(--dana-md)",
-        h1: {
-          fontFamily: "var(--peyda-md)",
-        },
-        subtitle1: {
-          display: "-webkit-box",
-          WebkitBoxOrient: "vertical",
-          WebkitLineClamp: 2,
-          overflow: "hidden",
-        },
+    typography: {
+      fontFamily: "var(--dana-md)",
+      h1: {
+        fontFamily: "var(--peyda-md)",
       },
-      components: {
-        MuiCssBaseline: {
-          styleOverrides: {
-            a: {
-              ["&"]: {
-                color: "inherit",
-                textDecoration: "none",
-              } as CSSProperties,
-            },
+      subtitle1: {
+        display: "-webkit-box",
+        WebkitBoxOrient: "vertical",
+        WebkitLineClamp: 2,
+        overflow: "hidden",
+      },
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          a: {
+            ["&"]: {
+              color: "inherit",
+              textDecoration: "none",
+            } as CSSProperties,
           },
         },
-        MuiButton: {
-          styleOverrides: {
-            root: {
-              textTransform: "none",
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            // * not uppercase
+            textTransform: "none",
             // * custom variants
             variants: [
               {
@@ -140,10 +141,11 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
                 },
               },
             ],
-            },
-            containedSuccess: {
-              color: grey[50],
-            },
+          },
+          containedSuccess: {
+            // * button with green background always have a white color === >
+            color: grey[50],
+          },
           sizeSmall: {
             height: "32px",
             padding: "0px 12px",
@@ -162,8 +164,8 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
             fontSize: "16px",
             borderRadius: "16px",
           },
-          },
         },
+      },
       MuiSvgIcon: {
         defaultProps: {
           fontSize: "large",
@@ -180,8 +182,38 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           },
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            cursor: "pointer",
+          },
+        },
       },
-    });
+      MuiToggleButtonGroup: {
+        defaultProps: {
+          dir: "ltr",
+          exclusive: true,
+        },
+      },
+      MuiAlert: {
+        styleOverrides: {
+          root: {
+            borderRadius: "14px",
+          },
+        },
+        defaultProps: {
+          slotProps: {
+            icon: {
+              style: {
+                marginRight: "0",
+                marginLeft: "10px",
+              },
+            },
+          },
+        },
+      },
+    },
+  });
 
   return (
     <ControllThemeContext value={{ changeMode, mode: mode }}>

@@ -157,21 +157,22 @@ function CategoryModalForm({
               {/* // * Desktop Section =========== > */}
               {is_after_540 &&
                 categories.map((item) => {
-                  return <MuiChip key={item._id} text={item.name} />;
+                  return <Chip key={item._id} label={item.name} />;
                 })}
+
               {/* // * Mobile Section =========== > */}
               {!is_after_540 && (
                 <>
                   <Box sx={category_row}>
                     {halfedCategories?.[0]?.length &&
                       halfedCategories[0].map((item) => {
-                        return <MuiChip key={item._id} text={item.name} />;
+                        return <Chip key={item._id} label={item.name} />;
                       })}
                   </Box>
                   <Box sx={category_row}>
                     {halfedCategories?.[1]?.length &&
                       halfedCategories[1].map((item) => {
-                        return <MuiChip key={item._id} text={item.name} />;
+                        return <Chip key={item._id} label={item.name} />;
                       })}
                   </Box>
                 </>

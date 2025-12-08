@@ -1,9 +1,4 @@
-import {
-  MuiButton,
-  MuiSelectInput,
-  MuiTextField,
-  MuiToggleButton,
-} from "@/components/ui";
+import { MuiSelectInput, MuiTextField } from "@/components/ui";
 import { AuthContex, ModalContext } from "@/context";
 import { transactionEditSchema } from "@/lib/validations";
 import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
@@ -128,12 +123,9 @@ function EditTransactionform({
           name="type"
           render={({ field }) => {
             return (
-              <MuiToggleButton
-                inputProps={{
-                  ...field,
-                  disabled: !isLatestTransaction ? true : isSubmitting,
-                }}
-                onChange={field.onChange}
+              <ToggleButtonGroup
+                {...field}
+                disabled={!isLatestTransaction ? true : isSubmitting}
               >
                 <ToggleButton value="1" color="success">
                   {"واریز"}
@@ -141,7 +133,7 @@ function EditTransactionform({
                 <ToggleButton value="0" color="error">
                   {"برداشت"}
                 </ToggleButton>
-              </MuiToggleButton>
+              </ToggleButtonGroup>
             );
           }}
         />
