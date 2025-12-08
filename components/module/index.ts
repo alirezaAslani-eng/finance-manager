@@ -10,7 +10,6 @@ export { default as EditTransactionform } from "./Form/EditTransactionform";
 export { default as RecentTransactions } from "./Transactions/RecentTransactions";
 export { default as Slider } from "./Slider/Slider";
 export { default as Accounts } from "./Accounts/Accounts";
-export { default as HeadingFilter } from "./Heading/HeadingFilter";
 export { default as FilterPanel } from "./Filter/FilterPanel";
 export { default as Transactions } from "./Transactions/Transactions";
 export { default as PriceFilter } from "./Input/PriceFilter";
