@@ -37,9 +37,10 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
     spacing: 4, //  * << spacing(2) -> 8px
       custom: {
         resetButton: {
-          minHeight: "0px",
           minWidth: "0px",
           padding: "0px",
+        aspectRatio: "1/1",
+        borderRadius: "999px",
         },
         noScroll: {
           /* (Chrome, Edge, Safari) */
