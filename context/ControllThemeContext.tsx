@@ -36,7 +36,10 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
   const theme = createTheme({
     spacing: 4, //  * << spacing(2) -> 8px
       custom: {
-        resetButton: {
+      /**
+       * it removes padding, width, and apply aspect-ratio:1/1 to make button fully rounded
+       */
+      circleButton: {
           minWidth: "0px",
           padding: "0px",
         aspectRatio: "1/1",

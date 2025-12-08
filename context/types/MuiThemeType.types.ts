@@ -13,11 +13,7 @@ interface Shades {
   900?: string;
 }
 interface CustomStyle {
-  resetButton: {
-    minHeight: "0px";
-    minWidth: "0px";
-    padding: "0px";
-  };
+  circleButton: SxProps<Theme>;
   noScroll: SxProps<Theme>;
 }
 declare module "@mui/material/styles" {
@@ -34,5 +30,12 @@ declare module "@mui/material/styles" {
     _600: true;
     _540: true;
     _1350: true;
+  }
+}
+// * Button Extendeing type =================== >
+declare module "@mui/material/Button" {
+  interface ButtonPropsVariantOverrides {
+    "text-grey": true;
+    "outline-grey": true;
   }
 }
