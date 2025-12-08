@@ -1,14 +1,9 @@
-import {
-  MuiChip,
-  MuiButton,
-  MuiTextField,
-  ScrollShadowBox,
-} from "@/components/ui";
+import { MuiTextField, AdaptiveScroll } from "@/components/ui";
 import { AuthContex } from "@/context";
 import { useBreakePoints, usePaginationArray } from "@/hooks";
 import { categorySchema } from "@/lib/validations";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
-import { dana_md } from "@/utils/font"
+import { dana_md } from "@/utils/font";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Chip, Typography, useTheme } from "@mui/material";
@@ -16,19 +11,6 @@ import type { SxProps } from "@mui/material/styles";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
-// * Categories container
-const categories_container: SxProps = {
-  display: "flex",
-  flexDirection: { xs: "column", _540: "row" },
-  flexWrap: {
-    xs: "nowrap",
-    _540: "wrap",
-  },
-
-  mt: "10px",
-  gap: "8px",
-  maxHeight: "200px",
-};
 const category_row: SxProps = {
   display: "flex",
   alignItems: "center",
@@ -86,7 +68,6 @@ function CategoryModalForm({
           background: palette.background.default,
           borderRadius: "16px",
           padding: "20px",
-          maxWidth: "450px",
         }}
       >
         {/* // * Submit & Cancel Button =================== > */}
@@ -149,11 +130,7 @@ function CategoryModalForm({
         {!!categories.length && (
           <>
             <Typography mt={"20px"}>{"دسته بندی های شما"}</Typography>
-            <ScrollShadowBox
-              xScroll={!is_after_540}
-              yScroll={is_after_540}
-              boxProps={{ sx: categories_container }}
-            >
+            <AdaptiveScroll>
               {/* // * Desktop Section =========== > */}
               {is_after_540 &&
                 categories.map((item) => {
@@ -177,7 +154,7 @@ function CategoryModalForm({
                   </Box>
                 </>
               )}
-            </ScrollShadowBox>
+            </AdaptiveScroll>
           </>
         )}
       </Box>
