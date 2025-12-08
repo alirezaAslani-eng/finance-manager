@@ -1,9 +1,8 @@
 import React from "react";
 import { Footer, Landing } from "@/components/module";
-import { MuiTitleText } from "@/components/ui";
-import { Box, Container } from "@mui/material";
-const container_sx = { mt: { xs: "50px", sm: "100px" , lg:"150px" } };
-const footer_container = { mt: { xs: "50px", sm: "100px" , lg:"150px" }  };
+import { Box, Container, Typography } from "@mui/material";
+const container_sx = { mt: { xs: "50px", sm: "100px", lg: "150px" } };
+const footer_container = { mt: { xs: "50px", sm: "100px", lg: "150px" } };
 function PublicHome() {
   return (
     <Box>
@@ -28,3 +27,42 @@ function PublicHome() {
 }
 
 export default PublicHome;
+
+function MuiTitleText({ text, title }: { text?: string; title?: string }) {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      {/* Title =================== > */}
+      <Typography
+        fontFamily={"var(--peyda-md)"}
+        sx={{
+          fontSize: {
+            xs: "32px",
+            md: "40px",
+            lg: "45px",
+          },
+        }}
+      >
+        {title}
+      </Typography>
+      {/* Text =============== > */}
+      <Typography
+        sx={{
+          fontSize: {
+            xs: "18px",
+            md: "20px",
+          },
+          mt: "20px",
+        }}
+      >
+        {text}
+      </Typography>
+    </Box>
+  );
+}
