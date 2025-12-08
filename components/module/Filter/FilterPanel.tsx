@@ -5,6 +5,7 @@ import {
   Typography,
   useTheme,
   Box,
+  Button,
 } from "@mui/material";
 import { MultiSelectModal, MuiButton, MuiToggleButton } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -100,25 +101,9 @@ const FilterPanel = ({ onClose }: Myprops) => {
         <Typography>{"فیلتر ها"}</Typography>
 
         {/* // * Reset Filter Button ============ > */}
-        <MuiButton
-          reset
-          buttonProps={{
-            variant: "text",
-            onClick: resetFilter,
-            sx: {
-              p: "5px",
-              ":hover": {
-                backgroundColor: "transparent",
-              },
-              color: muiTheme(mode, {
-                dark: grey[100],
-                light: grey[700],
-              }),
-            },
-          }}
-        >
+        <Button onClick={resetFilter} variant="text-grey" size="medium">
           {"حذف فیلتر ها"}
-        </MuiButton>
+        </Button>
       </Stack>
       <Divider sx={{ m: "10px 0px 20px 0px" }} />
       {/* // * ------------------------------ Filter Elements -------------------------------- >*/}
@@ -202,19 +187,19 @@ const FilterPanel = ({ onClose }: Myprops) => {
 
       {/* // * Apply Button ============================== > */}
       <Divider sx={{ my: "30px" }} />
-      <MuiButton
-        buttonProps={{
-          onClick: applyFilters,
-          sx: {
+      <Button
+        onClick={applyFilters}
+        size="large"
+        variant="contained"
+        sx={{
             width: {
               xs: "100%",
               sm: "fit-content",
-            },
           },
         }}
       >
         {"اعمال فیلتر"}
-      </MuiButton>
+      </Button>
     </Box>
   );
 };

@@ -8,7 +8,13 @@ import { AuthContex, ModalContext } from "@/context";
 import { transactionEditSchema } from "@/lib/validations";
 import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Grid, ToggleButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import React, { useContext, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -142,16 +148,15 @@ function EditTransactionform({
 
         {/* // * Submit button ================== > */}
         {isDirty && (
-          <MuiButton
-            buttonProps={{
-              disabled: isSubmitting,
-              size: "large",
-              type: "submit",
-              sx: { width: { xs: "100%", sm: "fit-content" } },
-            }}
+          <Button
+            disabled={isSubmitting}
+            size="large"
+            type="submit"
+            variant="contained"
+            sx={{ width: { xs: "100%", sm: "fit-content" } }}
           >
             {isSubmitting ? "در حال ویرایش" : "ویرایش"}
-          </MuiButton>
+          </Button>
         )}
       </Box>
     </>

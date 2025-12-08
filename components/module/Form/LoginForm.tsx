@@ -1,7 +1,7 @@
-import { MuiButton, MuiTextField, RequestOtpButton } from "@/components/ui";
+import { MuiTextField, RequestOtpButton } from "@/components/ui";
 import { userSchema, verifySchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { alpha, Box, Typography, useTheme } from "@mui/material";
+import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -120,14 +120,14 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
         />
 
         {/* Submit ======================== > */}
-        <MuiButton
-          buttonProps={{
-            type: "submit",
-            sx: { width: "100%", fontSize: "18px" },
-          }}
+        <Button
+          type="submit"
+          sx={{ width: "100%", fontSize: "18px" }}
+          variant="contained"
+          size="medium"
         >
           دریافت کد
-        </MuiButton>
+        </Button>
       </Box>
     </Box>
   );
@@ -224,14 +224,7 @@ const VerifyCodeForm = ({
         <input type="hidden" {...register("phone")} defaultValue={phone} />
         {/* Submit ======================== > */}
         <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <MuiButton
-            buttonProps={{
-              type: "submit",
-              sx: { flex: "1", fontSize: "18px" },
-            }}
-          >
-            {submitText}
-          </MuiButton>
+          <Button type="submit">{submitText}</Button>
           <RequestOtpButton
             futureMsTime={otpWaitTime}
             isRequesting={isRequesting}

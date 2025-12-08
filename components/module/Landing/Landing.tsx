@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import LandingTopBar from "../LandingTopBar/LandingTopBar";
 import {
   Box,
+  Button,
   Container,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { MuiButton } from "@/components/ui";
 import Link from "next/link";
 import { HeroDarkIcon, HeroIcon } from "@/assets/svg";
 import { AuthContex } from "@/context";
@@ -70,11 +70,9 @@ function Landing() {
           {/* Signin Button ----- > */}
           <Box sx={{ mt: "35px" }}>
             <Link href={isLogin ? "/my-panel" : "/auth/signin"}>
-              <MuiButton
-                buttonProps={{ size: "large", sx: { fontSize: "18px" } }}
-              >
+              <Button size="large" variant="contained">
                 {isLogin ? `وارد پنل شوید` : "همین الان شروع کن"}
-              </MuiButton>
+              </Button>
             </Link>
           </Box>
         </Box>

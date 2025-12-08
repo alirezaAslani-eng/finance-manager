@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import { ModalHandler, MuiButton, MultipleSelectCheckmarks } from "..";
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { MultipleSelectCheckmarks } from "..";
+import { Button, Dialog, Stack, Typography, useTheme } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { muiTheme } from "@/utils";
 import { MultipleSelectCheckmarksProps } from "./MultipleSelectCheckmarks";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { dana_md } from "@/utils/font";
 interface MyProps
   extends Pick<
@@ -43,13 +35,6 @@ function ModalSelect({
     setIsOpen(false);
   };
 
-  const theme = useTheme();
-  // * MUI Theme =============== >
-  const {
-    palette: { grey, mode },
-    alpha,
-  } = theme;
-  const noScroll = theme.custom.noScroll;
   return (
     <>
       <Stack
@@ -66,16 +51,9 @@ function ModalSelect({
           {placeholder}
         </Typography>
         {/* // * Chosse button ============ > */}
-        <MuiButton
-          reset
-          buttonProps={{
-            variant: "text",
-            onClick: openSelectList,
-            sx: { p: "5px" },
-          }}
-        >
+        <Button size="medium" onClick={openSelectList}>
           {`${!!itemCount ? `${itemCount} مورد` : "انتخاب"}`}
-        </MuiButton>
+        </Button>
       </Stack>
 
       {/* // * Select Modal ======================= > */}
@@ -94,29 +72,26 @@ function ModalSelect({
         <Stack
           flexDirection={"row"}
           justifyContent={"space-between"}
-          sx={{
-            borderBottom: "1px solid",
-            pb: "10px",
-            borderColor: muiTheme(mode, {
-              dark: alpha(grey[100], 0.3),
-              light: alpha(grey[800], 0.3),
-            }),
+          sx={({ palette: { mode, grey }, alpha }) => {
+            return {
+              borderBottom: "1px solid",
+              pb: "10px",
+              borderColor: muiTheme(mode, {
+                dark: alpha(grey[100], 0.3),
+                light: alpha(grey[800], 0.3),
+              }),
+            };
           }}
         >
           {/* // * Close select modal ========= > */}
-          <MuiButton
-            reset
-            buttonProps={{
-              variant: "text",
-              onClick: closeSelectList,
-              sx: {
-                color: muiTheme(mode, { dark: grey[100], light: grey[700] }),
-                borderRadius: "999px",
-              },
-            }}
+          <Button
+            size="small"
+            onClick={closeSelectList}
+            variant="text-grey"
+            sx={(tm) => ({ ...tm.custom.circleButton })}
           >
             <CloseRoundedIcon />
-          </MuiButton>
+          </Button>
         </Stack>
         {/* // * Options List ====================== > */}
         <MultipleSelectCheckmarks
@@ -124,7 +99,11 @@ function ModalSelect({
           onEnable={onEnable}
           activedCheckBoxs={activedCheckBoxs}
           containerProps={{
-            sx: { maxHeight: "300px", overflow: "hidden auto", ...noScroll },
+            sx: ({ custom: { noScroll } }) => ({
+              maxHeight: "300px",
+              overflow: "hidden auto",
+              ...(noScroll as object),
+            }),
           }}
           items={items}
         />

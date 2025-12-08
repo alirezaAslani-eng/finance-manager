@@ -1,5 +1,5 @@
-import { Brand, MuiButton } from "@/components/ui";
-import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
+import { Brand } from "@/components/ui";
+import { Box, Button, Divider, Drawer, List, Toolbar } from "@mui/material";
 import type { DrawerProps } from "@mui/material";
 import React from "react";
 import { dana_md, peyda_md } from "@/utils/font";
@@ -28,6 +28,7 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
       anchor="right"
       {...drawerProps}
       onClose={closeMe}
+      className={`${dana_md.variable} ${peyda_md.variable}`}
       sx={{
         width: "240px",
         flexShrink: 0,
@@ -39,10 +40,7 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
       }}
     >
       <Toolbar>
-        <Box
-          className={peyda_md.className}
-          sx={{ textAlign: "center", width: "100%" }}
-        >
+        <Box sx={{ textAlign: "center", width: "100%" }}>
           <Brand textProps={{ color: "primary" }} />
         </Box>
       </Toolbar>
@@ -56,32 +54,21 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
         }}
       >
         {/* // * MenuList ==================== > */}
-        <List className={dana_md.className}>
+        <List>
           <SideBarItems onSideBarClick={closeMe} />
         </List>
-
         {/* // * Logout Button ====================== > */}
         {!isTablet && (
-          <Box padding={"10px"} className={dana_md.className}>
-            <MuiButton
-              buttonProps={{
-                onClick: logout,
-                className: dana_md.className,
-                color: "error",
-                fullWidth: true,
-                sx: {
-                  display: "flex",
-                  padding: "10px",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: "10px",
-                },
-              }}
-            >
-              {"خروج از پنل"}
-              <PowerSettingsNewRoundedIcon />
-            </MuiButton>
-          </Box>
+          <Button
+            onClick={logout}
+            size="large"
+            color="error"
+            fullWidth
+            sx={{ gap: "10px", borderRadius: "0px" }}
+          >
+            {"خروج از پنل"}
+            <PowerSettingsNewRoundedIcon fontSize="large" />
+          </Button>
         )}
       </Box>
     </Drawer>

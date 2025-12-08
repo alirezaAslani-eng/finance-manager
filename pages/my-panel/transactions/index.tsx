@@ -1,5 +1,4 @@
 import { FilterPanel, Transactions } from "@/components/module";
-import { MuiButton } from "@/components/ui";
 import { FilterTrsStateProvider } from "@/context/transactions";
 import { useBreakePoints } from "@/hooks";
 import { PanelLayout } from "@/layout";
@@ -18,7 +17,7 @@ import { PageComponent } from "@/types/page.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
-import { Box, Dialog, Typography } from "@mui/material";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { JSX, useState } from "react";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
@@ -60,12 +59,10 @@ function FilterModalOpener(): JSX.Element {
   const { is_after_540 } = useBreakePoints();
   return (
     <>
-      <MuiButton
-        reset
-        buttonProps={{
-          variant: "outlined",
-          onClick: openSidebar,
-          sx: {
+      <Button
+        variant="outlined"
+        onClick={openSidebar}
+        sx={{
           padding: {
             xs: "12px",
           },
@@ -73,12 +70,11 @@ function FilterModalOpener(): JSX.Element {
           display: "flex",
           alignItems: "center",
           gap: "8px",
-          },
         }}
       >
         <TuneRoundedIcon />
         <Typography>{"فیلتر ها"}</Typography>
-      </MuiButton>
+      </Button>
       {/* Modal Filter ========================= > */}
 
       <Dialog

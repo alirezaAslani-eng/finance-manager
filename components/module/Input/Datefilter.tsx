@@ -1,5 +1,5 @@
-import { Box, Stack, SxProps } from "@mui/material";
-import { DateField, MuiButton } from "@/components/ui";
+import { Box, Button, Stack, SxProps, Theme } from "@mui/material";
+import { DateField } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { endOfDay, startOfDay } from "@/utils";
 interface myProps {
@@ -10,14 +10,14 @@ interface myProps {
   fromDateVal?: Date | null;
   toDateVal?: Date | null;
 }
-const cancelButton_sx: SxProps = {
+const cancelButton_sx: SxProps<Theme> = (theme) => ({
   position: "absolute",
   zIndex: "2",
   left: "10px",
   top: "50%",
   transform: "translateY(-50%)",
-  borderRadius: "999px",
-};
+  ...(theme.custom.circleButton as object),
+});
 function Datefilter({
   fromOnchange = () => {},
   toOnchange = () => {},
@@ -36,25 +36,20 @@ function Datefilter({
         alignItems={"center"}
         justifyContent={"center"}
         gap={"10px"}
-        
       >
         {/* Start Date ==================== > */}
         <Box position={"relative"}>
           {fromDateVal && (
-            <MuiButton
-              reset
-              buttonProps={{
-                variant: "text",
-                color: "error",
-                onClick: (e) => {
-                  e.stopPropagation();
-                  onCancelFromDate && onCancelFromDate();
-                },
-                sx: cancelButton_sx,
+            <Button
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCancelFromDate && onCancelFromDate();
               }}
+              sx={cancelButton_sx}
             >
               <CloseRoundedIcon />
-            </MuiButton>
+            </Button>
           )}
 
           <DateField
@@ -67,20 +62,16 @@ function Datefilter({
         {/* End Date ==================== > */}
         <Box position={"relative"}>
           {toDateVal && (
-            <MuiButton
-              reset
-              buttonProps={{
-                variant: "text",
-                color: "error",
-                onClick: (e) => {
-                  e.stopPropagation();
-                  onCancelToDate && onCancelToDate();
-                },
-                sx: cancelButton_sx,
+            <Button
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCancelToDate && onCancelToDate();
               }}
+              sx={cancelButton_sx}
             >
               <CloseRoundedIcon />
-            </MuiButton>
+            </Button>
           )}
           <DateField
             placeholder="تا تاریخ"
@@ -94,4 +85,4 @@ function Datefilter({
   );
 }
 
-export default Datefilter
+export default Datefilter;

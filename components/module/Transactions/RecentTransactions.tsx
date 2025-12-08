@@ -1,16 +1,9 @@
-import {
-  BoxWithTitle,
-  MuiButton,
-  NoData,
-  TransactionCard,
-} from "@/components/ui";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
 import Link from "next/link";
 import { RecentTransactionType } from "@/types/transaction.types";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
-import { useRemoveRecentTransaction } from "@/hooks";
 interface myProp {
   containerProps?: BoxProps;
   recentTransactions: RecentTransactionType[];
@@ -19,21 +12,22 @@ const RecentTransactions = ({
   containerProps,
   recentTransactions = [],
 }: myProp) => {
-  const { removeTransaction, isPending } = useRemoveRecentTransaction();
   return (
     <BoxWithTitle
       title="تراکنش های اخیر"
       boxProps={{ sx: { p: "20px", height: "100%" } }}
       Button={
         <Link href="">
-          <MuiButton
-            buttonProps={{
-              sx: { display: "flex", alignItems: "center", gap: "5px" },
+          <Button
+            size="medium"
+            variant="text"
+            sx={(tm) => {
+              return { gap: tm.spacing(1) };
             }}
           >
             {"مشاهده همه"}
             <NorthWestRoundedIcon />
-          </MuiButton>
+          </Button>
         </Link>
       }
     >
@@ -64,16 +58,7 @@ const RecentTransactions = ({
           }}
         >
           {recentTransactions.map((transaction) => {
-            return (
-              <TransactionCard
-                key={transaction._id}
-                isRemoving={isPending}
-                {...transaction}
-                onRemove={(id) => {
-                  removeTransaction(id);
-                }}
-              />
-            );
+            return <TransactionCard key={transaction._id} {...transaction} />;
           })}
         </Box>
       </LoadeingErrorHandler>

@@ -1,7 +1,7 @@
 import { MuiButton, MuiTextField } from "@/components/ui";
 import { userSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { alpha, Box, Typography, useTheme } from "@mui/material";
+import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -124,15 +124,9 @@ function RegisterForm({
           errorText={errors?.["password"]?.message}
         />
         <input type="hidden" {...register("otpCode")} defaultValue={"00000"} />
-        <MuiButton
-          buttonProps={{
-            type: "submit",
-            sx: { fontSize: "20px" },
-            disabled: isSubmitting,
-          }}
-        >
+        <Button type="submit" disabled={isSubmitting} size="large">
           {"ثبت نام"}
-        </MuiButton>
+        </Button>
       </Box>
 
       {/* Footer ======================== > */}

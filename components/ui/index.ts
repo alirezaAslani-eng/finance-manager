@@ -1,4 +1,3 @@
-export { default as MuiButton } from "./Button/MuiButton";
 export { default as ThemeButton } from "./Button/ThemeButton";
 export { default as SwitchButton } from "./Button/SwitchButton";
 export { default as SideBarButton } from "./Button/SideBarButton";

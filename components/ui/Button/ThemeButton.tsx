@@ -1,35 +1,30 @@
 import React, { useContext } from "react";
-import MuiButton from "./MuiButton";
 import { useTheme } from "@mui/material/styles";
 import { ControllThemeContext } from "@/context/ControllThemeContext";
 import BedtimeRoundedIcon from "@mui/icons-material/BedtimeRounded";
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
-import type { ButtonProps } from "@mui/material";
+import { Button } from "@mui/material";
 
-interface myProps {
-  buttonProps?: ButtonProps;
-}
-function ThemeButton({ buttonProps }: myProps = {}) {
+function ThemeButton() {
   const {
     palette: { mode },
   } = useTheme();
+  // * use context to change theme mode ======= >
   const { changeMode } = useContext(ControllThemeContext);
+
   return (
-    <MuiButton
-      buttonProps={{
-        onClick: changeMode,
-        ...buttonProps,
-        sx: {
-          padding: "10px",
-          minHeight: "0",
-          minWidth: "0",
-          borderRadius: "999px",
-          ...buttonProps?.sx,
-        },
+    <Button
+      onClick={changeMode}
+      size="medium"
+      variant="text-grey"
+      sx={(theme) => {
+        return {
+          ...(theme.custom.circleButton as object),
+        };
       }}
     >
       {mode == "light" ? <BedtimeRoundedIcon /> : <WbSunnyRoundedIcon />}
-    </MuiButton>
+    </Button>
   );
 }
 

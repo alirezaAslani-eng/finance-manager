@@ -11,7 +11,7 @@ import { CategorySchemaType } from "@/lib/validations/categorySchema";
 import { dana_md } from "@/utils/font"
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, Chip, Typography, useTheme } from "@mui/material";
 import type { SxProps } from "@mui/material/styles";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -97,12 +97,11 @@ function CategoryModalForm({
             alignItems: "center",
           }}
         >
-          <MuiButton
-            buttonProps={{
-              type: "submit",
-              onClick: handleSubmit(submiter),
-              disabled: edit ? isSubmitting || !isDirty : isSubmitting,
-            }}
+          <Button
+            disabled={edit ? isSubmitting || !isDirty : isSubmitting}
+            onClick={handleSubmit(submiter)}
+            type="button"
+            variant="contained"
           >
             {edit
               ? isSubmitting
@@ -111,17 +110,10 @@ function CategoryModalForm({
               : isSubmitting
               ? "در حال ایجاد"
               : "ایجاد دسته بندی"}
-          </MuiButton>
-          <MuiButton
-            buttonProps={{
-              onClick: onClose,
-              variant: "text",
-              color: "error",
-              disabled: isSubmitting,
-            }}
-          >
+          </Button>
+          <Button onClick={onClose} color="error" disabled={isSubmitting}>
             لغو
-          </MuiButton>
+          </Button>
         </Box>
         {/* // * Text  ==== >>> */}
         <Box sx={{ mt: "20px", textAlign: "center" }}>

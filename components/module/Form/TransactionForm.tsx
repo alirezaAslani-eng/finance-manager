@@ -4,7 +4,7 @@ import { transactionSchema } from "@/lib/validations";
 import type { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -130,16 +130,29 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
         />
         <input type="hidden" {...register("account")} />
         {/* Submit Button ===================== > */}
-        <Box sx={{ mt: "20px" }}>
-          <SwitchButton
+        <Box gap={"12px"} display={"flex"} mt={"12px"}>
+          <Button
+            color="success"
+            variant="contained"
+            size="large"
             type="submit"
-            onExpenseClick={() => setValue("type", "0")}
-            onIncomeClick={() => setValue("type", "1")}
-            disabled={isSubmitting}
-            isExpenseActive
-            isInComeActive
-            allButton={false}
-          />
+            onClick={() => {
+              setValue("type", "1");
+            }}
+          >
+            {"واریز"}
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            size="large"
+            type="submit"
+            onClick={() => {
+              setValue("type", "0");
+            }}
+          >
+            {"برداشت"}
+          </Button>
         </Box>
       </Box>
     </Box>

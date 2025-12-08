@@ -1,32 +1,26 @@
-import { Brand, MuiButton, ThemeButton } from "@/components/ui";
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { ThemeButton } from "@/components/ui";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import { muiTheme } from "@/utils";
 import Link from "next/link";
-const drawerWidth = 240;
-function TopBar() {
-  const theme = useTheme();
-  const { palette, alpha } = theme;
-  // * Custom Theme ============ >
 
-  const button_sx = {
-    padding: "8px",
-  };
+function TopBar() {
   return (
     <AppBar
       position="sticky"
-      sx={{
-        backgroundColor: muiTheme(palette.mode, {
-          light: alpha(palette.grey[50], 0.5),
-          dark: alpha(palette.grey[900], 0.5),
-        }),
-        backdropFilter: "blur(20px)",
-        width: "100%",
-        top: "0",
-        right: "0",
+      sx={({ palette, alpha }) => {
+        return {
+          backgroundColor: muiTheme(palette.mode, {
+            light: alpha(palette.grey[50], 0.5),
+            dark: alpha(palette.grey[900], 0.5),
+          }),
+          backdropFilter: "blur(20px)",
+          width: "100%",
+          top: "0",
+          right: "0",
+        };
       }}
     >
       <Toolbar>
@@ -41,43 +35,25 @@ function TopBar() {
           <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
             {/* User Info Link ==================== > */}
             <Link href={""}>
-              <MuiButton
-                buttonProps={{
-                  sx: {
-                    ...theme.custom.resetButton,
-                    ...button_sx,
-                    borderRadius: "999px",
-                  },
+              <Button
+                sx={({ custom }) => {
+                  return { ...custom.circleButton };
                 }}
+                variant="text-grey"
+                size="medium"
               >
                 <AccountCircleRoundedIcon />
-              </MuiButton>
+              </Button>
             </Link>
 
             {/* Theme Button ==================== > */}
-            <ThemeButton
-              buttonProps={{
-                sx: button_sx,
-              }}
-            />
+            <ThemeButton />
           </Box>
           {/* Logout Button ===================== > */}
-          <MuiButton
-            buttonProps={{
-              color: "error",
-              sx: {
-                ...theme.custom.resetButton,
-                p: "8px",
-                borderRadius: "999px",
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-              },
-            }}
-          >
-            {"خروج"}
-            <PowerSettingsNewRoundedIcon />
-          </MuiButton>
+          <Button color="error" size="medium" sx={{ gap: "5px" }}>
+            <Typography component={"span"}>{"خروج"}</Typography>
+            <PowerSettingsNewRoundedIcon fontSize="medium" />
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>

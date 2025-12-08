@@ -1,6 +1,6 @@
 import { MuiButton, NoTransactions, TransactionCard } from "@/components/ui";
 import { useGetInfinitTransactions } from "@/hooks";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
 import TransactionSkeletonList from "../SkeletonGenerator/TransactionSkeletonList";
 import { transactionCursorConfig } from "@/lib/constant";
@@ -44,19 +44,9 @@ const Transactions = () => {
       {/* // * Lazy Fetch Button ==================== > */}
       <Box display={"flex"} justifyContent={"center"} mt={"20px"}>
         {!isFetchingNextPage && hasNextPage && (
-        <MuiButton
-            reset
-          buttonProps={{
-              variant: "outlined",
-              onClick: loadMore,
-            sx: {
-                borderRadius: "14px",
-                p: "8px 12px",
-            },
-          }}
-        >
+          <Button variant="outlined" onClick={loadMore} size="medium">
             {"نمایش بیشتر"}
-        </MuiButton>
+          </Button>
         )}
       </Box>
 

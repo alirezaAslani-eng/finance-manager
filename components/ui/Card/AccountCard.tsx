@@ -1,6 +1,6 @@
-import { MuiButton, TextPrice } from "@/components/ui";
+import { TextPrice } from "@/components/ui";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-import { Box, Divider, Typography, useTheme } from "@mui/material";
+import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
 import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import React from "react";
 import Link from "next/link";
@@ -28,18 +28,6 @@ function AccountCard({
   _id,
   onEnable = () => {},
 }: MyProp) {
-  // * Style ===================== >
-  const theme = useTheme();
-  const { palette, alpha } = theme;
-  const footerButton_sx = {
-    ...theme.custom.resetButton,
-    borderRadius: "999px",
-    p: "8px",
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-  };
-
   // * Events =============== >
   const enable = () => {
     onEnable(_id || "");
@@ -55,20 +43,20 @@ function AccountCard({
     >
       {/* Body Card ============================== > */}
       <Box
-        sx={{
+        sx={({ palette }) => ({
           padding: "20px 15px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
           background: palette.primary.main,
-        }}
+        })}
       >
         {/* Card Number =============== > */}
         <Typography
           component={"span"}
           display={"block"}
-          sx={{
+          sx={({ palette }) => ({
             // * Responsive fontSize ====>
             fontSize: {
               xs: "24px",
@@ -78,7 +66,7 @@ function AccountCard({
               xl: "20px",
             },
             color: palette.grey[50],
-          }}
+          })}
         >
           {cardNumber}
         </Typography>
@@ -86,22 +74,18 @@ function AccountCard({
         {/* Owner name =================================> */}
         <Typography
           component={"span"}
-          sx={{
+          sx={({ palette }) => ({
             color: palette.grey[50],
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: "8px ",
             flexWrap: "wrap",
-          }}
+          })}
         >
           {`به نام : ${accountName}`}
           {/* // * Current balance =================== > */}
-          <TextPrice
-            price={currentBalance || 0}
-            normal
-            priceProps={{ sx: { fontSize: "20px", color: "grey[50]" } }}
-          />
+          <TextPrice price={currentBalance || 0} />
         </Typography>
       </Box>
 
@@ -109,20 +93,23 @@ function AccountCard({
       {/* Footer =============================== > */}
       {!onlyInfo && (
         <Box
-          sx={{
+          sx={({ palette, alpha }) => ({
             p: "8px 10px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             backgroundColor: alpha(palette.primary.main, 0.1),
-          }}
+          })}
         >
           {/* Enable Button ======================== > */}
-          <MuiButton
-            buttonProps={{
-              onClick: enable,
-              variant: isActive ? "contained" : "outlined",
-              sx: footerButton_sx,
+          <Button
+            onClick={enable}
+            variant={isActive ? "contained" : "outlined"}
+            size="medium"
+            sx={(tm) => {
+              return {
+                ...(tm.custom.circleButton as object),
+              };
             }}
           >
             {isActive ? (
@@ -130,17 +117,12 @@ function AccountCard({
             ) : (
               <Typography sx={{ fontSize: "14px" }}>{"فعال کردن"}</Typography>
             )}
-          </MuiButton>
+          </Button>
           {/* Edit Button ============================== > */}
           <Link href={`/my-panel/account/add?edit=${_id}`}>
-            <MuiButton
-              buttonProps={{
-                variant: "outlined",
-                sx: footerButton_sx,
-              }}
-            >
+            <Button variant="outlined">
               <EditNoteRoundedIcon />
-            </MuiButton>
+            </Button>
           </Link>
         </Box>
       )}

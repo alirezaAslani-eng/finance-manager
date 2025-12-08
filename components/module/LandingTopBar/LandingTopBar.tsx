@@ -1,9 +1,6 @@
-import { Brand, MuiButton, ThemeButton } from "@/components/ui";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Brand, ThemeButton } from "@/components/ui";
+import { Box, Button } from "@mui/material";
 import React, { useContext } from "react";
-// * Icon ================ >
-import BedtimeRoundedIcon from "@mui/icons-material/BedtimeRounded";
-import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import { ControllThemeContext } from "@/context/ControllThemeContext";
 import Link from "next/link";
 import { AuthContex } from "@/context";
@@ -25,13 +22,9 @@ function LandingTopBar() {
     >
       {/* SignUp Button */}
       <Link href={isLogin ? "/my-panel" : "/auth/signin"}>
-        <MuiButton
-          buttonProps={{
-            sx: { fontSize: { sm: "20px" } },
-          }}
-        >
+        <Button size="medium" variant="text-grey">
           {isLogin ? `${userInfo.fullName}` : "ورود | ثبت نام"}
-        </MuiButton>
+        </Button>
       </Link>
       {/* Logo ============================= > */}
       <Brand />

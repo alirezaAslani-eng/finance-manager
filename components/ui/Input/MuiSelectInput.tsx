@@ -2,13 +2,11 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import type { SelectProps } from "@mui/material/Select";
-import { MouseEvent, ReactNode, useState } from "react";
-import { Typography, useTheme } from "@mui/material";
-import MuiButton from "../Button/MuiButton";
+import { MouseEvent, ReactNode } from "react";
+import { Button, Typography, useTheme } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 // * Types ===================== >
 interface Item {
   value: string;
@@ -19,8 +17,6 @@ interface MyProps {
   inputProps?: SelectProps;
   errorText: string | undefined | null;
   isEditable?: boolean;
-  isDeletable?: boolean;
-  onDeleteOption?: (value: string) => void;
   onEditOption?: (value: string) => void;
 }
 //  * Default Value ======================== >
@@ -32,21 +28,12 @@ function MuiSelectInput({
   inputProps,
   selectItems = defProp.selectItems,
   errorText,
-  isDeletable,
   isEditable,
-  onDeleteOption = () => {},
   onEditOption = () => {},
 }: MyProps) {
   const { palette } = useTheme();
 
   // * Options Event ==================== >>
-  const deleteOption = (
-    e: MouseEvent<HTMLButtonElement>,
-    value: string
-  ): void => {
-    e.stopPropagation(); // * Dont close select list (Bubbling)
-    onDeleteOption && onDeleteOption(value);
-  };
   const editOption = (
     e: MouseEvent<HTMLButtonElement>,
     value: string
@@ -79,43 +66,22 @@ function MuiSelectInput({
           return (
             <MenuItem key={crypto.randomUUID()} value={value}>
               <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
+                display={"flex"}
+                width={"100%"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
               >
                 <Typography>{text}</Typography>
-                <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                  {/* // * Delete Button ===== > */}
-                  {isDeletable && (
-                    <MuiButton
-                      reset
-                      buttonProps={{
-                        onClick: (e) => deleteOption(e, value),
-                        color: "error",
-                        variant: "text",
-                        sx: { p: "5px", borderRadius: "999px" },
-                      }}
-                    >
-                      <DeleteRoundedIcon />
-                    </MuiButton>
-                  )}
-                  {/* // * Edit Button ===== > */}
-                  {isEditable && (
-                    <MuiButton
-                      reset
-                      buttonProps={{
-                        onClick: (e) => editOption(e, value),
-                        variant: "text",
-                        sx: { p: "5px", borderRadius: "999px" },
-                      }}
-                    >
-                      <EditRoundedIcon />
-                    </MuiButton>
-                  )}
-                </Box>
+                {/* // * Edit Button ===== > */}
+                {isEditable && (
+                  <Button
+                    size="small"
+                    onClick={(e) => editOption(e, value)}
+                    sx={(tm) => ({ ...tm.custom.circleButton })}
+                  >
+                    <EditRoundedIcon />
+                  </Button>
+                )}
               </Box>
             </MenuItem>
           );

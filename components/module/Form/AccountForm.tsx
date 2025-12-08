@@ -1,9 +1,9 @@
-import { AccountInput, MuiButton, MuiTextField } from "@/components/ui";
+import { AccountInput, MuiTextField } from "@/components/ui";
 import { accountSchema } from "@/lib/validations";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -99,19 +99,15 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
         {/* Submit Button ===================== > */}
         <Box sx={{ mt: "20px" }}>
           {(edit ? isDirty : true) && (
-            <MuiButton
-              buttonProps={{
-                disabled: isSubmitting,
-                size: "large",
-                sx: {
-                  fontSize: "18px",
-                  width: { xs: "100%", _700: "fit-content" },
-                },
-                type: "submit",
-              }}
+            <Button
+              disabled={isSubmitting}
+              size="large"
+              variant="contained"
+              type="submit"
+              sx={{ width: { xs: "100%", _700: "fit-content" } }}
             >
               {edit ? "ثبت تغیرات" : "ثبت کارت جدید"}
-            </MuiButton>
+            </Button>
           )}
         </Box>
       </Box>

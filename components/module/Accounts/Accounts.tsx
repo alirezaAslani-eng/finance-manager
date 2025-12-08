@@ -1,8 +1,8 @@
-import { AccountCard, BoxWithTitle, MuiButton } from "@/components/ui";
+import { AccountCard, BoxWithTitle } from "@/components/ui";
 import { Slider } from "@/components/module";
-import { Box, useTheme } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 // Import Swiper React components
 import { SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useActiveAccount, useBreakePoints, usePaginationArray } from "@/hooks";
 import { GetMeOutput } from "@/types/user.types";
 
-const data = [1, 8, 8, 8, 6, 8, 8, 8];
 
 interface MyProps extends Pick<GetMeOutput, "accounts"> {}
 function Accounts({ accounts = [] }: MyProps) {
@@ -25,9 +24,6 @@ function Accounts({ accounts = [] }: MyProps) {
 
   // * Enable Account Hook ====================== >
   const { activeAccount } = useActiveAccount();
-
-  // * Style ============ >
-  const theme = useTheme();
 
   // * Enable Handler ================= >
   const enableHandler = (_id: string) => {
@@ -94,20 +90,18 @@ function Accounts({ accounts = [] }: MyProps) {
       boxProps={{ sx: { backgroundColor: "transparent" } }}
       Button={
         <Link href="">
-          <MuiButton
-            buttonProps={{
-              sx: {
-                display: "flex",
-                alignItems: "center",
+          <Button
+            size="medium"
+            variant="outlined"
+            sx={({ custom }) => {
+              return {
+                ...(custom.circleButton as object),
                 gap: "5px",
-                ...theme.custom.resetButton,
-                p: "10px",
-                borderRadius: "999px",
-              },
+              };
             }}
           >
             <AddCircleOutlineRoundedIcon />
-          </MuiButton>
+          </Button>
         </Link>
       }
     >

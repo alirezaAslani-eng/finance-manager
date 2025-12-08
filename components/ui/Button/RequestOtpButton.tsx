@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import MuiButton from "./MuiButton";
-import MuiProgress from "../Loader/MuiProgress";
+import React from "react";
 import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
-import { Typography, useTheme } from "@mui/material";
+import { Button, CircularProgress, Typography, useTheme } from "@mui/material";
 import { useReamingTime } from "@/hooks";
 
 interface myProps {
@@ -17,32 +15,24 @@ function RequestOtpButton({ onRequest, isRequesting, futureMsTime }: myProps) {
   return (
     <>
       {!isFnished ? (
-        <Typography
-          component={"span"}
-          sx={{ fontSize: "20px", color: palette.primary.main }}
-        >
+        <Typography component={"span"} fontSize={"20px"}>
           {semanticFormat}
         </Typography>
       ) : (
-        <MuiButton
-          buttonProps={{
-            onClick: onRequest,
-            variant: "outlined",
-            sx: {
-              fontSize: "18px",
-              minHeight: "0",
-              minWidth: "0",
-              padding: "10px",
-              borderRadius: "999px",
-            },
+        <Button
+          onClick={onRequest}
+          variant="outlined"
+          size="medium"
+          sx={(tm) => {
+            return { ...tm.custom.circleButton };
           }}
         >
           {isRequesting ? (
-            <MuiProgress progressProps={{ size: 20 }} />
+            <CircularProgress size={20} />
           ) : (
             <RotateLeftRoundedIcon />
           )}
-        </MuiButton>
+        </Button>
       )}
     </>
   );

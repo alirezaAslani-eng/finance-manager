@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Typography, Stack, useTheme } from "@mui/material";
+import { Box, Typography, Stack, useTheme, Button } from "@mui/material";
 import { muiTheme } from "@/utils";
 import { useForm } from "react-hook-form";
-import { AccountInput, MuiButton, MuiTextField } from "@/components/ui";
+import { AccountInput, MuiTextField } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initSchema } from "@/lib/validations";
 import type { BoxProps } from "@mui/material";
@@ -102,18 +102,18 @@ const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
       </Box>
       {/* // * Submit input =================== > */}
       <Box textAlign="center">
-        <MuiButton
-          buttonProps={{
-            type: "submit",
-            variant: muiTheme<"contained" | "outlined">(mode, {
-              light: "contained",
-              dark: "outlined",
-            }),
-            size: "large",
-          }}
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          variant={muiTheme<"contained" | "outlined">(mode, {
+            light: "contained",
+            dark: "outlined",
+          })}
+          size="large"
+          fullWidth
         >
-          {"ادامه و ورود"}
-        </MuiButton>
+          {isSubmitting ? "صبر کنید ..." : "ادامه و ورود"}
+        </Button>
       </Box>
     </Box>
   );
