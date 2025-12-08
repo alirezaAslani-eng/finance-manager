@@ -1,4 +1,4 @@
-import { MuiButton, NoTransactions, TransactionCard } from "@/components/ui";
+import { NoResult, TransactionCard } from "@/components/ui";
 import { useGetInfinitTransactions } from "@/hooks";
 import { Box, Button } from "@mui/material";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
@@ -19,7 +19,7 @@ const Transactions = () => {
         display={"grid"}
         gap={"20px"}
         gridTemplateColumns={{
-            xs: "repeat(1,1fr)",
+          xs: "repeat(1,1fr)",
           _1350: "repeat(2,1fr)",
         }}
       >
@@ -52,7 +52,12 @@ const Transactions = () => {
 
       {/* // * Empty Array ================ > */}
       {!isFiltering && !!!transactions?.length && (
-        <NoTransactions center text={emprtArrayReason} />
+        <NoResult
+          center
+          text={emprtArrayReason}
+          linkAddress="/my-panel/transactions/add"
+          linkText="ایجاد تراکنش"
+        />
       )}
     </Box>
   );

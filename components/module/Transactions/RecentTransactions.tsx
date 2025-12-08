@@ -1,3 +1,4 @@
+import { BoxWithTitle, NoResult, TransactionCard } from "@/components/ui";
 import { Box, Button } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
@@ -35,11 +36,10 @@ const RecentTransactions = ({
         dataCheck={{
           check: !!recentTransactions.length,
           error: (
-            <NoData
-              containerProps={{ sx: { py: "20px" } }}
-              buttonText="ایجاد اولین تراکنش"
-              noDataText="هنوز تراکنشی ایجاد نشده"
-              link="/my-panel/transactions/add"
+            <NoResult
+              text="هنوز تراکنشی ایجاد نشده"
+              linkAddress="/my-panel/transactions/add"
+              linkText="ایجاد تراکنش"
             />
           ),
         }}
