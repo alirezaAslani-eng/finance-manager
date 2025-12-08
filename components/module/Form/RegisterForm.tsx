@@ -1,4 +1,4 @@
-import { MuiButton, MuiTextField } from "@/components/ui";
+import { MuiTextField } from "@/components/ui";
 import { userSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
@@ -120,7 +120,11 @@ function RegisterForm({
           errorText={errors?.["email"]?.message}
         />
         <MuiTextField
-          textFieldProps={{ ...register("password"), placeholder: "رمز عبور",type:"password" }}
+          textFieldProps={{
+            ...register("password"),
+            placeholder: "رمز عبور",
+            type: "password",
+          }}
           errorText={errors?.["password"]?.message}
         />
         <input type="hidden" {...register("otpCode")} defaultValue={"00000"} />
