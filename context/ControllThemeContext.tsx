@@ -111,6 +111,32 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
           styleOverrides: {
             root: {
               textTransform: "none",
+            // * custom variants
+            variants: [
+              {
+                props: { variant: "text-grey" },
+                style: ({
+                  theme: {
+                    alpha,
+                    palette: { mode },
+                  },
+                }) => {
+                  // * color ================ >
+                  const color = muiTheme(mode, {
+                    light: grey[700],
+                    dark: grey[100],
+                  });
+                  // * Style ============== >
+                  return {
+                    border: "none",
+                    color,
+                    ":hover": {
+                      backgroundColor: alpha(color, 0.2),
+                    },
+                  };
+                },
+              },
+            ],
             },
             containedSuccess: {
               color: grey[50],
