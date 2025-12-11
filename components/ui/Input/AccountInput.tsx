@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MuiTextField, { MuiTextFieldProps } from "./MuiTextField";
 import { Box } from "@mui/material";
 import { useIdentyfyBank } from "@/hooks";
 import { Controller, type Control } from "react-hook-form";
 
-interface MyProps extends MuiTextFieldProps {
+interface MyProps extends Pick<MuiTextFieldProps, "errorText"> {
   control: Control<any>;
+  disabled?: boolean;
+  placeholder?: string;
+  label?: string;
 }
-function AccountInput({ errorText, textFieldProps, control }: MyProps) {
+function AccountInput({
+  errorText,
+  control,
+  disabled,
+  placeholder = "شماره کارت (۱۶ رقم)",
+  label = "شماره کارت",
+}: MyProps) {
   const { bankIcon, cardNumberHandler, formattedCardNumber } =
     useIdentyfyBank();
 
@@ -15,25 +24,33 @@ function AccountInput({ errorText, textFieldProps, control }: MyProps) {
     <Controller
       control={control}
       name="cardNumber"
-      render={({ field: { onChange } }) => {
+      render={({ field }) => {
+        const { onChange } = field;
+        // * for the sake of defaultValues ==== >
+        useEffect(() => {
+          cardNumberHandler(field.value || "");
+        }, []);
         return (
           <Box sx={{ position: "relative" }}>
             <MuiTextField
               errorText={errorText}
               textFieldProps={{
+                ...field,
+                inputProps: { maxLength: 19 },
+                value: formattedCardNumber,
+                disabled,
+                placeholder,
+                label,
+                onChange: (e) => {
+                  cardNumberHandler(e.target.value);
+                  onChange(e);
+                },
                 sx: {
                   "& .MuiInputBase-input": {
                     textAlign: "center",
                   },
                   fontSize: "32px",
                 },
-                inputProps: { maxLength: 19 },
-                ...textFieldProps,
-                onChange: (e) => {
-                  cardNumberHandler(e.target.value);
-                  onChange(e);
-                },
-                value: formattedCardNumber,
               }}
             />
             {bankIcon && (
@@ -43,7 +60,7 @@ function AccountInput({ errorText, textFieldProps, control }: MyProps) {
                   aspectRatio: "1/1",
                   height: "35px",
                   position: "absolute",
-                  animation: "opacity-appear 300ms ease forwards",
+                  animation: "opacity-appear 800ms ease forwards",
                   top: "10px",
 
                   left: "10px",

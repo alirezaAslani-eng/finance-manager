@@ -75,11 +75,8 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
             <AccountInput
               control={control}
               errorText={errors?.["cardNumber"]?.message}
-              textFieldProps={{
-                disabled: isSubmitting,
-
-                placeholder: "شماره کارت (۱۶ رقم)",
-              }}
+              disabled={isSubmitting}
+              placeholder="شماره کارت (۱۶ رقم)"
             />
           </Grid>
           {/* Current Balance Field =================================== > */}

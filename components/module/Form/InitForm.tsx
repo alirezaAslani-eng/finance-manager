@@ -65,11 +65,6 @@ const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
           <AccountInput
             control={control}
             errorText={errors?.["cardNumber"]?.message}
-            textFieldProps={{
-              label: "شماره کارت",
-              placeholder: "شماره کارت (۱۶ رقم)",
-              fullWidth: true,
-            }}
           />
           <MuiTextField
             errorText={errors?.["currentBalance"]?.message}
