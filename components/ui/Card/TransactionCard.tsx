@@ -41,7 +41,7 @@ const TransactionCard = ({
   const { date, time } = useDate(new Date(createdAt ?? ""));
 
   return (
-    <Link href={`transactions/${_id}`}>
+    <Link href={`/my-panel/transactions/${_id}`}>
       <Box
         // * Box is wrapper
         sx={(theme) => {
