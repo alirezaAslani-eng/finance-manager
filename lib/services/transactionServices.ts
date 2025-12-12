@@ -27,7 +27,7 @@ import {
   LoadMoreTransactionServiceOutPut,
 } from "./types/services.types";
 import { getChangedKeys } from "@/utils";
-import { transactionCursorConfig } from "@/constant/features/transaction";
+import { transactionCursorConfig } from "@/constant";
 import { FilterSchemaType } from "../validations/transactionSchema";
 // * TransAction schema type
 type TransActionType = InferSchemaType<typeof transaction_schema>;

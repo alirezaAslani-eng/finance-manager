@@ -3,7 +3,7 @@ import { useGetInfinitTransactions } from "@/hooks";
 import { Box, Button } from "@mui/material";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
 import TransactionSkeletonList from "../SkeletonGenerator/TransactionSkeletonList";
-import { transactionCursorConfig } from "@/constant/features/transaction";
+import { transactionCursorConfig } from "@/constant";
 const Transactions = () => {
   const {
     transactions,

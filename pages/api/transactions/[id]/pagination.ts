@@ -4,7 +4,7 @@ import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
-import { transactionCursorConfig } from "@/constant/features/transaction";
+import { transactionCursorConfig } from "@/constant";
 import { filterSchema } from "@/lib/validations";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;

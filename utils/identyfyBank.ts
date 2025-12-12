@@ -1,5 +1,4 @@
-import { banks } from "@/constant/features/account";
-import { Bank } from "@/constant/features/account/types";
+import { banks, Bank } from "@/constant";
 
 const identyfyBank = (card_number: string): Bank | undefined => {
   const BIN: `${number}` = card_number.slice(0, 6) as `${number}`;
