@@ -3,29 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { RecentTransactionType } from "@/types/transaction.types";
 import { useEffect, useState } from "react";
 import type {
-  DataOutput,
   RecentTransactionsHookInput,
-  ServiceOutput,
+  ReturnTypePropTypes,
 } from "./types/useRecentTransactions.types";
 import { keyRecentTransactions } from "@/lib/integration/react-query/keys";
-
-// * Hook Overloads ================== >
-function useRecentTransactions(i?: {
-  dontFetch?: false;
-  initialData?: RecentTransactionType[];
-}): DataOutput;
-
-function useRecentTransactions(i?: {
-  dontFetch?: true;
-  initialData?: RecentTransactionType[];
-}): ServiceOutput;
 
 // * Hook ====================== >
 function useRecentTransactions(
   { dontFetch, initialData }: RecentTransactionsHookInput = {
     dontFetch: false,
   }
-) {
+): ReturnTypePropTypes {
   // * This state will be filled with an array of recent transactions from server or client
   const [transactions, setTransactions] = useState<RecentTransactionType[]>(
     initialData ?? []
@@ -48,10 +36,7 @@ function useRecentTransactions(
   }, [data, isError, isPending, initialData]);
 
   // * Return ====================== >
-  const dataAndService: DataOutput = { refetch, transactions } as const;
-  const service: ServiceOutput = { refetch } as const;
-  if (dontFetch) service;
-  return dataAndService;
+  return { transactions };
 }
 
 export default useRecentTransactions;
