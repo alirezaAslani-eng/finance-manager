@@ -1,12 +1,19 @@
 import { MuiTextField, AdaptiveScroll } from "@/components/ui";
 import { AuthContex } from "@/context";
-import { useBreakePoints, usePaginationArray } from "@/hooks";
+import { usePaginationArray } from "@/hooks";
 import { categorySchema } from "@/lib/validations";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 import { dana_md } from "@/utils/font";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Chip, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import type { SxProps } from "@mui/material/styles";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -53,7 +60,7 @@ function CategoryModalForm({
   );
 
   // * Breake Points ================= >
-  const { is_after_540 } = useBreakePoints();
+  const is_after_540 = useMediaQuery((tm) => tm.breakpoints.up("_540"));
 
   // * Submiter Method ================ >
   const submiter = async (f: unknown) => {

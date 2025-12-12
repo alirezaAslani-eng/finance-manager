@@ -1,6 +1,5 @@
 import { FilterPanel, Transactions } from "@/components/module";
 import { FilterTrsStateProvider } from "@/context/transactions";
-import { useBreakePoints } from "@/hooks";
 import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
@@ -17,7 +16,7 @@ import { PageComponent } from "@/types/page.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { TransactionList } from "@/types/transaction.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
-import { Box, Button, Dialog, Typography } from "@mui/material";
+import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { JSX, useState } from "react";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
@@ -56,7 +55,7 @@ function FilterModalOpener(): JSX.Element {
   };
 
   // * use breakepoints to show a full screen filter panel in mobile size ===== >
-  const { is_after_540 } = useBreakePoints();
+  const is_after_540 = useMediaQuery((tm) => tm.breakpoints.up("_540"));
   return (
     <>
       <Button

@@ -6,7 +6,7 @@ import { ServiceOptions } from "./types/services.types";
 import { AccountSchemaType } from "../validations/accountSchema";
 import { getChangedKeys } from "@/utils";
 import { identyfyBank } from "@/utils";
-import { Bank } from "@/constant/types/banks.types";
+import { Bank } from "@/constant/features/account/types";
 // * Account Schema type ============== >
 type InputAccount_type = Pick<
   InferSchemaType<typeof account_schema>,

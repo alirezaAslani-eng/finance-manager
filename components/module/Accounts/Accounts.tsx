@@ -1,6 +1,6 @@
 import { AccountCard, BoxWithTitle } from "@/components/ui";
 import { Slider } from "@/components/module";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import React, { useMemo } from "react";
 // Import Swiper React components
@@ -10,17 +10,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 // import required modules
 import Link from "next/link";
-import { useActiveAccount, useBreakePoints, usePaginationArray } from "@/hooks";
+import { useActiveAccount, usePaginationArray } from "@/hooks";
 import { GetMeOutput } from "@/types/user.types";
-
 
 interface MyProps extends Pick<GetMeOutput, "accounts"> {}
 function Accounts({ accounts = [] }: MyProps) {
   // * Paged 4 item per a slide ===================== >
   const { pagedData } = usePaginationArray(accounts);
 
-  // * Responsive Hook ==================== >
-  const { isTablet } = useBreakePoints({ decrease: 200 });
+  // * Brakpoint ==================== >
+  const isTablet = useMediaQuery((tm) => tm.breakpoints.up("md"));
 
   // * Enable Account Hook ====================== >
   const { activeAccount } = useActiveAccount();

@@ -4,7 +4,6 @@ export { default as useLogin } from "./useLogin";
 export { default as useReamingTime } from "./useReamingTime";
 export { default as usePaginationArray } from "./usePaginationArray";
 export { default as useIsActiveLink } from "./useIsActiveLink";
-export { default as useBreakePoints } from "./useBreakePoints";
 export { default as useInitUser } from "./useInitUser";
 export { default as useAddTransaction } from "./useAddTransaction";
 export { default as useAddccount } from "./useAddccount";

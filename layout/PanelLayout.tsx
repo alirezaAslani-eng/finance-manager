@@ -1,7 +1,7 @@
 import { PropsWithChildren, useState } from "react";
 import Box from "@mui/material/Box";
 import { MobileAppBar, MuiAppBar, SideBar } from "@/components/common";
-import { useBreakePoints } from "@/hooks";
+import { useMediaQuery } from "@mui/material";
 // TODO => Style  SearchBox Style & Logic -- Drawer List
 
 export default function PanelLayout({ children }: PropsWithChildren) {
@@ -9,7 +9,7 @@ export default function PanelLayout({ children }: PropsWithChildren) {
   const [isOpenMobileSidebar, setIsOpenMobileSidebar] =
     useState<boolean>(false);
   // * Brakepoints ======================= >
-  const { isTablet } = useBreakePoints();
+  const isTablet = useMediaQuery((tm) => tm.breakpoints.up("md"));
 
   // * Events ===================== >
   const closeSidebarMobile = () => {

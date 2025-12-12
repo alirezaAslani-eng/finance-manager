@@ -1,10 +1,17 @@
 import { Brand } from "@/components/ui";
-import { Box, Button, Divider, Drawer, List, Toolbar } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  List,
+  Toolbar,
+  useMediaQuery,
+} from "@mui/material";
 import type { DrawerProps } from "@mui/material";
 import React from "react";
 import { dana_md, peyda_md } from "@/utils/font";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
-import { useBreakePoints } from "@/hooks";
 import SideBarItems from "./SideBarItems";
 interface MyProps {
   drawerProps?: DrawerProps;
@@ -13,7 +20,8 @@ interface MyProps {
 }
 function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
   // * Breakepoints =================== >
-  const { isTablet } = useBreakePoints();
+  const isTablet = useMediaQuery((tm) => tm.breakpoints.up("md"));
+
   // * Events ======================= >
   const closeMe = () => {
     onClose && onClose();

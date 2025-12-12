@@ -1,4 +1,4 @@
-import { BankList } from "./types/banks.types";
+import { BankList } from "./types";
 
 const banks: BankList = {
   "627381": {
