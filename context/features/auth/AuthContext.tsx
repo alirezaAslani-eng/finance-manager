@@ -1,35 +1,13 @@
 import { getUserInfo } from "@/api/get";
 import { keyUserInfo } from "@/lib/integration/react-query/keys";
-import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
 import { GetMeOutput } from "@/types/user.types";
 import { useQuery } from "@tanstack/react-query";
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { AuthProvidedValue, AuthProviderType } from "./types";
 
-interface Provider {
-  userInfo: GetMeOutput;
-  isLogin: boolean;
-  isAuthing: boolean;
-  setInfo: (userInfo: Partial<GetMeOutput>) => void;
-  refetchMe: () => Promise<void>;
-  addCategory: (category: CreatedCategoryReturnService) => void;
-  editCategory: (updatedCategory: { newName: string; _id: string }) => void;
-}
-interface AuthProviderInput {
-  // * ssrUserInfo is for info which is injected from SSR PAGE
-  ssrUserInfo?: GetMeOutput;
-}
-const AuthContex = createContext({} as Provider | null);
+const AuthContex = createContext({} as AuthProvidedValue);
 
-const AuthProvider = ({
-  children,
-  ssrUserInfo,
-}: PropsWithChildren<AuthProviderInput>) => {
+const AuthProvider: AuthProviderType = ({ children, ssrUserInfo }) => {
   // * User info state ==================================== >
   const [userInfo, setUserInfo] = useState<GetMeOutput>(
     ssrUserInfo ?? {
@@ -53,21 +31,27 @@ const AuthProvider = ({
   const [isLogin, setIslogin] = useState<boolean>(false);
 
   // * A method to update or change usernfo =========================== >
-  const setInfo = useCallback((info: Partial<GetMeOutput>) => {
-    setUserInfo((prev) => {
-      return { ...prev, ...info };
-    });
-  }, []);
+  const setInfo: AuthProvidedValue["setInfo"] = useCallback(
+    (info) => {
+      setUserInfo((prev) => {
+        return { ...prev, ...info };
+      });
+    },
+    [setUserInfo]
+  );
 
   // * A Method To Add Category =========== >
-  const addCategory = useCallback((category: CreatedCategoryReturnService) => {
-    setUserInfo((prev) => {
-      return { ...prev, categories: [category, ...prev.categories] };
-    });
-  }, []);
+  const addCategory: AuthProvidedValue["addCategory"] = useCallback(
+    (category) => {
+      setUserInfo((prev) => {
+        return { ...prev, categories: [category, ...prev.categories] };
+      });
+    },
+    [setUserInfo]
+  );
 
   // * A Method to Edit Category =========== >
-  const editCategory: Provider["editCategory"] = useCallback(
+  const editCategory: AuthProvidedValue["editCategory"] = useCallback(
     (updatedCategory) => {
       // * Find index of category that will be edited ======= >
       const categoryIndex = userInfo.categories.findIndex(
@@ -81,7 +65,7 @@ const AuthProvider = ({
         return { ...prev, categories: updatedCategories };
       });
     },
-    [userInfo]
+    [userInfo, setUserInfo]
   );
 
   // * Authorizing user ==================================== >
@@ -128,4 +112,3 @@ const AuthProvider = ({
 };
 
 export { AuthContex, AuthProvider };
-export type { AuthProviderInput };
