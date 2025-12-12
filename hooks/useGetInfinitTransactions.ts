@@ -5,7 +5,7 @@ import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { getMoreTransactions } from "@/api/get";
 import { TransactionList } from "@/types/transaction.types";
 import { BadResponse } from "@/lib/utils";
-import { useFilterTrsState } from "@/context/transactions";
+import { useFilterTrsState } from "@/context";
 import { keyAllTransactions } from "@/lib/integration/react-query/keys";
 import { TransactionsQueryKey } from "@/lib/integration/react-query/keys/types";
 

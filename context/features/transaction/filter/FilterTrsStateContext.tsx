@@ -11,14 +11,13 @@ import {
   Dispatcher,
   ProvidedFilterTrsStateValue,
   ProviderFilterTrsStateFn,
-} from "./types/FilterTrsStateContext.types";
+} from "./types";
 import {
   addKey,
   addOneId,
   removeOneId,
   setAmountHandler,
 } from "./FIlterTrsState.helpers";
-
 import { Transaction_face } from "@/types/transaction.types";
 import {
   parseAsFromDate,

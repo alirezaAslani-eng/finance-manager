@@ -12,7 +12,7 @@ import { MultiSelectModal } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
-import { useFilterTrsState } from "@/context/transactions";
+import { useFilterTrsState } from "@/context";
 import { useContext, useMemo } from "react";
 import { AuthContex } from "@/context";
 import { muiTheme } from "@/utils";

@@ -1,9 +1,6 @@
 import { useCallback, useContext } from "react";
 import { FilterTrsStateContext } from "./FilterTrsStateContext";
-import {
-  UseTrsFilterReturnedType,
-  UseTrsFilterState,
-} from "./types/useFilterTrsState.types";
+import { UseTrsFilterReturnedType, UseTrsFilterState } from "./types";
 import { debounce } from "@mui/material";
 
 const useFilterTrsState: UseTrsFilterState = () => {

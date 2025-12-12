@@ -1,5 +1,5 @@
 import { FilterPanel, Transactions } from "@/components/module";
-import { FilterTrsStateProvider } from "@/context/transactions";
+import { FilterTrsStateProvider } from "@/context";
 import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/constant";
 import { withAuth } from "@/lib/hoc";

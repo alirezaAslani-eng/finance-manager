@@ -1,5 +1,4 @@
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
-import { TransactionList } from "@/types/transaction.types";
 import { JSX, PropsWithChildren } from "react";
 
 /**

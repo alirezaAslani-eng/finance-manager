@@ -1,9 +1,4 @@
-import {
-  AddKey,
-  AddOneId,
-  RemoveOneId,
-  SetAmountHandler,
-} from "./types/FilterTrsStateContext.helpers.types";
+import { AddKey, AddOneId, RemoveOneId, SetAmountHandler } from "./types";
 /**
  * remove one index of the array and type of index is string
  */
@@ -19,7 +14,7 @@ const addOneId: AddOneId = function (array, idToAdd) {
   return [...array, idToAdd];
 };
 /**
- * this method helps to make safe query keys 
+ * this method helps to make safe query keys
  */
 const addKey: AddKey = function (key) {
   return key;
