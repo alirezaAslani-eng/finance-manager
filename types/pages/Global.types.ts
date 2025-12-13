@@ -1,7 +1,7 @@
-import { AuthProviderInput } from "@/context/AuthContext";
+import { AuthProviderProps } from "@/context";
 import { DehydratedState } from "@tanstack/react-query";
 
-interface GlobalAppProps extends AuthProviderInput {
+interface GlobalAppProps extends AuthProviderProps {
   dehydratedState?: DehydratedState;
 }
 

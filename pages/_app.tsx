@@ -18,7 +18,7 @@ import {
 import { queryClient } from "@/lib/integration/react-query/client";
 import { setAllDefaults } from "@/lib/integration/react-query/client/defaults";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthProviderInput } from "@/context/AuthContext";
+import { AuthProviderProps } from "@/context";
 import { CustomPageProps } from "@/types/page.types";
 import { ModalGroup } from "@/components/common";
 import { dana_md, peyda_md } from "@/utils/font";
@@ -26,8 +26,7 @@ import { dana_md, peyda_md } from "@/utils/font";
 // * set all default queries ======= >
 setAllDefaults(); // ! Side effet module
 
-
-type GlobalAppProps = AuthProviderInput & { dehydratedState?: DehydratedState };
+type GlobalAppProps = AuthProviderProps & { dehydratedState?: DehydratedState };
 function _app({
   Component,
   pageProps,
