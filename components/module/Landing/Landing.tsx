@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import LandingTopBar from "../LandingTopBar/LandingTopBar";
 import {
   Box,
@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { HeroDarkIcon, HeroIcon } from "@/assets/svg";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 
 function Landing() {
   // * AuthContext to handle ui states ================== >
-  const { isLogin, userInfo } = useContext(AuthContex)!;
+  const { isLogin } = useAuth();
   const isMedium = useMediaQuery("(min-width:900px)");
   const { palette } = useTheme();
   return (

@@ -12,9 +12,8 @@ import { MultiSelectModal } from "@/components/ui";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
-import { useFilterTrsState } from "@/context";
-import { useContext, useMemo } from "react";
-import { AuthContex } from "@/context";
+import { useAuth, useFilterTrsState } from "@/context";
+import { useMemo } from "react";
 import { muiTheme } from "@/utils";
 
 interface Myprops {
@@ -52,7 +51,7 @@ const FilterPanel = ({ onClose }: Myprops) => {
   // * Auth Context to access user's accounts and categories ======= >
   const {
     userInfo: { categories, accounts },
-  } = useContext(AuthContex)!;
+  } = useAuth();
 
   // * User's categories for Checkboxes ===== >
   const categoriesCheckBoxs = useMemo(() => {

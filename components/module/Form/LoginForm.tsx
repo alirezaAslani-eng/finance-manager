@@ -2,11 +2,11 @@ import { MuiTextField, RequestOtpButton } from "@/components/ui";
 import { userSchema, verifySchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { Infer } from "zod";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 import { useCheckUserPhone, useLogin, useRequestOtp } from "@/hooks";
 import { OtpType_enum } from "@/types/opt.types";
 function LoginForm() {
@@ -58,7 +58,7 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
   } = useForm({ resolver: zodResolver(phoneSchema) });
 
   // * user Auth contex to set user phone if it was valid ===================== >
-  const { setInfo } = useContext(AuthContex)!;
+  const { setInfo } = useAuth();
 
   // * Submit and check user phone ============== >
   const isValidPhone = useCheckUserPhone();
@@ -153,7 +153,7 @@ const VerifyCodeForm = ({
   // * user phone from context ================ >
   const {
     userInfo: { phone },
-  } = useContext(AuthContex)!;
+  } = useAuth();
 
   // * Form state and Schema Handler ================== >
   const {

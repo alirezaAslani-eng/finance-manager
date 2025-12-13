@@ -1,15 +1,12 @@
 import { Brand, ThemeButton } from "@/components/ui";
 import { Box, Button } from "@mui/material";
-import React, { useContext } from "react";
-import { ControllThemeContext } from "@/context/ControllThemeContext";
+import React from "react";
 import Link from "next/link";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 
 function LandingTopBar() {
-  const { changeMode, mode } = useContext(ControllThemeContext);
-
   // * AuthContext to handle ui states ================== >
-  const { isLogin, userInfo } = useContext(AuthContex)!;
+  const { isLogin, userInfo } = useAuth();
   return (
     <Box
       component={"header"}

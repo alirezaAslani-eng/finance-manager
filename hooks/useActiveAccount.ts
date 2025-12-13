@@ -1,10 +1,10 @@
 import { putActiveAccount } from "@/api/put";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 import { keyRecentTransactions } from "@/lib/integration/react-query/keys";
 import { BadResponse } from "@/lib/utils";
 import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 function useActiveAccount() {
   const [isPending, setIsPending] = useState(false);
@@ -13,7 +13,7 @@ function useActiveAccount() {
   });
   const queryClient = useQueryClient();
 
-  const { refetchMe } = useContext(AuthContex)!;
+  const { refetchMe } = useAuth();
   const activeAccount = async (infoToActive: ActiveAccountSchemaType) => {
     try {
       setIsPending(true);

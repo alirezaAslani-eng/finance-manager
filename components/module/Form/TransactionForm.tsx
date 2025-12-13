@@ -1,5 +1,5 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
-import { AuthContex, ModalContext } from "@/context";
+import { ModalContext, useAuth } from "@/context";
 import { transactionSchema } from "@/lib/validations";
 import type { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { muiTheme } from "@/utils";
@@ -30,7 +30,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   const {
     userInfo: { accounts, categories },
     isAuthing,
-  } = useContext(AuthContex)!;
+  } = useAuth();
 
   // * Auto Fill input ==== >
   useEffect(() => {

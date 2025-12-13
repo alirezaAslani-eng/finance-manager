@@ -1,5 +1,5 @@
 import { postOneUser } from "@/api/post";
-import { AuthContex, SignupContext } from "@/context";
+import { SignupContext, useAuth } from "@/context";
 import { BadResponse } from "@/lib/utils";
 import { userSchema, verifySchema } from "@/lib/validations";
 import { useMutation } from "@tanstack/react-query";
@@ -14,10 +14,9 @@ function useRegister() {
 
   // * Signup Context to set userInfo because user need to verify phone number after they verify we use Provided data from AuthContext and Register user
   const { cacheSignupInfo, signupInfo } = useContext(SignupContext);
-  const { setInfo } = useContext(AuthContex)!;
 
   // * AuthContext to refetch user ================== >
-  const { refetchMe } = useContext(AuthContex)!;
+  const { refetchMe , setInfo } = useAuth();
 
   // * Mutation to create a user ===================== >
   const { mutateAsync } = useMutation({ mutationFn: postOneUser });

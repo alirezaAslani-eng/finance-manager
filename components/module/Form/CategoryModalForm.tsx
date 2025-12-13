@@ -1,5 +1,5 @@
 import { MuiTextField, AdaptiveScroll } from "@/components/ui";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 import { usePaginationArray } from "@/hooks";
 import { categorySchema } from "@/lib/validations";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
@@ -15,7 +15,7 @@ import {
   useTheme,
 } from "@mui/material";
 import type { SxProps } from "@mui/material/styles";
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 const category_row: SxProps = {
@@ -49,7 +49,7 @@ function CategoryModalForm({
   // * Context to use user's caterories =========== >
   const {
     userInfo: { categories },
-  } = useContext(AuthContex)!;
+  } = useAuth();
 
   // * Cut array of categories =============== >
   const { pagedData: halfedCategories } = usePaginationArray(

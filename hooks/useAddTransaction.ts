@@ -1,5 +1,5 @@
 import { postOneTransactions } from "@/api/post";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 import {
   keyRecentTransactions,
   keyUserInfo,
@@ -7,7 +7,7 @@ import {
 import { BadResponse } from "@/lib/utils";
 import { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 function useAddTransaction() {
   // * State for when wee need to cache the transaction info and submit it from state ===== >
@@ -22,7 +22,7 @@ function useAddTransaction() {
   const [categoryName, setCategoryName] = useState("");
 
   // * Auth Context to access to user's categories ====== >
-  const { userInfo } = useContext(AuthContex)!;
+  const { userInfo } = useAuth();
 
   // * Open Transaction Modal === >
   const openModal = (transaction: transactionSchemaType) => {

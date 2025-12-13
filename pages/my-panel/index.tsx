@@ -8,13 +8,11 @@ import type { GlobalAppProps } from "../_app";
 import type { MainPageProps } from "@/types/pages/mainPage.types";
 import { PanelLayout } from "@/layout";
 import { withAuth } from "@/lib/hoc";
-import { useContext } from "react";
-import { AuthContex } from "@/context";
-import {useRecentTransactions} from "@/hooks";
+import { useAuth } from "@/context";
+import { useRecentTransactions } from "@/hooks";
 
 const RecentTransAction_gap = "20px";
 const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
-
   // * Recent Transactions ===================== >
   const { transactions } = useRecentTransactions({
     initialData: recentTransactions, // * SSR Data <<
@@ -22,7 +20,7 @@ const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
 
   const {
     userInfo: { accounts },
-  } = useContext(AuthContex)!;
+  } = useAuth();
   return (
     <Box
       sx={{

@@ -1,5 +1,5 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
-import { AuthContex, ModalContext } from "@/context";
+import { ModalContext, useAuth } from "@/context";
 import { transactionEditSchema } from "@/lib/validations";
 import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,8 +43,8 @@ function EditTransactionform({
 
   // * select field values ============== >
   const {
-    userInfo: { categories, accounts },
-  } = useContext(AuthContex)!;
+    userInfo: { categories },
+  } = useAuth();
   const categoryOptions = useMemo(() => {
     return categories.map((cat) => {
       return { text: cat.name, value: cat._id };

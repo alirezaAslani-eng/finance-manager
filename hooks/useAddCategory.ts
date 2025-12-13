@@ -2,14 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 import { postOneCategory } from "@/api/post";
 import type { BadResponse } from "@/lib/utils";
-import { useCallback, useContext } from "react";
+import { useCallback } from "react";
 import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
-import { AuthContex } from "@/context";
+import { useAuth } from "@/context";
 function useAddCategory() {
   const { mutateAsync } = useMutation({ mutationFn: postOneCategory });
 
   // * user info to update categories ================= >
-  const { addCategory: add, userInfo } = useContext(AuthContex)!;
+  const { addCategory: add, userInfo } = useAuth();
 
   const addCategory = useCallback(async (categoryInfo: CategorySchemaType) => {
     try {
