@@ -1,4 +1,4 @@
-import { ModalHandler, SideBarButton } from "@/components/ui";
+import { SideBarButton } from "@/components/ui";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
 import AddchartRoundedIcon from "@mui/icons-material/AddchartRounded";
@@ -6,16 +6,15 @@ import AddCardRoundedIcon from "@mui/icons-material/AddCardRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { Box } from "@mui/material";
-import React, { useContext } from "react";
-import { ModalContext } from "@/context";
-import { CategoryModalForm } from "@/components/module";
+import React from "react";
+import { useModal } from "@/context";
 
 interface MyProp {
   onSideBarClick?: () => void;
 }
 function SideBarItems({ onSideBarClick = () => {} }: MyProp) {
   // * Modal Context to open category modal ===== >
-  const { openAddCategoryModal } = useContext(ModalContext);
+  const { openAddCategoryModal } = useModal();
 
   return (
     <>

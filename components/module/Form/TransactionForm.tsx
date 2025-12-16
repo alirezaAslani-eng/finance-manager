@@ -1,11 +1,11 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
-import { ModalContext, useAuth } from "@/context";
+import { useAuth, useModal } from "@/context";
 import { transactionSchema } from "@/lib/validations";
 import type { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
@@ -53,7 +53,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   const { palette } = useTheme();
 
   // * Modal Context to open edit category modal ====== >
-  const { openEditCategoryModal } = useContext(ModalContext);
+  const { openEditCategoryModal } = useModal();
 
   // * Category Select input Edit Event ======= >
   const editCategoryClick = (categoryId: string) => {

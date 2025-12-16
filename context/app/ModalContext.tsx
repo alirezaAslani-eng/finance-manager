@@ -1,11 +1,6 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useReducer,
-  useState,
-} from "react";
+import React, { PropsWithChildren, useCallback, useState } from "react";
 import { createContext } from "react";
-import { ModalProvidedValue } from "./types/ModalContext.types";
+import { ModalProvidedValue } from "./types";
 
 const ModalContext = createContext({} as ModalProvidedValue);
 

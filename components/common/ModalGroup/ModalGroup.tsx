@@ -1,12 +1,12 @@
 import { CategoryModalForm } from "@/components/module";
-import { ModalContext } from "@/context";
+import { useModal } from "@/context";
 import { useAddCategory, useEditCategory } from "@/hooks";
 import { Dialog } from "@mui/material";
-import React, { useContext } from "react";
+import React from "react";
 
 function ModalGroup() {
   // * Modal Context ================ >
-  const ModalStates = useContext(ModalContext);
+  const ModalStates = useModal();
 
   // * Category Modal Satate ================= >
   const {

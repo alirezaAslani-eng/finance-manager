@@ -1,5 +1,5 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
-import { ModalContext, useAuth } from "@/context";
+import { useAuth, useModal } from "@/context";
 import { transactionEditSchema } from "@/lib/validations";
 import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +10,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
@@ -58,7 +58,7 @@ function EditTransactionform({
   };
 
   // * Modal Context to open edit category modal ==== >
-  const { openEditCategoryModal } = useContext(ModalContext)!;
+  const { openEditCategoryModal } = useModal();
   const editCategoryOptionClick = (categoryId: string) => {
     openEditCategoryModal({ categoryId });
   };
