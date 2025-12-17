@@ -1,6 +1,6 @@
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 
-type TransactionsQueryKey = [
+type KeyAllTransactionsSerialized = [
   "transactions",
   string,
   string,
@@ -16,13 +16,13 @@ interface KeyAllTransactions {
   /**
    * First / Parent key
    */
-  mainKey: TransactionsQueryKey["0"];
-/**
- * this method returns an array which includes [mainKey,[...dynaimcKeys]]
- * And
- * [...dynaimcKeys] is a serilized array of FilterSchemaType
- */
-  all: (dynamicKey: FilterSchemaType) => TransactionsQueryKey;
+  mainKey: KeyAllTransactionsSerialized["0"];
+  /**
+   * this method returns an array which includes [mainKey,[...dynaimcKeys]]
+   * And
+   * [...dynaimcKeys] is a serilized array of FilterSchemaType
+   */
+  all: (dynamicKey: FilterSchemaType) => KeyAllTransactionsSerialized;
 }
 
-export type { TransactionsQueryKey , KeyAllTransactions };
+export type { KeyAllTransactionsSerialized, KeyAllTransactions };
