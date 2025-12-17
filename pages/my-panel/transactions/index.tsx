@@ -20,7 +20,7 @@ import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { JSX, useState } from "react";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
-import { keyAllTransactions } from "@/lib/integration/react-query/keys";
+import { keyAllTransactions } from "@/packages/react-query/keys";
 
 const index: PageComponent = () => {
   return (

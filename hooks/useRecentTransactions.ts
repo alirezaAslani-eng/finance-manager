@@ -6,7 +6,7 @@ import type {
   RecentTransactionsHookInput,
   ReturnTypePropTypes,
 } from "./types/useRecentTransactions.types";
-import { keyRecentTransactions } from "@/lib/integration/react-query/keys";
+import { keyRecentTransactions } from "@/packages/react-query/keys";
 
 // * Hook ====================== >
 function useRecentTransactions(

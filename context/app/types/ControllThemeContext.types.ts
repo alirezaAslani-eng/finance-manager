@@ -1,4 +1,4 @@
-import { ThemeMode } from "@/lib/integration/mui";
+import { ThemeMode } from "@/packages/mui";
 
 interface ControllThemeProvidedValue {
   changeMode: () => void;

@@ -2,7 +2,7 @@ import { deleteOneTransaction } from "@/api/delete";
 import {
   keyRecentTransactions,
   keyUserInfo,
-} from "@/lib/integration/react-query/keys";
+} from "@/packages/react-query/keys";
 import type { BadResponse } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

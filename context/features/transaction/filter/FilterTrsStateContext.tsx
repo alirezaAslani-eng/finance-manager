@@ -23,7 +23,7 @@ import {
   parseAsFromDate,
   parseAsToDate,
   parseAsTrue,
-} from "@/lib/integration/nuqs/parsers";
+} from "@/packages/nuqs/parsers";
 import { useUpdateEffect } from "@/hooks";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 

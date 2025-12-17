@@ -1,4 +1,4 @@
-import { theme, getThemeWithMode, ThemeMode } from "@/lib/integration/mui";
+import { theme, getThemeWithMode, ThemeMode } from "@/packages/mui";
 import { createTheme, GlobalStyles, ThemeProvider } from "@mui/material";
 import { PropsWithChildren, useCallback, useState, createContext } from "react";
 import { ControllThemeProvidedValue } from "./types";
