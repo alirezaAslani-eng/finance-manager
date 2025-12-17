@@ -19,11 +19,7 @@ import {
   setAmountHandler,
 } from "./FIlterTrsState.helpers";
 import { Transaction_face } from "@/types/transaction.types";
-import {
-  parseAsFromDate,
-  parseAsToDate,
-  parseAsTrue,
-} from "@/packages/nuqs/parsers";
+import { parseAsFromDate, parseAsToDate, parseAsTrue } from "@/packages/nuqs";
 import { useUpdateEffect } from "@/hooks";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 
