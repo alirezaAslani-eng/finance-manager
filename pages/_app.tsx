@@ -1,7 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import React, { PropsWithChildren } from "react";
-import font from "next/font/local";
 import { NuqsAdapter } from "nuqs/adapters/next/pages";
 
 import {
@@ -15,8 +14,7 @@ import {
   HydrationBoundary,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { queryClient } from "@/packages/react-query/client";
-import { setAllDefaults } from "@/packages/react-query/client/defaults";
+import { queryClient, setAllDefaults } from "@/packages/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderProps } from "@/context";
 import { CustomPageProps } from "@/types/page.types";

@@ -1,5 +1,5 @@
 import { getUserInfo } from "@/api/get";
-import { keyUserInfo } from "@/packages/react-query/keys";
+import { keyUserInfo } from "@/packages/react-query";
 import { GetMeOutput } from "@/types/user.types";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useCallback, useEffect, useState } from "react";

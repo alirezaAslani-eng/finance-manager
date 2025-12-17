@@ -1,9 +1,6 @@
 import { postOneTransactions } from "@/api/post";
 import { useAuth } from "@/context";
-import {
-  keyRecentTransactions,
-  keyUserInfo,
-} from "@/packages/react-query/keys";
+import { keyRecentTransactions, keyUserInfo } from "@/packages/react-query";
 import { BadResponse } from "@/lib/utils";
 import { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

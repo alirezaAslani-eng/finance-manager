@@ -1,8 +1,5 @@
 import { deleteOneTransaction } from "@/api/delete";
-import {
-  keyRecentTransactions,
-  keyUserInfo,
-} from "@/packages/react-query/keys";
+import { keyRecentTransactions, keyUserInfo } from "@/packages/react-query";
 import type { BadResponse } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

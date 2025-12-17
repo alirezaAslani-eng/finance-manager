@@ -6,8 +6,10 @@ import { getMoreTransactions } from "@/api/get";
 import { TransactionList } from "@/types/transaction.types";
 import { BadResponse } from "@/lib/utils";
 import { useFilterTrsState } from "@/context";
-import { keyAllTransactions } from "@/packages/react-query/keys";
-import { TransactionsQueryKey } from "@/packages/react-query/keys/types";
+import {
+  keyAllTransactions,
+  KeyAllTransactionsSerialized,
+} from "@/packages/react-query";
 
 const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
   // * Transaction's filter & queries states =========== >
@@ -38,7 +40,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     AllTransactionResponse,
     BadResponse,
     TransactionList,
-    TransactionsQueryKey,
+    KeyAllTransactionsSerialized,
     null | string
   >({
     initialPageParam: null,

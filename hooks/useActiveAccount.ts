@@ -1,6 +1,6 @@
 import { putActiveAccount } from "@/api/put";
 import { useAuth } from "@/context";
-import { keyRecentTransactions } from "@/packages/react-query/keys";
+import { keyRecentTransactions } from "@/packages/react-query";
 import { BadResponse } from "@/lib/utils";
 import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
