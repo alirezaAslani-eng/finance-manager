@@ -1,0 +1,51 @@
+import { createTheme, ThemeOptions } from "@mui/material";
+
+import palette from "./palette";
+import breakpoints from "./breakpoints";
+import typography from "./typography";
+import {
+  alert,
+  button,
+  cssBaseLine,
+  inputLabel,
+  svgIcon,
+  toggleButtonGroup,
+} from "./overrides";
+
+const theme: ThemeOptions = {
+  spacing: 4, //  * << spacing(2) -> 8px
+  breakpoints,
+  palette,
+  typography,
+  custom: {
+    /**
+     * it removes padding, width, and apply aspect-ratio:1/1 to make button fully rounded
+     */
+    circleButton: {
+      minWidth: "0px",
+      padding: "0px",
+      aspectRatio: "1/1",
+      borderRadius: "999px",
+    },
+    noScroll: {
+      /* (Chrome, Edge, Safari) */
+      "::-webkit-scrollbar": {
+        width: "0px",
+        height: "0px",
+      },
+      "::-webkit-scrollbar-track": {
+        background: "transparent",
+      },
+    },
+  },
+  components: {
+    MuiCssBaseline: cssBaseLine,
+    MuiButton: button,
+    MuiSvgIcon: svgIcon,
+    MuiInputLabel: inputLabel,
+    MuiToggleButtonGroup: toggleButtonGroup,
+    MuiAlert: alert,
+  },
+};
+
+export default theme;
