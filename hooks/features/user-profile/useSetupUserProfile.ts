@@ -3,13 +3,12 @@ import { BadResponse } from "@/lib/utils";
 import { InitSchemaType } from "@/lib/validations/initSchema";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React from "react";
 
-const useInitUser = () => {
+const useSetupUserProfile = () => {
   const { replace } = useRouter();
   const { mutateAsync } = useMutation({ mutationFn: postInitInfo });
 
-  const initUser = async (initInfo: InitSchemaType) => {
+  const setupUser = async (initInfo: InitSchemaType) => {
     try {
       await mutateAsync(initInfo);
       replace("/my-panel")
@@ -19,7 +18,7 @@ const useInitUser = () => {
       console.log(error);
     }
   };
-  return { initUser };
+  return { setupUser };
 };
 
-export default useInitUser;
+export default useSetupUserProfile;

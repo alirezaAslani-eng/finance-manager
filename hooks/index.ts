@@ -1,20 +1,42 @@
-export { default as useRequestOtp } from "./useRequestOtp";
-export { default as useCheckUserPhone } from "./useCheckUserPhone";
-export { default as useLogin } from "./useLogin";
-export { default as useReamingTime } from "./useReamingTime";
-export { default as usePaginationArray } from "./usePaginationArray";
-export { default as useIsActiveLink } from "./useIsActiveLink";
-export { default as useInitUser } from "./useInitUser";
-export { default as useAddTransaction } from "./useAddTransaction";
-export { default as useAddccount } from "./useAddccount";
-export { default as useAddCategory } from "./useAddCategory";
-export { default as useEditTransaction } from "./useEditTransaction";
-export { default as useEditAccount } from "./useEditAccount";
-export { default as useEditCategory } from "./useEditCategory";
-export { default as useRecentTransactions } from "./useRecentTransactions";
-export { default as useGetInfinitTransactions } from "./useGetInfinitTransactions";
-export { default as useActiveAccount } from "./useActiveAccount";
-export { default as useRemoveRecentTransaction } from "./useRemoveRecentTransaction";
-export { default as useDate } from "./useDate";
-export { default as useIdentyfyBank } from "./useIdentyfyBank";
-export { default as useUpdateEffect } from "./useUpdateEffect";
+/**
+ * Utility Hooks NOT Business Logic
+ */
+export { default as useDate } from "./app/useDate";
+export { default as useUpdateEffect } from "./app/useUpdateEffect";
+export { default as useReamingTime } from "./app/useReamingTime";
+export { default as usePaginationArray } from "./app/usePaginationArray";
+export { default as useIsActiveLink } from "./app/useIsActiveLink";
+
+/**
+ * Auth's hooks
+ */
+export { default as useCheckUserPhone } from "./features/auth/useCheckUserPhone";
+export { default as useLogin } from "./features/auth/useLogin";
+export { default as useRegister } from "./features/auth/useRegister";
+/**
+ * Account's hooks
+ */
+export { default as useIdentyfyBank } from "./features/account/useIdentyfyBank";
+export { default as useAddccount } from "./features/account/useAddccount";
+export { default as useEditAccount } from "./features/account/useEditAccount";
+export { default as useActiveAccount } from "./features/account/useActiveAccount";
+/**
+ * Transaction's hooks
+ */
+export { default as useAddTransaction } from "./features/transactions/useAddTransaction";
+export { default as useEditTransaction } from "./features/transactions/useEditTransaction";
+export { default as useRecentTransactions } from "./features/transactions/useRecentTransactions";
+export { default as useGetInfinitTransactions } from "./features/transactions/useGetInfinitTransactions";
+/**
+ * OTP's hooks
+ */
+export { default as useRequestOtp } from "./features/otp/useRequestOtp";
+/**
+ * User Profile's hooks
+ */
+export { default as useSetupUserProfile } from "./features/user-profile/useSetupUserProfile";
+/**
+ * Category's hooks
+ */
+export { default as useAddCategory } from "./features/category/useAddCategory";
+export { default as useEditCategory } from "./features/category/useEditCategory";

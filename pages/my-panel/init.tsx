@@ -3,11 +3,11 @@ import { Typography, useTheme, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
 import { muiTheme } from "@/utils";
 import { InitForm } from "@/components/module";
-import { useInitUser } from "@/hooks";
+import { useSetupUserProfile } from "@/hooks";
 
 const init: PageComponent = () => {
   // * Use Init User ======================= >
-  const { initUser } = useInitUser();
+  const { setupUser } = useSetupUserProfile();
   // * Style ======================= >
   const {
     palette: { mode, grey },
@@ -48,7 +48,7 @@ const init: PageComponent = () => {
       {/* Form ======================= > */}
 
       <InitForm
-        onSubmit={initUser}
+        onSubmit={setupUser}
         formContainerProps={{
           sx: {
             width: "min(100%,500px)",
