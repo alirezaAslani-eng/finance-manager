@@ -1,9 +1,7 @@
-import payloadToken from "./payloadToken";
-import { parseDoc, throwError } from ".";
+import { throwError } from "@/server/utils";
+import { parseDoc } from "@/lib/utils";
 // * Types ===================== >
 import type { Model } from "mongoose";
-import type { PayloadToken_type } from "@/types/user.types";
-import { NextApiRequest } from "next";
 
 interface Props {
   mustBeOwnerOf: Model<any>;

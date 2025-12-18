@@ -1,5 +1,5 @@
 import { isValidObjectId, type Model } from "mongoose";
-import throwError from "./throwError";
+import { throwError } from "@/server/utils";
 
 // * Input Types ================== >
 interface InputType {
@@ -41,7 +41,6 @@ async function check_id(
   }
   // * Check Existing =============== >
   const isExisted = await model.findOne({ _id });
-
 
   // * Throw Error or retuen false ================= >
   if (autoErro) {

@@ -1,7 +1,5 @@
-import { TrnasactionFilterURLQueries } from "@/types/api/transactionApi.types";
 import { RootFilterQuery } from "mongoose";
-import React from "react";
-import { FilterSchemaType } from "../validations/transactionSchema";
+import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 
 interface Input {
   /**

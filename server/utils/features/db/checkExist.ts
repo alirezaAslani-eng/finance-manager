@@ -1,5 +1,5 @@
 import type { Model, RootFilterQuery, ClientSession } from "mongoose";
-import throwError from "./throwError";
+import { throwError } from "@/server/utils";
 
 interface Options {
   session?: ClientSession;

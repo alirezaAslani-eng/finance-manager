@@ -1,5 +1,4 @@
-import BadResponse from "./BadResponse";
-import { throwError } from ".";
+import { BadResponse, throwError } from "@/server/utils";
 import type { ClientSession } from "mongoose";
 type ScopeType = () => Promise<any> | void;
 interface HandlerProps {
