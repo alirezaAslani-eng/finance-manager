@@ -1,7 +1,7 @@
 import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
 import { isValidObjectId, type InferSchemaType } from "mongoose";
-import { parseDoc, throwError } from "../utils";
+import { toSerializable, throwError } from "../utils";
 import { ServiceOptions } from "./types/services.types";
 import { AccountSchemaType } from "../validations/accountSchema";
 import { getChangedKeys } from "@/utils";
@@ -111,7 +111,7 @@ const accountServices = {
       select: "cardNumber accountName currentBalance",
     });
     // * Updated Keys ===================== >
-    const updatedFields = getChangedKeys(parseDoc(willEdit), body);
+    const updatedFields = getChangedKeys(toSerializable(willEdit), body);
 
     // * Check unique if user changed card number ============== >
     if (updatedFields?.cardNumber) {

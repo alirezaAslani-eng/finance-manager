@@ -2,7 +2,7 @@ import { Accounts, RecentTransactions } from "@/components/module";
 import { PageComponent } from "@/types/page.types";
 import { Box } from "@mui/material";
 import { transactionServices } from "@/lib/services";
-import { parseDoc } from "@/lib/utils";
+import { toSerializable } from "@/lib/utils";
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import type { GlobalAppProps } from "../_app";
 import type { MainPageProps } from "@/types/pages/mainPage.types";
@@ -92,7 +92,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps & MainPageProps> = async (
 
   return {
     props: {
-      recentTransactions: parseDoc(recentTransactions),
+      recentTransactions: toSerializable(recentTransactions),
       ssrUserInfo: user,
     },
   };

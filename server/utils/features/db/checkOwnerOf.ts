@@ -1,5 +1,5 @@
 import { throwError } from "@/server/utils";
-import { parseDoc } from "@/lib/utils";
+import { toSerializable } from "@/lib/utils";
 // * Types ===================== >
 import type { Model } from "mongoose";
 
@@ -35,7 +35,7 @@ async function checkOwnerOf(
   });
 
   // * Check if user is owner off Document ========================= >
-  const isOwner = parseDoc(document_exist)?.user == String(userId);
+  const isOwner = toSerializable(document_exist)?.user == String(userId);
 
   if (autoError) {
     throwError(!document_exist, {

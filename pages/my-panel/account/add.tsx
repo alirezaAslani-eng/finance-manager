@@ -10,7 +10,7 @@ import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { accountServices } from "@/lib/services";
 import { withAuth } from "@/lib/hoc";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
-import { parseDoc } from "@/lib/utils";
+import { toSerializable } from "@/lib/utils";
 import { redirect } from "@/server/utils";
 
 interface PageProps {
@@ -61,7 +61,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps | PageProps> = async (
     return {
       props: {
         isEdit: true,
-        accountInfo: parseDoc(accountInfo!),
+        accountInfo: toSerializable(accountInfo!),
         ssrUserInfo: user,
         accountId: query.edit,
       },

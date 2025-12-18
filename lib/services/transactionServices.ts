@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 import type { ClientSession, InferSchemaType, RootFilterQuery } from "mongoose";
 import {
   checkExist,
-  parseDoc,
+  toSerializable,
   sessionHandler,
   throwError,
   transactionFilterHandler,
@@ -211,7 +211,7 @@ const transactionServices = {
     await conect();
     const oldTransaction = await transaction_model.findOne({ _id });
 
-    const changedFields = getChangedKeys(parseDoc(oldTransaction), body);
+    const changedFields = getChangedKeys(toSerializable(oldTransaction), body);
     if (!changedFields || !Object.keys(changedFields)?.length) return; // * when user changed nothing <<
 
     await transaction_model.findOneAndUpdate({ _id }, { $set: body });
@@ -224,7 +224,7 @@ const transactionServices = {
 
     // * Get Old transaction ================ >
     const oldTransaction = await transaction_model.findOne({ _id });
-    const parsedOldTransaction = parseDoc(oldTransaction);
+    const parsedOldTransaction = toSerializable(oldTransaction);
 
     // * Get Fields user Changed =============== >
     const changedFields = getChangedKeys(parsedOldTransaction, body);
@@ -309,8 +309,8 @@ const transactionServices = {
 
     // * Return ============== >
     return {
-      initial_transactions: parseDoc(initial_transactions),
-      nextCursor: parseDoc(
+      initial_transactions: toSerializable(initial_transactions),
+      nextCursor: toSerializable(
         initial_transactions[initial_transactions.length - 1]?._id ?? null
       ),
     };
@@ -352,8 +352,8 @@ const transactionServices = {
 
     // * Return Next Cursor ==== >
     return {
-      more_transactions: parseDoc(more_transactions),
-      nextCursor: parseDoc(
+      more_transactions: toSerializable(more_transactions),
+      nextCursor: toSerializable(
         more_transactions[more_transactions.length - 1]?._id ?? null
       ),
     };

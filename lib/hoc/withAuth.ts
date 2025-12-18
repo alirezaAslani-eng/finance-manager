@@ -1,7 +1,7 @@
 import { GlobalAppProps } from "@/pages/_app";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { accountServices, userServices } from "../services";
-import { checkOwnerOf, parseDoc, redirect } from "../utils";
+import { checkOwnerOf, toSerializable, redirect } from "../utils";
 import { GetMeOutput } from "@/types/user.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import type { Model } from "mongoose";
@@ -39,7 +39,7 @@ const withAuth = (
       if (has) return has;
     }
 
-    return ssr(context, { user: parseDoc(userInfo) });
+    return ssr(context, { user: toSerializable(userInfo) });
   };
   return wrraped;
 };

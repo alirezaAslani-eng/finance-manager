@@ -1,2 +1,1 @@
-export { default as parseDoc } from "./parseDoc";
-
+export { default as toSerializable } from "./toSerializable";
