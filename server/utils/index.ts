@@ -3,7 +3,6 @@
  */
 export { default as BadResponse } from "./app/BadResponse";
 export { default as apiHandler } from "./app/apiHandler";
-export { default as redirect } from "./app/redirect";
 export { default as throwError } from "./app/throwError";
 /**
  * Auth Utilites

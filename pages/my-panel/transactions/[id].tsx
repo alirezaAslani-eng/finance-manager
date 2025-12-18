@@ -11,7 +11,7 @@ import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { toSerializable } from "@/lib/utils";
-import { check_id, checkOwnerOf, redirect } from "@/server/utils";
+import { check_id, checkOwnerOf } from "@/server/utils";
 import { transaction_model } from "@/model";
 import { useDate, useEditTransaction } from "@/hooks";
 
@@ -117,8 +117,7 @@ const ssr: WrappedGetserverSideProps<
 
   // * check _id ============== >
   const isValid_id = await check_id({ _id, model: transaction_model });
-  const redirectOfId = redirect(!isValid_id, { destination: "/404" }); // ! redirect 404 <<<
-  if (redirectOfId) return redirectOfId;
+  if (!isValid_id) return { notFound: true }; // ! redirect 404 <<<
 
   // * Services ====================== >
   const { getOneTransaction } = transactionServices;
@@ -132,8 +131,7 @@ const ssr: WrappedGetserverSideProps<
     },
     { autoError: false }
   );
-  const isAccess = redirect(!isAccessTo, { destination: "/404" }); // ! redirect 404 <<<
-  if (isAccess) return isAccess;
+  if (!isAccessTo) return { notFound: true }; // ! redirect 404 <<<
 
   // * get info of transaction ================== >
   const info = await getOneTransaction(params?.id as string);

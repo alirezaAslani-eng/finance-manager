@@ -11,7 +11,6 @@ import { accountServices } from "@/lib/services";
 import { withAuth } from "@/lib/hoc";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { toSerializable } from "@/lib/utils";
-import { redirect } from "@/server/utils";
 
 interface PageProps {
   isEdit: boolean;
@@ -54,8 +53,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps | PageProps> = async (
     const accountInfo = await getOneAccount(query.edit);
 
     // * redirect user if account's id dos not exist
-    const isValidAccount = redirect(!accountInfo, { destination: "/404" }); // ! redirect <<<
-    if (isValidAccount) return isValidAccount;
+    if (!accountInfo) return { notFound: true };
 
     // * Render ============ >
     return {

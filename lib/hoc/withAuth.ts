@@ -1,10 +1,9 @@
 import { GlobalAppProps } from "@/pages/_app";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { accountServices, userServices } from "../services";
-import { checkOwnerOf, toSerializable, redirect } from "../utils";
+import { toSerializable } from "@/lib/utils";
 import { GetMeOutput } from "@/types/user.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
-import type { Model } from "mongoose";
 
 interface Options {
   checkHasAccount?: boolean;
@@ -27,18 +26,20 @@ const withAuth = (
 
     // * Auth User redirect or return userInfo ================= >
     const userInfo = (await getUserInfo(req.cookies.token)) as GetMeOutput;
-    const isAuth = redirect(!!!userInfo, { destination: "/auth/signin" });
-    if (isAuth) return isAuth;
+
+    // ! redirect to signin page
+    if (!!!userInfo)
+      return { redirect: { destination: "/auth/signin", permanent: false } };
 
     // * Dose User have Account (optional) ============== >
     if (checkHasAccount) {
       const userHasAccount = await hasAccount(userInfo._id);
-      const has = redirect(!!!userHasAccount, {
-        destination: "/my-panel/init",
-      }); // ! redirect to init page
-      if (has) return has;
+      // ! redirect to init page
+      if (!userHasAccount)
+        return {
+          redirect: { destination: "/my-panel/init", permanent: false },
+        };
     }
-
     return ssr(context, { user: toSerializable(userInfo) });
   };
   return wrraped;
