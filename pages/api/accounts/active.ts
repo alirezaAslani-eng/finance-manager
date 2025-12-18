@@ -1,5 +1,5 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler, checkExist, payloadToken, throwError } from "@/lib/utils";
+import { apiHandler, checkExist, payloadToken, throwError } from "@/server/utils";
 import { activeAccountSchema } from "@/lib/validations";
 import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";

@@ -4,8 +4,8 @@ import {
   checkOwnerOf,
   payloadToken,
   throwError,
-} from "@/lib/utils";
-import { categoryEditSchema, categorySchema } from "@/lib/validations";
+} from "@/server/utils";
+import { categoryEditSchema } from "@/lib/validations";
 import { category_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";

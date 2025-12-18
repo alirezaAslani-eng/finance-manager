@@ -4,12 +4,12 @@ import { UseGetInfinitTransactions } from "./types/useGetInfinitTransactions.typ
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { getMoreTransactions } from "@/api/get";
 import { TransactionList } from "@/types/transaction.types";
-import { BadResponse } from "@/lib/utils";
 import { useFilterTrsState } from "@/context";
 import {
   keyAllTransactions,
   KeyAllTransactionsSerialized,
 } from "@/packages/react-query";
+import { BadResponse_face } from "@/types/error.types";
 
 const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
   // * Transaction's filter & queries states =========== >
@@ -38,7 +38,7 @@ const useGetInfinitTransactions: UseGetInfinitTransactions = () => {
     isError,
   } = useInfiniteQuery<
     AllTransactionResponse,
-    BadResponse,
+    BadResponse_face,
     TransactionList,
     KeyAllTransactionsSerialized,
     null | string

@@ -1,9 +1,9 @@
-import type { BadResponse } from "@/lib/utils";
+import type { BadResponse_face } from "@/types/error.types";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 
 const putEditCategory = async (
   updatedInfo: CategorySchemaType & { _id: string }
-): Promise<true | BadResponse> => {
+): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/categories/${updatedInfo._id}`, {
     method: "PUT",
     headers: {
@@ -14,7 +14,7 @@ const putEditCategory = async (
 
   if (!res.ok) {
     const jsonRes = await res.json();
-    throw jsonRes as BadResponse;
+    throw jsonRes as BadResponse_face;
   }
   return true;
 };

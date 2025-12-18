@@ -1,4 +1,4 @@
-import { apiHandler, throwError } from "@/lib/utils";
+import { apiHandler, throwError } from "@/server/utils";
 import { userSchema } from "@/lib/validations";
 import { user_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -18,7 +18,6 @@ const handler: handler_type = async (req, res) => {
     statusCode: 404,
     type: "client",
   }); // ! Might Throw Error ==================== <
-  
 
   return res.json(true);
 };

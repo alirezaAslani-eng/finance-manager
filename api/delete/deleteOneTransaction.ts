@@ -1,15 +1,15 @@
-import type { BadResponse } from "@/lib/utils";
+import type { BadResponse_face } from "@/types/error.types";
 
 const deleteOneTransaction = async (
   id: string
-): Promise<true | BadResponse> => {
+): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/transactions/${id}/one`, {
     method: "DELETE",
   });
 
   if (!res.ok) {
     const jsonRes = await res.json();
-    throw jsonRes as BadResponse;
+    throw jsonRes as BadResponse_face;
   }
   return true;
 };

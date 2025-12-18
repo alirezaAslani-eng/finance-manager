@@ -1,6 +1,6 @@
 import { postInitInfo } from "@/api/post";
-import { BadResponse } from "@/lib/utils";
 import { InitSchemaType } from "@/lib/validations/initSchema";
+import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -11,9 +11,9 @@ const useSetupUserProfile = () => {
   const setupUser = async (initInfo: InitSchemaType) => {
     try {
       await mutateAsync(initInfo);
-      replace("/my-panel")
+      replace("/my-panel");
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       // TODO Show Error to User =============== >
       console.log(error);
     }

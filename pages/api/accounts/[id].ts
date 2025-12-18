@@ -4,7 +4,7 @@ import {
   checkOwnerOf,
   payloadToken,
   throwError,
-} from "@/lib/utils";
+} from "@/server/utils";
 import { accountSchema } from "@/lib/validations";
 import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";

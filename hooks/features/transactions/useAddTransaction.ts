@@ -1,10 +1,10 @@
 import { postOneTransactions } from "@/api/post";
 import { useAuth } from "@/context";
 import { keyRecentTransactions, keyUserInfo } from "@/packages/react-query";
-import { BadResponse } from "@/lib/utils";
 import { transactionSchemaType } from "@/lib/validations/transactionSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { BadResponse_face } from "@/types/error.types";
 
 function useAddTransaction() {
   // * State for when wee need to cache the transaction info and submit it from state ===== >
@@ -56,7 +56,7 @@ function useAddTransaction() {
       closeModal();
       // TODO Show Success Message ================== >
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       // TODO Show Error Message ================== >
     }
   };

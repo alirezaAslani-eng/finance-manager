@@ -1,7 +1,7 @@
 import { postOneUser } from "@/api/post";
 import { SignupContext, useAuth } from "@/context";
-import { BadResponse } from "@/lib/utils";
 import { userSchema, verifySchema } from "@/lib/validations";
+import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -26,7 +26,7 @@ function useRegister() {
     try {
       await mutateAsync(formInfo);
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
 
       // * if the error is from verify: cache user's info and change state to show verify form ========= >
       if (error.type == "verify") {
@@ -51,7 +51,7 @@ function useRegister() {
       await refetchMe();
       replace("/my-panel");
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       if (error.type == "verify" || error.type == "client") {
         // TODO show Error to user ==================== >
         console.log("error in verify state =>", error);

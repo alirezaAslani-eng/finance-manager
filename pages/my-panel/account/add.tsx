@@ -10,7 +10,8 @@ import { AccountSchemaType } from "@/lib/validations/accountSchema";
 import { accountServices } from "@/lib/services";
 import { withAuth } from "@/lib/hoc";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
-import { parseDoc, redirect } from "@/lib/utils";
+import { parseDoc } from "@/lib/utils";
+import { redirect } from "@/server/utils";
 
 interface PageProps {
   isEdit: boolean;
@@ -41,10 +42,6 @@ const add: PageComponent<PageProps> = ({ isEdit, accountInfo, accountId }) => {
 
 add.Layout = PanelLayout;
 export default add;
-
-
-
-
 
 const ssr: WrappedGetserverSideProps<GlobalAppProps | PageProps> = async (
   context: GetServerSidePropsContext,

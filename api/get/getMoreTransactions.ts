@@ -1,4 +1,4 @@
-import type { BadResponse } from "@/lib/utils";
+import type { BadResponse_face } from "@/types/error.types";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 
@@ -17,7 +17,7 @@ const getMoreTransactions = async (
   );
   const jsonRes = await res.json();
   if (!res.ok) {
-    throw jsonRes as BadResponse;
+    throw jsonRes as BadResponse_face;
   }
   const pagedTransactions: AllTransactionResponse = jsonRes;
   return pagedTransactions;

@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 import { postOneCategory } from "@/api/post";
-import type { BadResponse } from "@/lib/utils";
 import { useCallback } from "react";
 import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
 import { useAuth } from "@/context";
+import { BadResponse_face } from "@/types/error.types";
 function useAddCategory() {
   const { mutateAsync } = useMutation({ mutationFn: postOneCategory });
 
@@ -20,7 +20,7 @@ function useAddCategory() {
       // * update category info ============ >
       add(category);
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       // todo show Error ========== >
       console.log(error);
     }

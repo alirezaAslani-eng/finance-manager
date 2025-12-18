@@ -5,7 +5,7 @@ import {
   payloadToken,
   throwError,
   tokenToCookie,
-} from "@/lib/utils";
+} from "@/server/utils";
 import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {

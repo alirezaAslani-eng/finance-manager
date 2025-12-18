@@ -1,11 +1,10 @@
 import { transactionServices } from "@/lib/services";
 import {
   apiHandler,
-  checkExist,
   checkOwnerOf,
   payloadToken,
   throwError,
-} from "@/lib/utils";
+} from "@/server/utils";
 import { transactionEditSchema } from "@/lib/validations";
 import { category_model, transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -52,8 +51,9 @@ const handler: handler_type = async (req, res) => {
     }
     case "PUT": {
       // * Zod Validation ==================== >
-      const { reason, category, amount, type } =
-        transactionEditSchema.parse(req.body); // ! Might Throw Error ====================== <
+      const { reason, category, amount, type } = transactionEditSchema.parse(
+        req.body
+      ); // ! Might Throw Error ====================== <
 
       // * Check is latest transaction ============ >
       const _isLatestTransaction = await isLatestTransaction(id as string);

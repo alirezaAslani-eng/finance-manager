@@ -1,9 +1,9 @@
 import { postVerifySMS } from "@/api/post";
 import { useMutation } from "@tanstack/react-query";
 import type { OtpGoodResponse_face, OtpType_enum } from "@/types/opt.types";
-import type { BadResponse } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context";
+import { BadResponse_face } from "@/types/error.types";
 
 interface Options {
   init?: boolean;
@@ -36,7 +36,7 @@ function useRequestOtp(
       // * return limitTime ================== >
       return waitTime;
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       if ((error.statusCode = 429)) {
         setOtpWaitTime(Number(error.message) || 0);
       }

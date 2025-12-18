@@ -5,7 +5,7 @@ import {
   payloadToken,
   throwError,
   tokenToCookie,
-} from "@/lib/utils";
+} from "@/server/utils";
 import { verifySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
@@ -25,7 +25,7 @@ const handler: handler_type = async (req, res) => {
   // * Body From Client ===================== >
   const { phone, otpCode } = verifySchema.parse(req.body); // ! Might Throw Error ====================== <
   // * Verify User =================================== >
-  const userInfo = await verifyOtp(phone, otpCode,{type:"signin"}); // ! Might Throw Error ====================== <
+  const userInfo = await verifyOtp(phone, otpCode, { type: "signin" }); // ! Might Throw Error ====================== <
   // * Generate Token ================================ >
   const { email, fullName, _id, role } = userInfo;
   const token = generateToken({ _id, email, fullName, phone, role });

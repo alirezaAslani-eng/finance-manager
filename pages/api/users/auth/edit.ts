@@ -4,7 +4,7 @@ import {
   payloadToken,
   throwError,
   tokenToCookie,
-} from "@/lib/utils";
+} from "@/server/utils";
 import { editUserSchema } from "@/lib/validations/userSchema";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";

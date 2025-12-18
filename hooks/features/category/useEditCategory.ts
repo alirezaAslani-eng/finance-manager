@@ -1,7 +1,7 @@
 import { putEditCategory } from "@/api/put";
 import { useAuth } from "@/context";
-import { BadResponse } from "@/lib/utils";
 import { CategoryEditSchemaType } from "@/lib/validations/categorySchema";
+import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 
 interface SubmitWithId {
@@ -43,7 +43,7 @@ function useEditCategory(_id?: string): ReturnType {
       clientEdit({ _id: _id as string, newName: info.name });
       // todo show sucess alert ===== >
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       // Todo Show Error to user ==== >
 
       console.log(error);

@@ -10,7 +10,8 @@ import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
-import { check_id, checkOwnerOf, parseDoc, redirect } from "@/lib/utils";
+import { parseDoc } from "@/lib/utils";
+import { check_id, checkOwnerOf, redirect } from "@/server/utils";
 import { transaction_model } from "@/model";
 import { useDate, useEditTransaction } from "@/hooks";
 

@@ -1,9 +1,9 @@
-import type { BadResponse } from "@/lib/utils";
+import type { BadResponse_face } from "@/types/error.types";
 import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
 
 const putActiveAccount = async (
   infoToActive: ActiveAccountSchemaType
-): Promise<true | BadResponse> => {
+): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/accounts/active`, {
     method: "PUT",
     headers: {
@@ -14,7 +14,7 @@ const putActiveAccount = async (
 
   if (!res.ok) {
     const jsonRes = await res.json();
-    throw jsonRes as BadResponse;
+    throw jsonRes as BadResponse_face;
   }
   return true;
 };

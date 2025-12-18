@@ -1,10 +1,9 @@
-import type { BadResponse } from "@/lib/utils";
-import { accountSchema } from "@/lib/validations";
+import type { BadResponse_face } from "@/types/error.types";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
 
 const postOneAccount = async (
   accountInfo: AccountSchemaType
-): Promise<true | BadResponse> => {
+): Promise<true | BadResponse_face> => {
   const res = await fetch("/api/accounts", {
     method: "POST",
     headers: {
@@ -15,7 +14,7 @@ const postOneAccount = async (
 
   const jsonRes = await res.json();
   if (!res.ok) {
-    throw jsonRes as BadResponse;
+    throw jsonRes as BadResponse_face;
   }
   return jsonRes;
 };

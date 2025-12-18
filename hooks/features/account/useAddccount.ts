@@ -1,6 +1,6 @@
 import { postOneAccount } from "@/api/post";
-import { BadResponse } from "@/lib/utils";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
+import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 
 function useAddccount() {
@@ -11,7 +11,7 @@ function useAddccount() {
       await mutateAsync(accountInfo);
       // todo show success message =============== >
     } catch (err) {
-      const error = err as BadResponse;
+      const error = err as BadResponse_face;
       // todo show Error =============
       console.log(error);
     }

@@ -1,5 +1,5 @@
 import { otpServices } from "@/lib/services";
-import { apiHandler, payloadToken, throwError } from "@/lib/utils";
+import { apiHandler, payloadToken, throwError } from "@/server/utils";
 import { sendCodeSchema } from "@/lib/validations/otpSchema";
 import { handler_type } from "@/types/api.types";
 import { OtpGoodResponse_face } from "@/types/opt.types";
