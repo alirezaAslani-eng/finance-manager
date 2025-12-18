@@ -1,7 +1,7 @@
 import { category_schema, category_model } from "@/model";
 import { conect } from "../db";
 import type { InferSchemaType } from "mongoose";
-import { throwError, payloadToken } from "../utils";
+import { throwError, verifyUserToken } from "../utils";
 import { NextApiRequest } from "next";
 import { PayloadToken_type } from "@/types/user.types";
 import {

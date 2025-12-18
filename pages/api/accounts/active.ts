@@ -1,5 +1,10 @@
 import { accountServices } from "@/lib/services";
-import { apiHandler, checkExist, payloadToken, throwError } from "@/server/utils";
+import {
+  apiHandler,
+  checkExist,
+  verifyUserToken,
+  throwError,
+} from "@/server/utils";
 import { activeAccountSchema } from "@/lib/validations";
 import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";
@@ -8,7 +13,7 @@ import { isValidObjectId } from "mongoose";
 
 const handler: handler_type = async (req, res) => {
   const token = req.cookies.token;
-  const payloadInfo = payloadToken(token) as PayloadToken_type;
+  const payloadInfo = verifyUserToken(token) as PayloadToken_type;
 
   switch (req.method as "PUT") {
     case "PUT": {
@@ -35,7 +40,6 @@ const handler: handler_type = async (req, res) => {
       // * then active it =================== >
       await changeActiveAccount(payloadInfo._id, _id);
 
-      
       //   * Response =============== >
       res.status(204).json(true);
     }

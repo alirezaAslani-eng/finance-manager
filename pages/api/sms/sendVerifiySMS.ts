@@ -1,10 +1,10 @@
 import { otpServices } from "@/lib/services";
-import { apiHandler, payloadToken, throwError } from "@/server/utils";
+import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { sendCodeSchema } from "@/lib/validations/otpSchema";
 import { handler_type } from "@/types/api.types";
 import { OtpGoodResponse_face } from "@/types/opt.types";
 const handler: handler_type = async (req, res) => {
-  const islogin = payloadToken(req.cookies.token);
+  const islogin = verifyUserToken(req.cookies.token);
   throwError(!!islogin, {
     message: "شما قبلا وارد شدید",
     statusCode: 403,

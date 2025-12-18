@@ -1,15 +1,15 @@
 import { userServices } from "@/lib/services";
 import {
   apiHandler,
-  generateToken,
-  payloadToken,
+  signUserToken,
+  verifyUserToken,
   throwError,
-  tokenToCookie,
+  userTokenToCookie,
 } from "@/server/utils";
 import { userSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
-  const isLogin = payloadToken(req.cookies.token);
+  const isLogin = verifyUserToken(req.cookies.token);
   throwError(!!isLogin, {
     message: "شما قبلا وارد شدید",
     statusCode: 403,
@@ -47,7 +47,7 @@ const handler: handler_type = async (req, res) => {
       }); // ! Might Throw Error ====================== <
 
       // * Generate New Token ===================== >
-      const token = generateToken({
+      const token = signUserToken({
         fullName,
         phone,
         role: isAdmin ? "ADMIN" : "USER",
@@ -60,7 +60,7 @@ const handler: handler_type = async (req, res) => {
         res
           .status(201)
           // * Set Cookie ========== >
-          .setHeader("Set-Cookie", tokenToCookie(token))
+          .setHeader("Set-Cookie", userTokenToCookie(token))
           .json(create_res)
       );
     }

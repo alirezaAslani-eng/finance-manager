@@ -1,6 +1,6 @@
 import { PayloadToken_type } from "@/types/user.types";
 import { sign } from "jsonwebtoken";
-const generateToken = (data: PayloadToken_type): string => {
+const signUserToken = (data: PayloadToken_type): string => {
   // * Private Key =========== >
   const privateKey = process.env.privateKey as string;
   // * Start Generate Token =================== >
@@ -10,4 +10,4 @@ const generateToken = (data: PayloadToken_type): string => {
   return token;
 };
 
-export default generateToken;
+export default signUserToken;

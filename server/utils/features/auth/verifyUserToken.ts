@@ -1,6 +1,6 @@
 import { PayloadToken_type } from "@/types/user.types";
 import { verify } from "jsonwebtoken";
-const payloadToken = (token: string | undefined) => {
+const verifyUserToken = (token: string | undefined) => {
   if (!token) return false;
   // * Private Key =================== >
   const privateKey = process.env.privateKey as string;
@@ -12,4 +12,4 @@ const payloadToken = (token: string | undefined) => {
     return false;
   }
 };
-export default payloadToken;
+export default verifyUserToken;

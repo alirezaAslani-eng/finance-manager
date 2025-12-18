@@ -2,7 +2,7 @@ import { categoryServivces } from "@/lib/services";
 import {
   apiHandler,
   checkOwnerOf,
-  payloadToken,
+  verifyUserToken,
   throwError,
 } from "@/server/utils";
 import { categoryEditSchema } from "@/lib/validations";
@@ -19,7 +19,7 @@ const handler: handler_type = async (req, res) => {
     type: "dev",
   }); // ! Might throw Error <<<<<<<<
   // * Check is it a user and is it owner of this document ====================== >
-  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
     message: "اول وارد حساب شوید",
     statusCode: 401,

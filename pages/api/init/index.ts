@@ -1,5 +1,5 @@
 import { initServices } from "@/lib/services";
-import { apiHandler, payloadToken, throwError } from "@/server/utils";
+import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { initSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -14,7 +14,7 @@ const handler: handler_type = async (req, res) => {
   }); // ! MIght Throw Erro =========== <
 
   // * Auth User ========================= >
-  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
     message: "لطفا اول ثبت نام کنید",
     statusCode: 401,

@@ -1,9 +1,9 @@
 import { userServices } from "@/lib/services";
 import {
   apiHandler,
-  payloadToken,
+  verifyUserToken,
   throwError,
-  tokenToCookie,
+  userTokenToCookie,
 } from "@/server/utils";
 import { editUserSchema } from "@/lib/validations/userSchema";
 import { handler_type } from "@/types/api.types";
@@ -11,7 +11,7 @@ import { PayloadToken_type } from "@/types/user.types";
 
 const handler: handler_type = async (req, res) => {
   // * Authorizing User ======================= >
-  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
     message: "لطفا اول وارد شوید",
     statusCode: 401,
@@ -27,7 +27,7 @@ const handler: handler_type = async (req, res) => {
 
   // * Response ========================= >
   return res
-    .setHeader("Set-Cookie", tokenToCookie(updatedToken))
+    .setHeader("Set-Cookie", userTokenToCookie(updatedToken))
     .status(204)
     .json("");
 };

@@ -1,6 +1,6 @@
 import { serialize } from "cookie";
 
-const tokenToCookie = (token: string): string => {
+const userTokenToCookie = (token: string): string => {
   return serialize("token", token, {
     httpOnly: true,
     path: "/",
@@ -10,4 +10,4 @@ const tokenToCookie = (token: string): string => {
   });
 };
 
-export default tokenToCookie;
+export default userTokenToCookie;

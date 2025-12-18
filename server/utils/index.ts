@@ -7,9 +7,9 @@ export { default as throwError } from "./app/throwError";
 /**
  * Auth Utilites
  */
-export { default as generateToken } from "./features/auth/generateToken";
-export { default as payloadToken } from "./features/auth/payloadToken";
-export { default as tokenToCookie } from "./features/auth/tokenToCookie";
+export { default as signUserToken } from "./features/auth/signUserToken";
+export { default as verifyUserToken } from "./features/auth/verifyUserToken";
+export { default as userTokenToCookie } from "./features/auth/userTokenToCookie";
 /**
  * Crypto Utilites
  */

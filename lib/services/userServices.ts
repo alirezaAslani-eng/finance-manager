@@ -4,13 +4,11 @@ import { user_model, user_schema } from "@/model";
 import {
   throwError,
   hashPass,
-  payloadToken,
-  verifyPass,
-  generateToken,
-} from "../utils";
+  verifyUserToken,
+  signUserToken,
+} from "@/server/utils";
 import { GetMeOutput, userDoc_type } from "@/types/user.types";
 import otpServices from "./otpServices";
-import { Otp_face } from "@/types/opt.types";
 
 // * User schema type ======== >
 type UserType = InferSchemaType<typeof user_schema> & {
@@ -25,11 +23,9 @@ const userServices = {
     // * Verify user phone ======================== >
     await verifyOtp(phone, otpCode, { type: "signup" }); // ! Might Throw Error ================ <
 
-
     // * Hash User Password =========================== >
     const hashedPassword = await hashPass(userInfo.password);
 
-    
     // * Save User In Database ========================= >
     const reg_res = await user_model.create({
       ...userInfo,
@@ -44,7 +40,7 @@ const userServices = {
   async getUserInfo(token: string | undefined): Promise<GetMeOutput | false> {
     await conect();
     // * Verify Token ================ >
-    const payloadInfo = payloadToken(token);
+    const payloadInfo = verifyUserToken(token);
     if (!payloadInfo) return false;
 
     // * find User Info ================= >
@@ -94,7 +90,7 @@ const userServices = {
       phone: updatedPhone,
     } = updatedInfo as UserType & userDoc_type;
 
-    const UpdatedToken = generateToken({
+    const UpdatedToken = signUserToken({
       _id,
       role,
       email: updatedEmail,

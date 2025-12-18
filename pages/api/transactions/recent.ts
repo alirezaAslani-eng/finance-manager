@@ -1,10 +1,10 @@
 import { transactionServices } from "@/lib/services";
-import { apiHandler, payloadToken, throwError } from "@/server/utils";
+import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
   // * Authorize user ====================== >
-  const payloadInfo = payloadToken(req.cookies.token) as PayloadToken_type;
+  const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
     message: "اول وارد شوید",
     statusCode: 401,
