@@ -1,6 +1,6 @@
 import { hashPass, throwError } from "@/server/utils";
 
-const sendVerifySMS = async (phone: string): Promise<string | undefined> => {
+const sendCodeSMS = async (phone: string): Promise<string | undefined> => {
   // * Generate 5 unique numbers ================== >
   const code = String(Math.floor(10000 + Math.random() * 89999));
   try {
@@ -31,4 +31,4 @@ const sendVerifySMS = async (phone: string): Promise<string | undefined> => {
   }
 };
 
-export default sendVerifySMS;
+export default sendCodeSMS;

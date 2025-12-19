@@ -24,7 +24,7 @@ export { default as sessionHandler } from "./features/db/sessionHandler";
 /**
  * SMS Utilites
  */
-export { default as sendVerifySMS } from "./features/sms/sendVerifySMS";
+export { default as sendCodeSMS } from "./features/sms/sendCodeSMS";
 /**
  * Transaction Utilites
  */

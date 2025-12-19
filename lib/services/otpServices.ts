@@ -1,6 +1,6 @@
 import { otp_model, otp_schema, user_model, user_schema } from "@/model";
 import type { InferSchemaType } from "mongoose";
-import { sendVerifySMS, throwError, verifyPass } from "../utils";
+import { sendCodeSMS, throwError } from "@/server/utils";
 import { conect } from "../db";
 import { userDoc_type } from "@/types/user.types";
 import { getReamingTime } from "@/utils";
@@ -8,7 +8,7 @@ import { OtpRequestSeting, VerifyOption } from "@/types/opt.types";
 type OtpType = InferSchemaType<typeof otp_schema>;
 type OtpTypeToUpdate = Pick<
   OtpType,
-  "expTime" | "limitWait" | "otpCode" | "requestCount" 
+  "expTime" | "limitWait" | "otpCode" | "requestCount"
 >;
 type verifyReturnType = Omit<InferSchemaType<typeof user_schema>, "password"> &
   userDoc_type;
@@ -39,7 +39,7 @@ const otpServices = {
     // * if there is no otp on database for this phone ======================= >
     if (!findedOtp) {
       // * Initialize an otp ==================== >
-      const otpCode = await sendVerifySMS(phone); // * Generate otp code <<<<
+      const otpCode = await sendCodeSMS(phone); // * Generate otp code <<<<
       const createdOtp = await otp_model.create({
         type,
         attempts: 0,
@@ -77,10 +77,9 @@ const otpServices = {
     if (findedOtp.requestCount == maxOtpRequest) {
       const limitWait = await updateOtpPass(true);
       // * reset request count ================ >
-      await otp_model.findOneAndUpdate({ phone , type}, { requestCount: 0 } as Pick<
-        OtpTypeToUpdate,
-        "requestCount"
-      >);
+      await otp_model.findOneAndUpdate({ phone, type }, {
+        requestCount: 0,
+      } as Pick<OtpTypeToUpdate, "requestCount">);
       return limitWait;
     }
 
@@ -92,7 +91,7 @@ const otpServices = {
       isReachedMaximumRequest: boolean = false
     ): Promise<number> {
       // * Check if user still have chances to request >>
-      const otpCode = await sendVerifySMS(phone); // * Generate otp code <<<<
+      const otpCode = await sendCodeSMS(phone); // * Generate otp code <<<<
 
       const updatedOtp = await otp_model.findOneAndUpdate(
         { phone, type } as Pick<OtpType, "type">,
