@@ -1,6 +1,5 @@
 import { InferSchemaType } from "mongoose";
-import { conect } from "../db";
-import { throwError } from "../utils";
+import { throwError } from "@/server/utils";
 import { InitSchemaType } from "../validations/initSchema";
 import accountServices from "./accountServices";
 import categoryServivces from "./categoryServivces";

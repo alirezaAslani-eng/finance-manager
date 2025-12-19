@@ -1,7 +1,8 @@
 import { account_model, account_schema } from "@/model";
 import { conect } from "../db";
 import { isValidObjectId, type InferSchemaType } from "mongoose";
-import { toSerializable, throwError } from "../utils";
+import { throwError } from "@/server/utils";
+import { toSerializable } from "@/lib/utils";
 import { ServiceOptions } from "./types/services.types";
 import { AccountSchemaType } from "../validations/accountSchema";
 import { getChangedKeys } from "@/utils";

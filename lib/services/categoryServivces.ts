@@ -1,9 +1,6 @@
-import { category_schema, category_model } from "@/model";
+import { category_model } from "@/model";
 import { conect } from "../db";
-import type { InferSchemaType } from "mongoose";
-import { throwError, verifyUserToken } from "../utils";
-import { NextApiRequest } from "next";
-import { PayloadToken_type } from "@/types/user.types";
+import { throwError } from "@/server/utils";
 import {
   CreateCategoryInputService,
   CreatedCategoryReturnService,
