@@ -19,7 +19,6 @@ export { default as verifyPass } from "./features/crypto/verifyPass";
  * Database Utilites
  */
 export { default as checkExist } from "./features/db/checkExist";
-export { default as check_id } from "./features/db/check_id";
 export { default as checkOwnerOf } from "./features/db/checkOwnerOf";
 export { default as sessionHandler } from "./features/db/sessionHandler";
 /**

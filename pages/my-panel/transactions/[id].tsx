@@ -11,9 +11,10 @@ import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
 import { toSerializable } from "@/lib/utils";
-import { check_id, checkOwnerOf } from "@/server/utils";
+import { checkOwnerOf } from "@/server/utils";
 import { transaction_model } from "@/model";
 import { useDate, useEditTransaction } from "@/hooks";
+import { isValidObjectId } from "mongoose";
 
 const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
   isEditable,
@@ -116,8 +117,7 @@ const ssr: WrappedGetserverSideProps<
   const _id = params?.id as string;
 
   // * check _id ============== >
-  const isValid_id = await check_id({ _id, model: transaction_model });
-  if (!isValid_id) return { notFound: true }; // ! redirect 404 <<<
+  if (!isValidObjectId(_id)) return { notFound: true }; // ! redirect 404 <<<
 
   // * Services ====================== >
   const { getOneTransaction } = transactionServices;
@@ -134,7 +134,7 @@ const ssr: WrappedGetserverSideProps<
   if (!isAccessTo) return { notFound: true }; // ! redirect 404 <<<
 
   // * get info of transaction ================== >
-  const info = await getOneTransaction(params?.id as string);
+  const info = await getOneTransaction(_id);
 
   return {
     props: {
