@@ -7,14 +7,14 @@ import {
 } from "@/model";
 import { conect } from "../db";
 import mongoose from "mongoose";
-import type { ClientSession, InferSchemaType, RootFilterQuery } from "mongoose";
+import type { ClientSession, InferSchemaType } from "mongoose";
 import {
   checkExist,
-  toSerializable,
   sessionHandler,
   throwError,
   transactionFilterHandler,
-} from "../utils";
+} from "@/server/utils";
+import { toSerializable } from "@/lib/utils";
 import {
   MongoTransaction,
   RecentTransactionType,
@@ -41,14 +41,12 @@ const amountHandler = async (
   session?: ClientSession
 ): Promise<number> => {
   // * Check (account) it must be valid as _id and existed in colection =============== >
-  const account = await checkExist<AccountType>(
-    account_model,
-    {
-      _id: body.account,
-    },
-    "invalid account id",
-    { session }
-  ); // ! Might Throw Error =================== <
+  const account = await checkExist<AccountType>({
+    _id: body.account as string,
+    autoError: true,
+    model: account_model,
+    session,
+  }); // ! Might Throw Error =================== <
 
   // * accountBalance field gets value base on current account's balance ========================= >
   // * amount of transaction >>
@@ -114,7 +112,12 @@ const transactionServices = {
     session.startTransaction();
     const create_result = await sessionHandler(session, {
       _try: async () => {
-        await checkExist(category_model, { _id: body.category }); // ! Might Throw Error ====================== <
+        await checkExist({
+          _id: body.category,
+          model: category_model,
+          autoError: true,
+          session,
+        }); // ! Might Throw Error ====================== <
 
         const amount = await amountHandler(body, session); // ! Might Throw Error ====================== <
 
