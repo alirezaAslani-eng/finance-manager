@@ -4,7 +4,6 @@ import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/constant";
 import { withAuth } from "@/lib/hoc";
 import { transactionServices } from "@/lib/services";
-import { BadResponse } from "@/lib/utils";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { peyda_md } from "@/utils/font";
@@ -14,7 +13,6 @@ import {
 } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
-import { TransactionList } from "@/types/transaction.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
 import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -107,11 +105,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
   const { initialTransactions } = transactionServices;
 
   // *  Prefetch Initial Transactions  ===== >
-  await queryClient.prefetchInfiniteQuery<
-    AllTransactionResponse,
-    BadResponse,
-    TransactionList
-  >({
+  await queryClient.prefetchInfiniteQuery<AllTransactionResponse>({
     initialPageParam: null,
     queryKey: keyAllTransactions.all(queries),
     queryFn: async () => {

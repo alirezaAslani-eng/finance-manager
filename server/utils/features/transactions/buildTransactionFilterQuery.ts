@@ -27,7 +27,7 @@ interface Output {
 }
 
 type GetTransactionQuery = (input: Input) => Output;
-const transactionFilterHandler: GetTransactionQuery = (input) => {
+const buildTransactionFilterQuery: GetTransactionQuery = (input) => {
   const { defaultQuery, queries } = input;
   let query: RootFilterQuery<any> = { ...defaultQuery };
   if (queries) {
@@ -73,4 +73,4 @@ const transactionFilterHandler: GetTransactionQuery = (input) => {
   return { query, resetFilter, sort_id: queries.old ? 1 : -1 };
 };
 
-export default transactionFilterHandler;
+export default buildTransactionFilterQuery;

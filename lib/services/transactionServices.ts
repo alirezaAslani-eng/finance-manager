@@ -12,7 +12,7 @@ import {
   checkExist,
   sessionHandler,
   throwError,
-  transactionFilterHandler,
+  buildTransactionFilterQuery,
 } from "@/server/utils";
 import { toSerializable } from "@/lib/utils";
 import {
@@ -292,7 +292,7 @@ const transactionServices = {
   ): InitialTransationsServiceOutPut {
     await conect();
     // *  Queries and sort ======== >>>
-    const { query, sort_id, resetFilter } = transactionFilterHandler({
+    const { query, sort_id, resetFilter } = buildTransactionFilterQuery({
       defaultQuery: { user: userID },
       queries: queries,
     });
@@ -326,7 +326,7 @@ const transactionServices = {
     await conect();
 
     // *  Query and sort ======== >>>
-    const { query, sort_id, resetFilter } = transactionFilterHandler({
+    const { query, sort_id, resetFilter } = buildTransactionFilterQuery({
       defaultQuery: { user: userID },
       queries: queries,
     });

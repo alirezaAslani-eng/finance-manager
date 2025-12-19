@@ -28,4 +28,4 @@ export { default as sendCodeSMS } from "./features/sms/sendCodeSMS";
 /**
  * Transaction Utilites
  */
-export { default as transactionFilterHandler } from "./features/transactions/transactionFilterHandler";
+export { default as buildTransactionFilterQuery } from "./features/transactions/buildTransactionFilterQuery";
