@@ -1,5 +1,7 @@
-import setUserInfoQrDefault from "./setUserInfoQrDefault";
-import setAllTransactionsQrDefault from "./setAllTransactionsQrDefault";
+import {
+  setUserInfoQrDefault,
+  setAllTransactionsQrDefault,
+} from "@/packages/react-query";
 const setAllDefaults = (): void => {
   setUserInfoQrDefault();
   setAllTransactionsQrDefault();

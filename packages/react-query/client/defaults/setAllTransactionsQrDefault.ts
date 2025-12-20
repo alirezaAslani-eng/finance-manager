@@ -1,6 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
-import queryClient from "../queryClient";
-import { keyAllTransactions } from "../../keys";
+import { queryClient } from "@/packages/react-query";
+import { keyAllTransactions } from "@/packages/react-query";
 
 const setAllTransactionsQrDefault = (
   client: QueryClient = queryClient

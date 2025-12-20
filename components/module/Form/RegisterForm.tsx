@@ -7,7 +7,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Infer } from "zod";
 import { VerifyCodeForm } from "./LoginForm";
-import useRegister from "@/hooks/useRegister";
+import {useRegister} from "@/hooks";
 
 function SignUp() {
   const { checkSignupInfo, verifyUser, isSuccessRegister, signupInfo } =

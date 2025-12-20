@@ -1,7 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
-import queryClient from "../queryClient";
 import { getUserInfo } from "@/api/get";
-import { keyUserInfo } from "../../keys";
+import { queryClient, keyUserInfo } from "@/packages/react-query";
 
 const setUserInfoQrDefault = (client: QueryClient = queryClient): void => {
   client.setQueryDefaults(keyUserInfo.all, {
@@ -10,4 +9,4 @@ const setUserInfoQrDefault = (client: QueryClient = queryClient): void => {
   });
 };
 
-export default setUserInfoQrDefault
+export default setUserInfoQrDefault;
