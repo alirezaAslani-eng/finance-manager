@@ -14,6 +14,31 @@ interface Transaction_face {
   isLatest: boolean;
 }
 
+interface OneTransactionInfo {
+  _id: string;
+  type: Transaction_face["type"];
+  amount: number;
+  accountBalance: number;
+  reason: string;
+  user: string;
+  isLatest: boolean;
+  account: {
+    _id: string;
+    currentBalance: number;
+    isActive: boolean;
+    user: string;
+    accountName: string;
+    cardNumber: string;
+  };
+  category: {
+    _id: string;
+    name: string;
+    user: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 // * Result of service or API Transaction type ======= >
 type Transaction = Pick<
   Transaction_face,
@@ -48,4 +73,5 @@ export type {
   Transaction,
   TransactionList,
   MongoTransaction,
+  OneTransactionInfo,
 };

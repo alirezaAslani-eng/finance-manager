@@ -29,3 +29,5 @@ export { default as sendCodeSMS } from "./features/sms/sendCodeSMS";
  * Transaction Utilites
  */
 export { default as buildTransactionFilterQuery } from "./features/transactions/buildTransactionFilterQuery";
+export { default as applyTransactionEffectOnBalance } from "./features/transactions/applyTransactionEffectOnBalance";
+export { default as removeTransactionEffectOnBalance } from "./features/transactions/removeTransactionEffectOnBalance";
