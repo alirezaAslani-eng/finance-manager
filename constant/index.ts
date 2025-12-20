@@ -7,3 +7,7 @@ export type { Bank, BankList } from "./features/account/types";
  * transaction's constants
  */
 export { default as transactionCursorConfig } from "./features/transaction/transactionCursorConfig";
+/**
+ * authOtpConfig
+ */
+export { default as authOtpConfig } from "./features/auth/authOtpConfig";
