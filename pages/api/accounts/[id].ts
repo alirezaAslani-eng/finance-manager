@@ -10,6 +10,7 @@ import { account_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
+import { identyfyBank } from "@/utils";
 
 const handler: handler_type = async (req, res) => {
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
@@ -41,7 +42,7 @@ const handler: handler_type = async (req, res) => {
         req.body
       );
       // * Identyfy Account ======= >
-      const bankInfo = IdentyfyAccount(cardNumber)!;
+      const bankInfo = identyfyBank(cardNumber)!;
       throwError(!bankInfo, {
         message: "شماره کارت نامعتبر هست",
         statusCode: 400,

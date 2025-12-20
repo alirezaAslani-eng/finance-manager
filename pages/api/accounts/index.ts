@@ -3,10 +3,9 @@ import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { accountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
+import { identyfyBank } from "@/utils";
 
 const handler: handler_type = async (req, res) => {
-  // * Services ================== >
-  const { createAccount, IdentyfyAccount } = accountServices;
   // * Payload Info ============================================== >
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
@@ -22,7 +21,7 @@ const handler: handler_type = async (req, res) => {
         req.body
       );
       // * Identyfy Account ======= >
-      const bankInfo = IdentyfyAccount(cardNumber)!;
+      const bankInfo = identyfyBank(cardNumber)!;
 
       throwError(!bankInfo, {
         message: "شماره کارت نامعتبر هست",
