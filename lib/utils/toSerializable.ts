@@ -1,4 +1,6 @@
-const toSerializable = <T = null>(value: T): T => {
+const toSerializable = <TOutput = any, TInput = any>(
+  value: TInput
+): TOutput => {
   return JSON.parse(JSON.stringify(value));
 };
 export default toSerializable;
