@@ -1,4 +1,4 @@
-import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
+import type { CreatedCategoryOutputService } from "@/server/services";
 import { GetMeOutput } from "@/types/user.types";
 import { JSX, PropsWithChildren } from "react";
 
@@ -8,7 +8,7 @@ interface AuthProvidedValue {
   isAuthing: boolean;
   setInfo: (userInfo: Partial<GetMeOutput>) => void;
   refetchMe: () => Promise<void>;
-  addCategory: (category: CreatedCategoryReturnService) => void;
+  addCategory: (category: CreatedCategoryOutputService) => void;
   editCategory: (updatedCategory: { newName: string; _id: string }) => void;
 }
 interface AuthProviderProps {

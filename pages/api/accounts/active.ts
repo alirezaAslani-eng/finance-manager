@@ -1,4 +1,4 @@
-import { accountServices } from "@/lib/services";
+import { activeAccount, hasAccount } from "@/server/services";
 import {
   apiHandler,
   checkExist,
@@ -16,7 +16,6 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "PUT") {
     case "PUT": {
-      const { changeActiveAccount, hasAccount } = accountServices;
       // * Get account's id from client =============== >
       const { _id } = activeAccountSchema.parse(req.body);
 
@@ -37,7 +36,7 @@ const handler: handler_type = async (req, res) => {
       }); // ! Might Throw Error ==================== <
 
       // * then active it =================== >
-      await changeActiveAccount(payloadInfo._id, _id);
+      await activeAccount(payloadInfo._id, _id);
 
       //   * Response =============== >
       res.status(204).json(true);

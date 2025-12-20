@@ -1,10 +1,10 @@
-import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
+import type { CreatedCategoryOutputService } from "@/server/services";
 import type { BadResponse_face } from "@/types/error.types";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 
 const postOneCategory = async (
   categoryInfo: CategorySchemaType
-): Promise<CreatedCategoryReturnService | BadResponse_face> => {
+): Promise<CreatedCategoryOutputService | BadResponse_face> => {
   const res = await fetch("/api/categories", {
     method: "POST",
     headers: {
@@ -17,7 +17,7 @@ const postOneCategory = async (
   if (!res.ok) {
     throw jsonRes as BadResponse_face;
   }
-  return jsonRes as CreatedCategoryReturnService;
+  return jsonRes as CreatedCategoryOutputService;
 };
 
 export default postOneCategory;

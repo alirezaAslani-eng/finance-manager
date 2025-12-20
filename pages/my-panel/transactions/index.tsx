@@ -3,7 +3,7 @@ import { FilterTrsStateProvider } from "@/context";
 import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/constant";
 import { withAuth } from "@/lib/hoc";
-import { transactionServices } from "@/lib/services";
+import { initializeTransactions } from "@/server/services";
 import { FilterSchemaType } from "@/lib/validations/transactionSchema";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { peyda_md } from "@/utils/font";
@@ -101,15 +101,12 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
   // * QueryClient for prefetch transactions ============= >
   const queryClient = new QueryClient();
 
-  // * Services to initial transactions  =============== >
-  const { initialTransactions } = transactionServices;
-
   // *  Prefetch Initial Transactions  ===== >
   await queryClient.prefetchInfiniteQuery<AllTransactionResponse>({
     initialPageParam: null,
     queryKey: keyAllTransactions.all(queries),
     queryFn: async () => {
-      const initializeTransaction = await initialTransactions(
+      const initializeTransaction = await initializeTransactions(
         user._id,
         queries // * to filter
       );

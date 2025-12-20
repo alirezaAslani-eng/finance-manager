@@ -1,4 +1,4 @@
-import { userServices } from "@/lib/services";
+import { getUserInfo } from "@/server/services";
 import { apiHandler, throwError } from "@/server/utils";
 import { handler_type } from "@/types/api.types";
 
@@ -8,9 +8,6 @@ const handler: handler_type = async (req, res) => {
     statusCode: 405,
     type: "dev",
   }); // ! Might Throw Error ====================== <
-
-  // * Service ================ >
-  const { getUserInfo } = userServices;
 
   // * Cookie & Token =============== >
   const { token } = req.cookies;

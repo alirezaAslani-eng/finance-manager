@@ -1,11 +1,9 @@
-import { transactionServices } from "@/lib/services";
+import { createTransaction } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { transactionSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
-  // * Services =============== >
-  const { createTransaction, loadMoreTransactions } = transactionServices;
   // * Authorize user ====================== >
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
@@ -13,7 +11,9 @@ const handler: handler_type = async (req, res) => {
     statusCode: 401,
     type: "client",
   });
-  switch (req.method as "POST" | "GET") {
+
+  
+  switch (req.method as "POST") {
     case "POST": {
       // * Body from client ================= >
       const body = req.body;

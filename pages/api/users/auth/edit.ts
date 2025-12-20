@@ -1,4 +1,4 @@
-import { userServices } from "@/lib/services";
+import { editUserInfo } from "@/server/services";
 import {
   apiHandler,
   verifyUserToken,
@@ -17,7 +17,6 @@ const handler: handler_type = async (req, res) => {
     statusCode: 401,
     type: "client",
   }); // ! Might throw Error ============= <
-  const { editUserInfo } = userServices;
 
   // * Body from Client ===============>
   const newInfo = editUserSchema.parse(req.body); // ! Might Throw Error ================ <

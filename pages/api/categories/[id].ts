@@ -1,4 +1,4 @@
-import { categoryServivces } from "@/lib/services";
+import { removeCategory, editCategory } from "@/server/services";
 import {
   apiHandler,
   checkOwnerOf,
@@ -31,17 +31,14 @@ const handler: handler_type = async (req, res) => {
     mustBeOwnerOf: category_model,
   }); // ! Might Throw Error ====================== <
 
-  // * Services  ======================== >
-  const { removeCategory, editOneCategory } = categoryServivces;
-
   switch (req.method as "DELETE" | "PUT") {
     case "DELETE": {
-      await removeCategory(req.query.id);
+      await removeCategory(req.query.id as string);
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     case "PUT": {
       const { name } = categoryEditSchema.parse(req.body);
-      await editOneCategory(req.query.id as string, {
+      await editCategory(req.query.id as string, {
         name,
         user: payloadInfo._id,
       });

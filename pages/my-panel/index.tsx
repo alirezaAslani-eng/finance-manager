@@ -1,7 +1,7 @@
 import { Accounts, RecentTransactions } from "@/components/module";
 import { PageComponent } from "@/types/page.types";
 import { Box } from "@mui/material";
-import { transactionServices } from "@/lib/services";
+import { getRecentTransactions } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import type { GlobalAppProps } from "../_app";
@@ -84,11 +84,9 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps & MainPageProps> = async (
   _,
   { user }
 ) => {
-  // * Services ================ >>
-  const { getRecentTransaction } = transactionServices;
 
   // * Get Recent Transactions =================== >
-  const recentTransactions = await getRecentTransaction(user._id);
+  const recentTransactions = await getRecentTransactions(user._id);
 
   return {
     props: {

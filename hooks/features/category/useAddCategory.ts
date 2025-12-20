@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CategorySchemaType } from "@/lib/validations/categorySchema";
 import { postOneCategory } from "@/api/post";
 import { useCallback } from "react";
-import { CreatedCategoryReturnService } from "@/lib/services/types/services.types";
+import type { CreatedCategoryOutputService } from "@/server/services";
 import { useAuth } from "@/context";
 import { BadResponse_face } from "@/types/error.types";
 function useAddCategory() {
@@ -15,7 +15,7 @@ function useAddCategory() {
     try {
       const category = (await mutateAsync(
         categoryInfo
-      )) as CreatedCategoryReturnService;
+      )) as CreatedCategoryOutputService;
 
       // * update category info ============ >
       add(category);

@@ -7,7 +7,7 @@ import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { GetServerSidePropsContext } from "next";
 import { useAddccount, useEditAccount } from "@/hooks";
 import { AccountSchemaType } from "@/lib/validations/accountSchema";
-import { accountServices } from "@/lib/services";
+import { getOneAccount } from "@/server/services";
 import { withAuth } from "@/lib/hoc";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { toSerializable } from "@/lib/utils";
@@ -47,10 +47,9 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps | PageProps> = async (
   { user }
 ) => {
   const { query } = context;
-  const { getOneAccount } = accountServices;
   // * if page render to edit account pass it's info ================= >
   if (query.edit) {
-    const accountInfo = await getOneAccount(query.edit);
+    const accountInfo = await getOneAccount(query.edit as string);
 
     // * redirect user if account's id dos not exist
     if (!accountInfo) return { notFound: true };

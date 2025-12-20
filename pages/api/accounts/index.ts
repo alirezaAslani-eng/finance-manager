@@ -1,4 +1,4 @@
-import { accountServices } from "@/lib/services";
+import { createAccount } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { accountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";

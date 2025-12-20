@@ -1,4 +1,4 @@
-import { accountServices } from "@/lib/services";
+import { getOneAccount, editAccount, removeAccount } from "@/server/services";
 import {
   apiHandler,
   checkOwnerOf,
@@ -30,12 +30,9 @@ const handler: handler_type = async (req, res) => {
     statusCode: 400,
     type: "dev",
   }); // ! Might throw Error <<<<<<<<
-  // * Services ================== >
-  const { removeAccount, editAccount, getOneAccount, IdentyfyAccount } =
-    accountServices;
   switch (req.method as "DELETE" | "PUT" | "GET") {
     case "DELETE": {
-      await removeAccount(req.query.id); // ! Might throw Error <<<<<<<<
+      await removeAccount(req.query.id as string); // ! Might throw Error <<<<<<<<
       return res.status(204).json(""); // ? RESPONSE <<<-------
     }
     case "PUT": {
@@ -51,7 +48,7 @@ const handler: handler_type = async (req, res) => {
         type: "client",
       }); // ! Might Thow Code =========== <
       // * Start Updating Account ============== >
-      await editAccount(req.query.id, {
+      await editAccount(req.query.id as string, {
         accountName,
         cardNumber,
         currentBalance,
@@ -61,7 +58,7 @@ const handler: handler_type = async (req, res) => {
       return res.status(204).json(""); // ? RESPONSE <<<-------
     }
     case "GET": {
-      const get_res = await getOneAccount(req.query.id); // ! Might throw Error <<<<<<<<
+      const get_res = await getOneAccount(req.query.id as string); // ! Might throw Error <<<<<<<<
       return res.json(get_res); // ? RESPONSE <<<-------
     }
     default: {

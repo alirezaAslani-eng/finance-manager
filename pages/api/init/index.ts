@@ -1,4 +1,4 @@
-import { initServices } from "@/lib/services";
+import { setupUser } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { initSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
@@ -34,11 +34,9 @@ const handler: handler_type = async (req, res) => {
   }); // ! Might Throw Error ======= <
   const { bank_logo, bank_title } = banckInfo;
 
-  // * Account & Category Services ===================== >
-  const { initializeUser } = initServices;
 
   // * add an category and an account ============= >
-  await initializeUser({
+  await setupUser({
     ...initInfo,
     userID,
     bankIcon: bank_logo,

@@ -1,6 +1,6 @@
 import { GlobalAppProps } from "@/pages/_app";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { accountServices, userServices } from "../services";
+import { hasAccount, getUserInfo } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
 import { GetMeOutput } from "@/types/user.types";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
@@ -19,10 +19,6 @@ const withAuth = (
     context: GetServerSidePropsContext
   ) => {
     const { req } = context;
-
-    // * Services ================ >>
-    const { getUserInfo } = userServices;
-    const { hasAccount } = accountServices;
 
     // * Auth User redirect or return userInfo ================= >
     const userInfo = (await getUserInfo(req.cookies.token)) as GetMeOutput;

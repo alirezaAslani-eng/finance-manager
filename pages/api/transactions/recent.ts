@@ -1,4 +1,4 @@
-import { transactionServices } from "@/lib/services";
+import { getRecentTransactions } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -13,11 +13,8 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "GET") {
     case "GET": {
-      // * Services =============== >
-      const { getRecentTransaction } = transactionServices;
-
       //  * Get Recent transactions ==================== >
-      const recent_transactions = await getRecentTransaction(payloadInfo._id);
+      const recent_transactions = await getRecentTransactions(payloadInfo._id);
 
       //   * Response =================>
       return res.json(recent_transactions);

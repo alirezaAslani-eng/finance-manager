@@ -9,7 +9,7 @@ import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
 import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
-import { transactionServices } from "@/lib/services";
+import { getOneTransaction } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
 import { checkOwnerOf } from "@/server/utils";
 import { transaction_model } from "@/model";
@@ -118,9 +118,6 @@ const ssr: WrappedGetserverSideProps<
 
   // * check _id ============== >
   if (!isValidObjectId(_id)) return { notFound: true }; // ! redirect 404 <<<
-
-  // * Services ====================== >
-  const { getOneTransaction } = transactionServices;
 
   // * user must be owner of this info ============= >
   const isAccessTo = await checkOwnerOf(

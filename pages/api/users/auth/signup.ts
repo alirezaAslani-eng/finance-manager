@@ -1,4 +1,4 @@
-import { userServices } from "@/lib/services";
+import { registerUser, isUniqueUser, isFirstUser } from "@/server/services";
 import {
   apiHandler,
   signUserToken,
@@ -16,8 +16,6 @@ const handler: handler_type = async (req, res) => {
     type: "client",
   }); // ! Might Throw Error <-------------------
 
-  // * Services =============== >()
-  const { registerUser, isUserExist, isFirstUser } = userServices;
   switch (req.method as "POST") {
     case "POST": {
       // * Validation Body ================== >
@@ -25,8 +23,8 @@ const handler: handler_type = async (req, res) => {
         userSchema.parse(req.body); // ! Might Throw Error <--------------
 
       // * Check if user existed alredy ======================= >
-      const isExistedUser = await isUserExist({ phone, userName, email });
-      throwError(isExistedUser, {
+      const isuniqueUser = await isUniqueUser({ phone, userName, email });
+      throwError(!isuniqueUser, {
         message: "نام کاربری, شماره موبایل یا ایمیل قبلا ثبت شده",
         statusCode: 409,
         type: "client",

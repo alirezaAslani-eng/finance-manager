@@ -1,4 +1,4 @@
-import { otpServices } from "@/lib/services";
+import { verifyAuthOTP } from "@/server/services";
 import {
   apiHandler,
   signUserToken,
@@ -20,12 +20,10 @@ const handler: handler_type = async (req, res) => {
     statusCode: 405,
     type: "dev",
   }); // ! Might Throw Error ====================== <
-  // * Services ==================== >
-  const { verifyOtp } = otpServices;
   // * Body From Client ===================== >
   const { phone, otpCode } = verifySchema.parse(req.body); // ! Might Throw Error ====================== <
   // * Verify User =================================== >
-  const userInfo = await verifyOtp(phone, otpCode, { type: "signin" }); // ! Might Throw Error ====================== <
+  const userInfo = await verifyAuthOTP({ otpCode, phone, type: "signin" }); // ! Might Throw Error ====================== <
   // * Generate Token ================================ >
   const { email, fullName, _id, role } = userInfo;
   const token = signUserToken({ _id, email, fullName, phone, role });

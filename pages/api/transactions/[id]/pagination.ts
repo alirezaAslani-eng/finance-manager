@@ -1,4 +1,7 @@
-import { transactionServices } from "@/lib/services";
+import {
+  loadMoreTransactions,
+  initializeTransactions,
+} from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -8,8 +11,6 @@ import { transactionCursorConfig } from "@/constant";
 import { filterSchema } from "@/lib/validations";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
-  // * Services ============ >
-  const { loadMoreTransactions, initialTransactions } = transactionServices;
 
   // * Check is it our user ====================== >
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
@@ -47,7 +48,7 @@ const handler: handler_type = async (req, res) => {
         } as const;
         return res.json(transactions);
       } else {
-        const init = await initialTransactions(payloadInfo._id, queries);
+        const init = await initializeTransactions(payloadInfo._id, queries);
 
         const { initial_transactions, nextCursor } = init;
 

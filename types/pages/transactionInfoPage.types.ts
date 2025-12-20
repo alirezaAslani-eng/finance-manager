@@ -1,9 +1,8 @@
-import { GetOneTransactionServiceType } from "@/lib/services/types/services.types";
+import { OneTransactionInfo } from "@/types/transaction.types";
 
 interface TransactionInfoPageProps {
-  // * is content editable or readonly ================= >
   isEditable: boolean;
-  transactionInfo: GetOneTransactionServiceType;
+  transactionInfo: OneTransactionInfo;
 }
 
 export type { TransactionInfoPageProps };

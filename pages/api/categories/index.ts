@@ -1,11 +1,9 @@
-import { categoryServivces } from "@/lib/services";
+import { createCategory } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { categorySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
-  // * Services =============================== >
-  const { createCategory } = categoryServivces;
   // * UserInfo =========================== >
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;
   throwError(!payloadInfo, {
