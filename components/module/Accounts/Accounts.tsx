@@ -94,7 +94,7 @@ function Accounts({ accounts = [] }: MyProps) {
             variant="outlined"
             sx={({ custom }) => {
               return {
-                ...(custom.circleButton as object),
+                ...(custom!.circleButton as object),
                 gap: "5px",
               };
             }}

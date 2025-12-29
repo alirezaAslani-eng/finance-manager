@@ -108,7 +108,7 @@ function AccountCard({
             size="medium"
             sx={(tm) => {
               return {
-                ...(tm.custom.circleButton as object),
+                ...(tm.custom!.circleButton as object),
               };
             }}
           >

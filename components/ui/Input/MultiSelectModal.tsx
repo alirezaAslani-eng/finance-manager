@@ -88,7 +88,7 @@ function ModalSelect({
             size="small"
             onClick={closeSelectList}
             variant="text-grey"
-            sx={(tm) => ({ ...tm.custom.circleButton })}
+            sx={(tm) => ({ ...tm.custom!.circleButton })}
           >
             <CloseRoundedIcon />
           </Button>
@@ -99,10 +99,10 @@ function ModalSelect({
           onEnable={onEnable}
           activedCheckBoxs={activedCheckBoxs}
           containerProps={{
-            sx: ({ custom: { noScroll } }) => ({
+            sx: (tm) => ({
               maxHeight: "300px",
               overflow: "hidden auto",
-              ...(noScroll as object),
+              ...(tm.custom!.noScroll as object),
             }),
           }}
           items={items}

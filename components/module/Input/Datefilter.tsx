@@ -16,7 +16,7 @@ const cancelButton_sx: SxProps<Theme> = (theme) => ({
   left: "10px",
   top: "50%",
   transform: "translateY(-50%)",
-  ...(theme.custom.circleButton as object),
+  ...(theme.custom!.circleButton as object),
 });
 function Datefilter({
   fromOnchange = () => {},

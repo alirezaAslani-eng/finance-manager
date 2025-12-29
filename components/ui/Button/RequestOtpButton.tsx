@@ -24,7 +24,7 @@ function RequestOtpButton({ onRequest, isRequesting, futureMsTime }: myProps) {
           variant="outlined"
           size="medium"
           sx={(tm) => {
-            return { ...tm.custom.circleButton };
+            return tm.custom!.circleButton as object;
           }}
         >
           {isRequesting ? (

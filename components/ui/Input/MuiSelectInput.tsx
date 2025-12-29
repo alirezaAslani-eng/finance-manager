@@ -77,7 +77,7 @@ function MuiSelectInput({
                   <Button
                     size="small"
                     onClick={(e) => editOption(e, value)}
-                    sx={(tm) => ({ ...tm.custom.circleButton })}
+                    sx={(tm) => ({ ...tm.custom!.circleButton })}
                   >
                     <EditRoundedIcon />
                   </Button>

@@ -37,7 +37,7 @@ function TopBar() {
             <Link href={""}>
               <Button
                 sx={({ custom }) => {
-                  return { ...custom.circleButton };
+                  return custom!.circleButton as object;
                 }}
                 variant="text-grey"
                 size="medium"

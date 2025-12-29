@@ -100,7 +100,7 @@ function TransactionDetalCard({
             <Button
               variant="outlined"
               size="medium"
-              sx={(tm) => ({ ...(tm.custom.circleButton as object) })}
+              sx={(tm) => ({ ...(tm.custom!.circleButton as object) })}
             >
               <ModeRoundedIcon />
             </Button>

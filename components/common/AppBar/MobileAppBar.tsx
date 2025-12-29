@@ -42,7 +42,7 @@ function MobileAppBar({ onMenuClick = () => {} }: MyProps) {
         size="medium"
         sx={(theme) => {
           return {
-            ...(theme.custom.circleButton as object),
+            ...(theme.custom!.circleButton as object),
           };
         }}
         onClick={menuIconClick}

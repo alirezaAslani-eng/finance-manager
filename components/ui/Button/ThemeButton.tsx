@@ -19,7 +19,7 @@ function ThemeButton() {
       variant="text-grey"
       sx={(theme) => {
         return {
-          ...(theme.custom.circleButton as object),
+          ...(theme.custom!.circleButton as object),
         };
       }}
     >
