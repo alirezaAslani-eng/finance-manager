@@ -3,7 +3,7 @@ import { OTP, RequestAuthOTP } from "./types";
 import { otp_model, user_model } from "@/model";
 import { sendCodeSMS, throwError } from "@/server/utils";
 import { getReamingTime } from "@/utils";
-import { authOtpConfig } from "@/constant";
+import { authOtpConfig } from "@/lib/constant";
 
 /** this method only return limitWate which is a date as (ms) that user shoud wait until the end of it .
  * it also handle all of the validations for otp request */

@@ -3,7 +3,7 @@ import { otp_model, user_model } from "@/model";
 import { throwError } from "@/server/utils";
 import { VerifyAuthOTP, VerifyAuthOTP_Output } from "./types";
 import { getReamingTime } from "@/utils";
-import { authOtpConfig } from "@/constant";
+import { authOtpConfig } from "@/lib/constant";
 
 /**
  * verify user by diffing otp code that user sent us with

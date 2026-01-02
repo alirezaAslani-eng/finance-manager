@@ -3,7 +3,7 @@ import { LoadMoreTransactions } from "./types";
 import { buildTransactionFilterQuery } from "@/server/utils";
 import { transaction_model } from "@/model";
 import mongoose from "mongoose";
-import { transactionCursorConfig } from "@/constant";
+import { transactionCursorConfig } from "@/lib/constant";
 import { MongoTransaction } from "@/types/transaction.types";
 import { toSerializable } from "@/lib/utils";
 
@@ -51,5 +51,4 @@ const loadMoreTransactions: LoadMoreTransactions = async (
   };
 };
 
-
-export default loadMoreTransactions
+export default loadMoreTransactions;

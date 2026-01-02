@@ -1,4 +1,4 @@
-import { transactionCursorConfig } from "@/constant";
+import { transactionCursorConfig } from "@/lib/constant";
 import { InitializeTransactions } from "./types";
 import { transaction_model } from "@/model";
 import { TransactionList } from "@/types/transaction.types";
