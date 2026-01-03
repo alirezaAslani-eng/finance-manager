@@ -5,7 +5,7 @@ import {
   throwError,
   userTokenToCookie,
 } from "@/server/utils";
-import { editUserSchema } from "@/lib/validations/userSchema";
+import { editUserSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 
@@ -19,7 +19,7 @@ const handler: handler_type = async (req, res) => {
   }); // ! Might throw Error ============= <
 
   // * Body from Client ===============>
-  const newInfo = editUserSchema.parse(req.body); // ! Might Throw Error ================ <
+  const newInfo = editUserSchema().parse(req.body); // ! Might Throw Error ================ <
 
   // * Edit Query ===================== >
   const updatedToken = await editUserInfo(payloadInfo._id, newInfo); // ! Might Throw Error ================ <

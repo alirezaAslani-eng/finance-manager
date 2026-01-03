@@ -1,8 +1,7 @@
-import { verifySchema } from "@/lib/validations";
-import type { Infer } from "zod";
+import type { VerifyPhoneSchemaType } from "@/lib/validations/types";
 import type { BadResponse_face } from "@/types/error.types";
 const loginUser = async (
-  loginInfo: Infer<typeof verifySchema>
+  loginInfo: VerifyPhoneSchemaType
 ): Promise<BadResponse_face | string> => {
   const res = await fetch("/api/users/auth/signin", {
     method: "POST",

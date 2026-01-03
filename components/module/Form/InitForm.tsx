@@ -4,13 +4,13 @@ import { muiTheme } from "@/utils";
 import { useForm } from "react-hook-form";
 import { AccountInput, MuiTextField } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { initSchema } from "@/lib/validations";
+import { setupUserSchema } from "@/lib/validations";
 import type { BoxProps } from "@mui/material";
-import type { InitSchemaType } from "@/lib/validations/initSchema";
+import type { SetupUserSchemaType } from "@/lib/validations/types";
 
 interface MyPropa {
   formContainerProps?: BoxProps;
-  onSubmit?: (data: InitSchemaType) => Promise<void>;
+  onSubmit?: (data: SetupUserSchemaType) => Promise<void>;
 }
 const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
   // * Form Config ================== >
@@ -19,7 +19,7 @@ const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
     formState: { isSubmitting, errors },
     handleSubmit,
     control,
-  } = useForm({ resolver: zodResolver(initSchema) });
+  } = useForm({ resolver: zodResolver(setupUserSchema()) });
 
   // * Style =================== >
   const {
@@ -32,7 +32,7 @@ const InitForm = ({ formContainerProps = {}, onSubmit }: MyPropa) => {
 
   // * Events ======== >
   const submiter = async (data: unknown) => {
-    onSubmit && (await onSubmit(data as InitSchemaType));
+    onSubmit && (await onSubmit(data as SetupUserSchemaType));
   };
   return (
     <Box

@@ -1,4 +1,4 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 
 type KeyAllTransactionsSerialized = [
   "transactions",
@@ -20,9 +20,11 @@ interface KeyAllTransactions {
   /**
    * this method returns an array which includes [mainKey,[...dynaimcKeys]]
    * And
-   * [...dynaimcKeys] is a serilized array of FilterSchemaType
+   * [...dynaimcKeys] is a serilized array of FilterTransactionSchemaType
    */
-  all: (dynamicKey: FilterSchemaType) => KeyAllTransactionsSerialized;
+  all: (
+    dynamicKey: FilterTransactionSchemaType
+  ) => KeyAllTransactionsSerialized;
 }
 
 export type { KeyAllTransactionsSerialized, KeyAllTransactions };

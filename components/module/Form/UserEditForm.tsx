@@ -1,5 +1,5 @@
 import { MuiTextField } from "@/components/ui";
-import { editUserSchema } from "@/lib/validations/userSchema";
+import { editUserSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid } from "@mui/material";
 import React from "react";
@@ -12,7 +12,7 @@ function UserEditForm() {
     formState: { errors, isSubmitting, isDirty },
     handleSubmit,
   } = useForm({
-    resolver: zodResolver(editUserSchema),
+    resolver: zodResolver(editUserSchema()),
     defaultValues: {
       email: "alirezaaslani@gmail.com",
       userName: "ali-username",

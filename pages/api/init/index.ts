@@ -1,6 +1,6 @@
 import { setupUser } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
-import { initSchema } from "@/lib/validations";
+import { setupUserSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { identyfyBank } from "@/utils";
@@ -24,7 +24,7 @@ const handler: handler_type = async (req, res) => {
   const { _id: userID } = payloadInfo;
 
   // * Body from Client ==================== >
-  const initInfo = initSchema.parse(req.body);
+  const initInfo = setupUserSchema().parse(req.body);
 
   const banckInfo = identyfyBank(initInfo.cardNumber)!;
   throwError(!banckInfo, {
@@ -33,7 +33,6 @@ const handler: handler_type = async (req, res) => {
     type: "client",
   }); // ! Might Throw Error ======= <
   const { bank_logo, bank_title } = banckInfo;
-
 
   // * add an category and an account ============= >
   await setupUser({

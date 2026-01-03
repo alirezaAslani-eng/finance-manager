@@ -1,4 +1,4 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import { TransactionList } from "@/types/transaction.types";
 
 interface AllTransactionResponse {
@@ -12,8 +12,7 @@ interface AllTransactionResponse {
  *  it's needed to manage requests and client states
  */
 
-type URLFilterQueries = keyof FilterSchemaType;
+type URLFilterQueries = keyof FilterTransactionSchemaType;
 interface TrnasactionFilterURLQueries
   extends Record<URLFilterQueries, string | undefined> {}
-
 export type { AllTransactionResponse, TrnasactionFilterURLQueries };

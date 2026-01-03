@@ -1,6 +1,6 @@
 import { createAccount } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
-import { accountSchema } from "@/lib/validations";
+import { createAccountSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { identyfyBank } from "@/utils";
@@ -17,9 +17,8 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST") {
     case "POST": {
       // * Zod Validation ============== >
-      const { cardNumber, currentBalance, accountName } = accountSchema.parse(
-        req.body
-      );
+      const { cardNumber, currentBalance, accountName } =
+        createAccountSchema().parse(req.body);
       // * Identyfy Account ======= >
       const bankInfo = identyfyBank(cardNumber)!;
 

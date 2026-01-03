@@ -6,7 +6,7 @@ import {
   throwError,
   userTokenToCookie,
 } from "@/server/utils";
-import { verifySchema } from "@/lib/validations";
+import { verifyPhoneSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
   const islogin = verifyUserToken(req.cookies.token);
@@ -21,7 +21,7 @@ const handler: handler_type = async (req, res) => {
     type: "dev",
   }); // ! Might Throw Error ====================== <
   // * Body From Client ===================== >
-  const { phone, otpCode } = verifySchema.parse(req.body); // ! Might Throw Error ====================== <
+  const { phone, otpCode } = verifyPhoneSchema().parse(req.body); // ! Might Throw Error ====================== <
   // * Verify User =================================== >
   const userInfo = await verifyAuthOTP({ otpCode, phone, type: "signin" }); // ! Might Throw Error ====================== <
   // * Generate Token ================================ >

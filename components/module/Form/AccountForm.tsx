@@ -1,6 +1,6 @@
 import { AccountInput, MuiTextField } from "@/components/ui";
-import { accountSchema } from "@/lib/validations";
-import { AccountSchemaType } from "@/lib/validations/accountSchema";
+import { createAccountSchema } from "@/lib/validations";
+import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form";
 
 interface MyProps {
   edit?: boolean;
-  onSubmit?: (accountInfo: AccountSchemaType) => Promise<void>;
-  defaultValues?: AccountSchemaType;
+  onSubmit?: (accountInfo: CreateAccountSchemaType) => Promise<void>;
+  defaultValues?: CreateAccountSchemaType;
 }
 function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
   // * Form Handler ======================== >
@@ -22,13 +22,13 @@ function AccountForm({ edit, onSubmit, defaultValues }: MyProps) {
     control,
     handleSubmit,
   } = useForm({
-    resolver: zodResolver(accountSchema),
+    resolver: zodResolver(createAccountSchema()),
     defaultValues,
   });
 
   // * Submiter ======================== >
   const submiter = async (form: unknown) => {
-    onSubmit && (await onSubmit(form as AccountSchemaType));
+    onSubmit && (await onSubmit(form as CreateAccountSchemaType));
     // * make form dirty after edit ================== >
     if (edit) {
       reset(getValues());

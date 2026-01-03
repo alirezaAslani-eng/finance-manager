@@ -1,10 +1,9 @@
-import { sendCodeSchema, userSchema } from "@/lib/validations";
-import type { Infer } from "zod";
+import { SignupSchemaType } from "@/lib/validations/types";
 import type { BadResponse_face } from "@/types/error.types";
 import { SignupResponse_type } from "@/types/user.types";
 
 const postOneUser = async (
-  userInfo: Infer<typeof userSchema>
+  userInfo: SignupSchemaType
 ): Promise<BadResponse_face | SignupResponse_type> => {
   const res = await fetch("/api/users/auth/signup", {
     method: "POST",

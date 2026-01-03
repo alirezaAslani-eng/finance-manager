@@ -11,7 +11,7 @@ import {
   verifyUserToken,
   throwError,
 } from "@/server/utils";
-import { transactionEditSchema } from "@/lib/validations";
+import { editTransactionSchema } from "@/lib/validations";
 import { transaction_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -49,7 +49,7 @@ const handler: handler_type = async (req, res) => {
     }
     case "PUT": {
       // * Zod Validation ==================== >
-      const { reason, category, amount, type } = transactionEditSchema.parse(
+      const { reason, category, amount, type } = editTransactionSchema().parse(
         req.body
       ); // ! Might Throw Error ====================== <
 

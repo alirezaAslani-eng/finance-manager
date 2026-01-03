@@ -1,6 +1,6 @@
-import { InitSchemaType } from "@/lib/validations/initSchema";
+import { SetupUserSchemaType } from "@/lib/validations/types";
 
-interface SetupInfo extends InitSchemaType {
+interface SetupInfo extends SetupUserSchemaType {
   userID: string;
   bankName: string;
   bankIcon: string;

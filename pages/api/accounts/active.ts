@@ -17,7 +17,7 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "PUT") {
     case "PUT": {
       // * Get account's id from client =============== >
-      const { _id } = activeAccountSchema.parse(req.body);
+      const { _id } = activeAccountSchema().parse(req.body);
 
       // * Check if id isvalid and its document exists ============== >
       await checkExist({

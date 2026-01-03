@@ -1,6 +1,6 @@
 import { createCategory } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
-import { categorySchema } from "@/lib/validations";
+import { createCategorySchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
@@ -14,7 +14,7 @@ const handler: handler_type = async (req, res) => {
 
   switch (req.method as "POST") {
     case "POST": {
-      const { name } = categorySchema.parse(req.body); // ! Might Throw Error ========================= <
+      const { name } = createCategorySchema().parse(req.body); // ! Might Throw Error ========================= <
       const create_res = await createCategory({ name, user: payloadInfo._id }); // ! Might Throw Error ========================= <
       return res.status(201).json(create_res); // ? RESPONSE <------------
     }

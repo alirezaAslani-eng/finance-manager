@@ -1,4 +1,4 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import { KeyAllTransactions, KeyAllTransactionsSerialized } from "./types";
 
 const keyAllTransactions: KeyAllTransactions = {
@@ -11,7 +11,7 @@ const keyAllTransactions: KeyAllTransactions = {
 export default keyAllTransactions;
 
 function serializeDynamicKeys(
-  filters: FilterSchemaType
+  filters: FilterTransactionSchemaType
 ): KeyAllTransactionsSerialized {
   return [
     "transactions",

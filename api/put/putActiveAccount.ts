@@ -1,5 +1,5 @@
 import type { BadResponse_face } from "@/types/error.types";
-import { ActiveAccountSchemaType } from "@/lib/validations/accountSchema";
+import { ActiveAccountSchemaType } from "@/lib/validations/types";
 
 const putActiveAccount = async (
   infoToActive: ActiveAccountSchemaType

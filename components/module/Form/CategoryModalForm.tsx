@@ -1,8 +1,8 @@
 import { MuiTextField, AdaptiveScroll } from "@/components/ui";
 import { useAuth } from "@/context";
 import { usePaginationArray } from "@/hooks";
-import { categorySchema } from "@/lib/validations";
-import { CategorySchemaType } from "@/lib/validations/categorySchema";
+import { createCategorySchema } from "@/lib/validations";
+import { CreateCategorySchemaType } from "@/lib/validations/types";
 import { dana_md } from "@/utils/font";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,10 +25,10 @@ const category_row: SxProps = {
 };
 
 interface MyProps {
-  onSubmit?: (categoryInfo: CategorySchemaType) => Promise<void>;
+  onSubmit?: (categoryInfo: CreateCategorySchemaType) => Promise<void>;
   onClose?: () => void;
   edit?: boolean;
-  defaultValues?: CategorySchemaType;
+  defaultValues?: CreateCategorySchemaType;
 }
 function CategoryModalForm({
   onSubmit = async () => {},
@@ -41,7 +41,7 @@ function CategoryModalForm({
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty },
-  } = useForm({ resolver: zodResolver(categorySchema), defaultValues });
+  } = useForm({ resolver: zodResolver(createCategorySchema()), defaultValues });
 
   // * MUI Theme ============= >
   const { palette, alpha } = useTheme();
@@ -64,7 +64,7 @@ function CategoryModalForm({
 
   // * Submiter Method ================ >
   const submiter = async (f: unknown) => {
-    await onSubmit(f as CategorySchemaType);
+    await onSubmit(f as CreateCategorySchemaType);
   };
   return (
     <>

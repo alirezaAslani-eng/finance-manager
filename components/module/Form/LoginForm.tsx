@@ -1,5 +1,4 @@
 import { MuiTextField, RequestOtpButton } from "@/components/ui";
-import { userSchema, verifySchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
@@ -9,6 +8,8 @@ import { Infer } from "zod";
 import { useAuth } from "@/context";
 import { useCheckUserPhone, useLogin, useRequestOtp } from "@/hooks";
 import { OtpType_enum } from "@/types/opt.types";
+import { VerifyPhoneSchemaType } from "@/lib/validations/types";
+import { verifyPhoneSchema } from "@/lib/validations";
 function LoginForm() {
   const [isVerifiedPhone, setIsVerifiedPhone] = useState<boolean>(false);
 
@@ -19,7 +20,7 @@ function LoginForm() {
   // * final login by verify otp code ================ >
   const { login } = useLogin();
   const verifyAndLogin = async (form: unknown) => {
-    const formInfo = form as Infer<typeof verifySchema>;
+    const formInfo = form as VerifyPhoneSchemaType;
     await login({ otpCode: formInfo.otpCode, phone: formInfo.phone });
   };
 
@@ -50,7 +51,7 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
   const { palette } = useTheme();
 
   // * Form state and Schema Handler ================== >
-  const phoneSchema = userSchema.pick({ phone: true });
+  const phoneSchema = verifyPhoneSchema().pick({ phone: true });
   const {
     register,
     handleSubmit,
@@ -134,7 +135,7 @@ function VerifyPhoneForm({ onVerify }: VerifyPhoneForm_prop) {
 }
 
 interface VerifyCodeForm_prop {
-  onVerify: (form: Infer<typeof verifySchema>) => Promise<void>;
+  onVerify: (form: VerifyPhoneSchemaType) => Promise<void>;
   verifyType: keyof typeof OtpType_enum;
   title: string;
   subTitle: string;
@@ -160,7 +161,7 @@ const VerifyCodeForm = ({
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(verifySchema) });
+  } = useForm({ resolver: zodResolver(verifyPhoneSchema()) });
 
   // * request otp hook ================= >
   const { requestOtp, isRequesting, otpWaitTime } = useRequestOtp(verifyType);
@@ -170,7 +171,7 @@ const VerifyCodeForm = ({
   };
 
   const verify = async (f: unknown) => {
-    const verifyInfo = f as Infer<typeof verifySchema>;
+    const verifyInfo = f as VerifyPhoneSchemaType;
     await onVerify(verifyInfo);
   };
   return (

@@ -5,7 +5,7 @@ import {
   verifyUserToken,
   throwError,
 } from "@/server/utils";
-import { categoryEditSchema } from "@/lib/validations";
+import { createCategorySchema } from "@/lib/validations";
 import { category_model } from "@/model";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -37,7 +37,7 @@ const handler: handler_type = async (req, res) => {
       return res.status(204).json(""); // ? RESPONSE <----------
     }
     case "PUT": {
-      const { name } = categoryEditSchema.parse(req.body);
+      const { name } = createCategorySchema().parse(req.body);
       await editCategory(req.query.id as string, {
         name,
         user: payloadInfo._id,

@@ -1,8 +1,8 @@
-import { AccountSchemaType } from "@/lib/validations/accountSchema";
+import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 
 const putOneAccount = async (
-  updatedInfo: AccountSchemaType & { _id: string }
+  updatedInfo: CreateAccountSchemaType & { _id: string }
 ): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/accounts/${updatedInfo._id}`, {
     method: "PUT",

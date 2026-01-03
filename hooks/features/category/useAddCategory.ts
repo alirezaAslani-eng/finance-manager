@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { CategorySchemaType } from "@/lib/validations/categorySchema";
+import { CreateCategorySchemaType } from "@/lib/validations/types";
 import { postOneCategory } from "@/api/post";
 import { useCallback } from "react";
 import type { CreatedCategoryOutputService } from "@/server/services";
@@ -11,20 +11,23 @@ function useAddCategory() {
   // * user info to update categories ================= >
   const { addCategory: add, userInfo } = useAuth();
 
-  const addCategory = useCallback(async (categoryInfo: CategorySchemaType) => {
-    try {
-      const category = (await mutateAsync(
-        categoryInfo
-      )) as CreatedCategoryOutputService;
+  const addCategory = useCallback(
+    async (categoryInfo: CreateCategorySchemaType) => {
+      try {
+        const category = (await mutateAsync(
+          categoryInfo
+        )) as CreatedCategoryOutputService;
 
-      // * update category info ============ >
-      add(category);
-    } catch (err) {
-      const error = err as BadResponse_face;
-      // todo show Error ========== >
-      console.log(error);
-    }
-  }, []);
+        // * update category info ============ >
+        add(category);
+      } catch (err) {
+        const error = err as BadResponse_face;
+        // todo show Error ========== >
+        console.log(error);
+      }
+    },
+    []
+  );
 
   return { addCategory };
 }

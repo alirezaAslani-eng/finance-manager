@@ -1,10 +1,10 @@
 import type { BadResponse_face } from "@/types/error.types";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 
 const getMoreTransactions = async (
   nextCursor: string | null,
-  queries: FilterSchemaType
+  queries: FilterTransactionSchemaType
 ): Promise<AllTransactionResponse> => {
   const res = await fetch(
     `/api/transactions/${nextCursor ?? null}/pagination`,

@@ -1,16 +1,15 @@
 import { postOneTransactions } from "@/api/post";
 import { useAuth } from "@/context";
 import { keyRecentTransactions, keyUserInfo } from "@/packages/react-query";
-import { transactionSchemaType } from "@/lib/validations/transactionSchema";
+import { CreateTransactionSchemaType } from "@/lib/validations/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { BadResponse_face } from "@/types/error.types";
 
 function useAddTransaction() {
   // * State for when wee need to cache the transaction info and submit it from state ===== >
-  const [transaction, setTransaction] = useState<transactionSchemaType | null>(
-    null
-  );
+  const [transaction, setTransaction] =
+    useState<CreateTransactionSchemaType | null>(null);
 
   // * State of transaction modal to show final information ==== >
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -22,7 +21,7 @@ function useAddTransaction() {
   const { userInfo } = useAuth();
 
   // * Open Transaction Modal === >
-  const openModal = (transaction: transactionSchemaType) => {
+  const openModal = (transaction: CreateTransactionSchemaType) => {
     setTransaction(transaction); // * set transaction before submit to show it on modal <<<
     setCategoryName(
       userInfo.categories.find((iteem) => iteem._id == transaction.category)
@@ -41,7 +40,9 @@ function useAddTransaction() {
     mutationFn: postOneTransactions,
   });
 
-  const addTransaction = async (transactionInfo: transactionSchemaType) => {
+  const addTransaction = async (
+    transactionInfo: CreateTransactionSchemaType
+  ) => {
     try {
       await mutateAsync(transactionInfo);
       // * invalid recent transactions after add one ========== >

@@ -1,14 +1,14 @@
 import { putEditCategory } from "@/api/put";
 import { useAuth } from "@/context";
-import { CategoryEditSchemaType } from "@/lib/validations/categorySchema";
+import { EditCategorySchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 
 interface SubmitWithId {
-  editCategory: (info: CategoryEditSchemaType, __id: string) => Promise<void>;
+  editCategory: (info: EditCategorySchemaType, __id: string) => Promise<void>;
 }
 interface InstancedWithID {
-  editCategory: (info: CategoryEditSchemaType) => Promise<void>;
+  editCategory: (info: EditCategorySchemaType) => Promise<void>;
   oldCategoryName: string;
 }
 type ReturnType = SubmitWithId | InstancedWithID;
@@ -31,7 +31,7 @@ function useEditCategory(_id?: string): ReturnType {
   });
 
   // * Submiter
-  const editCategory = async (info: CategoryEditSchemaType, __id?: string) => {
+  const editCategory = async (info: EditCategorySchemaType, __id?: string) => {
     try {
       // * Request to edit ======= >
       await mutateAsync({

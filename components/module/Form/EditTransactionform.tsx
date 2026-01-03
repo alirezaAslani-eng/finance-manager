@@ -1,7 +1,7 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
 import { useAuth, useModal } from "@/context";
-import { transactionEditSchema } from "@/lib/validations";
-import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
+import { EditTransactionSchemaType } from "@/lib/validations/types";
+import { editTransactionSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -14,8 +14,8 @@ import React, { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
-  defaultValues: transactionEditSchemaType;
-  onSubmit?: (info: transactionEditSchemaType) => Promise<void>;
+  defaultValues: EditTransactionSchemaType;
+  onSubmit?: (info: EditTransactionSchemaType) => Promise<void>;
   isLatestTransaction?: boolean;
 }
 
@@ -37,7 +37,7 @@ function EditTransactionform({
     reset,
     getValues,
   } = useForm({
-    resolver: zodResolver(transactionEditSchema),
+    resolver: zodResolver(editTransactionSchema()),
     defaultValues,
   });
 
@@ -53,7 +53,7 @@ function EditTransactionform({
 
   // * submiter ================= >
   const submit = async (f: unknown) => {
-    await onSubmit(f as transactionEditSchemaType);
+    await onSubmit(f as EditTransactionSchemaType);
     reset(getValues());
   };
 

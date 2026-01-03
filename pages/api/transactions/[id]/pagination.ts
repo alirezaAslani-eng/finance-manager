@@ -8,7 +8,7 @@ import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { transactionCursorConfig } from "@/lib/constant";
-import { filterSchema } from "@/lib/validations";
+import { filterTransactionSchema } from "@/lib/validations";
 const handler: handler_type = async (req, res) => {
   const lastTransactionId = req.query.id as string;
 
@@ -23,7 +23,7 @@ const handler: handler_type = async (req, res) => {
   switch (req.method as "POST") {
     case "POST": {
       // * Filter Parameters From Body ==================== >
-      const queries = filterSchema.parse(req.body); // ! Might Thow Error <<<<<<<
+      const queries = filterTransactionSchema().parse(req.body); // ! Might Thow Error <<<<<<<
 
       if (lastTransactionId != "null") {
         // * Check nextCursor which is _id ================== >

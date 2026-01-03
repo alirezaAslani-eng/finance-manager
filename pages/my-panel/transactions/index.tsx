@@ -4,7 +4,7 @@ import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/lib/constant";
 import { withAuth } from "@/lib/hoc";
 import { initializeTransactions } from "@/server/services";
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { peyda_md } from "@/utils/font";
 import {
@@ -136,7 +136,7 @@ export { getServerSideProps };
 // * Local Helper ========= >
 const parseTrsFilterQueries = function (
   queries: TrnasactionFilterURLQueries
-): FilterSchemaType {
+): FilterTransactionSchemaType {
   const {
     accounts,
     categories,

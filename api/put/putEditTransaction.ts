@@ -1,8 +1,8 @@
 import { BadResponse_face } from "@/types/error.types";
-import { transactionEditSchemaType } from "@/lib/validations/transactionSchema";
+import { EditTransactionSchemaType } from "@/lib/validations/types";
 
 const putEditTransaction = async (
-  updatedInfo: transactionEditSchemaType & { _id: string }
+  updatedInfo: EditTransactionSchemaType & { _id: string }
 ): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/transactions/${updatedInfo._id}/one`, {
     method: "PUT",

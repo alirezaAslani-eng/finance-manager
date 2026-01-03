@@ -1,6 +1,6 @@
 import { createTransaction } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
-import { transactionSchema } from "@/lib/validations";
+import { createTransactionSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 const handler: handler_type = async (req, res) => {
@@ -12,14 +12,13 @@ const handler: handler_type = async (req, res) => {
     type: "client",
   });
 
-  
   switch (req.method as "POST") {
     case "POST": {
       // * Body from client ================= >
       const body = req.body;
       // * Zod validator ========================= >
       const { amount, reason, type, account, category } =
-        transactionSchema.parse(body); // ! Might Throw Error =================== <
+        createTransactionSchema().parse(body); // ! Might Throw Error =================== <
 
       const create_res = await createTransaction({
         // from client ---- >

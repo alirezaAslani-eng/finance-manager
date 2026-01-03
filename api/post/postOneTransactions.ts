@@ -1,8 +1,8 @@
 import type { BadResponse_face } from "@/types/error.types";
-import { transactionSchemaType } from "@/lib/validations/transactionSchema";
+import { CreateTransactionSchemaType } from "@/lib/validations/types";
 
 const postInitInfo = async (
-  transactionInfo: transactionSchemaType
+  transactionInfo: CreateTransactionSchemaType
 ): Promise<true | BadResponse_face> => {
   const res = await fetch("/api/transactions", {
     method: "POST",

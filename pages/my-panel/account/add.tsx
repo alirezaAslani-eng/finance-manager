@@ -6,7 +6,7 @@ import React from "react";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { GetServerSidePropsContext } from "next";
 import { useAddccount, useEditAccount } from "@/hooks";
-import { AccountSchemaType } from "@/lib/validations/accountSchema";
+import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { getOneAccount } from "@/server/services";
 import { withAuth } from "@/lib/hoc";
 import { WrappedGetserverSideProps } from "@/types/ssr.types";
@@ -14,7 +14,7 @@ import { toSerializable } from "@/lib/utils";
 
 interface PageProps {
   isEdit: boolean;
-  accountInfo?: AccountSchemaType;
+  accountInfo?: CreateAccountSchemaType;
   accountId?: string;
 }
 

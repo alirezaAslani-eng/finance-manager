@@ -1,13 +1,13 @@
 import { MuiTextField } from "@/components/ui";
-import { userSchema } from "@/lib/validations";
+import { signupSchema } from "@/lib/validations";
+import { SignupSchemaType } from "@/lib/validations/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { alpha, Box, Button, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Infer } from "zod";
 import { VerifyCodeForm } from "./LoginForm";
-import {useRegister} from "@/hooks";
+import { useRegister } from "@/hooks";
 
 function SignUp() {
   const { checkSignupInfo, verifyUser, isSuccessRegister, signupInfo } =
@@ -35,7 +35,7 @@ export default SignUp;
 function RegisterForm({
   onRegister,
 }: {
-  onRegister: (userInfo: Infer<typeof userSchema>) => Promise<void>;
+  onRegister: (userInfo: SignupSchemaType) => Promise<void>;
 }) {
   // * Mui Theme ======================= >
   const { palette } = useTheme();
@@ -45,11 +45,11 @@ function RegisterForm({
     register,
     formState: { isSubmitting, errors },
     handleSubmit,
-  } = useForm({ resolver: zodResolver(userSchema) });
+  } = useForm({ resolver: zodResolver(signupSchema()) });
 
   // * Send info out of the component, if they were valid ================ >
   const submiter = async (f: unknown) => {
-    const userInfo = f as Infer<typeof userSchema>;
+    const userInfo = f as SignupSchemaType;
     onRegister(userInfo);
   };
 

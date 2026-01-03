@@ -1,5 +1,5 @@
 import { RootFilterQuery } from "mongoose";
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 
 interface Input {
   /**
@@ -9,7 +9,7 @@ interface Input {
   /**
    * queries to filter
    */
-  queries: FilterSchemaType;
+  queries: FilterTransactionSchemaType;
 }
 interface Output {
   /**

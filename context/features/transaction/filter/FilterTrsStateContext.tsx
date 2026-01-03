@@ -21,7 +21,7 @@ import {
 import { Transaction_face } from "@/types/transaction.types";
 import { parseAsFromDate, parseAsToDate, parseAsTrue } from "@/packages/nuqs";
 import { useUpdateEffect } from "@/hooks";
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 
 // * Context ======= >
 const FilterTrsStateContext = createContext({} as ProvidedFilterTrsStateValue);
@@ -84,16 +84,17 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
   /**
    * This state responsible for only storing filter parameters as a dynamicQueryKey
    */
-  const [dynamicQueryKey, setDynamicQueryKey] = useState<FilterSchemaType>({
-    accounts,
-    categories,
-    fromDate,
-    maxAmount,
-    minAmount,
-    old,
-    toDate,
-    type,
-  });
+  const [dynamicQueryKey, setDynamicQueryKey] =
+    useState<FilterTransactionSchemaType>({
+      accounts,
+      categories,
+      fromDate,
+      maxAmount,
+      minAmount,
+      old,
+      toDate,
+      type,
+    });
 
   /**
    * This function update dynamicQueryKey with a new refrence of filter paramters

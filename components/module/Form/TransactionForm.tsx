@@ -1,7 +1,7 @@
 import { MuiSelectInput, MuiTextField } from "@/components/ui";
 import { useAuth, useModal } from "@/context";
-import { transactionSchema } from "@/lib/validations";
-import type { transactionSchemaType } from "@/lib/validations/transactionSchema";
+import { createTransactionSchema } from "@/lib/validations";
+import type { CreateTransactionSchemaType } from "@/lib/validations/types";
 import { muiTheme } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
@@ -9,7 +9,7 @@ import React, { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface MyProps {
-  onSubmit?: (info: transactionSchemaType) => Promise<void> | void;
+  onSubmit?: (info: CreateTransactionSchemaType) => Promise<void> | void;
 }
 function TransactionForm({ onSubmit = async () => {} }: MyProps) {
   // * Form Handler ======================== >
@@ -20,7 +20,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
     handleSubmit,
     setValue,
   } = useForm({
-    resolver: zodResolver(transactionSchema),
+    resolver: zodResolver(createTransactionSchema()),
     defaultValues: {
       category: "", // * to fix uncontroled warn
     },
@@ -39,7 +39,7 @@ function TransactionForm({ onSubmit = async () => {} }: MyProps) {
 
   // * Submiter ======================== >
   const submiter = async (form: unknown) => {
-    await onSubmit(form as transactionSchemaType);
+    await onSubmit(form as CreateTransactionSchemaType);
   };
 
   const categoriesSelect = useMemo(() => {

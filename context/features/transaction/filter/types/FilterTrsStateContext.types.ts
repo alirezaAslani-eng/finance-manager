@@ -1,4 +1,4 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import { JSX, PropsWithChildren } from "react";
 
 /**
@@ -12,36 +12,36 @@ interface FilterTrsStateType {
   /**
    * transactions start from this date it's null when it's not existed in URL bar
    */
-  fromDate: FilterSchemaType["fromDate"];
+  fromDate: FilterTransactionSchemaType["fromDate"];
   /**
    * transactions untl this date, it's null when it's not existed in URL bar
    */
-  toDate: FilterSchemaType["toDate"];
+  toDate: FilterTransactionSchemaType["toDate"];
 
   /**
    * min amount can be null when it's not existed in URL bar
    */
-  minAmount: FilterSchemaType["minAmount"];
+  minAmount: FilterTransactionSchemaType["minAmount"];
   /**
    * max amount can be null when it's not existed in URL bar
    */
-  maxAmount: FilterSchemaType["minAmount"];
+  maxAmount: FilterTransactionSchemaType["minAmount"];
   /**
    * accounts property is always an array empty or include account's _id
    */
-  accounts: FilterSchemaType["accounts"];
+  accounts: FilterTransactionSchemaType["accounts"];
   /**
    * categories property is always an array empty or include category's _id
    */
-  categories: FilterSchemaType["categories"];
+  categories: FilterTransactionSchemaType["categories"];
   /**
    * true = show oldest transactions & false or not existed = opposite
    */
-  old: FilterSchemaType["old"];
+  old: FilterTransactionSchemaType["old"];
   /**
    * "null" = all & "0" = expenses & "1" = income
    */
-  type: FilterSchemaType["type"];
+  type: FilterTransactionSchemaType["type"];
 }
 
 /**
@@ -55,7 +55,7 @@ interface ProvidedFilterTrsStateValue {
   /**
    * use this dynaimc queryKey to mount a new query for each filter
    */
-  dynamicQueryKey: FilterSchemaType;
+  dynamicQueryKey: FilterTransactionSchemaType;
   /**
    * Dispatcher Method
    */
@@ -105,7 +105,7 @@ type ResetType = {
  */
 type Transaction_Type_ActionType = {
   type: Extract<ActionsType, "TRANSACTION_TYPE">;
-  payload: { value: "0" | "1" | null};
+  payload: { value: "0" | "1" | null };
 };
 
 /**

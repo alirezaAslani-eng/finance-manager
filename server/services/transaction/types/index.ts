@@ -1,4 +1,4 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import { account_schema, transaction_schema } from "@/model";
 import {
   OneTransactionInfo,
@@ -43,7 +43,7 @@ interface InitialTransations_OutPut {
 }
 type InitializeTransactions = (
   userID: string,
-  queries: FilterSchemaType
+  queries: FilterTransactionSchemaType
 ) => Promise<InitialTransations_OutPut>;
 // * loadMoreTransactions.ts
 interface LoadMoreTransactions_OutPut {
@@ -53,7 +53,7 @@ interface LoadMoreTransactions_OutPut {
 type LoadMoreTransactions = (
   lastID: string,
   userID: string,
-  queries: FilterSchemaType
+  queries: FilterTransactionSchemaType
 ) => Promise<LoadMoreTransactions_OutPut>;
 
 // * getOneTransaction.ts

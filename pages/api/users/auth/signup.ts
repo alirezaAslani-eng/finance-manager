@@ -6,7 +6,7 @@ import {
   throwError,
   userTokenToCookie,
 } from "@/server/utils";
-import { userSchema } from "@/lib/validations";
+import { signupSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 const handler: handler_type = async (req, res) => {
   const isLogin = verifyUserToken(req.cookies.token);
@@ -20,7 +20,7 @@ const handler: handler_type = async (req, res) => {
     case "POST": {
       // * Validation Body ================== >
       const { userName, fullName, password, phone, email, otpCode } =
-        userSchema.parse(req.body); // ! Might Throw Error <--------------
+        signupSchema().parse(req.body); // ! Might Throw Error <--------------
 
       // * Check if user existed alredy ======================= >
       const isuniqueUser = await isUniqueUser({ phone, userName, email });

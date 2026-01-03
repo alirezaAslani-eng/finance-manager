@@ -1,6 +1,6 @@
 import { requestAuthOTP } from "@/server/services";
 import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
-import { sendCodeSchema } from "@/lib/validations/otpSchema";
+import { sendAuthCodeSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { OtpGoodResponse_face } from "@/types/opt.types";
 const handler: handler_type = async (req, res) => {
@@ -18,7 +18,7 @@ const handler: handler_type = async (req, res) => {
   }); // ! Might Throw Error ====================== <
 
   // * Validation Body ========================= >
-  const { phone, type } = sendCodeSchema.parse(req.body); // ! Might throw Error ========== <
+  const { phone, type } = sendAuthCodeSchema().parse(req.body); // ! Might throw Error ========== <
 
   // * Send otp record ============================ >
   const limitWait = await requestAuthOTP({ phone, type }); // ! Might throw Error ========== <

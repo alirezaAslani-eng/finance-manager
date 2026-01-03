@@ -1,11 +1,13 @@
 import { postOneUser } from "@/api/post";
 import { SignupContext, useAuth } from "@/context";
-import { userSchema, verifySchema } from "@/lib/validations";
+import {
+  SignupSchemaType,
+  VerifyPhoneSchemaType,
+} from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import { Infer } from "zod";
 
 function useRegister() {
   const [isSuccessRegister, setIsSuccessRegister] = useState(false);
@@ -16,13 +18,13 @@ function useRegister() {
   const { cacheSignupInfo, signupInfo } = useContext(SignupContext);
 
   // * AuthContext to refetch user ================== >
-  const { refetchMe , setInfo } = useAuth();
+  const { refetchMe, setInfo } = useAuth();
 
   // * Mutation to create a user ===================== >
   const { mutateAsync } = useMutation({ mutationFn: postOneUser });
 
   // * Request to check info for Signup User ======================= >
-  const checkSignupInfo = async (formInfo: Infer<typeof userSchema>) => {
+  const checkSignupInfo = async (formInfo: SignupSchemaType) => {
     try {
       await mutateAsync(formInfo);
     } catch (err) {
@@ -45,7 +47,7 @@ function useRegister() {
     }
   };
   // * Request to verify and create user ================== >
-  const verifyUser = async (formInfo: Infer<typeof verifySchema>) => {
+  const verifyUser = async (formInfo: VerifyPhoneSchemaType) => {
     try {
       await mutateAsync({ otpCode: formInfo.otpCode, ...signupInfo! });
       await refetchMe();

@@ -1,9 +1,9 @@
-import { FilterSchemaType } from "@/lib/validations/transactionSchema";
+import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import { FilterTrsStateType } from "./FilterTrsStateContext.types";
 
 interface UseTrsFilterReturnedType {
   filterState: FilterTrsStateType;
-  dynamicQueryKey: FilterSchemaType;
+  dynamicQueryKey: FilterTransactionSchemaType;
   setMinAmount: (amount: number) => void;
   setMaxAmount: (amount: number) => void;
   setFromDate: (date: Date) => void;
@@ -22,4 +22,4 @@ interface UseTrsFilterReturnedType {
 
 type UseTrsFilterState = () => UseTrsFilterReturnedType;
 
-export type { UseTrsFilterState,UseTrsFilterReturnedType };
+export type { UseTrsFilterState, UseTrsFilterReturnedType };

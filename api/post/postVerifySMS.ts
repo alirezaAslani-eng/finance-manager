@@ -1,9 +1,8 @@
-import { sendCodeSchema } from "@/lib/validations";
-import type { Infer } from "zod";
+import { SendAuthCodeSchemaType } from "@/lib/validations/types";
 import type { BadResponse_face } from "@/types/error.types";
 import type { OtpGoodResponse_face } from "@/types/opt.types";
 const postVerifySMS = async (
-  sendCodeInfo: Infer<typeof sendCodeSchema>
+  sendCodeInfo: SendAuthCodeSchemaType
 ): Promise<BadResponse_face | OtpGoodResponse_face> => {
   const res = await fetch("/api/sms/sendVerifiySMS", {
     method: "POST",

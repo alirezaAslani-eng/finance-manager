@@ -1,5 +1,5 @@
 import { postInitInfo } from "@/api/post";
-import { InitSchemaType } from "@/lib/validations/initSchema";
+import { SetupUserSchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ const useSetupUserProfile = () => {
   const { replace } = useRouter();
   const { mutateAsync } = useMutation({ mutationFn: postInitInfo });
 
-  const setupUser = async (initInfo: InitSchemaType) => {
+  const setupUser = async (initInfo: SetupUserSchemaType) => {
     try {
       await mutateAsync(initInfo);
       replace("/my-panel");

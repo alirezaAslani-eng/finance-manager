@@ -1,8 +1,8 @@
 import type { BadResponse_face } from "@/types/error.types";
-import { CategorySchemaType } from "@/lib/validations/categorySchema";
+import { EditCategorySchemaType } from "@/lib/validations/types";
 
 const putEditCategory = async (
-  updatedInfo: CategorySchemaType & { _id: string }
+  updatedInfo: EditCategorySchemaType & { _id: string }
 ): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/categories/${updatedInfo._id}`, {
     method: "PUT",
