@@ -7,7 +7,7 @@ import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import type { GlobalAppProps } from "../_app";
 import type { MainPageProps } from "@/types/pages/mainPage.types";
 import { PanelLayout } from "@/layout";
-import { withAuth } from "@/lib/hoc";
+import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import { useAuth } from "@/context";
 import { useRecentTransactions } from "@/hooks";
 
@@ -96,4 +96,4 @@ const ssr: GetServerSidePropsWithAuth<GlobalAppProps & MainPageProps> = async (
   };
 };
 
-export const getServerSideProps = withAuth(ssr);
+export const getServerSideProps = getServerSidePropsWithAuth(ssr);

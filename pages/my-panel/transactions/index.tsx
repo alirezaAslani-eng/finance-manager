@@ -2,7 +2,7 @@ import { FilterPanel, Transactions } from "@/components/module";
 import { FilterTrsStateProvider } from "@/context";
 import { PanelLayout } from "@/layout";
 import { transactionCursorConfig } from "@/lib/constant";
-import { withAuth } from "@/lib/hoc";
+import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import { initializeTransactions } from "@/server/services";
 import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
@@ -130,7 +130,7 @@ const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
   };
 };
 
-const getServerSideProps = withAuth(ssr);
+const getServerSideProps = getServerSidePropsWithAuth(ssr);
 
 export { getServerSideProps };
 

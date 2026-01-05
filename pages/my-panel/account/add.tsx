@@ -7,10 +7,9 @@ import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { useAddccount, useEditAccount } from "@/hooks";
 import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { getOneAccount } from "@/server/services";
-import { withAuth } from "@/lib/hoc";
+import { getServerSidePropsWithAuth } from "@/server/HOFs";
+import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import { toSerializable } from "@/lib/utils";
-import type { GetServerSideProps } from "next";
-import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 
 interface PageProps {
   isEdit: boolean;
@@ -66,4 +65,4 @@ const ssr: GetServerSidePropsWithAuth<GlobalAppProps & PageProps> = async (
   return { props: { isEdit: false } };
 };
 
-export const getServerSideProps = withAuth(ssr);
+export const getServerSideProps = getServerSidePropsWithAuth(ssr);

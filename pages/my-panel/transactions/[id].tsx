@@ -7,7 +7,7 @@ import { muiTheme } from "@/utils";
 import { EditTransactionform } from "@/components/module";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
-import { withAuth } from "@/lib/hoc";
+import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import { getOneTransaction } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
 import { checkOwnerOf } from "@/server/utils";
@@ -143,4 +143,4 @@ const ssr: GetServerSidePropsWithAuth<
   };
 };
 
-export const getServerSideProps = withAuth(ssr);
+export const getServerSideProps = getServerSidePropsWithAuth(ssr);
