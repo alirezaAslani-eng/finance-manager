@@ -32,9 +32,9 @@ export { default as useGetInfinitTransactions } from "./features/transactions/us
  */
 export { default as useRequestOtp } from "./features/otp/useRequestOtp";
 /**
- * User Profile's hooks
+ * User's hooks
  */
-export { default as useSetupUserProfile } from "./features/user-profile/useSetupUserProfile";
+export { default as useSetupUserProfile } from "./features/user/useSetupUserProfile";
 /**
  * Category's hooks
  */
