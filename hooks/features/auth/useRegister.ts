@@ -1,4 +1,4 @@
-import { postOneUser } from "@/api/post";
+import { signupUser } from "@/api";
 import { SignupContext, useAuth } from "@/context";
 import {
   SignupSchemaType,
@@ -21,7 +21,7 @@ function useRegister() {
   const { refetchMe, setInfo } = useAuth();
 
   // * Mutation to create a user ===================== >
-  const { mutateAsync } = useMutation({ mutationFn: postOneUser });
+  const { mutateAsync } = useMutation({ mutationFn: signupUser });
 
   // * Request to check info for Signup User ======================= >
   const checkSignupInfo = async (formInfo: SignupSchemaType) => {

@@ -1,4 +1,4 @@
-import { putActiveAccount } from "@/api/put";
+import { switchAccount } from "@/api";
 import { useAuth } from "@/context";
 import { keyRecentTransactions } from "@/packages/react-query";
 import { ActiveAccountSchemaType } from "@/lib/validations/types";
@@ -9,7 +9,7 @@ import { BadResponse_face } from "@/types/error.types";
 function useActiveAccount() {
   const [isPending, setIsPending] = useState(false);
   const { mutateAsync } = useMutation({
-    mutationFn: putActiveAccount,
+    mutationFn: switchAccount,
   });
   const queryClient = useQueryClient();
 

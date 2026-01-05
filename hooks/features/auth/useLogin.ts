@@ -1,6 +1,6 @@
-import { loginUser } from "@/api/get";
+import { signinUser } from "@/api";
 
-import {  useAuth } from "@/context";
+import { useAuth } from "@/context";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -8,10 +8,10 @@ function useLogin() {
   const { replace } = useRouter();
 
   // AuthContext to refetch user ================ >
-  const { refetchMe } = useAuth()
+  const { refetchMe } = useAuth();
 
   const { mutateAsync } = useMutation({
-    mutationFn: loginUser,
+    mutationFn: signinUser,
   });
 
   const login = async ({

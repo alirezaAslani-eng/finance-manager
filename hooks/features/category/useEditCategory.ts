@@ -1,4 +1,4 @@
-import { putEditCategory } from "@/api/put";
+import { editCategory as _editCategory } from "@/api";
 import { useAuth } from "@/context";
 import { EditCategorySchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
@@ -16,7 +16,7 @@ function useEditCategory(_id: string): InstancedWithID;
 function useEditCategory(): SubmitWithId;
 
 function useEditCategory(_id?: string): ReturnType {
-  const { mutateAsync } = useMutation({ mutationFn: putEditCategory });
+  const { mutateAsync } = useMutation({ mutationFn: _editCategory });
 
   // * Auth Context to Edit Category in client =========== >
   const { editCategory: clientEdit } = useAuth();

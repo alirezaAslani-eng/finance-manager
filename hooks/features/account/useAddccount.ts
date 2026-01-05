@@ -1,10 +1,10 @@
-import { postOneAccount } from "@/api/post";
+import { createAccount } from "@/api";
 import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 
 function useAddccount() {
-  const { mutateAsync } = useMutation({ mutationFn: postOneAccount });
+  const { mutateAsync } = useMutation({ mutationFn: createAccount });
 
   const addAccount = async (accountInfo: CreateAccountSchemaType) => {
     try {

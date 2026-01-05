@@ -1,4 +1,4 @@
-import { checkUserPhone } from "@/api/post";
+import { checkUserPhone } from "@/api";
 import { BadResponse_face } from "@/types/error.types";
 import { useMutation } from "@tanstack/react-query";
 

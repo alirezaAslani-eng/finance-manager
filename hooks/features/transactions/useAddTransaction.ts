@@ -1,4 +1,4 @@
-import { postOneTransactions } from "@/api/post";
+import { createTransaction } from "@/api";
 import { useAuth } from "@/context";
 import { keyRecentTransactions, keyUserInfo } from "@/packages/react-query";
 import { CreateTransactionSchemaType } from "@/lib/validations/types";
@@ -37,7 +37,7 @@ function useAddTransaction() {
 
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: postOneTransactions,
+    mutationFn: createTransaction,
   });
 
   const addTransaction = async (

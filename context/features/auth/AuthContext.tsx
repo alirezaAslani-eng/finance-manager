@@ -1,4 +1,4 @@
-import { getUserInfo } from "@/api/get";
+import { getUserInfo } from "@/api";
 import { keyUserInfo } from "@/packages/react-query";
 import { GetMeOutput } from "@/types/user.types";
 import { useQuery } from "@tanstack/react-query";

@@ -2,7 +2,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 import { UseGetInfinitTransactions } from "./types/useGetInfinitTransactions.types";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
-import { getMoreTransactions } from "@/api/get";
+import { getMoreTransactions } from "@/api";
 import { TransactionList } from "@/types/transaction.types";
 import { useFilterTrsState } from "@/context";
 import {

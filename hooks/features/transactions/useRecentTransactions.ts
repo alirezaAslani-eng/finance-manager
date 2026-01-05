@@ -1,4 +1,4 @@
-import { getRecentTransactions } from "@/api/get";
+import { getRecentTransactions } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { RecentTransactionType } from "@/types/transaction.types";
 import { useEffect, useState } from "react";

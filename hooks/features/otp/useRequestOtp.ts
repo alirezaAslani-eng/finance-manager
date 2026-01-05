@@ -1,4 +1,4 @@
-import { postVerifySMS } from "@/api/post";
+import { sendAuthSMS } from "@/api";
 import { useMutation } from "@tanstack/react-query";
 import type { OtpGoodResponse_face, OtpType_enum } from "@/types/opt.types";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ function useRequestOtp(
   } = useAuth();
 
   const { mutateAsync, isPending: isRequesting } = useMutation({
-    mutationFn: postVerifySMS,
+    mutationFn: sendAuthSMS,
   });
 
   const requestOtp = async (userPhone: string): Promise<number> => {
