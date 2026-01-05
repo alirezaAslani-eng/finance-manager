@@ -3,7 +3,7 @@ import { PageComponent } from "@/types/page.types";
 import { Box } from "@mui/material";
 import { getRecentTransactions } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
-import type { WrappedGetserverSideProps } from "@/types/ssr.types";
+import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import type { GlobalAppProps } from "../_app";
 import type { MainPageProps } from "@/types/pages/mainPage.types";
 import { PanelLayout } from "@/layout";
@@ -80,18 +80,18 @@ index.Layout = PanelLayout;
 
 export default index;
 
-const ssr: WrappedGetserverSideProps<GlobalAppProps & MainPageProps> = async (
+const ssr: GetServerSidePropsWithAuth<GlobalAppProps & MainPageProps> = async (
   _,
-  { user }
+  { tokenPayload }
 ) => {
+  const { _id: userId } = tokenPayload;
 
   // * Get Recent Transactions =================== >
-  const recentTransactions = await getRecentTransactions(user._id);
+  const recentTransactions = await getRecentTransactions(userId);
 
   return {
     props: {
       recentTransactions: toSerializable(recentTransactions),
-      ssrUserInfo: user,
     },
   };
 };

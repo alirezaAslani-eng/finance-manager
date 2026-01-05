@@ -7,7 +7,6 @@ import { muiTheme } from "@/utils";
 import { EditTransactionform } from "@/components/module";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";
-import type { WrappedGetserverSideProps } from "@/types/ssr.types";
 import { withAuth } from "@/lib/hoc";
 import { getOneTransaction } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
@@ -15,6 +14,8 @@ import { checkOwnerOf } from "@/server/utils";
 import { transaction_model } from "@/model";
 import { useDate, useEditTransaction } from "@/hooks";
 import { isValidObjectId } from "mongoose";
+import { GetServerSideProps } from "next";
+import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 
 const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
   isEditable,
@@ -108,10 +109,11 @@ const TransactionDetails: PageComponent<TransactionInfoPageProps> = ({
 TransactionDetails.Layout = PanelLayout;
 export default TransactionDetails;
 
-const ssr: WrappedGetserverSideProps<
+const ssr: GetServerSidePropsWithAuth<
   GlobalAppProps & TransactionInfoPageProps
-> = async (context, { user }) => {
+> = async (context, { tokenPayload }) => {
   const { query, params } = context;
+  const { _id: userId } = tokenPayload;
 
   // * dynamic id =============== >
   const _id = params?.id as string;
@@ -124,7 +126,7 @@ const ssr: WrappedGetserverSideProps<
     {
       modelID: _id,
       mustBeOwnerOf: transaction_model,
-      userId: user._id,
+      userId,
     },
     { autoError: false }
   );
@@ -137,11 +139,8 @@ const ssr: WrappedGetserverSideProps<
     props: {
       isEditable: query.edit === "true",
       transactionInfo: toSerializable(info!),
-      ssrUserInfo: user,
     },
   };
 };
 
-export const getServerSideProps = withAuth(ssr, {
-  checkHasAccount: false,
-});
+export const getServerSideProps = withAuth(ssr);

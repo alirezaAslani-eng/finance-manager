@@ -1,42 +1,22 @@
 import { GlobalAppProps } from "@/pages/_app";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { hasAccount, getUserInfo } from "@/server/services";
-import { toSerializable } from "@/lib/utils";
-import { GetMeOutput } from "@/types/user.types";
-import { WrappedGetserverSideProps } from "@/types/ssr.types";
+import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
+import { verifyUserToken } from "@/server/utils";
 
-interface Options {
-  checkHasAccount?: boolean;
-}
-
-const withAuth = (
-  ssr: WrappedGetserverSideProps,
-  opt: Options = {}
-): GetServerSideProps => {
-  // * Options ================ >
-  const { checkHasAccount = true } = opt;
+const withAuth = (ssr: GetServerSidePropsWithAuth): GetServerSideProps => {
   const wrraped: GetServerSideProps<GlobalAppProps> = async (
     context: GetServerSidePropsContext
   ) => {
     const { req } = context;
 
-    // * Auth User redirect or return userInfo ================= >
-    const userInfo = (await getUserInfo(req.cookies.token)) as GetMeOutput;
+    // * Verify User's Token ================= >
+    const tokenPayload = verifyUserToken(req.cookies.token);
 
-    // ! redirect to signin page
-    if (!!!userInfo)
+    if (!!!tokenPayload)
+      // ! redirect to signin page
       return { redirect: { destination: "/auth/signin", permanent: false } };
 
-    // * Dose User have Account (optional) ============== >
-    if (checkHasAccount) {
-      const userHasAccount = await hasAccount(userInfo._id);
-      // ! redirect to init page
-      if (!userHasAccount)
-        return {
-          redirect: { destination: "/my-panel/init", permanent: false },
-        };
-    }
-    return ssr(context, { user: toSerializable(userInfo) });
+    return ssr(context, { tokenPayload });
   };
   return wrraped;
 };

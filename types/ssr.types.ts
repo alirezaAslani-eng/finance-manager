@@ -1,12 +1,12 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import { GetMeOutput } from "./user.types";
+import { GetMeOutput, PayloadToken_type } from "./user.types";
 
-interface ExtendedProps {
-  user: GetMeOutput;
+interface WithAuthExtraProps {
+  tokenPayload: PayloadToken_type;
 }
-type WrappedGetserverSideProps<P extends object = {}> = (
+type GetServerSidePropsWithAuth<P extends object = any> = (
   context: GetServerSidePropsContext,
-  extraProps: ExtendedProps
+  props: WithAuthExtraProps
 ) => Promise<GetServerSidePropsResult<P>>;
 
-export type { WrappedGetserverSideProps };
+export type { GetServerSidePropsWithAuth };

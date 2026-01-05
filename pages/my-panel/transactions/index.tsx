@@ -12,7 +12,7 @@ import {
   TrnasactionFilterURLQueries,
 } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
-import { WrappedGetserverSideProps } from "@/types/ssr.types";
+import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
 import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -88,12 +88,14 @@ function FilterModalOpener(): JSX.Element {
   );
 }
 
-const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
+const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
   context,
-  { user }
+  { tokenPayload }
 ) => {
   // * Context to access to queries which are filter parameters ==== >
   const { query } = context;
+
+  const { _id: userId } = tokenPayload;
 
   // * includes only needed queries to filter ==== >
   const queries = parseTrsFilterQueries(query as TrnasactionFilterURLQueries);
@@ -107,7 +109,7 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
     queryKey: keyAllTransactions.all(queries),
     queryFn: async () => {
       const initializeTransaction = await initializeTransactions(
-        user._id,
+        userId,
         queries // * to filter
       );
       const { initial_transactions, nextCursor } = initializeTransaction;
@@ -123,7 +125,6 @@ const ssr: WrappedGetserverSideProps<GlobalAppProps> = async (
   // * SSR Render ================= <<
   return {
     props: {
-      ssrUserInfo: user,
       dehydratedState: dehydrate(queryClient),
     },
   };
