@@ -1,5 +1,7 @@
 import { User_face, UserRolesEnum } from "@/types/user.types";
 import m, { model, models, Schema } from "mongoose";
+import { category_model } from "./category"; // * Relation
+import { account_model } from "./account"; // * Relation
 // * phone, email, userName are uniqued <<<<<<<<<<
 const user_schema = new Schema<User_face>(
   {

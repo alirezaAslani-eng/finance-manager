@@ -1,6 +1,7 @@
 import { Transaction_face } from "@/types/transaction.types";
-import { account_model } from "@/model"; // * Relation
-import { category_model } from "@/model"; // * Relation
+import { account_model } from "./account"; // * Relation
+import { category_model } from "./category"; // * Relation
+import { user_model } from "./user"; // * Relation
 import m, {
   model,
   models,
