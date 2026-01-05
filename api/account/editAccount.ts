@@ -1,7 +1,7 @@
 import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { BadResponse_face } from "@/types/error.types";
 
-const putOneAccount = async (
+const editOneAccount = async (
   updatedInfo: CreateAccountSchemaType & { _id: string }
 ): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/accounts/${updatedInfo._id}`, {
@@ -19,4 +19,4 @@ const putOneAccount = async (
   return true;
 };
 
-export default putOneAccount;
+export default editOneAccount;

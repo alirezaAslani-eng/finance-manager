@@ -2,7 +2,7 @@ import { SignupSchemaType } from "@/lib/validations/types";
 import type { BadResponse_face } from "@/types/error.types";
 import { SignupResponse_type } from "@/types/user.types";
 
-const postOneUser = async (
+const signupUser = async (
   userInfo: SignupSchemaType
 ): Promise<BadResponse_face | SignupResponse_type> => {
   const res = await fetch("/api/users/auth/signup", {
@@ -21,4 +21,4 @@ const postOneUser = async (
   return jsonRes as SignupResponse_type;
 };
 
-export default postOneUser;
+export default signupUser;

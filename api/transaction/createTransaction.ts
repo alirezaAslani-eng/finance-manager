@@ -1,15 +1,15 @@
 import type { BadResponse_face } from "@/types/error.types";
-import type { CreateAccountSchemaType } from "@/lib/validations/types";
+import { CreateTransactionSchemaType } from "@/lib/validations/types";
 
-const postOneAccount = async (
-  accountInfo: CreateAccountSchemaType
+const createTransaction = async (
+  transactionInfo: CreateTransactionSchemaType
 ): Promise<true | BadResponse_face> => {
-  const res = await fetch("/api/accounts", {
+  const res = await fetch("/api/transactions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(accountInfo),
+    body: JSON.stringify(transactionInfo),
   });
 
   const jsonRes = await res.json();
@@ -19,4 +19,4 @@ const postOneAccount = async (
   return jsonRes;
 };
 
-export default postOneAccount;
+export default createTransaction;

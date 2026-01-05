@@ -1,7 +1,7 @@
 import type { BadResponse_face } from "@/types/error.types";
 import { SetupUserSchemaType } from "@/lib/validations/types";
 
-const postInitInfo = async (
+const setupUserInfo = async (
   initInfo: SetupUserSchemaType
 ): Promise<true | BadResponse_face> => {
   const res = await fetch("/api/init", {
@@ -19,4 +19,4 @@ const postInitInfo = async (
   return true;
 };
 
-export default postInitInfo;
+export default setupUserInfo;

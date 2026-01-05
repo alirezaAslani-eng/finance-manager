@@ -1,15 +1,15 @@
 import type { BadResponse_face } from "@/types/error.types";
-import { ActiveAccountSchemaType } from "@/lib/validations/types";
+import { EditCategorySchemaType } from "@/lib/validations/types";
 
-const putActiveAccount = async (
-  infoToActive: ActiveAccountSchemaType
+const editCategory = async (
+  updatedInfo: EditCategorySchemaType & { _id: string }
 ): Promise<true | BadResponse_face> => {
-  const res = await fetch(`/api/accounts/active`, {
+  const res = await fetch(`/api/categories/${updatedInfo._id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(infoToActive),
+    body: JSON.stringify({ name: updatedInfo.name }),
   });
 
   if (!res.ok) {
@@ -19,4 +19,4 @@ const putActiveAccount = async (
   return true;
 };
 
-export default putActiveAccount;
+export default editCategory;

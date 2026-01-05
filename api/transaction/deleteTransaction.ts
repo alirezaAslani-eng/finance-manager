@@ -1,6 +1,6 @@
 import type { BadResponse_face } from "@/types/error.types";
 
-const deleteOneTransaction = async (
+const deleteTransaction = async (
   id: string
 ): Promise<true | BadResponse_face> => {
   const res = await fetch(`/api/transactions/${id}/one`, {
@@ -14,4 +14,4 @@ const deleteOneTransaction = async (
   return true;
 };
 
-export default deleteOneTransaction;
+export default deleteTransaction;

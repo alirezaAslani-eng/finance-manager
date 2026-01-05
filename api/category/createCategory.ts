@@ -2,7 +2,7 @@ import type { CreatedCategoryOutputService } from "@/server/services";
 import type { BadResponse_face } from "@/types/error.types";
 import { CreateCategorySchemaType } from "@/lib/validations/types";
 
-const postOneCategory = async (
+const createCategory = async (
   categoryInfo: CreateCategorySchemaType
 ): Promise<CreatedCategoryOutputService | BadResponse_face> => {
   const res = await fetch("/api/categories", {
@@ -20,4 +20,4 @@ const postOneCategory = async (
   return jsonRes as CreatedCategoryOutputService;
 };
 
-export default postOneCategory;
+export default createCategory;
