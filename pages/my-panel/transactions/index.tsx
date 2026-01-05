@@ -7,10 +7,7 @@ import { initializeTransactions } from "@/server/services";
 import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import { peyda_md } from "@/utils/font";
-import {
-  AllTransactionResponse,
-  TrnasactionFilterURLQueries,
-} from "@/types/api/transactionApi.types";
+import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
 import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
@@ -88,6 +85,9 @@ function FilterModalOpener(): JSX.Element {
   );
 }
 
+interface TrnasactionFilterURLQueries
+  extends Record<keyof FilterTransactionSchemaType, string | undefined> {}
+  
 const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
   context,
   { tokenPayload }

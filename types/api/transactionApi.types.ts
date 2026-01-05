@@ -7,12 +7,4 @@ interface AllTransactionResponse {
   hasMore: boolean;
 }
 
-/**
- * More strict type for queries to filter transactions,
- *  it's needed to manage requests and client states
- */
-
-type URLFilterQueries = keyof FilterTransactionSchemaType;
-interface TrnasactionFilterURLQueries
-  extends Record<URLFilterQueries, string | undefined> {}
-export type { AllTransactionResponse, TrnasactionFilterURLQueries };
+export type { AllTransactionResponse };
