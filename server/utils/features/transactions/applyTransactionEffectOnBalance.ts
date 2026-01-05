@@ -1,7 +1,7 @@
 import { AccountModelSchema } from "@/server/services";
 import { ApplyTransactionEffectOnBalance } from "./types";
 import { checkExist, throwError } from "@/server/utils";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 
 /**
  * it decreases or increases the current balance and return it

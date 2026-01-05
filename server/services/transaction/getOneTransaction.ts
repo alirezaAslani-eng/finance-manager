@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { GetOneTransaction } from "./types";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { OneTransactionInfo } from "@/types/transaction.types";
 
 const getOneTransaction: GetOneTransaction = async (_id: any) => {

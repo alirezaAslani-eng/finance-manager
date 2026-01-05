@@ -1,4 +1,4 @@
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 import { RemoveTransactionEffectOnBalance } from "./types";
 
 /**

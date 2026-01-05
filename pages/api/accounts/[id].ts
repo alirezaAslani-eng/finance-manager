@@ -6,7 +6,7 @@ import {
   throwError,
 } from "@/server/utils";
 import { createAccountSchema } from "@/lib/validations";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";

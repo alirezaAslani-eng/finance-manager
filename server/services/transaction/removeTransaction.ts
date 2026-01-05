@@ -1,7 +1,7 @@
 import { conect } from "@/server/db";
 import { sessionHandler, throwError } from "@/server/utils";
 import { changeCurrentBalance } from "@/server/services";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 
 const removeTransaction = async (_id: string): Promise<void> => {
   const con = await conect();

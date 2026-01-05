@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { RemoveAccount } from "./types";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 
 const removeAccount: RemoveAccount = async (_id) => {
   await conect();

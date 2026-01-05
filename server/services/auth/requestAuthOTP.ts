@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { OTP, RequestAuthOTP } from "./types";
-import { otp_model, user_model } from "@/model";
+import { otp_model, user_model } from "@/server/models";
 import { sendCodeSMS, throwError } from "@/server/utils";
 import { getReamingTime } from "@/utils";
 import { authOtpConfig } from "@/lib/constant";

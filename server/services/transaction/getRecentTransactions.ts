@@ -1,7 +1,7 @@
 import { conect } from "@/server/db";
 import { GetRecentTransactions } from "./types";
 import { findActiveAccount } from "@/server/services";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { RecentTransactionType } from "@/types/transaction.types";
 
 const getRecentTransaction: GetRecentTransactions = async (userID) => {

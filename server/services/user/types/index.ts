@@ -1,4 +1,4 @@
-import { user_schema } from "@/model";
+import { user_schema } from "@/server/models";
 import { InferSchemaType } from "mongoose";
 
 type UserModelSchema = InferSchemaType<typeof user_schema>;

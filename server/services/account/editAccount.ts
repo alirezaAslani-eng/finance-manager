@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { EditAccount } from "./types";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 import { getChangedKeys } from "@/utils";
 import { toSerializable } from "@/lib/utils";
 import { isUniqueCardNumber } from "@/server/services";

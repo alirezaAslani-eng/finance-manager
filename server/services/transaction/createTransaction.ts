@@ -1,5 +1,5 @@
 import { conect } from "@/server/db";
-import { category_model, transaction_model } from "@/model";
+import { category_model, transaction_model } from "@/server/models";
 import {
   applyTransactionEffectOnBalance,
   checkExist,

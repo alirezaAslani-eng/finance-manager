@@ -1,5 +1,5 @@
 import { conect } from "@/server/db";
-import { otp_model, user_model } from "@/model";
+import { otp_model, user_model } from "@/server/models";
 import { throwError } from "@/server/utils";
 import { VerifyAuthOTP, VerifyAuthOTP_Output } from "./types";
 import { getReamingTime } from "@/utils";

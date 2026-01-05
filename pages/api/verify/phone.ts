@@ -1,6 +1,6 @@
 import { apiHandler, throwError } from "@/server/utils";
 import { signupSchema } from "@/lib/validations";
-import { user_model } from "@/model";
+import { user_model } from "@/server/models";
 import { handler_type } from "@/types/api.types";
 
 const handler: handler_type = async (req, res) => {

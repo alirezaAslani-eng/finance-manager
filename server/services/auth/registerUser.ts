@@ -2,7 +2,7 @@ import { conect } from "@/server/db";
 import { RegisterUser, RegisterUser_Output } from "./types";
 import { verifyAuthOTP } from "@/server/services";
 import { hashPass } from "@/server/utils";
-import { user_model } from "@/model";
+import { user_model } from "@/server/models";
 
 const registerUser: RegisterUser = async (userInfo) => {
   const { phone, otpCode } = userInfo;

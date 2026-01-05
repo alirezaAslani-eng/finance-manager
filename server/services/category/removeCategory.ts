@@ -1,4 +1,4 @@
-import { category_model } from "@/model";
+import { category_model } from "@/server/models";
 import { RemoveCategory } from "./types";
 import { conect } from "@/server/db";
 

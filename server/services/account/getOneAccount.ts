@@ -1,7 +1,7 @@
 import { conect } from "@/server/db";
 import { GetOneAccount, GetOneAccountOutput } from "./types";
 import { isValidObjectId } from "mongoose";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 
 const getOneAccount: GetOneAccount = async (_id) => {
   await conect();

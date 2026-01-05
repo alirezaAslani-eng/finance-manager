@@ -1,7 +1,7 @@
 import { conect } from "@/server/db";
 import { GetUserInfo } from "./types";
 import { verifyUserToken } from "@/server/utils";
-import { user_model } from "@/model";
+import { user_model } from "@/server/models";
 import { GetMeOutput } from "@/types/user.types";
 
 const getUserInfo: GetUserInfo = async (token) => {

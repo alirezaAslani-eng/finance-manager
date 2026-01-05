@@ -1,5 +1,5 @@
 import { conect } from "@/server/db";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { EditOldTransaction } from "./types";
 import { toSerializable } from "@/lib/utils";
 import { getChangedKeys } from "@/utils";

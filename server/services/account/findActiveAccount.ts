@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { FindActiveAccount, FindActiveAccountOutput } from "./types";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 import { toSerializable } from "@/lib/utils";
 
 const findActiveAccount: FindActiveAccount = async (userID) => {

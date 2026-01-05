@@ -1,4 +1,4 @@
-import { otp_schema, user_schema } from "@/model";
+import { otp_schema, user_schema } from "@/server/models";
 import { GetMeOutput } from "@/types/user.types";
 import { InferSchemaType } from "mongoose";
 

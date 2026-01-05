@@ -1,4 +1,4 @@
-import { category_model } from "@/model";
+import { category_model } from "@/server/models";
 import { IsUniqCategory } from "./types";
 
 const isUniqCategory: IsUniqCategory = async (userID, categoryName) => {

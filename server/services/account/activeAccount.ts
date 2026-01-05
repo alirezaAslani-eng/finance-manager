@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { ActiveAccount } from "./types";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 
 const activeAccount: ActiveAccount = async (userID, accountID) => {
   await conect();

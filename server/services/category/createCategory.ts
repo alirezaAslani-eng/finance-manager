@@ -2,7 +2,7 @@ import { conect } from "@/server/db";
 import { CreateCategory, CreatedCategoryOutputService } from "./types";
 import { throwError } from "@/server/utils";
 import { isUniqCategory } from "@/server/services";
-import { category_model } from "@/model";
+import { category_model } from "@/server/models";
 
 const createCategory: CreateCategory = async ({ name, user }) => {
   await conect();

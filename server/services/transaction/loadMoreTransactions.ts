@@ -1,7 +1,7 @@
 import { conect } from "@/server/db";
 import { LoadMoreTransactions } from "./types";
 import { buildTransactionFilterQuery } from "@/server/utils";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import mongoose from "mongoose";
 import { transactionCursorConfig } from "@/lib/constant";
 import { MongoTransaction } from "@/types/transaction.types";

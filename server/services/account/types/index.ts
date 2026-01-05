@@ -1,4 +1,4 @@
-import { account_schema } from "@/model";
+import { account_schema } from "@/server/models";
 import { InferSchemaType } from "mongoose";
 /**
  * service's options

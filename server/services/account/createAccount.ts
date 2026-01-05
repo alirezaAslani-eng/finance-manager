@@ -2,7 +2,7 @@ import { conect } from "@/server/db";
 import { CreateAccount, CreateAccountOutput } from "./types";
 import { throwError } from "@/server/utils";
 import { isFirstAccount, isUniqueCardNumber } from "@/server/services";
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 
 const createAccount: CreateAccount = async (
   info,

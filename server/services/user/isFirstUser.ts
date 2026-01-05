@@ -1,5 +1,5 @@
 import { conect } from "@/server/db";
-import { user_model } from "@/model";
+import { user_model } from "@/server/models";
 
 const isFirstUser = async (): Promise<boolean> => {
   await conect();

@@ -1,5 +1,5 @@
 import { FilterTransactionSchemaType } from "@/lib/validations/types";
-import { account_schema, transaction_schema } from "@/model";
+import { account_schema, transaction_schema } from "@/server/models";
 import {
   OneTransactionInfo,
   RecentTransactionType,

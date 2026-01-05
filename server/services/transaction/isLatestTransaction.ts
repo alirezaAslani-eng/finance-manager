@@ -1,4 +1,4 @@
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { IsLatestTransaction } from "./types";
 
 const isLatestTransaction: IsLatestTransaction = async (

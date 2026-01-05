@@ -12,7 +12,7 @@ import {
   throwError,
 } from "@/server/utils";
 import { editTransactionSchema } from "@/lib/validations";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";

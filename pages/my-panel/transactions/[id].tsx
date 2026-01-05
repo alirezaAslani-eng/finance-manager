@@ -11,7 +11,7 @@ import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import { getOneTransaction } from "@/server/services";
 import { toSerializable } from "@/lib/utils";
 import { checkOwnerOf } from "@/server/utils";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { useDate, useEditTransaction } from "@/hooks";
 import { isValidObjectId } from "mongoose";
 import { GetServerSideProps } from "next";

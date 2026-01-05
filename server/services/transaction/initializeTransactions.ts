@@ -1,6 +1,6 @@
 import { transactionCursorConfig } from "@/lib/constant";
 import { InitializeTransactions } from "./types";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { TransactionList } from "@/types/transaction.types";
 import { conect } from "@/server/db";
 import { buildTransactionFilterQuery } from "@/server/utils";

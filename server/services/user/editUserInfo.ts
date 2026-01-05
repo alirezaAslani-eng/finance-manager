@@ -1,7 +1,7 @@
 import { signUserToken, throwError } from "@/server/utils";
 import { EditUserInfo } from "./types";
 import { conect } from "@/server/db";
-import { user_model } from "@/model";
+import { user_model } from "@/server/models";
 import { isUniqueUser } from "@/server/services";
 
 const editUserInfo: EditUserInfo = async (userID, newInfo) => {

@@ -1,4 +1,4 @@
-import { account_model } from "@/model";
+import { account_model } from "@/server/models";
 import { ClientSession } from "mongoose";
 
 const changeCurrentBalance = async (
@@ -18,4 +18,4 @@ const changeCurrentBalance = async (
   );
 };
 
-export default changeCurrentBalance
+export default changeCurrentBalance;

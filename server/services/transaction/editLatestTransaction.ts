@@ -1,6 +1,6 @@
 import { conect } from "@/server/db";
 import { EditLatestTransaction } from "./types";
-import { transaction_model } from "@/model";
+import { transaction_model } from "@/server/models";
 import { toSerializable } from "@/lib/utils";
 import { getChangedKeys } from "@/utils";
 import {
