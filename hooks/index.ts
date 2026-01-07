@@ -11,26 +11,26 @@ export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVer
 /**
  * Auth's hooks
  */
-export { default as useCheckUserPhone } from "./features/auth/useCheckUserPhone";
 export { default as useLogin } from "./features/auth/useLogin";
 export { default as useRegister } from "./features/auth/useRegister";
 /**
  * Account's hooks
- */
+*/
 export { default as useIdentyfyBank } from "./features/account/useIdentyfyBank";
 export { default as useAddccount } from "./features/account/useAddccount";
 export { default as useEditAccount } from "./features/account/useEditAccount";
 export { default as useActiveAccount } from "./features/account/useActiveAccount";
 /**
  * Transaction's hooks
- */
+*/
 export { default as useAddTransaction } from "./features/transactions/useAddTransaction";
 export { default as useEditTransaction } from "./features/transactions/useEditTransaction";
 export { default as useRecentTransactions } from "./features/transactions/useRecentTransactions";
 export { default as useGetInfinitTransactions } from "./features/transactions/useGetInfinitTransactions";
 /**
  * User's hooks
- */
+*/
+export { default as useCheckUserPhone } from "./features/user/useCheckUserPhone";
 export { default as useSetupUserProfile } from "./features/user/useSetupUserProfile";
 /**
  * Category's hooks
