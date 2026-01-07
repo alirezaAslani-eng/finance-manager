@@ -3,7 +3,7 @@ import type { BadResponse_face } from "@/types/error.types";
 const loginUser = async (
   loginInfo: VerifyPhoneSchemaType
 ): Promise<BadResponse_face | string> => {
-  const res = await fetch("/api/users/auth/signin", {
+  const res = await fetch("/api/auth/signin", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
