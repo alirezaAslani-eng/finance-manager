@@ -6,6 +6,7 @@ export { default as useUpdateEffect } from "./app/useUpdateEffect";
 export { default as useReamingTime } from "./app/useReamingTime";
 export { default as usePaginationArray } from "./app/usePaginationArray";
 export { default as useIsActiveLink } from "./app/useIsActiveLink";
+export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
 
 /**
  * Auth's hooks
@@ -27,10 +28,6 @@ export { default as useAddTransaction } from "./features/transactions/useAddTran
 export { default as useEditTransaction } from "./features/transactions/useEditTransaction";
 export { default as useRecentTransactions } from "./features/transactions/useRecentTransactions";
 export { default as useGetInfinitTransactions } from "./features/transactions/useGetInfinitTransactions";
-/**
- * OTP's hooks
- */
-export { default as useRequestOtp } from "./features/otp/useRequestOtp";
 /**
  * User's hooks
  */

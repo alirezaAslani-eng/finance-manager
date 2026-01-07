@@ -8,7 +8,7 @@ import { BadResponse_face } from "@/types/error.types";
 interface Options {
   init?: boolean;
 }
-function useRequestOtp(
+function useSendAuthVerifyCode(
   type: keyof typeof OtpType_enum = "signin",
   { init = true }: Options = {}
 ) {
@@ -60,4 +60,4 @@ function useRequestOtp(
   return { requestOtp, isRequesting, otpWaitTime };
 }
 
-export default useRequestOtp;
+export default useSendAuthVerifyCode;

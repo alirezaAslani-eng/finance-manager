@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { Infer } from "zod";
 import { useAuth } from "@/context";
-import { useCheckUserPhone, useLogin, useRequestOtp } from "@/hooks";
+import { useCheckUserPhone, useLogin, useSendAuthVerifyCode } from "@/hooks";
 import { OtpType_enum } from "@/types/opt.types";
 import { VerifyPhoneSchemaType } from "@/lib/validations/types";
 import { verifyPhoneSchema } from "@/lib/validations";
@@ -164,7 +164,7 @@ const VerifyCodeForm = ({
   } = useForm({ resolver: zodResolver(verifyPhoneSchema()) });
 
   // * request otp hook ================= >
-  const { requestOtp, isRequesting, otpWaitTime } = useRequestOtp(verifyType);
+  const { requestOtp, isRequesting, otpWaitTime } = useSendAuthVerifyCode(verifyType);
 
   const sendOtpRequest = async () => {
     await requestOtp(phone);
