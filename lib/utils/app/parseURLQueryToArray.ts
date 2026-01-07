@@ -14,20 +14,20 @@ interface StringPareser extends Pick<InputType, "query" | "splitSign"> {
 interface NumberParser extends Pick<InputType, "query" | "splitSign"> {
   parser?: typeof Number;
 }
-function parseAQueryToArray(input: StringPareser): string[];
-function parseAQueryToArray(input: NumberParser): number[];
+function parseURLQueryToArray(input: StringPareser): string[];
+function parseURLQueryToArray(input: NumberParser): number[];
 
 /**
  * passe a query's value with this format -> "a,b,c,d" then it parse it into an array -> ["a","b","c"]
  */
-function parseAQueryToArray({
+function parseURLQueryToArray({
   query,
   parser = String,
   splitSign = ",",
 }: InputType): OutputType {
   const parseToArray = (): string[] => {
     return query?.length
-      ? query.split(splitSign).filter((val) => val.length)
+      ? query.split(splitSign).filter((val) => !!val.length)
       : [];
   };
   switch (parser) {
@@ -43,4 +43,4 @@ function parseAQueryToArray({
   }
 }
 
-export default parseAQueryToArray;
+export default parseURLQueryToArray;

@@ -1,15 +1,17 @@
 /**
  * This method needs to take a time from future as (ms) and it return a text that tells users how mush they need to wait
- * @param {number} futureMs
- * @returns {string}
+ *
  */
-const getReamingTime = (futureMs) => {
+const getReamingTime = (futureMs: number): `${number} ${string}` => {
   const now = new Date().getTime();
   const ms = futureMs - now;
 
   let time = 0; // time containes a number can be seconds, hourse, or minutes .
-  let unit = ""; // and this variable describe the unit of time .
-
+  let unit: "سانیه" | "دقیقه" | "ساعت" = "سانیه";
+  if (now >= futureMs) {
+    time = 0;
+    unit = "سانیه";
+  }
   if (ms <= 60000) {
     unit = "سانیه";
     time = Math.ceil(ms / 1000);
