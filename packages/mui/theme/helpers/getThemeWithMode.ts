@@ -1,4 +1,4 @@
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { GetThemeWithMode } from "./types";
 
 const getThemeWithMode: GetThemeWithMode = (theme, opt) => {

@@ -1,5 +1,5 @@
 import { useIsActiveLink } from "@/hooks";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import {
   ListItem,
   ListItemButton,

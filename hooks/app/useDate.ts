@@ -1,4 +1,4 @@
-import { getFaDate } from "@/utils";
+import { getFaDate } from "@/lib/utils";
 interface UseDateOutput {
   date: string;
   time: string;

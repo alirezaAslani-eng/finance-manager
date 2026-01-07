@@ -10,7 +10,7 @@ import { account_model } from "@/server/models";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
 import { isValidObjectId } from "mongoose";
-import { identyfyBank } from "@/utils";
+import { identyfyBank } from "@/lib/utils";
 
 const handler: handler_type = async (req, res) => {
   const payloadInfo = verifyUserToken(req.cookies.token) as PayloadToken_type;

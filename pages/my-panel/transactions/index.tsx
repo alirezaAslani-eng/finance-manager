@@ -6,11 +6,11 @@ import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import { initializeTransactions } from "@/server/services";
 import { FilterTransactionSchemaType } from "@/lib/validations/types";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
-import { peyda_md } from "@/utils/font";
+import peyda_md from "@/constant/font/peyda_md";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
 import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
-import { identifyDate, identifyNumber, parseAQueryToArray } from "@/utils";
+import { identifyDate, identifyNumber, parseURLQueryToArray } from "@/lib/utils";
 import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import React, { JSX, useState } from "react";
@@ -87,7 +87,7 @@ function FilterModalOpener(): JSX.Element {
 
 interface TrnasactionFilterURLQueries
   extends Record<keyof FilterTransactionSchemaType, string | undefined> {}
-  
+
 const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
   context,
   { tokenPayload }
@@ -149,8 +149,8 @@ const parseTrsFilterQueries = function (
     type,
   } = queries;
   return {
-    accounts: parseAQueryToArray({ query: accounts ?? "" }),
-    categories: parseAQueryToArray({ query: categories ?? "" }),
+    accounts: parseURLQueryToArray({ query: accounts ?? "" }),
+    categories: parseURLQueryToArray({ query: categories ?? "" }),
     fromDate: identifyDate(fromDate ?? ""),
     toDate: identifyDate(toDate ?? ""),
     maxAmount: identifyNumber(maxAmount ?? ""),

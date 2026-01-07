@@ -3,7 +3,7 @@ import { Typography, useTheme, Grid, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
 import { PanelLayout } from "@/layout";
 import { TransactionDetalCard } from "@/components/ui";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { EditTransactionform } from "@/components/module";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
 import type { TransactionInfoPageProps } from "@/types/pages/transactionInfoPage.types";

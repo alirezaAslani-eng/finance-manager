@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import type { DrawerProps } from "@mui/material";
 import React from "react";
-import { dana_md, peyda_md } from "@/utils/font";
+import dana_md from "@/constant/font/dana_md";
+import peyda_md from "@/constant/font/peyda_md";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import SideBarItems from "./SideBarItems";
 interface MyProps {

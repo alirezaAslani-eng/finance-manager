@@ -2,7 +2,7 @@ import { conect } from "@/server/db";
 import { OTP, RequestAuthOTP } from "./types";
 import { otp_model, user_model } from "@/server/models";
 import { sendCodeSMS, throwError } from "@/server/utils";
-import { getReamingTime } from "@/utils";
+import { getReamingTime } from "@/lib/utils";
 import { authOtpConfig } from "@/lib/constant";
 
 /** this method only return limitWate which is a date as (ms) that user shoud wait until the end of it .

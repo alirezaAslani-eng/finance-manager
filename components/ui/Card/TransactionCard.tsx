@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { TextPrice } from "@/components/ui";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { RecentTransactionType } from "@/types/transaction.types";
 import { useDate } from "@/hooks";
 import { Skeleton, Stack, SxProps } from "@mui/material";

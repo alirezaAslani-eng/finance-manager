@@ -3,7 +3,7 @@ import { apiHandler, verifyUserToken, throwError } from "@/server/utils";
 import { setupUserSchema } from "@/lib/validations";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
-import { identyfyBank } from "@/utils";
+import { identyfyBank } from "@/lib/utils";
 
 const handler: handler_type = async (req, res) => {
   const method = req.method as "POST";

@@ -19,7 +19,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProviderProps } from "@/context";
 import { CustomPageProps } from "@/types/page.types";
 import { ModalGroup } from "@/components/common";
-import { dana_md, peyda_md } from "@/utils/font";
+import dana_md from "@/constant/font/dana_md";
+import peyda_md from "@/constant/font/peyda_md";
 
 // * set all default queries ======= >
 setAllDefaults(); // ! Side effet module
@@ -68,5 +69,4 @@ function _app({
 }
 
 export default _app;
-export { dana_md as danaMediume, dana_md as peydaMedium };
 export type { GlobalAppProps };

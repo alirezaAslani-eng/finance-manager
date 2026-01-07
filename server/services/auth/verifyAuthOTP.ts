@@ -2,7 +2,7 @@ import { conect } from "@/server/db";
 import { otp_model, user_model } from "@/server/models";
 import { throwError } from "@/server/utils";
 import { VerifyAuthOTP, VerifyAuthOTP_Output } from "./types";
-import { getReamingTime } from "@/utils";
+import { getReamingTime } from "@/lib/utils";
 import { authOtpConfig } from "@/lib/constant";
 
 /**

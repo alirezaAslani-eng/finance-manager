@@ -1,4 +1,4 @@
-import { endOfDay, startOfDay } from "@/utils";
+import { startOfDay } from "@/lib/utils";
 import { createParser } from "nuqs";
 
 /**

@@ -2,7 +2,7 @@ import { MuiSelectInput, MuiTextField } from "@/components/ui";
 import { useAuth, useModal } from "@/context";
 import { createTransactionSchema } from "@/lib/validations";
 import type { CreateTransactionSchemaType } from "@/lib/validations/types";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useMemo } from "react";

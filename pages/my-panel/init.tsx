@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, useTheme, Container } from "@mui/material";
 import { PageComponent } from "@/types/page.types";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { InitForm } from "@/components/module";
 import { useSetupUserProfile } from "@/hooks";
 

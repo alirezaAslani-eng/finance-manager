@@ -1,7 +1,6 @@
 import { Brand, ThemeButton } from "@/components/ui";
-import { muiTheme } from "@/utils";
-import { Box, Button, useTheme } from "@mui/material";
-import type { SxProps } from "@mui/material";
+import { muiTheme } from "@/packages/mui";
+import { Box, Button } from "@mui/material";
 import React from "react";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
@@ -9,7 +8,6 @@ interface MyProps {
   onMenuClick?: (...arg: any) => any;
 }
 function MobileAppBar({ onMenuClick = () => {} }: MyProps) {
-
   // * Events ================ >
   const menuIconClick = () => {
     onMenuClick && onMenuClick();

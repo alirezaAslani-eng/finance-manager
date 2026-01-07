@@ -1,6 +1,5 @@
-import { cardNumberFormatter, identyfyBank } from "@/utils";
-import { TextFieldProps } from "@mui/material";
-import React, { useState } from "react";
+import { cardNumberFormatter, identyfyBank } from "@/lib/utils";
+import { useState } from "react";
 
 interface OutPut {
   formattedCardNumber: string;

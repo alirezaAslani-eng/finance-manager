@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import type { BoxProps } from "@mui/material";
 import React, { PropsWithChildren, ReactNode } from "react";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 
 interface myProp {
   title: string;
@@ -24,8 +24,8 @@ function BoxWithTitle({
         backgroundColor,
         padding: "20px",
         borderRadius: {
-          xs:"0px",
-          md:"20px"
+          xs: "0px",
+          md: "20px",
         },
         ...boxProps?.sx,
       }}

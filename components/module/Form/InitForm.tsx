@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Stack, useTheme, Button } from "@mui/material";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { useForm } from "react-hook-form";
 import { AccountInput, MuiTextField } from "@/components/ui";
 import { zodResolver } from "@hookform/resolvers/zod";

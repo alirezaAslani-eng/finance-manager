@@ -3,8 +3,8 @@ import { useAuth } from "@/context";
 import { usePaginationArray } from "@/hooks";
 import { createCategorySchema } from "@/lib/validations";
 import { CreateCategorySchemaType } from "@/lib/validations/types";
-import { dana_md } from "@/utils/font";
-import { muiTheme } from "@/utils";
+import dana_md from "@/constant/font/dana_md";
+import { muiTheme } from "@/packages/mui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,

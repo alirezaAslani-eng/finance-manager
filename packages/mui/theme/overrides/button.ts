@@ -1,4 +1,4 @@
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { Components, Theme } from "@mui/material";
 import palette from "../palette";
 

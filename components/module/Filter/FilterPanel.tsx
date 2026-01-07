@@ -14,7 +14,7 @@ import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
 import { useAuth, useFilterTrsState } from "@/context";
 import { useMemo } from "react";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 
 interface Myprops {
   onClose?: () => any;

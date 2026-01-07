@@ -1,7 +1,7 @@
 import { AccountInput, MuiTextField } from "@/components/ui";
 import { createAccountSchema } from "@/lib/validations";
 import { CreateAccountSchemaType } from "@/lib/validations/types";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";

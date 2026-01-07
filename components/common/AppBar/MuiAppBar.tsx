@@ -3,7 +3,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import Link from "next/link";
 
 function TopBar() {

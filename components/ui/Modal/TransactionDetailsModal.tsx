@@ -10,7 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
-import { dana_md } from "@/utils/font";
+import dana_md from "@/constant/font/dana_md";
 import TextPrice from "../Text/TextPrice";
 
 interface MyProps {

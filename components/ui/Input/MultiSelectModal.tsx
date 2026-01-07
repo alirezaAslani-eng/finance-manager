@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { MultipleSelectCheckmarks } from "..";
 import { Button, Dialog, Stack, Typography, useTheme } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 import { MultipleSelectCheckmarksProps } from "./MultipleSelectCheckmarks";
-import { dana_md } from "@/utils/font";
+import dana_md from "@/constant/font/dana_md";
 interface MyProps
   extends Pick<
     MultipleSelectCheckmarksProps,

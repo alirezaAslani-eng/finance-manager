@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { muiTheme } from "@/utils";
+import { muiTheme } from "@/packages/mui";
 
 interface MyProps {
   userName?: string;
@@ -14,7 +14,7 @@ function UserCircle({ userName = "نام کاربری" }: MyProps) {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        width:"fit-content"
+        width: "fit-content",
       }}
     >
       <Box
