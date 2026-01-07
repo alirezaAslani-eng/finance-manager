@@ -4,7 +4,7 @@ import type { OtpGoodResponse_face } from "@/types/opt.types";
 const postVerifySMS = async (
   sendCodeInfo: SendAuthCodeSchemaType
 ): Promise<BadResponse_face | OtpGoodResponse_face> => {
-  const res = await fetch("/api/sms/sendVerifiySMS", {
+  const res = await fetch("/api/auth/sendAuthVerifyCode", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
