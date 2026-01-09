@@ -12,6 +12,16 @@ interface Shades {
   800?: string;
   900?: string;
 }
+interface FontSizes {
+  base?: string;
+  xs?: string;
+  sm?: string;
+  lg?: string;
+  xl?: string;
+  "2xl"?: string;
+  "3xl"?: string;
+  "4xl"?: string;
+}
 
 /**
  * Customized reusable styles
@@ -22,7 +32,6 @@ interface CustomStyle {
 }
 
 declare module "@mui/material/styles" {
-
   interface PaletteColor extends Shades {}
   interface SimplePaletteColorOptions extends Shades {}
 
@@ -33,6 +42,13 @@ declare module "@mui/material/styles" {
     custom?: CustomStyle;
   }
 
+  interface TypographyVariantsOptions {
+    fontSizes?: FontSizes;
+  }
+  interface TypographyVariants {
+    fontSizes?: FontSizes;
+  }
+
   interface BreakpointOverrides {
     _700: true;
     _600: true;
@@ -40,4 +56,3 @@ declare module "@mui/material/styles" {
     _1350: true;
   }
 }
-
