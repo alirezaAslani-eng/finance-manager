@@ -1,4 +1,4 @@
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
 import React, { PropsWithChildren } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/pages";
@@ -33,18 +33,21 @@ function _app({
   const Layout =
     Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
   return (
-    <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={pageProps?.dehydratedState}>
-        {/* // * unqs Adapter for SSR ----------------- >*/}
-        <NuqsAdapter>
-          {/* // * Signup Context ----------- >  */}
-          <SignupProvider>
-            {/* // * Auth Context ----------- >  */}
-            <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
-              {/* // * Modal Context ----------- >  */}
-              <ModalProvider>
-                {/* // * div tag to add font variable ----------- >  */}
-                <div className={`${dana_md.variable} ${peyda_md.variable}`}>
+    <Box
+      component={"body"}
+      bgcolor={"palette.background.default"}
+      className={`${dana_md.variable} ${peyda_md.variable}`}
+    >
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps?.dehydratedState}>
+          {/* // * unqs Adapter for SSR ----------------- >*/}
+          <NuqsAdapter>
+            {/* // * Signup Context ----------- >  */}
+            <SignupProvider>
+              {/* // * Auth Context ----------- >  */}
+              <AuthProvider ssrUserInfo={pageProps.ssrUserInfo}>
+                {/* // * Modal Context ----------- >  */}
+                <ModalProvider>
                   {/* // * Mui Theme Context ----------- >  */}
                   <MuiThemeProvider>
                     {/* // * Normalize Css --------- >*/}
@@ -57,14 +60,14 @@ function _app({
                     {/* // * Modals ------ > */}
                     <ModalGroup />
                   </MuiThemeProvider>
-                </div>
-              </ModalProvider>
-            </AuthProvider>
-          </SignupProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </NuqsAdapter>
-      </HydrationBoundary>
-    </QueryClientProvider>
+                </ModalProvider>
+              </AuthProvider>
+            </SignupProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </NuqsAdapter>
+        </HydrationBoundary>
+      </QueryClientProvider>
+    </Box>
   );
 }
 
