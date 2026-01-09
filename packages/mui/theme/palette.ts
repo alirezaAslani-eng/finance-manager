@@ -10,8 +10,6 @@ const palette: PaletteOptions = {
   },
   error: {
     main: red[500],
-    300: red[300],
-    50: grey[50],
   },
   grey: {
     100: grey[100],
