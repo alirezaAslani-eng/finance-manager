@@ -10,6 +10,7 @@ import {
   inputLabel,
   svgIcon,
   toggleButtonGroup,
+  typography as typography_,
 } from "./overrides";
 
 const theme: ThemeOptions = {
@@ -39,6 +40,7 @@ const theme: ThemeOptions = {
     },
   },
   components: {
+    MuiTypography: typography_,
     MuiCssBaseline: cssBaseLine,
     MuiButton: button,
     MuiSvgIcon: svgIcon,
