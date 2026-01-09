@@ -7,9 +7,6 @@ interface Options {
 /**
  * A function that makes dynamic your theme based on mode status
  */
-type GetThemeWithMode = (
-  theme: ThemeOptions,
-  { mode }: Options
-) => ThemeOptions;
+type GetThemeWithMode = (theme: ThemeOptions, options?: Options) => ThemeOptions;
 
 export type { GetThemeWithMode };

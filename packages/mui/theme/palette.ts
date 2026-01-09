@@ -2,6 +2,9 @@ import { PaletteOptions } from "@mui/material/styles";
 import { blue, grey, red } from "@mui/material/colors";
 
 const palette: PaletteOptions = {
+  background: {
+    default: "#fff",
+  },
   primary: {
     main: blue[500],
   },
@@ -12,6 +15,7 @@ const palette: PaletteOptions = {
   },
   grey: {
     100: grey[100],
+    900: grey[900],
   },
 };
 
