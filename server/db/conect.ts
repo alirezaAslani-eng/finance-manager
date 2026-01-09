@@ -2,7 +2,7 @@ import "colors";
 import mongooes from "mongoose";
 import type { Connection } from "mongoose";
 const conect = async (
-  url: string | undefined = process.env.db_address
+  url: string | undefined = process.env.db_local_address
 ): Promise<Connection> => {
   // * define state =============== >
   let conectState = 0;
