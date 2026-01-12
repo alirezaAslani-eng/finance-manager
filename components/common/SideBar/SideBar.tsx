@@ -6,6 +6,7 @@ import {
   Drawer,
   List,
   Toolbar,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import type { DrawerProps } from "@mui/material";
@@ -45,14 +46,20 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
           width: "240px",
           boxSizing: "border-box",
         },
-        ...drawerProps?.sx,
       }}
     >
       <Toolbar>
         <Box sx={{ textAlign: "center", width: "100%" }}>
-          <Brand textProps={{ color: "primary" }} />
+          <Typography
+            variant="2xl"
+            fontFamily={"var(--peyda-md)"}
+            color="primary"
+          >
+            {"هزینه یار"}
+          </Typography>
         </Box>
       </Toolbar>
+
       <Divider />
       <Box
         sx={{

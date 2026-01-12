@@ -1,6 +1,6 @@
 import { Brand, ThemeButton } from "@/components/ui";
 import { muiTheme } from "@/packages/mui";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
@@ -49,7 +49,9 @@ function MobileAppBar({ onMenuClick = () => {} }: MyProps) {
       </Button>
 
       {/* // * Logo ======================= > */}
-      <Brand />
+      <Typography variant="xl-title" color="primary">
+        {"هزینه یار"}
+      </Typography>
 
       {/* // * Theme Button ================= > */}
       <ThemeButton />
