@@ -34,7 +34,8 @@ function _app({
     Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
   return (
     <Box
-      component={"body"}
+      role="font-variables-loader"
+      component={"div"}
       bgcolor={"palette.background.default"}
       className={`${dana_md.variable} ${peyda_md.variable}`}
     >
