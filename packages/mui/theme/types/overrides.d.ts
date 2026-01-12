@@ -1,5 +1,6 @@
 import "@mui/material/Button";
 import "@mui/material/Typography";
+import { FontSizes } from "./theme.types";
 /**
  * Augment Button types
  */
@@ -16,5 +17,13 @@ declare module "@mui/material/Typography" {
     "xl-title": true;
     "2xl-title": true;
     "md-paragraph": true;
+    base: true;
+    xs: true;
+    sm: true;
+    lg: true;
+    xl: true;
+    "2xl": true;
+    "3xl": true;
+    "4xl": true;
   }
 }

@@ -12,12 +12,12 @@ const typography = {
         const { typography } = theme;
         return {
           fontFamily: "var(--peyda-md)",
-          fontSize: typography?.fontSizes?.["xl"],
+          fontSize: typography?.["xl"]?.fontSize,
           [theme.breakpoints.up("sm")]: {
-            fontSize: typography?.fontSizes?.["2xl"],
+            fontSize: typography?.["2xl"]?.fontSize,
           },
           [theme.breakpoints.up("md")]: {
-            fontSize: typography?.fontSizes?.["3xl"],
+            fontSize: typography?.["3xl"]?.fontSize,
           },
         };
       },
@@ -28,12 +28,12 @@ const typography = {
         const { typography } = theme;
         return {
           fontFamily: "var(--peyda-md)",
-          fontSize: typography?.fontSizes?.["2xl"],
+          fontSize: typography?.["2xl"]?.fontSize,
           [theme.breakpoints.up("sm")]: {
-            fontSize: typography?.fontSizes?.["3xl"],
+            fontSize: typography?.["3xl"]?.fontSize,
           },
           [theme.breakpoints.up("md")]: {
-            fontSize: typography?.fontSizes?.["4xl"],
+            fontSize: typography?.["4xl"]?.fontSize,
           },
         };
       },
@@ -44,12 +44,12 @@ const typography = {
         const { typography } = theme;
         return {
           fontFamily: "var(--dana-md)",
-          fontSize: typography?.fontSizes?.base,
+          fontSize: typography?.base?.fontSize,
           [theme.breakpoints.up("xs")]: {
-            fontSize: typography?.fontSizes?.lg,
+            fontSize: typography?.lg?.fontSize,
           },
           [theme.breakpoints.up("md")]: {
-            fontSize: typography?.fontSizes?.xl,
+            fontSize: typography?.xl?.fontSize,
           },
         };
       },

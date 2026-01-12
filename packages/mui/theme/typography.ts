@@ -2,16 +2,14 @@ import { TypographyVariantsOptions } from "@mui/material/styles";
 
 const typography: TypographyVariantsOptions = {
   fontFamily: "var(--dana-md)",
-  fontSizes: {
-    base: "16px",
-    xs: "12px",
-    sm: "14px",
-    lg: "18px",
-    xl: "20px",
-    "2xl": "28px",
-    "3xl": "32px",
-    "4xl": "36px",
-  },
+  base: { fontSize: "16px" },
+  xs: { fontSize: "12px" },
+  sm: { fontSize: "14px" },
+  lg: { fontSize: "18px" },
+  xl: { fontSize: "20px" },
+  "2xl": { fontSize: "28px" },
+  "3xl": { fontSize: "32px" },
+  "4xl": { fontSize: "36px" },
   subtitle1: {
     display: "-webkit-box",
     WebkitBoxOrient: "vertical",
