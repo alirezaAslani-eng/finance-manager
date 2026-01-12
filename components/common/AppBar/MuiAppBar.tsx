@@ -1,5 +1,5 @@
 import { ThemeButton } from "@/components/ui";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Stack, Toolbar, Typography } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import React from "react";
 import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
@@ -8,31 +8,30 @@ import Link from "next/link";
 
 function TopBar() {
   return (
-    <AppBar
+    <Box
       position="sticky"
+      bgcolor={"background.paper"}
+      width="100%"
+      top="0"
+      right="0"
+      borderBottom="1px solid"
       sx={({ palette, alpha }) => {
         return {
-          backgroundColor: muiTheme(palette.mode, {
-            light: alpha(palette.grey[50], 0.5),
-            dark: alpha(palette.grey[900], 0.5),
+          borderColor: muiTheme(palette.mode, {
+            light: alpha(palette.black, 0.12),
+            dark: alpha(palette.white, 0.12),
           }),
-          backdropFilter: "blur(20px)",
-          width: "100%",
-          top: "0",
-          right: "0",
         };
       }}
     >
       <Toolbar>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+        <Stack
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection={"row"}
+          flex={"1"}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <Box display= "flex" alignItems= "center" gap= "10px">
             {/* User Info Link ==================== > */}
             <Link href={""}>
               <Button
@@ -54,9 +53,9 @@ function TopBar() {
             <Typography component={"span"}>{"خروج"}</Typography>
             <PowerSettingsNewRoundedIcon fontSize="medium" />
           </Button>
-        </Box>
+        </Stack>
       </Toolbar>
-    </AppBar>
+    </Box>
   );
 }
 

@@ -15,24 +15,16 @@ function MobileAppBar({ onMenuClick = () => {} }: MyProps) {
 
   return (
     <Box
+      width="100%"
+      padding="10px"
+      position="sticky"
+      top="0px"
+      zIndex="10"
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
       component={"header"}
-      sx={({ alpha, palette }) => {
-        return {
-          width: "100%",
-          padding: "10px",
-          position: "sticky",
-          top: "0px",
-          zIndex: "10",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backdropFilter: "blur(30px)",
-          backgroundColor: muiTheme(palette.mode, {
-            light: alpha(palette.grey[50], 0.3),
-            dark: alpha(palette.grey[900], 0.3),
-          }),
-        };
-      }}
+      bgcolor={"background.paper"}
     >
       {/* // * Menu Button ================= > */}
       <Button

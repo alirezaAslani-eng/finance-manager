@@ -42,14 +42,18 @@ function BoxWithTitle({
       >
         {/* Title ====================== > */}
         <Typography
-          variant="h1"
-          sx={{
-            fontSize: { xs: "25px", sm: "32px" },
-            color: muiTheme(palette.mode, {
-              dark: palette.grey[200],
-              light: palette.grey[900],
-            }),
+          variant="xl"
+          sx={(tm) => {
+            return {
+              [tm.breakpoints.up("sm")]: {
+                fontSize: tm.typography["2xl"],
+              },
+            };
           }}
+          color={muiTheme(palette.mode, {
+            dark: palette.grey[200],
+            light: palette.grey[800],
+          })}
         >
           {title}
         </Typography>
