@@ -1,15 +1,25 @@
-import { TypographyVariantsOptions } from "@mui/material/styles";
+import {
+  TypographyStyle,
+  TypographyVariantsOptions,
+} from "@mui/material/styles";
+import palette from "./palette";
 
 const typography: TypographyVariantsOptions = {
   fontFamily: "var(--dana-md)",
-  base: { fontSize: "16px" },
-  xs: { fontSize: "12px" },
-  sm: { fontSize: "14px" },
-  lg: { fontSize: "18px" },
-  xl: { fontSize: "20px" },
-  "2xl": { fontSize: "28px" },
-  "3xl": { fontSize: "32px" },
-  "4xl": { fontSize: "36px" },
+  base: { fontSize: "16px", fontFamily: "var(--dana-md)" },
+  xs: { fontSize: "12px", fontFamily: "var(--dana-md)" },
+  sm: { fontSize: "14px", fontFamily: "var(--dana-md)" },
+  lg: { fontSize: "18px", fontFamily: "var(--dana-md)" },
+  xl: {
+    fontSize: "20px",
+    fontFamily: "var(--peyda-md)",
+  },
+  "2xl": {
+    fontSize: "28px",
+    fontFamily: "var(--peyda-md)",
+  },
+  "3xl": { fontSize: "32px", fontFamily: "var(--peyda-md)" },
+  "4xl": { fontSize: "36px", fontFamily: "var(--peyda-md)" },
   subtitle1: {
     display: "-webkit-box",
     WebkitBoxOrient: "vertical",
