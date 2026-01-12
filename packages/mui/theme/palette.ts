@@ -12,7 +12,6 @@ const palette: PaletteOptions = {
     main: red[500],
   },
   grey: {
-    100: grey[100],
     900: grey[900],
   },
 };
