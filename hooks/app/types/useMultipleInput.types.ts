@@ -1,0 +1,39 @@
+import { TextFieldProps } from "@mui/material";
+import { InputHTMLAttributes } from "react";
+
+interface Config {
+  inputCount: number;
+}
+type UseMultipleInput = (config: Config) => UseMultipleInputOutput;
+
+interface UseMultipleInputOutput {
+  /**
+   * Note : you must pass the index regulary like this :
+   * @example
+   * <input {...register(0)} />
+   * <input {...register(1)} />
+   * <input {...register(2)} />
+   */
+  register: (index: number) => InputHTMLAttributes<HTMLInputElement>;
+  /**
+   * Note : you must pass the index regulary like this :
+   * @example
+   * <TextField {...register(0)} />
+   * <TextField {...register(1)} />
+   * <TextField {...register(2)} />
+   */
+  registerMui: (index: number) => TextFieldProps;
+  /**
+   * if you call this function the state of multiple inputs updates for each inputs
+   * @example
+   * setSerializedValue("1234")
+   * setMultiInputValues(["1","2","3","4"])
+   */
+  setSerializedValue: (value: string) => void;
+  /**
+   * Each value of these inputs as an Array
+   */
+  multiInputValues: string[];
+}
+
+export type { UseMultipleInput, UseMultipleInputOutput };

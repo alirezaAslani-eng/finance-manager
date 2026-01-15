@@ -17,4 +17,5 @@ export { default as AdaptiveScroll } from "./Box/AdaptiveScroll";
 export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";
 export { default as MultipleSelectCheckmarks } from "./Input/MultipleSelectCheckmarks";
 export { default as MultiSelectModal } from "./Input/MultiSelectModal";
+export { default as MultipleInputs } from "./Input/MultipleInputs";
 export { default as PriceInput } from "./Input/PriceInput";
