@@ -17,4 +17,4 @@ export { default as identifyDate } from "./app/identifyDate";
 export { default as identifyNumber } from "./app/identifyNumber";
 export { default as parseURLQueryToArray } from "./app/parseURLQueryToArray";
 export { default as triggerRandomID } from "./app/triggerRandomID";
-
+export { default as buildArray } from "./app/buildArray";
