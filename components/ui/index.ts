@@ -19,3 +19,4 @@ export { default as MultipleSelectCheckmarks } from "./Input/MultipleSelectCheck
 export { default as MultiSelectModal } from "./Input/MultiSelectModal";
 export { default as MultipleInputs } from "./Input/MultipleInputs";
 export { default as PriceInput } from "./Input/PriceInput";
+export { default as Form } from "./Form/Form";
