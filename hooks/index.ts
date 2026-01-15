@@ -7,6 +7,7 @@ export { default as useReamingTime } from "./app/useReamingTime";
 export { default as usePaginationArray } from "./app/usePaginationArray";
 export { default as useIsActiveLink } from "./app/useIsActiveLink";
 export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
+export { default as useAddEventListener } from "./app/useAddEventListener";
 
 /**
  * Auth's hooks
