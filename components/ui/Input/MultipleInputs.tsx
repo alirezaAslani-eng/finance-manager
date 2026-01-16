@@ -12,12 +12,14 @@ const InputShareProps: TextFieldProps = {
 interface MyProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "name"> {
   inputCount?: number;
   onChange?: (value: string) => void;
+  onComplete?: (value: string) => void;
   value?: string;
   ref?: RefObject<HTMLInputElement>;
 }
 
 function MultipleInputs({
   onChange = () => {},
+  onComplete,
   name,
   ref,
   value,
@@ -25,7 +27,8 @@ function MultipleInputs({
 }: MyProps) {
   const { registerMui, setSerializedValue, multiInputValues } =
     useMultipleInput({
-      inputCount: 4,
+      inputCount,
+      onComplete,
     });
 
   useUpdateEffect(() => {

@@ -9,9 +9,12 @@ import useAddEventListener from "./useAddEventListener";
 import { triggerRandomID } from "@/lib/utils";
 import { TextFieldProps } from "@mui/material";
 import { UseMultipleInput } from "./types";
+import useUpdateEffect from "./useUpdateEffect";
 
-
-const useMultipleInput: UseMultipleInput = ({ inputCount }) => {
+const useMultipleInput: UseMultipleInput = ({
+  inputCount,
+  onComplete = () => {},
+}) => {
   const [multiInputValues, setMultiInputValues] = useState<string[]>([]);
   const [focusedInputIndex, setFocusedInputIndex] = useState(0);
   /**
@@ -24,6 +27,14 @@ const useMultipleInput: UseMultipleInput = ({ inputCount }) => {
     },
     [setFocusedInputIndex]
   );
+  /**
+   * When user fills all inputs, it calls the onComplete function
+   */
+  const completeHandler = (multiInputValues: string[]) => {
+    const serilizedValue = multiInputValues.join("");
+    if (serilizedValue.length !== inputCount) return;
+    onComplete(serilizedValue);
+  };
   /**
    * This Listener minus the state "focusedInputIndex" only when user press backspace key on an empty input
    */
@@ -41,7 +52,9 @@ const useMultipleInput: UseMultipleInput = ({ inputCount }) => {
     },
     [prevNext]
   );
-
+  /**
+   * While user types, this function updates each index of multiInputValues  
+   */
   const updateSingleInput = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number
@@ -49,7 +62,8 @@ const useMultipleInput: UseMultipleInput = ({ inputCount }) => {
     const value = e.target.value;
     setMultiInputValues((prev) => {
       const array = [...prev];
-      array[index] = value[0];
+      array[index] = value[0]?.trim();
+      completeHandler(array);
       return array;
     });
   };
@@ -108,7 +122,6 @@ const useMultipleInput: UseMultipleInput = ({ inputCount }) => {
     registerMui,
 
     setSerializedValue,
-
     multiInputValues,
   };
 };

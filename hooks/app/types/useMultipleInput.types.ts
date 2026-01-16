@@ -3,21 +3,20 @@ import { InputHTMLAttributes } from "react";
 
 interface Config {
   inputCount: number;
+  onComplete?: (value: string) => void;
 }
 type UseMultipleInput = (config: Config) => UseMultipleInputOutput;
 
 interface UseMultipleInputOutput {
   /**
-   * Note : you must pass the index regulary like this :
-   * @example
+   * Register inputs by passing the indexs regulary from 0  :
    * <input {...register(0)} />
    * <input {...register(1)} />
    * <input {...register(2)} />
    */
   register: (index: number) => InputHTMLAttributes<HTMLInputElement>;
   /**
-   * Note : you must pass the index regulary like this :
-   * @example
+   * Register inputs by passing the indexs regulary from 0  :
    * <TextField {...register(0)} />
    * <TextField {...register(1)} />
    * <TextField {...register(2)} />
