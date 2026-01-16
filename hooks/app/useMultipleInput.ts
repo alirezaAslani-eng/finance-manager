@@ -14,6 +14,7 @@ import useUpdateEffect from "./useUpdateEffect";
 const useMultipleInput: UseMultipleInput = ({
   inputCount,
   onComplete = () => {},
+  onChange = () => {},
 }) => {
   const [multiInputValues, setMultiInputValues] = useState<string[]>([]);
   const [focusedInputIndex, setFocusedInputIndex] = useState(0);
@@ -36,6 +37,13 @@ const useMultipleInput: UseMultipleInput = ({
     onComplete(serilizedValue);
   };
   /**
+   * When user updates inputs, it calls the onChange function
+   */
+  const changeHandler = (multiInputValues: string[]) => {
+    const serilizedValue = multiInputValues.join("");
+    onChange(serilizedValue);
+  };
+  /**
    * This Listener minus the state "focusedInputIndex" only when user press backspace key on an empty input
    */
   useAddEventListener(
@@ -53,7 +61,7 @@ const useMultipleInput: UseMultipleInput = ({
     [prevNext]
   );
   /**
-   * While user types, this function updates each index of multiInputValues  
+   * While user types, this function updates each index of multiInputValues
    */
   const updateSingleInput = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -64,6 +72,7 @@ const useMultipleInput: UseMultipleInput = ({
       const array = [...prev];
       array[index] = value[0]?.trim();
       completeHandler(array);
+      changeHandler(array);
       return array;
     });
   };

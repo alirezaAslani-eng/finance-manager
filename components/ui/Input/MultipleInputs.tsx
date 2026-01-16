@@ -25,15 +25,11 @@ function MultipleInputs({
   value,
   inputCount = 4,
 }: MyProps) {
-  const { registerMui, setSerializedValue, getKey, multiInputValues } =
-    useMultipleInput({
-      inputCount,
-      onComplete,
-    });
-
-  useUpdateEffect(() => {
-    onChange(multiInputValues.join(""));
-  }, [multiInputValues]);
+  const { registerMui, setSerializedValue, getKey } = useMultipleInput({
+    inputCount,
+    onComplete,
+    onChange,
+  });
 
   // * for default value from parameter "value"
   useEffect(() => {

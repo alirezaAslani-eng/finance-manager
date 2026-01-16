@@ -4,6 +4,7 @@ import { InputHTMLAttributes } from "react";
 interface Config {
   inputCount: number;
   onComplete?: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 type UseMultipleInput = (config: Config) => UseMultipleInputOutput;
 
