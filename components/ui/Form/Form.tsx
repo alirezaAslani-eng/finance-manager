@@ -36,17 +36,34 @@ import {
   TypographyProps,
 } from "@mui/material";
 import Link from "next/link";
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, {
+  type PropsWithChildren,
+  type ReactNode,
+  createContext,
+  useContext,
+} from "react";
 import { FormComponent } from "../types";
+import CircleLoader from "../loader/CircleLoader";
 
+interface FormProvidedValue {
+  error: boolean;
+  isSubmiting: boolean;
+}
+const FormContext = createContext({} as FormProvidedValue);
+const useFormContext = (): FormProvidedValue => {
+  return useContext(FormContext);
+};
 const Form = function (props) {
+  const { error = false, isSubmiting = false } = props;
   return (
+    <FormContext value={{ error, isSubmiting }}>
     <Box
       component={"form"}
       width={"min(380px,100%)"}
       textAlign={"center"}
       {...props}
     />
+    </FormContext>
   );
 } as FormComponent;
 
@@ -156,11 +173,14 @@ Form.FormBox.SubTitle.Link = function (props) {
  */
 Form.FormBox.Input = function (props) {
   const { placeholder = "شماره تماس", label } = props;
+  const { error, isSubmiting } = useFormContext();
   return (
     <TextField
       sx={{ mt: "12px" }}
       label={label ?? placeholder}
       placeholder={placeholder}
+        disabled={isSubmiting}
+        error={error}
       {...props}
     />
   );
@@ -182,16 +202,18 @@ Form.FormBox.ErrorText = function (props) {
  */
 Form.FormBox.SubmitButton = function (props) {
   const { children = "ورود" } = props;
+  const { isSubmiting } = useFormContext();
   return (
     <Button
       variant="contained"
       size="large"
       type="submit"
+      disabled={isSubmiting}
       fullWidth
       sx={{ mt: "24px" }}
       {...props}
     >
-      {children}
+      {!isSubmiting ? children : <CircleLoader />}
     </Button>
   );
 };
