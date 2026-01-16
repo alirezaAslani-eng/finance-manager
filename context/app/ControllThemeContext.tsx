@@ -32,6 +32,19 @@ function MuiThemeProvider({ children }: PropsWithChildren) {
         }
         100%{}
         }
+        @keyframes breath-opacity {
+        0%{
+        opacity:0.5;
+        }
+        50%{
+        opacity:0.8;
+        transform:scale(1.2);
+        }
+        100%{
+        opacity:0.5;
+        transform:scale(1);
+        }
+        }
         @keyframes fade-down {
         0%{
         transform: translateY(-30px);
