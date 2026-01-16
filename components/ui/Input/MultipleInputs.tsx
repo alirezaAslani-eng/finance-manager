@@ -25,7 +25,7 @@ function MultipleInputs({
   value,
   inputCount = 4,
 }: MyProps) {
-  const { registerMui, setSerializedValue, multiInputValues } =
+  const { registerMui, setSerializedValue, getKey, multiInputValues } =
     useMultipleInput({
       inputCount,
       onComplete,
@@ -50,7 +50,13 @@ function MultipleInputs({
         sx={{ direction: "ltr" }}
       >
         {buildArray(inputCount).map((_, index) => {
-          return <TextField {...InputShareProps} {...registerMui(index)} />;
+          return (
+            <TextField
+              key={getKey(index)}
+              {...InputShareProps}
+              {...registerMui(index)}
+            />
+          );
         })}
       </Box>
 

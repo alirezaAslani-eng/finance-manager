@@ -80,7 +80,6 @@ const useMultipleInput: UseMultipleInput = ({
       value: multiInputValues[index] || "",
       id: String(index),
       role: "single-char-input",
-      key: triggerRandomID(focusedInputIndex === index),
       autoFocus: focusedInputIndex === index,
       maxLength: 2,
     } satisfies InputHTMLAttributes<HTMLInputElement> | Attributes;
@@ -97,7 +96,6 @@ const useMultipleInput: UseMultipleInput = ({
       },
       value: multiInputValues[index] || "",
       id: String(index),
-      key: triggerRandomID(focusedInputIndex === index),
       autoFocus: focusedInputIndex === index,
       slotProps: {
         htmlInput: {
@@ -107,6 +105,10 @@ const useMultipleInput: UseMultipleInput = ({
         },
       },
     } satisfies TextFieldProps;
+  };
+
+  const getKey = (index: number): string => {
+    return triggerRandomID(index === focusedInputIndex);
   };
 
   const setSerializedValue = useCallback(
@@ -120,7 +122,7 @@ const useMultipleInput: UseMultipleInput = ({
   return {
     register,
     registerMui,
-
+    getKey,
     setSerializedValue,
     multiInputValues,
   };

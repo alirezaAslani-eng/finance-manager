@@ -30,6 +30,11 @@ interface UseMultipleInputOutput {
    */
   setSerializedValue: (value: string) => void;
   /**
+   * It must be passed to the key prop of your input and takes the index, because when user types or press backspace button,
+   * the previous or next input remounts by its key in order to make autoFoucus works
+   */
+  getKey: (index: number) => string;
+  /**
    * Each value of these inputs as an Array
    */
   multiInputValues: string[];
