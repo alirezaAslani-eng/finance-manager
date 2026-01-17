@@ -6,15 +6,15 @@ export { default as useUpdateEffect } from "./app/useUpdateEffect";
 export { default as useReamingTime } from "./app/useReamingTime";
 export { default as usePaginationArray } from "./app/usePaginationArray";
 export { default as useIsActiveLink } from "./app/useIsActiveLink";
-export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
 export { default as useAddEventListener } from "./app/useAddEventListener";
 export { default as useMultipleInput } from "./app/useMultipleInput";
 
 /**
  * Auth's hooks
  */
-export { default as useLogin } from "./features/auth/useLogin";
 export { default as useRegister } from "./features/auth/useRegister";
+export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
+export { default as useSignin } from "./features/auth/useSignin";
 /**
  * Account's hooks
  */
