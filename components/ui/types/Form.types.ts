@@ -19,8 +19,7 @@ interface FormComponent {
   FormBox: {
     (props: PropsWithChildren<TypographyProps>): ReactNode;
     FormTitle: (props: PropsWithChildren<TypographyProps>) => ReactNode;
-    Input: (props: TextFieldProps) => ReactNode;
-    ErrorText: (props: PropsWithChildren<TypographyProps>) => ReactNode;
+    Input: (props: PropsWithChildren<TextFieldProps>) => ReactNode;
     SubmitButton: (props: PropsWithChildren<ButtonProps>) => ReactNode;
     SubTitle: {
       (props: PropsWithChildren<TypographyProps>): ReactNode;
