@@ -6,7 +6,10 @@ import { useUpdateEffect } from "@/hooks";
 
 const InputShareProps: TextFieldProps = {
   fullWidth: false,
-  sx: { aspectRatio: "1/1", height: "65px", fontFamily: "var(--peyda-md)" },
+  sx: {
+    aspectRatio: "1/1",
+    fontFamily: "var(--peyda-md)",
+  },
 };
 
 interface MyProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "name"> {
@@ -75,4 +78,4 @@ function MultipleInputs({
     </>
   );
 }
-export default MultipleInputs;
+export default React.memo(MultipleInputs);
