@@ -1,4 +1,6 @@
-const checkUserPhone = async (phone: string) => {
+import { BadResponse_face } from "@/types/error.types";
+
+const checkUserPhone = async ({ phone }: { phone: string }): Promise<true> => {
   const res = await fetch("/api/verify/phone", {
     method: "POST",
     headers: {
@@ -6,9 +8,9 @@ const checkUserPhone = async (phone: string) => {
     },
     body: JSON.stringify({ phone }),
   });
-  const jsonRes = await res.json()
+  const jsonRes = await res.json();
   if (!res.ok) {
-    throw jsonRes;
+    throw jsonRes as BadResponse_face;
   }
   return true;
 };

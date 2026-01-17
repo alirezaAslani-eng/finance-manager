@@ -1,8 +1,6 @@
 import type { VerifyPhoneSchemaType } from "@/lib/validations/types";
 import type { BadResponse_face } from "@/types/error.types";
-const loginUser = async (
-  loginInfo: VerifyPhoneSchemaType
-): Promise<BadResponse_face | string> => {
+const loginUser = async (loginInfo: VerifyPhoneSchemaType): Promise<void> => {
   const res = await fetch("/api/auth/signin", {
     method: "POST",
     headers: {
