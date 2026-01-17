@@ -46,7 +46,7 @@ import { FormComponent } from "../types";
 import CircleLoader from "../loader/CircleLoader";
 
 interface FormProvidedValue {
-  error: boolean;
+  isError: boolean;
   isSubmiting: boolean;
 }
 const FormContext = createContext({} as FormProvidedValue);
@@ -54,15 +54,17 @@ const useFormContext = (): FormProvidedValue => {
   return useContext(FormContext);
 };
 const Form = function (props) {
-  const { error = false, isSubmiting = false } = props;
+  const { isError = false, isSubmiting = false, muiProps, children } = props;
   return (
-    <FormContext value={{ error, isSubmiting }}>
-    <Box
-      component={"form"}
-      width={"min(380px,100%)"}
-      textAlign={"center"}
-      {...props}
-    />
+    <FormContext value={{ isError, isSubmiting }}>
+      <Box
+        component={"form"}
+        width={"min(380px,100%)"}
+        textAlign={"center"}
+        {...muiProps}
+      >
+        {children}
+      </Box>
     </FormContext>
   );
 } as FormComponent;
@@ -78,7 +80,7 @@ Form.FormBox = function (props) {
     <Box
       mt="20px"
       borderRadius={"18px"}
-      p={"28px 20px"}
+      p={{xs:"20px 18px",sm:"28px 20px"}}
       bgcolor={"background.paper"}
       sx={(tm) => {
         return {
@@ -147,7 +149,6 @@ Form.FormBox.SubTitle = function (props) {
       display={"flex"}
       gap={"4px"}
       alignItems={"center"}
-      mb={"12px"}
       justifyContent={"center"}
       {...props}
     >
@@ -173,30 +174,23 @@ Form.FormBox.SubTitle.Link = function (props) {
  */
 Form.FormBox.Input = function (props) {
   const { placeholder = "شماره تماس", label } = props;
-  const { error, isSubmiting } = useFormContext();
+  const { isError, isSubmiting } = useFormContext();
   return (
-    <TextField
-      sx={{ mt: "12px" }}
-      label={label ?? placeholder}
-      placeholder={placeholder}
+    <>
+      <TextField
+        label={label ?? placeholder}
+        placeholder={placeholder}
         disabled={isSubmiting}
-        error={error}
-      {...props}
-    />
+        error={isError}
+        sx={{ mt: { xs: "12px", sm: "24px" } }}
+        {...props}
+      />
+      <Typography color="error" variant="base" mt={"6px"} textAlign={"right"}>
+        {props?.children}
+      </Typography>
+    </>
   );
 };
-Form.FormBox.ErrorText = function (props) {
-  return (
-    <Typography
-      mt={"4"}
-      variant="base"
-      textAlign={"right"}
-      color="error"
-      {...props}
-    />
-  );
-};
-
 /**
  * Form > FormBox > SubmitButton
  */
@@ -210,7 +204,7 @@ Form.FormBox.SubmitButton = function (props) {
       type="submit"
       disabled={isSubmiting}
       fullWidth
-      sx={{ mt: "24px" }}
+      sx={{ mt: { xs: "12px", sm: "24px" } }}
       {...props}
     >
       {!isSubmiting ? children : <CircleLoader />}

@@ -7,8 +7,13 @@ import {
 import { LinkProps } from "next/link";
 import { PropsWithChildren, ReactNode } from "react";
 
+interface FormProps {
+  isError?: boolean;
+  isSubmiting?: boolean;
+  muiProps?: BoxProps;
+}
 interface FormComponent {
-  (props: PropsWithChildren<BoxProps>): ReactNode;
+  (props: PropsWithChildren<FormProps>): ReactNode;
   Title: (props: PropsWithChildren<TypographyProps>) => ReactNode;
   RuleDescription: (props: PropsWithChildren<TypographyProps>) => ReactNode;
   FormBox: {
