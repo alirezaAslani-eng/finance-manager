@@ -9,6 +9,7 @@ import {
   cssBaseLine,
   inputLabel,
   svgIcon,
+  textField,
   toggleButtonGroup,
   typography as typography_,
 } from "./overrides";
@@ -47,6 +48,7 @@ const theme: ThemeOptions = {
     MuiInputLabel: inputLabel,
     MuiToggleButtonGroup: toggleButtonGroup,
     MuiAlert: alert,
+    MuiTextField: textField,
   },
 };
 
