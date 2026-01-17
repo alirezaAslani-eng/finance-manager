@@ -15,6 +15,8 @@ interface MyProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "name"> {
   onComplete?: (value: string) => void;
   value?: string;
   ref?: RefObject<HTMLInputElement>;
+  error?: boolean;
+  disabled?: boolean;
 }
 
 function MultipleInputs({
@@ -24,6 +26,8 @@ function MultipleInputs({
   ref,
   value,
   inputCount = 4,
+  error,
+  disabled,
 }: MyProps) {
   const { registerMui, setSerializedValue, getKey } = useMultipleInput({
     inputCount,
@@ -48,6 +52,8 @@ function MultipleInputs({
         {buildArray(inputCount).map((_, index) => {
           return (
             <TextField
+              disabled={disabled}
+              error={error}
               key={getKey(index)}
               {...InputShareProps}
               {...registerMui(index)}
