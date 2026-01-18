@@ -1,14 +1,14 @@
 import { CircleLoader } from "@/components/ui";
-import { useAuth } from "@/context";
 import { useSendAuthVerifyCode } from "@/hooks";
 import { Button, ButtonProps, Typography } from "@mui/material";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 
 interface MyProps {
-  otpType: "signin" | "signup";
   muiProps?: ButtonProps;
+  otpType: "signin" | "signup";
   isVerifying?: boolean;
   autoRequest?: boolean;
+  phone: string | undefined;
 }
 
 function AuthOTPButton({
@@ -16,11 +16,8 @@ function AuthOTPButton({
   muiProps,
   otpType,
   autoRequest = true,
+  phone = "",
 }: MyProps) {
-  const {
-    userInfo: { phone },
-  } = useAuth();
-
   const { isOverRequestTime, isRequestingOtp, requestTime, reqAuthOTP } =
     useSendAuthVerifyCode({
       phone,
