@@ -14,6 +14,7 @@ export { default as useMultipleInput } from "./app/useMultipleInput";
  */
 export { default as useCheckSignupInfo } from "./features/auth/useCheckSignupInfo";
 export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
+export { default as useSignup } from "./features/auth/useSignup";
 export { default as useSignin } from "./features/auth/useSignin";
 /**
  * Account's hooks
