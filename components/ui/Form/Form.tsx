@@ -182,10 +182,15 @@ Form.FormBox.Input = function (props) {
         placeholder={placeholder}
         disabled={isSubmiting}
         error={isError}
-        sx={{ mt: { xs: "12px", sm: "24px" } }}
+        sx={{ mt: "12px" }}
         {...props}
       />
-      <Typography color="error" variant="base" mt={"6px"} textAlign={"right"}>
+      <Typography
+        color="error"
+        mt={"8px"}
+        fontSize={{ xs: "12px", sm: "16px" }}
+        textAlign={"right"}
+      >
         {props?.children}
       </Typography>
     </>
@@ -204,7 +209,7 @@ Form.FormBox.SubmitButton = function (props) {
       type="submit"
       disabled={isSubmiting}
       fullWidth
-      sx={{ mt: { xs: "12px", sm: "24px" } }}
+      sx={{ mt: "12px" }}
       {...props}
     >
       {!isSubmiting ? children : <CircleLoader />}
