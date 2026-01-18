@@ -12,7 +12,7 @@ export { default as useMultipleInput } from "./app/useMultipleInput";
 /**
  * Auth's hooks
  */
-export { default as useRegister } from "./features/auth/useRegister";
+export { default as useCheckSignupInfo } from "./features/auth/useCheckSignupInfo";
 export { default as useSendAuthVerifyCode } from "./features/auth/useSendAuthVerifyCode";
 export { default as useSignin } from "./features/auth/useSignin";
 /**

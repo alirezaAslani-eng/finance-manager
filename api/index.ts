@@ -5,6 +5,7 @@ export { default as getUserInfo } from "./auth/getUserInfo";
 export { default as signupUser } from "./auth/signupUser";
 export { default as signinUser } from "./auth/signinUser";
 export { default as sendAuthSMS } from "./auth/sendAuthSMS";
+export { default as checkSignupInfo } from "./auth/checkSignupInfo";
 /**
  * Transaction's APIs
  */

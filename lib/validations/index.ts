@@ -27,4 +27,5 @@ export { default as verifyPhoneSchema } from "./otp/verifyPhoneSchema";
  * Auth's schemas
  */
 export { default as signupSchema } from "./auth/signupSchema";
+export { default as checkSignupInfoSchema } from "./auth/checkSignupInfoSchema";
 export { default as sendAuthCodeSchema } from "./auth/sendAuthCodeSchema";

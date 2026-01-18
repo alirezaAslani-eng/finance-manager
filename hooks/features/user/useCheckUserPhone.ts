@@ -22,7 +22,7 @@ function useCheckUserPhone(
       await mutateAsync({ phone }, options);
       setInfo({ phone });
       if (options?.onSuccess) return;
-      push("/auth/signin");
+      push("/auth/verify-signin");
       // TODO -> show Success message
     } catch (err) {
       const error = err as BadResponse_face;
