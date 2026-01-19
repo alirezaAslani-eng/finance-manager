@@ -15,6 +15,7 @@ function useSignup() {
     mutateAsync,
     isPending: isSgininup,
     isSuccess: isSuccessSignup,
+    isError: isErrorSignup,
   } = useMutation({ mutationFn: signupUser });
 
   const { signupInfo, removeSignupCache } = useContext(SignupContext);
@@ -36,12 +37,7 @@ function useSignup() {
     },
     [signupInfo, queryClient, replace]
   );
-  return { signup, signupInfo, isSuccessSignup, isSgininup };
+  return { signup, signupInfo, isSuccessSignup, isSgininup, isErrorSignup };
 }
 
 export default useSignup;
-
-
-
-
-

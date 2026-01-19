@@ -26,7 +26,7 @@ function verify_signin() {
       height={"100svh"}
       px={"24px"}
     >
-      <Form isSubmiting={isSigninig || isSuccessSignin}>
+      <Form>
         <Form.Title>{"هزینه یار"}</Form.Title>
         <Form.FormBox>
           <Form.FormBox.FormTitle>
@@ -56,14 +56,14 @@ function verify_signin() {
             <MultipleInputs
               error={isErrorSignin}
               inputCount={5}
+              disabled={isSigninig || isSuccessSignin}
               onComplete={_signin}
             />
           </Box>
           <Box mt={{ xs: "12px", sm: "24px" }}>
             <AuthOTPButton
               otpType="signin"
-              isVerifying={isSigninig}
-              autoRequest={false}
+              isVerifying={isSigninig || isSuccessSignin}
               phone={phone}
             />
           </Box>

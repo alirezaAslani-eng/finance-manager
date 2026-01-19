@@ -4,7 +4,8 @@ import { useSignup } from "@/hooks";
 import { Box } from "@mui/material";
 
 function verify_signup() {
-  const { isSgininup, isSuccessSignup, signupInfo, signup } = useSignup();
+  const { isSgininup, isSuccessSignup, signupInfo, isErrorSignup, signup } =
+    useSignup();
 
   return (
     <Box
@@ -30,13 +31,18 @@ function verify_signup() {
           </Form.FormBox.SubTitle>
 
           <Box mt={"24px"}>
-            <MultipleInputs inputCount={5} onComplete={signup} />
+            <MultipleInputs
+              inputCount={5}
+              onComplete={signup}
+              error={isErrorSignup}
+              disabled={isSgininup || isSuccessSignup}
+            />
           </Box>
           <Box mt={"24px"}>
             <AuthOTPButton
-              autoRequest={false}
               otpType="signup"
               phone={signupInfo?.phone}
+              isVerifying={isSgininup || isSuccessSignup}
             />
           </Box>
         </Form.FormBox>
