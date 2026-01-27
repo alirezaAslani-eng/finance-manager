@@ -1,4 +1,4 @@
-import { NoResult, TransactionCard } from "@/components/ui";
+import { NoData, TransactionCard } from "@/components/ui";
 import { useGetInfinitTransactions } from "@/hooks";
 import { Box, Button } from "@mui/material";
 import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
@@ -52,12 +52,12 @@ const Transactions = () => {
 
       {/* // * Empty Array ================ > */}
       {!isFiltering && !!!transactions?.length && (
-        <NoResult
-          center
-          text={emprtArrayReason}
-          linkAddress="/my-panel/transactions/add"
-          linkText="ایجاد تراکنش"
-        />
+        <NoData center>
+          <NoData.Text>{emprtArrayReason}</NoData.Text>
+          <NoData.Link href="/my-panel/transactions/add">
+            <NoData.Button>{"ایجاد تراکنش"}</NoData.Button>
+          </NoData.Link>
+        </NoData>
       )}
     </Box>
   );

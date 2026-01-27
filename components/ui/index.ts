@@ -12,7 +12,7 @@ export { default as DateField } from "./Input/DateField";
 export { default as AccountInput } from "./Input/AccountInput";
 export { default as MuiSelectInput } from "./Input/MuiSelectInput";
 export { default as TextPrice } from "./Text/TextPrice";
-export { default as NoResult } from "./Fallback/NoResult";
+export { default as NoData } from "./Fallback/NoData";
 export { default as AdaptiveScroll } from "./Box/AdaptiveScroll";
 export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";
 export { default as MultipleSelectCheckmarks } from "./Input/MultipleSelectCheckmarks";
