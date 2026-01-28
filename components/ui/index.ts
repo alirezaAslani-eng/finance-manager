@@ -21,3 +21,5 @@ export { default as MultipleInputs } from "./Input/MultipleInputs";
 export { default as PriceInput } from "./Input/PriceInput";
 export { default as Form } from "./Form/Form";
 export { default as CircleLoader } from "./loader/CircleLoader";
+export { default as TotalBalanceCard } from "./Card/TotalBalanceCard";
+export { default as IncomeExpenseCard } from "./Card/IncomeExpenseCard";
