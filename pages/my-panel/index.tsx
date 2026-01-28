@@ -1,75 +1,87 @@
-import { Accounts, RecentTransactions } from "@/components/module";
+import { RecentTransactions } from "@/components/module";
 import { PageComponent } from "@/types/page.types";
-import { Box } from "@mui/material";
-import { getRecentTransactions } from "@/server/services";
-import { toSerializable } from "@/lib/utils";
-import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
-import type { GlobalAppProps } from "../_app";
-import type { MainPageProps } from "@/types/pages/mainPage.types";
+import { Box, useMediaQuery } from "@mui/material";
 import { PanelLayout } from "@/layout";
 import { getServerSidePropsWithAuth } from "@/server/HOFs";
-import { useAuth } from "@/context";
-import { useRecentTransactions } from "@/hooks";
-
-const RecentTransAction_gap = "20px";
-const index: PageComponent<MainPageProps> = ({ recentTransactions }) => {
-  // * Recent Transactions ===================== >
-  const { transactions } = useRecentTransactions({
-    initialData: recentTransactions, // * SSR Data <<
-  });
-
-  const {
-    userInfo: { accounts },
-  } = useAuth();
+import {
+  BoxWithHeading,
+  IncomeExpenseCard,
+  TotalBalanceCard,
+} from "@/components/ui";
+import CallReceivedRoundedIcon from "@mui/icons-material/CallReceivedRounded";
+import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
+import type { GlobalAppProps } from "@/pages/_app";
+const index: PageComponent = () => {
+  const isAftersm = useMediaQuery(({ breakpoints }) => breakpoints.up("sm"));
   return (
-    <Box
-      sx={{
-        padding: {
-          xs: "30px 0px",
-          md: "35px",
-        },
-      }}
-    >
+    // * =============== Container ===============
+    <Box px={{ xs: "16px", sm: "50px" }}>
       <Box
+        display={"flex"}
+        gap={"50px"}
+        mt={{ xs: "16px", sm: "50px" }}
         sx={{
-          display: "flex",
-          flexDirection: {
-            xs: "column",
-            xl: "row",
-          },
-          justifyContent: "center",
-          alignItems: "stretch",
-          gap: "35px",
+          flexDirection: { xs: "column", lg: "row" },
+          alignItems: { xs: "center", lg: "start" },
         }}
       >
-        {/* Transatcions ================ > */}
-        <Box
-          sx={{
-            flex: "1",
-            minWidth: "0",
-            order: {
-              xs: "2",
-              md: "1",
-            },
-          }}
-        >
-          <RecentTransactions
-            recentTransactions={transactions}
-            containerProps={{ sx: { gap: RecentTransAction_gap } }}
-          />
+        <Box component={"section"} width={"min(400px,100%)"}>
+          {/* // * =========== TotalBalanceCard  =============*/}
+          <TotalBalanceCard>
+            <TotalBalanceCard.BalanceSection
+              fontSize={{ xs: "16px", sm: "24px" }}
+            >
+              <TotalBalanceCard.BalanceText>
+                {"کل دارایی"}
+              </TotalBalanceCard.BalanceText>
+              <TotalBalanceCard.BalanceNumber />
+            </TotalBalanceCard.BalanceSection>
+
+            <TotalBalanceCard.AccountSection>
+              <TotalBalanceCard.AccountIconList />
+              <TotalBalanceCard.AccountButton
+                size={isAftersm ? "medium" : "small"}
+              >
+                {"مدریت حساب ها"}
+              </TotalBalanceCard.AccountButton>
+            </TotalBalanceCard.AccountSection>
+          </TotalBalanceCard>
+
+          {/* // * =========== IncomeExpense  =============*/}
+          <IncomeExpenseCard mt={"24px"}>
+            <IncomeExpenseCard.Title fontSize={{ xs: "20px", sm: "24px" }}>
+              {"بیشترین سود و زیان این ماه"}
+            </IncomeExpenseCard.Title>
+
+            <IncomeExpenseCard.IncomeExpenseSection>
+              <IncomeExpenseCard.IncomeCategory />
+              <IncomeExpenseCard.ExpenseCategory />
+            </IncomeExpenseCard.IncomeExpenseSection>
+
+            <Box mt={"24px"}>
+              <IncomeExpenseCard.MoreDetailsButton>
+                {"مشاهده"}
+              </IncomeExpenseCard.MoreDetailsButton>
+            </Box>
+          </IncomeExpenseCard>
         </Box>
-        {/* Accounts Slider ====================== > */}
-        <Box
-          sx={{
-            flex: "1",
-            minWidth: "0",
-            order: {
-              xs: "1",
-              md: "2",
-            },
-          }}
-        >
-          <Accounts accounts={accounts} />
+
+        {/* // * =============== RecentTransactions =============== */}
+        <Box component={"section"} flex={"1"} minWidth={"0px"} width={"100%"}>
+          <BoxWithHeading>
+            <BoxWithHeading.Heading>
+              <BoxWithHeading.TitleHeading>
+                {"تراکنش های اخیر"}
+              </BoxWithHeading.TitleHeading>
+              <BoxWithHeading.ButtonHeading>
+                {"همه تراکنش ها"}
+                <CallReceivedRoundedIcon sx={{ transform: "rotate(90deg)" }} />
+              </BoxWithHeading.ButtonHeading>
+            </BoxWithHeading.Heading>
+            <BoxWithHeading.Content>
+              <RecentTransactions />
+            </BoxWithHeading.Content>
+          </BoxWithHeading>
         </Box>
       </Box>
     </Box>
@@ -80,19 +92,10 @@ index.Layout = PanelLayout;
 
 export default index;
 
-const ssr: GetServerSidePropsWithAuth<GlobalAppProps & MainPageProps> = async (
-  _,
-  { tokenPayload }
-) => {
-  const { _id: userId } = tokenPayload;
-
-  // * Get Recent Transactions =================== >
-  const recentTransactions = await getRecentTransactions(userId);
-
+const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async () => {
+  // todo -> ssr must prefetch recentTransaction query and dehydrate the queryClient
   return {
-    props: {
-      recentTransactions: toSerializable(recentTransactions),
-    },
+    props: {},
   };
 };
 
