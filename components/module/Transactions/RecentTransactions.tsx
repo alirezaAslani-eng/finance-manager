@@ -1,68 +1,43 @@
-import { BoxWithTitle, NoResult, TransactionCard } from "@/components/ui";
-import { Box, Button } from "@mui/material";
+import { TransactionCard } from "@/components/ui";
+import { Box } from "@mui/material";
 import type { BoxProps } from "@mui/material";
-import NorthWestRoundedIcon from "@mui/icons-material/NorthWestRounded";
-import Link from "next/link";
-import { RecentTransactionType } from "@/types/transaction.types";
-import LoadeingErrorHandler from "../WaitHandler/LoadeingErrorHandler";
-interface myProp {
-  containerProps?: BoxProps;
-  recentTransactions: RecentTransactionType[];
-}
-const RecentTransactions = ({
-  containerProps,
-  recentTransactions = [],
-}: myProp) => {
+
+const RecentTransactions = (boxProps: BoxProps) => {
   return (
-    <BoxWithTitle
-      title="تراکنش های اخیر"
-      boxProps={{ sx: { p: "20px", height: "100%" } }}
-      Button={
-        <Link href="">
-          <Button
-            size="medium"
-            variant="text"
-            sx={(tm) => {
-              return { gap: tm.spacing(1) };
-            }}
-          >
-            {"مشاهده همه"}
-            <NorthWestRoundedIcon />
-          </Button>
-        </Link>
-      }
+    <Box
+      display={"flex"}
+      gap={"14px"}
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      minHeight={{ xs: "326px", sm: "414px" }}
+      {...boxProps}
     >
-      <LoadeingErrorHandler
-        dataCheck={{
-          check: !!recentTransactions.length,
-          error: (
-            <NoResult
-              text="هنوز تراکنشی ایجاد نشده"
-              linkAddress="/my-panel/transactions/add"
-              linkText="ایجاد تراکنش"
-            />
-          ),
-        }}
-      >
-        <Box
-          {...containerProps}
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2,1fr)",
-            },
-            gap: "20px",
-            mt: "20px",
-            ...containerProps?.sx,
-          }}
-        >
-          {recentTransactions.map((transaction) => {
-            return <TransactionCard key={transaction._id} {...transaction} />;
-          })}
-        </Box>
-      </LoadeingErrorHandler>
-    </BoxWithTitle>
+      <TransactionCard
+        amount={40000000}
+        category={{ _id: "", name: "خرج خونه" }}
+        createdAt={new Date().toISOString()}
+        type="0"
+      />
+      <TransactionCard
+        amount={40000000}
+        category={{ _id: "", name: "خرج خونه" }}
+        createdAt={new Date().toISOString()}
+        type="0"
+      />
+      <TransactionCard
+        amount={40000000}
+        category={{ _id: "", name: "خرج خونه" }}
+        createdAt={new Date().toISOString()}
+        type="0"
+      />
+      <TransactionCard
+        amount={40000000}
+        category={{ _id: "", name: "خرج خونه" }}
+        createdAt={new Date().toISOString()}
+        type="0"
+      />
+    </Box>
   );
 };
 
