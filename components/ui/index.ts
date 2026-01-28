@@ -4,7 +4,7 @@ export { default as RequestOtpButton } from "./Button/RequestOtpButton";
 export { default as MuiTextField } from "./Input/MuiTextField";
 export { default as Brand } from "./Logo/Brand";
 export { default as TransactionCard } from "./Card/TransactionCard";
-export { default as BoxWithTitle } from "./Box/BoxWithTitle";
+export { default as BoxWithHeading } from "./Box/BoxWithHeading";
 export { default as UserCircle } from "./Box/UserCircle";
 export { default as AccountCard } from "./Card/AccountCard";
 export { default as TransactionDetalCard } from "./Card/TransactionDetalCard";
