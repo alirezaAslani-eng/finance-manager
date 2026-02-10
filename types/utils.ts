@@ -6,4 +6,8 @@ type IncludeKeyType<T extends object, IncludedType> = {
   [key in keyof T as T[key] extends IncludedType ? key : never]: T[key];
 };
 
-export type { ExcludeKeyType, IncludeKeyType };
+type ParamType<Func = Function> = Func extends (params: infer P) => infer R
+  ? P
+  : any;
+
+export type { ExcludeKeyType, IncludeKeyType, ParamType };
