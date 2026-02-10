@@ -1,8 +1,8 @@
 import { JSX } from "react";
 
-interface UseWheelSelectorConfig<TValue> {
-  onChange?: (value: TValue) => void;
-  value?: TValue;
+interface UseWheelSelectorConfig {
+  onChange?: (value: string) => void;
+  value?: string;
   active_className?: string;
 }
 
