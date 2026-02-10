@@ -1,11 +1,9 @@
-type ExcludeKeyType<T, ExcludedType> = {
+type ExcludeKeyType<T extends object, ExcludedType> = {
   [key in keyof T as T[key] extends ExcludedType ? never : key]: T[key];
 };
 
-type IncludeKeyType<T, IncludedType> = {
+type IncludeKeyType<T extends object, IncludedType> = {
   [key in keyof T as T[key] extends IncludedType ? key : never]: T[key];
 };
-
-type xx = { x: {}; y: string };
 
 export type { ExcludeKeyType, IncludeKeyType };
