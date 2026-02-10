@@ -10,6 +10,7 @@ export { default as useAddEventListener } from "./app/useAddEventListener";
 export { default as useMultipleInput } from "./app/useMultipleInput";
 export { default as useWheelSelector } from "./app/useWheelSelector";
 export { default as useCheckFirstMount } from "./app/useCheckFirstMount";
+export { default as useIgnoreFirstCalls } from "./app/useIgnoreFirstCalls";
 
 /**
  * Auth's hooks
