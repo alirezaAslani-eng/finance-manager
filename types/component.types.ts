@@ -1,4 +1,4 @@
-import { FC, MemoExoticComponent } from "react";
+import { FC, MemoExoticComponent, ReactNode } from "react";
 
 interface ComponentFetchState<TData = any> {
   isError?: boolean;
@@ -35,4 +35,17 @@ type ComponentType<
 > = FC<TProps> & {
   [ComponentPropsType in keyof CompoundComponents]: CompoundComponents[ComponentPropsType];
 };
-export type { ComponentFetchState, MemoizedComponentType, ComponentType };
+
+/**
+ * Sometimes we need to wrapp an `<option> element` in a component so this might be a common and simple data structure type for an array
+ */
+interface OptionTagBasicProps {
+  text?: ReactNode;
+  value?: string;
+}
+export type {
+  ComponentFetchState,
+  MemoizedComponentType,
+  ComponentType,
+  OptionTagBasicProps,
+};
