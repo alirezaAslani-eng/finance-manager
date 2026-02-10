@@ -8,7 +8,7 @@ export { default as usePaginationArray } from "./app/usePaginationArray";
 export { default as useIsActiveLink } from "./app/useIsActiveLink";
 export { default as useAddEventListener } from "./app/useAddEventListener";
 export { default as useMultipleInput } from "./app/useMultipleInput";
-export { default as useWheelSelector } from "./app/useWheelSelector";
+export { default as useWheelSelector } from "./app/useWheelSelector/useWheelSelector";
 export { default as useCheckFirstMount } from "./app/useCheckFirstMount";
 export { default as useIgnoreFirstCalls } from "./app/useIgnoreFirstCalls";
 
