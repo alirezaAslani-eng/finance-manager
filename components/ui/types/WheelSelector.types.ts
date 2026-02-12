@@ -1,8 +1,7 @@
 import { ComponentType, OptionTagBasicProps } from "@/types/component.types";
-import { BoxProps, ButtonProps } from "@mui/material";
-import { PropsWithChildren } from "react";
+import { BoxProps } from "@mui/material";
 
-interface WheelSelectorProps extends PropsWithChildren {
+interface WheelSelectorProps {
   onChangeOption?: (value: string) => void;
   selctedOption?: string;
   options?: OptionTagBasicProps[];
@@ -11,7 +10,4 @@ interface WheelSelectorProps extends PropsWithChildren {
 
 type WheelSelectorComponent = ComponentType<WheelSelectorProps>;
 
-export type {
-  WheelSelectorProps,
-  WheelSelectorComponent,
-};
+export type { WheelSelectorProps, WheelSelectorComponent };
