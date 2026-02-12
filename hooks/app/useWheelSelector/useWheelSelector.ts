@@ -24,6 +24,7 @@ const useWheelSelector = ({
 }: UseWheelSelectorConfig = {}): UseWheelSelectorReturnType => {
   const scrollContainerRef = useRef<null | HTMLDivElement>(null);
   const optionListRef = useRef<HTMLOptionElement[]>([]);
+  const inViewOptionValue = useRef<string>(value || "");
 
   const { registerEachOption, registerScrollContainer } = useRegisterElements({
     optionListRef,
@@ -47,6 +48,17 @@ const useWheelSelector = ({
     onChange(value);
   };
 
+  useAddEventListener(
+    {
+      el: scrollContainerRef.current,
+      type: "scrollend",
+      listener(e) {
+        changeHandler(inViewOptionValue.current);
+      },
+    },
+    [changeHandler],
+  );
+
   /**
    * This useEffect enables an IntersectionObserver on each
    * option tag to trigger a className to centered option in scroll container and update inViewed value
@@ -65,12 +77,14 @@ const useWheelSelector = ({
       }),
       threshold: 0.5,
       entry: ([entry]) => {
-        const { isIntersecting, target } = entry;
+        const { isIntersecting, target: _target } = entry;
+        const target = _target as HTMLOptionElement;
+
         target.classList.remove(active_className);
+
         if (isIntersecting) {
           target.classList.add(active_className);
-          //@ts-ignore
-          changeHandler(target.value);
+          inViewOptionValue.current = target.value;
         }
       },
     });
@@ -78,7 +92,13 @@ const useWheelSelector = ({
     return () => {
       unobserveElements();
     };
-  }, [intersectionObserverElements, scroll_container_height, option_height]);
+  }, [
+    intersectionObserverElements,
+    calculateRootMargin,
+    scroll_container_height,
+    option_height,
+    changeHandler,
+  ]);
 
   return useMemo(() => {
     return {
