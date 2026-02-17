@@ -1,6 +1,5 @@
 import { useWheelSelector } from "@/hooks";
 import type { WheelSelectorComponent } from "@/components/ui/types";
-import type { OptionTagBasicProps } from "@/types/component.types";
 import {
   Box,
   BoxProps,
@@ -14,6 +13,7 @@ import { useCallback } from "react";
 import { OptimizedMap } from "@/components/module";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { PickOptionElementAttributes } from "@/types/elementAttributes.types";
 const sx_parentBox: SxProps = {
   ["& .active-option"]: {
     fontWeight: 700,
@@ -102,12 +102,15 @@ const WheelSelector: WheelSelectorComponent = function ({
   });
 
   const optionsProps = useCallback(
-    (item: OptionTagBasicProps, index: number): BoxProps<"option"> => {
+    (
+      item: PickOptionElementAttributes<"value" | "children">,
+      index: number,
+    ): BoxProps<"option"> => {
       return {
         component: "option",
         sx: sx_option,
-        value: item?.value,
-        children: item?.text,
+        value: item.value,
+        children: item.children,
         ...wheel.registerEachOption(index),
       };
     },

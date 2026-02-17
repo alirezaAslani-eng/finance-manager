@@ -36,16 +36,8 @@ type ComponentType<
   [ComponentPropsType in keyof CompoundComponents]: CompoundComponents[ComponentPropsType];
 };
 
-/**
- * Sometimes we need to wrapp an `<option> element` in a component so this might be a common and simple data structure type for an array
- */
-interface OptionTagBasicProps {
-  text?: ReactNode;
-  value?: string;
-}
 export type {
   ComponentFetchState,
   MemoizedComponentType,
   ComponentType,
-  OptionTagBasicProps,
 };

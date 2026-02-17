@@ -1,10 +1,11 @@
-import { ComponentType, OptionTagBasicProps } from "@/types/component.types";
+import { ComponentType } from "@/types/component.types";
+import { PickOptionElementAttributes } from "@/types/elementAttributes.types";
 import { BoxProps } from "@mui/material";
 
 interface WheelSelectorProps {
   onChangeOption?: (value: string) => void;
   selctedOption?: string;
-  options?: OptionTagBasicProps[];
+  options?:PickOptionElementAttributes<"value"|"children">[];
   boxProps?: BoxProps;
 }
 
