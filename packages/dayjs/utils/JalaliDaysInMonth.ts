@@ -1,11 +1,15 @@
 import dayjs from "dayjs";
 import jalaliday from "jalaliday";
-import { ParamType } from "@/types/utils";
 import { buildArray } from "@/lib/utils";
-function JalaliDaysInMonth(date: ParamType<typeof dayjs>): number[] {
+
+function JalaliDaysInMonth(date: Date): number[] {
   dayjs.extend(jalaliday);
+  const jalaliDate = dayjs(date).calendar("jalali");
+
   return buildArray(
-    dayjs(date, { jalali: true }).calendar("jalali").daysInMonth(),
+    dayjs(`${jalaliDate.year()}/${jalaliDate.month()}/1`, { jalali: true })
+      .calendar("jalali")
+      .daysInMonth(),
     (i: number) => i + 1,
   );
 }
