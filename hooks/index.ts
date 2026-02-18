@@ -11,6 +11,7 @@ export { default as useMultipleInput } from "./app/useMultipleInput";
 export { default as useWheelSelector } from "./app/useWheelSelector/useWheelSelector";
 export { default as useCheckFirstMount } from "./app/useCheckFirstMount";
 export { default as useIgnoreFirstCalls } from "./app/useIgnoreFirstCalls";
+export { default as useWheelDatePicker } from "./app/useWheelDatePicker";
 
 /**
  * Auth's hooks

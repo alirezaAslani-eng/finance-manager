@@ -15,5 +15,5 @@ export { default as LoadeingErrorHandler } from "./WaitHandler/LoadeingErrorHand
 export { default as CategoryModalForm } from "./Form/CategoryModalForm";
 export { default as TransactionSkeletonList } from "./SkeletonGenerator/TransactionSkeletonList";
 export { default as AuthOTPButton } from "./Button/AuthOTPButton";
-export { default as DatePicker } from "./DatePicker/DatePicker";
+export { default as WheelDatePicker } from "./DatePicker/WheelDatePicker";
 export { default as OptimizedMap } from "./Utils/OptimizedMap";
