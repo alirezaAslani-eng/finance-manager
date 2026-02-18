@@ -1,5 +1,5 @@
 interface IntersectionObserverElementsConfig {
-  elements: HTMLElement[];
+  elements: (HTMLElement | null | undefined)[];
   root?: HTMLElement;
   threshold?: number | number[];
   rootMargin?: string;
