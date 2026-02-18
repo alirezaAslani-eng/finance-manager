@@ -22,18 +22,18 @@ const useWheelSelector = ({
   active_className = "active-option",
   value,
 }: UseWheelSelectorConfig = {}): UseWheelSelectorReturnType => {
-  const scrollContainerRef = useRef<null | HTMLDivElement>(null);
-  const optionListRef = useRef<HTMLOptionElement[]>([]);
-  const inViewOptionValue = useRef<string>(value || "");
-
-  const { registerEachOption, registerScrollContainer } = useRegisterElements({
-    optionListRef,
+  const {
+    registerEachOption,
+    registerScrollContainer,
+    optionElements,
     scrollContainerRef,
-  });
+  } = useRegisterElements();
+
+  const inViewOptionValue = useRef<string>(value || "");
 
   const { option_height, scroll_container_height } =
     useHeightOfScrollContainerAndOption({
-      optionListRef,
+      optionElements,
       scrollContainerRef,
     });
 
@@ -42,7 +42,7 @@ const useWheelSelector = ({
     scrollContainerRef,
   });
 
-  useScrollInitializer({ optionListRef, value });
+  useScrollInitializer({ optionElements, value });
 
   const changeHandler = (value: string): void => {
     onChange(value);
@@ -64,7 +64,7 @@ const useWheelSelector = ({
    * option tag to trigger a className to centered option in scroll container and update inViewed value
    */
   useEffect(() => {
-    const OptionElements = isValidElements(optionListRef.current);
+    const OptionElements = isValidElements(optionElements);
     const ScrollContainerElement = isValidElement(scrollContainerRef.current);
     if (!OptionElements || !ScrollContainerElement) return;
 
@@ -97,7 +97,7 @@ const useWheelSelector = ({
     calculateRootMargin,
     scroll_container_height,
     option_height,
-    changeHandler,
+    optionElements,
   ]);
 
   return useMemo(() => {

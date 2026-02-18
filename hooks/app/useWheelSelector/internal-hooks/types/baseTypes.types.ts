@@ -2,7 +2,7 @@ import { RefObject } from "react";
 
 interface BaseInternalHooksProps {
   scrollContainerRef: RefObject<HTMLDivElement | null>;
-  optionListRef: RefObject<HTMLOptionElement[]>;
+  optionElements: (HTMLOptionElement | null)[];
   option_height: number;
   value?: string;
 }

@@ -1,28 +1,38 @@
 import { UseWheelSelectorReturnType } from "@/hooks/app/types";
-import { BaseInternalHooksProps } from "@/hooks/app/useWheelSelector/internal-hooks/types";
-import { useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
 
-interface UseRegisterProps extends Pick<
-  BaseInternalHooksProps,
-  "optionListRef" | "scrollContainerRef"
-> {}
+export default function useRegisterElements() {
+  // * -------------- Scroll container element --------------
+  const scrollContainerRef = useRef<null | HTMLDivElement>(null);
 
-export default function useRegisterElements({
-  optionListRef,
-  scrollContainerRef,
-}: UseRegisterProps) {
+  // * -------------- option elements --------------
+  const [optionElements, setOptionElements] = useState<
+    (HTMLOptionElement | null)[]
+  >([]);
+
+  const optionElementRegistering = useCallback(
+    (optionNode: null | HTMLOptionElement, index: number) => {
+      setOptionElements((prev) => {
+        prev[index] = optionNode;
+        return [...prev];
+      });
+    },
+    [setOptionElements],
+  );
   /**
    * call and spread this function on your each option tag to conect them with IntesectionObsever
    */
   const registerEachOption: UseWheelSelectorReturnType["registerEachOption"] =
-    useCallback((index) => {
-      return {
-        ref: (optionEl) => {
-          if (!optionEl) return;
-          optionListRef.current[index] = optionEl;
-        },
-      };
-    }, []);
+    useCallback(
+      (index) => {
+        return {
+          ref: (optionEl) => {
+            optionElementRegistering(optionEl, index);
+          },
+        };
+      },
+      [optionElementRegistering],
+    );
 
   /**
    * call and spread this function on the scroll container parent of option tags because this hook need to access to its scrolling properties by using its ref
@@ -40,5 +50,7 @@ export default function useRegisterElements({
   return {
     registerEachOption,
     registerScrollContainer,
+    scrollContainerRef,
+    optionElements,
   };
 }
