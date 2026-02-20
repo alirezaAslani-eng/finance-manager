@@ -1,5 +1,5 @@
 import { WheelSelector } from "@/components/ui";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { useWheelDatePicker } from "@/hooks";
 import { WheelDatePickerProps } from "@/components/module/types";
 
@@ -34,8 +34,8 @@ function WheelDatePicker({ onFinalizeDate, value }: WheelDatePickerProps) {
           />
         </Box>
       </Box>
+      <Divider sx={{ my: "20px" }} />
       <Button
-        sx={{ mt: "12px" }}
         variant="contained"
         fullWidth
         onClick={wheelDatePicker.finalizeDate}
