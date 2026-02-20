@@ -1,75 +1,50 @@
-import { Menu, TextField, TextFieldProps } from "@mui/material";
-import { Calendar } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import { useState } from "react";
-import DateObject from "react-date-object";
-import { useDate } from "@/hooks";
+import { Box, Dialog, TextField, TextFieldProps } from "@mui/material";
+import { WheelDatePicker } from "@/components/module";
+import dana_md from "@/constant/font/dana_md";
+import { getFaDate } from "@/lib/utils";
+import { useResponsiveState, useTriggerState } from "@/hooks";
 
 interface myProps {
   onChange?: (date: Date) => any;
   value?: Date;
-  placeholder?: string;
-  inputProps?: TextFieldProps;
+  inputProps?: Omit<TextFieldProps, "onChange" | "value">;
 }
-const DateField = ({
-  onChange,
-  placeholder = "",
-  inputProps,
-  value,
-}: myProps) => {
-  // * Drop down state ======================== >
-  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+const DateField = ({ onChange = () => {}, value, inputProps }: myProps) => {
+  const [isOpenDatePicker, openDatePickr, closeDatePicker] = useTriggerState();
 
-  // * Instance of Dropdown menu ================ >
-  const [textFieldCurrentTarget, setTextFieldCurrentTarget] =
-    useState<null | Element>(null);
+  const [date, setDate] = useResponsiveState<null | Date>(null, value ?? null);
 
-  // * Data Picker event =================== >
-  const changeHandler = (date: DateObject | null) => {
-    const main_date = date?.toDate() as Date;
-    // * set Date to parent or internal state ===================== >
-    onChange && onChange(main_date);
+  const finalizeDate = (value: Date) => {
+    closeDatePicker();
+    setDate(value);
+    onChange(value);
   };
 
-  // * Drop down Event ======================== >
-  const closeMenu = () => {
-    setIsOpenMenu(false);
-    setTextFieldCurrentTarget(null);
-  };
-
-  const openeMenu = (e: React.MouseEvent) => {
-    setIsOpenMenu(true);
-    setTextFieldCurrentTarget(e.currentTarget);
-  };
-
-  const { date: fa_date } = useDate(value??new Date());
   return (
     <>
+      {/* // * this text field only shows the selected date */}
       <TextField
-        placeholder={value ? `${fa_date}` : placeholder}
         inputProps={{ readOnly: true }}
-        onClick={openeMenu}
-        fullWidth
-        sx={{
-          "& ::placeholder": { opacity: `${value ? "1" : "0.8"} !important` },
-        }}
+        label={inputProps?.placeholder}
         {...inputProps}
+        value={date ? getFaDate(date).fa_date : ""}
+        onClick={openDatePickr}
+        focused={false}
       />
-      <Menu
-        anchorEl={textFieldCurrentTarget}
-        open={isOpenMenu}
-        onClose={closeMenu}
+      <Dialog
+        open={isOpenDatePicker}
+        className={dana_md.className}
+        onClose={closeDatePicker}
+        fullWidth
+        maxWidth="xs"
       >
-        <Calendar
-          // * Value Handling ================= >
-          value={value}
-          onChange={changeHandler}
-          // * Language ================== >
-          calendar={persian}
-          locale={persian_fa}
-        />
-      </Menu>
+        <Box padding={"24px 16px"}>
+          <WheelDatePicker
+            onFinalizeDate={finalizeDate}
+            value={date ?? undefined}
+          />
+        </Box>
+      </Dialog>
     </>
   );
 };
