@@ -12,6 +12,7 @@ export { default as useWheelSelector } from "./app/useWheelSelector/useWheelSele
 export { default as useCheckFirstMount } from "./app/useCheckFirstMount";
 export { default as useIgnoreFirstCalls } from "./app/useIgnoreFirstCalls";
 export { default as useWheelDatePicker } from "./app/useWheelDatePicker";
+export { default as useResponsiveState } from "./app/useResponsiveState";
 
 /**
  * Auth's hooks
