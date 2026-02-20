@@ -3,7 +3,7 @@ import type dayjs from "dayjs";
 
 interface UseWheelDatePickerConfig {
   value?: Date;
-  onChange?: (date: Date) => void;
+  onFinalizeDate?: (date: Date) => void;
 }
 interface UseWheelDatePickerReturn {
   selectedDate: ReturnType<typeof dayjs>;
@@ -18,7 +18,7 @@ interface UseWheelDatePickerReturn {
 // * ---------------------- internal-hook types ----------------------
 interface UseWheelDatePickerStateManagerConfig extends Pick<
   Required<UseWheelDatePickerConfig>,
-  "onChange" | "value"
+  "onFinalizeDate" | "value"
 > {}
 type UseWheelDatePickerStateManagerReturn = Pick<
   UseWheelDatePickerReturn,

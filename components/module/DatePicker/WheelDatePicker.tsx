@@ -3,10 +3,10 @@ import { Box, Button } from "@mui/material";
 import { useWheelDatePicker } from "@/hooks";
 import { WheelDatePickerProps } from "@/components/module/types";
 
-function WheelDatePicker({ onChange, value }: WheelDatePickerProps) {
+function WheelDatePicker({ onFinalizeDate, value }: WheelDatePickerProps) {
   const wheelDatePicker = useWheelDatePicker({
     value,
-    onChange,
+    onFinalizeDate,
   });
 
   return (
@@ -34,7 +34,14 @@ function WheelDatePicker({ onChange, value }: WheelDatePickerProps) {
           />
         </Box>
       </Box>
-      <Button onClick={wheelDatePicker.finalizeDate}>Finalize date</Button>
+      <Button
+        sx={{ mt: "12px" }}
+        variant="contained"
+        fullWidth
+        onClick={wheelDatePicker.finalizeDate}
+      >
+        {"تایید"}
+      </Button>
     </Box>
   );
 }

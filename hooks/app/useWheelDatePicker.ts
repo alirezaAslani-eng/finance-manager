@@ -15,7 +15,7 @@ import {
 
 export default function useWheelDatePicker({
   value = new Date(),
-  onChange = () => {},
+  onFinalizeDate = () => {},
 }: UseWheelDatePickerConfig = {}): UseWheelDatePickerReturn {
   const {
     days,
@@ -26,7 +26,7 @@ export default function useWheelDatePicker({
     setMonth,
     setYear,
     finalizeDate,
-  } = useWheelDatePickerStateManager({ onChange, value });
+  } = useWheelDatePickerStateManager({ onFinalizeDate, value });
 
   const yearOptions = useMemo((): UseWheelDatePickerReturn["years"] => {
     return years.map((year) => ({
@@ -64,7 +64,7 @@ export default function useWheelDatePicker({
 // * ---------------- internal-hooks ----------------
 
 function useWheelDatePickerStateManager({
-  onChange,
+  onFinalizeDate,
   value,
 }: UseWheelDatePickerStateManagerConfig): UseWheelDatePickerStateManagerReturn {
   const [months] = useState<number[]>(() => buildArray(12));
@@ -91,7 +91,7 @@ function useWheelDatePickerStateManager({
   }, []);
 
   const finalizeDate = () => {
-    onChange(convertToGregory({ date: selectedDate.current }).toDate());
+    onFinalizeDate(convertToGregory({ date: selectedDate.current }).toDate());
   };
 
   return {
