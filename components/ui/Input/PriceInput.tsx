@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import { useUpdateEffect } from "@/hooks";
+import { useResponsiveState, useUpdateEffect } from "@/hooks";
 
 const converToFaPrice = (value: number): string => {
   return value.toLocaleString();
@@ -22,8 +22,9 @@ export default function TomanInput({
   placeholder = "مبلغ",
   label,
 }: MyProps) {
-  const [formated, setFormated] = useState<string>(
-    value ? converToFaPrice(value) : ""
+  const [formated, setFormated] = useResponsiveState(
+    "",
+    converToFaPrice(value ?? 0),
   );
 
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -37,16 +38,10 @@ export default function TomanInput({
     setFormated(converToFaPrice(number));
   };
 
-  // * initialize value from parent and listen to it's changes ==== >
-  useUpdateEffect(() => {
-    if (!value) return;
-    setFormated(converToFaPrice(value));
-  }, [value]);
-
   return (
     <TextField
       label={label ?? placeholder}
-      value={formated==="0"?"":formated}
+      value={formated === "0" ? "" : formated}
       onChange={onChangeHandler}
       placeholder={placeholder}
       inputMode="numeric"
