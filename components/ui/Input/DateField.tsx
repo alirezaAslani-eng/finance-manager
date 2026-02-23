@@ -44,7 +44,7 @@ const DateField = ({
   return (
     <>
       {/* // * this text field only shows the selected date */}
-      <Box position={"relative"}>
+      <Box position={"relative"} width={"100%"}>
         <TextField
           inputProps={texFieldInputProps}
           label={inputProps?.placeholder}
