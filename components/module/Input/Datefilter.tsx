@@ -38,48 +38,24 @@ function Datefilter({
         gap={"10px"}
       >
         {/* Start Date ==================== > */}
-        <Box position={"relative"}>
-          {fromDateVal && (
-            <Button
-              color="error"
-              onClick={(e) => {
-                e.stopPropagation();
-                onCancelFromDate && onCancelFromDate();
-              }}
-              sx={cancelButton_sx}
-            >
-              <CloseRoundedIcon />
-            </Button>
-          )}
 
-          <DateField
-            placeholder="از تاریخ"
-            onChange={from_Date}
-            // * undefined = default date value
-            value={fromDateVal ?? undefined}
-          />
-        </Box>
+        <DateField
+          inputProps={{ placeholder: "از تاریخ" }}
+          onChange={from_Date}
+          onClear={onCancelFromDate}
+          // * undefined = default date value
+          value={fromDateVal ?? undefined}
+        />
+
         {/* End Date ==================== > */}
-        <Box position={"relative"}>
-          {toDateVal && (
-            <Button
-              color="error"
-              onClick={(e) => {
-                e.stopPropagation();
-                onCancelToDate && onCancelToDate();
-              }}
-              sx={cancelButton_sx}
-            >
-              <CloseRoundedIcon />
-            </Button>
-          )}
-          <DateField
-            placeholder="تا تاریخ"
-            onChange={to_Date}
-            // * undefined = default date value
-            value={toDateVal ?? undefined}
-          />
-        </Box>
+
+        <DateField
+          onClear={onCancelToDate}
+          inputProps={{ placeholder: "تا تاریخ" }}
+          onChange={to_Date}
+          // * undefined = default date value
+          value={toDateVal ?? undefined}
+        />
       </Stack>
     </>
   );
