@@ -1,0 +1,12 @@
+import { Components, Theme } from "@mui/material";
+
+const dialog = {
+  styleOverrides: {
+    paper: {
+      borderRadius: "18px",
+      backgroundImage: "unset",
+    },
+  },
+} satisfies Components<Theme>["MuiDialog"];
+
+export default dialog;

@@ -6,3 +6,4 @@ export { default as toggleButtonGroup } from "./toggleButtonGroup";
 export { default as alert } from "./alert";
 export { default as typography } from "./typography";
 export { default as textField } from "./textField";
+export { default as dialog } from "./dialog";

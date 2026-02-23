@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 
 import palette from "./palette";
 import breakpoints from "./breakpoints";
@@ -7,6 +7,7 @@ import {
   alert,
   button,
   cssBaseLine,
+  dialog,
   inputLabel,
   svgIcon,
   textField,
@@ -49,6 +50,7 @@ const theme: ThemeOptions = {
     MuiToggleButtonGroup: toggleButtonGroup,
     MuiAlert: alert,
     MuiTextField: textField,
+    MuiDialog: dialog,
   },
 };
 
