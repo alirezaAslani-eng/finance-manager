@@ -37,6 +37,7 @@ function WheelDatePicker({ onFinalizeDate, value }: WheelDatePickerProps) {
       <Divider sx={{ my: "20px" }} />
       <Button
         variant="contained"
+        size="large"
         fullWidth
         onClick={wheelDatePicker.finalizeDate}
       >
