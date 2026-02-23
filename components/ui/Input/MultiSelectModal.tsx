@@ -5,6 +5,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { muiTheme } from "@/packages/mui";
 import { MultipleSelectCheckmarksProps } from "./MultipleSelectCheckmarks";
 import dana_md from "@/constant/font/dana_md";
+import DialogBottomSheet from "@/packages/mui/styled-components/Dialog/DialogBottomSheet";
 interface MyProps
   extends Pick<
     MultipleSelectCheckmarksProps,
@@ -57,7 +58,7 @@ function ModalSelect({
       </Stack>
 
       {/* // * Select Modal ======================= > */}
-      <Dialog
+      <DialogBottomSheet
         className={dana_md.className}
         open={isOpen}
         onClose={closeSelectList}
@@ -107,7 +108,7 @@ function ModalSelect({
           }}
           items={items}
         />
-      </Dialog>
+      </DialogBottomSheet>
     </>
   );
 }

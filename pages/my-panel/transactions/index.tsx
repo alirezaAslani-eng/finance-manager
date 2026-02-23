@@ -10,12 +10,17 @@ import peyda_md from "@/constant/font/peyda_md";
 import { AllTransactionResponse } from "@/types/api/transactionApi.types";
 import { PageComponent } from "@/types/page.types";
 import { GetServerSidePropsWithAuth } from "@/types/ssr.types";
-import { identifyDate, identifyNumber, parseURLQueryToArray } from "@/lib/utils";
-import { Box, Button, Dialog, Typography, useMediaQuery } from "@mui/material";
+import {
+  identifyDate,
+  identifyNumber,
+  parseURLQueryToArray,
+} from "@/lib/utils";
+import { Box, Button, Typography } from "@mui/material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import React, { JSX, useState } from "react";
+import { JSX, useState } from "react";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import { keyAllTransactions } from "@/packages/react-query";
+import DialogBottomSheet from "@/mui-styled-compoents/Dialog/DialogBottomSheet";
 
 const index: PageComponent = () => {
   return (
@@ -49,8 +54,6 @@ function FilterModalOpener(): JSX.Element {
     setIsOpenSidebar(false);
   };
 
-  // * use breakepoints to show a full screen filter panel in mobile size ===== >
-  const is_after_540 = useMediaQuery((tm) => tm.breakpoints.up("_540"));
   return (
     <>
       <Button
@@ -71,26 +74,23 @@ function FilterModalOpener(): JSX.Element {
       </Button>
       {/* Modal Filter ========================= > */}
 
-      <Dialog
-        open={isOpenSidebar}
-        onClose={closeSidebar}
-        fullWidth
-        fullScreen={!is_after_540}
-      >
+      <DialogBottomSheet open={isOpenSidebar} onClose={closeSidebar} fullWidth>
         <Box padding={"20px"} className={peyda_md.className}>
           <FilterPanel onClose={closeSidebar} />
         </Box>
-      </Dialog>
+      </DialogBottomSheet>
     </>
   );
 }
 
-interface TrnasactionFilterURLQueries
-  extends Record<keyof FilterTransactionSchemaType, string | undefined> {}
+interface TrnasactionFilterURLQueries extends Record<
+  keyof FilterTransactionSchemaType,
+  string | undefined
+> {}
 
 const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
   context,
-  { tokenPayload }
+  { tokenPayload },
 ) => {
   // * Context to access to queries which are filter parameters ==== >
   const { query } = context;
@@ -110,7 +110,7 @@ const ssr: GetServerSidePropsWithAuth<GlobalAppProps> = async (
     queryFn: async () => {
       const initializeTransaction = await initializeTransactions(
         userId,
-        queries // * to filter
+        queries, // * to filter
       );
       const { initial_transactions, nextCursor } = initializeTransaction;
       return {
@@ -136,7 +136,7 @@ export { getServerSideProps };
 
 // * Local Helper ========= >
 const parseTrsFilterQueries = function (
-  queries: TrnasactionFilterURLQueries
+  queries: TrnasactionFilterURLQueries,
 ): FilterTransactionSchemaType {
   const {
     accounts,
@@ -160,8 +160,8 @@ const parseTrsFilterQueries = function (
       ? type === "0"
         ? "0"
         : type === "1"
-        ? "1"
-        : null
+          ? "1"
+          : null
       : null,
   };
 };

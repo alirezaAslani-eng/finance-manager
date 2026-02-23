@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, TextField, TextFieldProps } from "@mui/material";
+import { Box, Button, TextField, TextFieldProps } from "@mui/material";
 import { WheelDatePicker } from "@/components/module";
 import dana_md from "@/constant/font/dana_md";
 import { getFaDate } from "@/lib/utils";
@@ -6,7 +6,7 @@ import { useResponsiveState, useTriggerState } from "@/hooks";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { muiTheme } from "@/packages/mui";
-
+import DialogBottomSheet from "@/mui-styled-compoents/Dialog/DialogBottomSheet";
 // * -------------- TextFeild Props --------------
 const texFieldInputProps: TextFieldProps["inputProps"] = {
   readOnly: true,
@@ -94,7 +94,7 @@ const DateField = ({
           )}
         </Box>
       </Box>
-      <Dialog
+      <DialogBottomSheet
         open={isOpenDatePicker}
         className={dana_md.className}
         onClose={closeDatePicker}
@@ -107,7 +107,7 @@ const DateField = ({
             value={date ?? undefined}
           />
         </Box>
-      </Dialog>
+      </DialogBottomSheet>
     </>
   );
 };
