@@ -1,7 +1,7 @@
 import { Components, Theme } from "@mui/material";
 
 const dialog = {
-  defaultProps: { fullWidth: true },
+  defaultProps: { fullWidth: true, "aria-hidden": false },
   styleOverrides: {
     paper: {
       borderRadius: "18px",
