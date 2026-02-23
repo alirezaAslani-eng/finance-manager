@@ -21,23 +21,19 @@ function PriceFilter({
       justifyContent={"center"}
       gap={"10px"}
       alignItems={"center"}
+      width={"100%"}
     >
       {/* From ================= > */}
-      <Box>
-        <PriceInput
-          onChange={fromOnChange}
-          value={fromValue}
-          placeholder="از مبلغ"
-        />
-      </Box>
+
+      <PriceInput
+        onChange={fromOnChange}
+        value={fromValue}
+        placeholder="از مبلغ"
+      />
+
       {/* To ======================= > */}
-      <Box>
-        <PriceInput
-          onChange={toOnChange}
-          value={toValue}
-          placeholder="تا مبلغ"
-        />
-      </Box>
+
+      <PriceInput onChange={toOnChange} value={toValue} placeholder="تا مبلغ" />
     </Stack>
   );
 }
