@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
  *  const [isOpenMenu,openMenu,closeMenu] = useTriggerState(false)
  */
 export default function useTriggerState(
-  initialState: boolean = false,
+  initialState: boolean | (() => boolean) = false,
 ): [boolean, () => void, () => void] {
   const [is, setIs] = useState<boolean>(initialState);
 
