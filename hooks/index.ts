@@ -14,6 +14,7 @@ export { default as useIgnoreFirstCalls } from "./app/useIgnoreFirstCalls";
 export { default as useWheelDatePicker } from "./app/useWheelDatePicker";
 export { default as useResponsiveState } from "./app/useResponsiveState";
 export { default as useTriggerState } from "./app/useTriggerState";
+export { default as useModalState } from "./app/useModalState";
 
 /**
  * Auth's hooks
