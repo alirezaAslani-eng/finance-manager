@@ -15,6 +15,7 @@ export { default as useWheelDatePicker } from "./app/useWheelDatePicker";
 export { default as useResponsiveState } from "./app/useResponsiveState";
 export { default as useTriggerState } from "./app/useTriggerState";
 export { default as useModalState } from "./app/useModalState";
+export { default as useCloseModalByPopstateEvent } from "./app/useCloseModalByPopstateEvent";
 
 /**
  * Auth's hooks
