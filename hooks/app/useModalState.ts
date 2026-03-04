@@ -1,31 +1,62 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useTriggerState from "./useTriggerState";
 import { UseModalStateProps, UseModalStateReturn } from "./types";
+import useCloseModalByPopstateEvent from "./useCloseModalByPopstateEvent";
 
 function useModalState<TInfo = any>(
   options: UseModalStateProps<TInfo> = {},
 ): UseModalStateReturn<TInfo> {
-  const { initialModalInfo = null, initialModalState } = options;
+  const { initialModalInfo = null, initialModalState, isParentModal } = options;
 
-  // * the state of modal that presents the information of a transaction
-  const [isOpenModal, openModal, closeModal] =
-    useTriggerState(initialModalState);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(
+    initialModalState || false,
+  );
 
-  // * this state provides the information of a transaction when user click on it
   const [modalInfo, setModalInfo] = useState<TInfo | null>(initialModalInfo);
 
-  // * ==== OPEN IT ====
-  const setInfo = (info: TInfo) => {
-    setModalInfo(info);
-    openModal();
-  };
-  // * ==== CLOSE IT ====
-  const clearInfo = () => {
-    setModalInfo(null);
-    closeModal();
-  };
+  const openModal = useCallback(
+    (info: TInfo) => {
+      setModalInfo(info);
+      setIsOpenModal(true);
+      if (isParentModal) historyHandler("OPEN-MODAL");
+    },
+    [setModalInfo, setIsOpenModal, isParentModal, historyHandler],
+  );
 
-  return { isOpenModal, modalInfo, openModal: setInfo, closeModal: clearInfo };
+  const closeModal = useCallback(() => {
+    setModalInfo(null);
+    setIsOpenModal(false);
+    if (isParentModal) historyHandler("CLOSE-MODAL");
+  }, [setModalInfo, setIsOpenModal, isParentModal, historyHandler]);
+
+  const closeModalByPopstateEvent = useCallback(() => {
+    if (!isParentModal) return;
+    setModalInfo(null);
+    setIsOpenModal(false);
+  }, [isParentModal]);
+
+  useCloseModalByPopstateEvent({
+    isOpenModal,
+    closeModal: closeModalByPopstateEvent,
+  });
+
+  return { isOpenModal, modalInfo, openModal, closeModal };
 }
 
 export default useModalState;
+
+function historyHandler(action: "OPEN-MODAL" | "CLOSE-MODAL") {
+  switch (action) {
+    case "CLOSE-MODAL": {
+      history.back();
+      break;
+    }
+    case "OPEN-MODAL": {
+      history.pushState(null, "", location.pathname);
+      break;
+    }
+    default: {
+      let neverReachHere: never = action;
+    }
+  }
+}
