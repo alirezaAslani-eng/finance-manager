@@ -1,4 +1,5 @@
 import faNumToEnNum from "./faNumtoEnNum";
+import identifyDate from "./identifyDate";
 
 interface GetFaDateReturnType {
   fa_date: string;
@@ -9,7 +10,8 @@ type getFaDateType = (date: Date) => GetFaDateReturnType;
 /**
  * takes a date value and convert it into a persian format
  */
-const getFaDate: getFaDateType = (date: Date) => {
+const getFaDate: getFaDateType = (date: Date = new Date()) => {
+  if (!!!identifyDate(date)) date = new Date();
   // * Ir full Date -- >
   const faDate = date.toLocaleString("fa-IR");
 
