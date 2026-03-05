@@ -1,6 +1,6 @@
 import { RecentTransactions } from "@/components/module";
 import { PageComponent } from "@/types/page.types";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, BoxProps, Container, useMediaQuery } from "@mui/material";
 import { PanelLayout } from "@/layout";
 import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import {
@@ -15,11 +15,10 @@ const index: PageComponent = () => {
   const isAftersm = useMediaQuery(({ breakpoints }) => breakpoints.up("sm"));
   return (
     // * =============== Container ===============
-    <Box px={{ xs: "16px", sm: "50px" }}>
+    <Container>
       <Box
         display={"flex"}
         gap={"50px"}
-        mt={{ xs: "16px", sm: "50px" }}
         sx={{
           flexDirection: { xs: "column", lg: "row" },
           alignItems: { xs: "center", lg: "start" },
@@ -84,7 +83,7 @@ const index: PageComponent = () => {
           </BoxWithHeading>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 
