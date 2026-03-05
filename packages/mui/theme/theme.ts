@@ -6,6 +6,7 @@ import typography from "./typography";
 import {
   alert,
   button,
+  container,
   cssBaseLine,
   dialog,
   inputLabel,
@@ -51,6 +52,7 @@ const theme: ThemeOptions = {
     MuiAlert: alert,
     MuiTextField: textField,
     MuiDialog: dialog,
+    MuiContainer: container,
   },
 };
 
