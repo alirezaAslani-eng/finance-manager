@@ -194,7 +194,6 @@ TotalBalanceCard.TriggerAccountListButton = function (
       >
         <Box p={"20px"}>
           <Box
-            mt={"20px"}
             display="grid"
             gridTemplateColumns={{ _540: "repeat(2,1fr)", md: "repeat(3,1fr)" }}
             gap="20px"
