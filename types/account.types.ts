@@ -9,4 +9,14 @@ interface Account_face {
   bankName: string;
   bankIcon: string;
 }
-export type { Account_face };
+interface Account {
+  _id: string;
+  accountName: string;
+  cardNumber: string;
+  currentBalance: number;
+  isActive: boolean;
+  user: string;
+  bankName: string;
+  bankIcon: string;
+}
+export type { Account_face, Account };
