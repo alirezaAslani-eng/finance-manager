@@ -1,131 +1,69 @@
-import { TextPrice } from "@/components/ui";
-import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
-import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
-import React from "react";
-import Link from "next/link";
-import { Account_face } from "@/types/account.types";
-import { useActiveAccount } from "@/hooks";
+import { Box, Stack, Typography } from "@mui/material";
+import ModeRoundedIcon from "@mui/icons-material/ModeRounded";
+import { formatBankNumber } from "@/lib/utils";
+import TextPrice from "../Text/TextPrice";
+import { muiTheme } from "@/packages/mui";
+import { Account } from "@/types/account.types";
 
-interface MyProp
-  extends Partial<
-    Pick<
-      Account_face,
-      "accountName" | "cardNumber" | "currentBalance" | "isActive"
-    >
-  > {
-  onlyInfo?: boolean;
-  _id?: string;
-  // * Events ======= >
-  onEnable?: (_id: string) => void;
-}
-function AccountCard({
-  onlyInfo,
-  accountName,
-  cardNumber,
-  currentBalance = 0,
-  isActive,
-  _id,
-  onEnable = () => {},
-}: MyProp) {
-  // * Events =============== >
-  const enable = () => {
-    onEnable(_id || "");
-  };
-
+function AccountCard(props: Partial<Account>) {
   return (
     <Box
-      sx={{
-        maxWidth: "100%",
-        borderRadius: "25px",
-        overflow: "hidden",
-      }}
+      p={"16px"}
+      position={"relative"}
+      borderRadius={"16px"}
+      sx={({ alpha, palette }) => ({
+        border: "1px solid",
+        borderColor: muiTheme(palette.mode, {
+          light: alpha(palette.black, 0.3),
+          dark: alpha(palette.white, 0.3),
+        }),
+      })}
     >
-      {/* Body Card ============================== > */}
-      <Box
-        sx={({ palette }) => ({
-          padding: "20px 15px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          background: palette.primary.main,
-        })}
-      >
-        {/* Card Number =============== > */}
-        <Typography
-          component={"span"}
-          display={"block"}
-          sx={({ palette }) => ({
-            // * Responsive fontSize ====>
-            fontSize: {
-              xs: "24px",
-              _700: "26px",
-              md: "20px",
-              lg: "26px",
-              xl: "20px",
-            },
-            color: palette.grey[50],
-          })}
-        >
-          {cardNumber}
-        </Typography>
-
-        {/* Owner name =================================> */}
-        <Typography
-          component={"span"}
-          sx={({ palette }) => ({
-            color: palette.grey[50],
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px ",
-            flexWrap: "wrap",
-          })}
-        >
-          {`به نام : ${accountName}`}
-          {/* // * Current balance =================== > */}
-          <TextPrice price={currentBalance || 0} />
-        </Typography>
-      </Box>
-
-      <Divider />
-      {/* Footer =============================== > */}
-      {!onlyInfo && (
+      <Stack alignItems={"center"}>
         <Box
-          sx={({ palette, alpha }) => ({
-            p: "8px 10px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backgroundColor: alpha(palette.primary.main, 0.1),
-          })}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          width={"100%"}
         >
-          {/* Enable Button ======================== > */}
-          <Button
-            onClick={enable}
-            variant={isActive ? "contained" : "outlined"}
-            size="medium"
-            sx={(tm) => {
-              return {
-                ...(tm.custom!.circleButton as object),
-              };
-            }}
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            width={"100%"}
+            gap={"4px"}
           >
-            {isActive ? (
-              <DoneRoundedIcon />
-            ) : (
-              <Typography sx={{ fontSize: "14px" }}>{"فعال کردن"}</Typography>
-            )}
-          </Button>
-          {/* Edit Button ============================== > */}
-          <Link href={`/my-panel/account/add?edit=${_id}`}>
-            <Button variant="outlined">
-              <EditNoteRoundedIcon />
-            </Button>
-          </Link>
+            {/* // * --------------- Bank Icon --------------- */}
+            <Box component={"img"} src={"/images/bankIcons/maskan-26.svg"} />
+            {/* // * --------------- Owner Name --------------- */}
+            <Typography>{"مریم اصلانی"}</Typography>
+          </Box>
+
+          {/* // * --------------- Edit Icon --------------- */}
+          <ModeRoundedIcon
+            fontSize="small"
+            sx={({ palette }) => ({
+              cursor: "pointer",
+              color: muiTheme(palette.mode, {
+                dark: palette.grey[300],
+                light: palette.grey[700],
+              }),
+            })}
+          />
         </Box>
-      )}
+
+        <Stack alignItems={"center"} mt={"12px"}>
+          {/* // * --------------- Card Number --------------- */}
+          <Typography>{formatBankNumber("6104337485085414")}</Typography>
+          {/* // * --------------- Account Balance --------------- */}
+          <Box>
+            <TextPrice
+              price={25000000000}
+              fontSize={"16px"}
+              unitFontSize={"14px"}
+            />
+          </Box>
+        </Stack>
+      </Stack>
     </Box>
   );
 }
