@@ -1,4 +1,6 @@
+import { useModalState } from "@/hooks";
 import { muiTheme } from "@/packages/mui";
+import DialogBottomSheet from "@/packages/mui/styled-components/Dialog/DialogBottomSheet";
 import { ComponentFetchState } from "@/types/component.types";
 import { contextCreator } from "@/utils";
 import {
@@ -12,7 +14,9 @@ import {
   Typography,
   TypographyProps,
 } from "@mui/material";
-import React, { createContext, PropsWithChildren, useContext } from "react";
+import { PropsWithChildren } from "react";
+import dana_md from "@/constant/font/dana_md";
+import { Accounts } from "@/components/module";
 
 // * Component's Context =========== >
 const { Context, useCreatedContext } = contextCreator<ComponentFetchState>();
@@ -20,7 +24,7 @@ const { Context, useCreatedContext } = contextCreator<ComponentFetchState>();
 // * Parent Component =============== >
 const TotalBalanceCard = (props: PropsWithChildren<StackProps>) => {
   return (
-    <Context value={{ data: "", isError: false, isPending: true }}>
+    <Context value={{ data: "", isError: false, isPending: false }}>
       <Stack
         height={"fit-content"}
         alignItems={"center"}
@@ -150,21 +154,56 @@ TotalBalanceCard.AccountIconList = function (props: BoxProps) {
   );
 };
 
-TotalBalanceCard.AccountButton = function (
+TotalBalanceCard.TriggerAccountListButton = function (
   props: PropsWithChildren<ButtonProps>,
 ) {
   const { isPending, isError } = useCreatedContext();
+
+  const { isOpenModal, closeModal, openModal } = useModalState({
+    isParentModal: true,
+  });
+
   return (
-    <Button
-      size="small"
-      color="success"
-      variant="outlined"
-      sx={{ alignItems: "center", display: "flex", gap: "4px" }}
-      {...props}
-      disabled={props.disabled || isPending || isError}
-    >
-      {props.children}
-    </Button>
+    <>
+      <Button
+        size="small"
+        color="success"
+        variant="outlined"
+        sx={{ alignItems: "center", display: "flex", gap: "4px" }}
+        {...props}
+        disabled={props.disabled || isPending || isError}
+        onClick={(e) => {
+          props?.onClick && props.onClick(e);
+          openModal(null);
+        }}
+      >
+        {props.children}
+      </Button>
+      <DialogBottomSheet
+        open={isOpenModal}
+        onClose={closeModal}
+        maxWidth="md"
+        className={dana_md.className}
+        sx={(tm) => ({
+          [tm.breakpoints.down("sm")]: {
+            ["& .MuiPaper-root"]: {
+              maxHeight: "70%",
+            },
+          },
+        })}
+      >
+        <Box p={"20px"}>
+          <Box
+            mt={"20px"}
+            display="grid"
+            gridTemplateColumns={{ _540: "repeat(2,1fr)", md: "repeat(3,1fr)" }}
+            gap="20px"
+          >
+            <Accounts />
+          </Box>
+        </Box>
+      </DialogBottomSheet>
+    </>
   );
 };
 

@@ -38,11 +38,11 @@ const index: PageComponent = () => {
 
             <TotalBalanceCard.AccountSection>
               <TotalBalanceCard.AccountIconList />
-              <TotalBalanceCard.AccountButton
+              <TotalBalanceCard.TriggerAccountListButton
                 size={isAftersm ? "medium" : "small"}
               >
                 {"مدریت حساب ها"}
-              </TotalBalanceCard.AccountButton>
+              </TotalBalanceCard.TriggerAccountListButton>
             </TotalBalanceCard.AccountSection>
           </TotalBalanceCard>
 
