@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { MultipleSelectCheckmarks } from "..";
-import { Button, Dialog, Stack, Typography, useTheme } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { muiTheme } from "@/packages/mui";
 import { MultipleSelectCheckmarksProps } from "./MultipleSelectCheckmarks";
 import dana_md from "@/constant/font/dana_md";
 import DialogBottomSheet from "@/packages/mui/styled-components/Dialog/DialogBottomSheet";
-interface MyProps
-  extends Pick<
-    MultipleSelectCheckmarksProps,
-    "activedCheckBoxs" | "items" | "onDisable" | "onEnable"
-  > {
+interface MyProps extends Pick<
+  MultipleSelectCheckmarksProps,
+  "activedCheckBoxs" | "items" | "onDisable" | "onEnable"
+> {
   placeholder?: string;
 }
 
@@ -77,6 +76,7 @@ function ModalSelect({
             return {
               borderBottom: "1px solid",
               pb: "10px",
+              mb: "20px",
               borderColor: muiTheme(mode, {
                 dark: alpha(grey[100], 0.3),
                 light: alpha(grey[800], 0.3),
