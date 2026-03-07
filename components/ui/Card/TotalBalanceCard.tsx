@@ -16,7 +16,10 @@ import {
 } from "@mui/material";
 import { PropsWithChildren } from "react";
 import dana_md from "@/constant/font/dana_md";
-import { Accounts } from "@/components/module";
+import { AccountListModal, Accounts } from "@/components/module";
+import CloseRounded from "@mui/icons-material/CloseRounded";
+import AddCardRoundedIcon from "@mui/icons-material/AddCardRounded";
+import Link from "next/link";
 
 // * Component's Context =========== >
 const { Context, useCreatedContext } = contextCreator<ComponentFetchState>();
@@ -179,29 +182,7 @@ TotalBalanceCard.TriggerAccountListButton = function (
       >
         {props.children}
       </Button>
-      <DialogBottomSheet
-        open={isOpenModal}
-        onClose={closeModal}
-        maxWidth="md"
-        className={dana_md.className}
-        sx={(tm) => ({
-          [tm.breakpoints.down("sm")]: {
-            ["& .MuiPaper-root"]: {
-              maxHeight: "70%",
-            },
-          },
-        })}
-      >
-        <Box p={"20px"}>
-          <Box
-            display="grid"
-            gridTemplateColumns={{ _540: "repeat(2,1fr)", md: "repeat(3,1fr)" }}
-            gap="20px"
-          >
-            <Accounts />
-          </Box>
-        </Box>
-      </DialogBottomSheet>
+      <AccountListModal isOpen={isOpenModal} onClose={closeModal} />
     </>
   );
 };
