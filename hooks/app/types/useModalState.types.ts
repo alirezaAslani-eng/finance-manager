@@ -1,6 +1,5 @@
 interface UseModalStateProps<TInfo = unknown> {
   isParentModal?: boolean;
-  initialModalState?: boolean | (() => boolean);
   initialModalInfo?: TInfo | (() => TInfo) | null;
 }
 

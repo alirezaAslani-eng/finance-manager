@@ -1,16 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import useTriggerState from "./useTriggerState";
+import { useCallback, useState } from "react";
 import { UseModalStateProps, UseModalStateReturn } from "./types";
 import useCloseModalByPopstateEvent from "./useCloseModalByPopstateEvent";
 
 function useModalState<TInfo = any>(
   options: UseModalStateProps<TInfo> = {},
 ): UseModalStateReturn<TInfo> {
-  const { initialModalInfo = null, initialModalState, isParentModal } = options;
+  const { initialModalInfo = null, isParentModal } = options;
 
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(
-    initialModalState || false,
-  );
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const [modalInfo, setModalInfo] = useState<TInfo | null>(initialModalInfo);
 
