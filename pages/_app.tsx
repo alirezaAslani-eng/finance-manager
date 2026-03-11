@@ -21,6 +21,7 @@ import { CustomPageProps } from "@/types/page.types";
 import { ModalGroup } from "@/components/common";
 import dana_md from "@/constant/font/dana_md";
 import peyda_md from "@/constant/font/peyda_md";
+import dana_rg from "@/constant/font/dana_rg";
 
 // * set all default queries ======= >
 setAllDefaults(); // ! Side effet module
@@ -37,7 +38,7 @@ function _app({
       role="font-variables-loader"
       component={"div"}
       bgcolor={"palette.background.default"}
-      className={`${dana_md.variable} ${peyda_md.variable}`}
+      className={`${dana_md.variable} ${peyda_md.variable} ${dana_rg.variable}`}
     >
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps?.dehydratedState}>
