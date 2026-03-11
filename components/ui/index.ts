@@ -15,8 +15,6 @@ export { default as TextPrice } from "./Text/TextPrice";
 export { default as NoData } from "./Fallback/NoData";
 export { default as AdaptiveScroll } from "./Box/AdaptiveScroll";
 export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";
-export { default as MultipleSelectCheckmarks } from "./Input/MultipleSelectCheckmarks";
-export { default as MultiSelectModal } from "./Input/MultiSelectModal";
 export { default as MultipleInputs } from "./Input/MultipleInputs";
 export { default as PriceInput } from "./Input/PriceInput";
 export { default as Form } from "./Form/Form";
