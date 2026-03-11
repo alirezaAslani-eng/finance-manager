@@ -87,11 +87,9 @@ type ActionsType =
   | "MIN_AMOUNT"
   | "MAX_AMOUNT"
   // * ACOUNT Actions
-  | "ADD_ACCOUNT"
-  | "REMOVE_ACCOUNT"
+  | "ACCOUNTS"
   // * CATEGORY Actions
-  | "ADD_CATEGORY"
-  | "REMOVE_CATEGORY";
+  | "CATEGORIES";
 
 /**
  * Reset all filters
@@ -143,10 +141,8 @@ type SortActionType = {
  * Dispatch Type to add account or remove one or all added accounts
  */
 type AcountActionType = {
-  type:
-    | Extract<ActionsType, "ADD_ACCOUNT">
-    | Extract<ActionsType, "REMOVE_ACCOUNT">;
-  payload: { value: string };
+  type: Extract<ActionsType, "ACCOUNTS">;
+  payload: { value: string[] };
 };
 
 /**
@@ -154,16 +150,10 @@ type AcountActionType = {
  * Dispatch Type to add category or remove one or all added categories
  */
 type CategoryActionType = {
-  type:
-    | Extract<ActionsType, "ADD_CATEGORY">
-    | Extract<ActionsType, "REMOVE_CATEGORY">;
-  payload: { value: string };
+  type: Extract<ActionsType, "CATEGORIES">;
+  payload: { value: string[] };
 };
 
-/**
- * Global Dispatch Types
- */
-type GlobalActionType = { autoApply?: boolean };
 /**
  * Dispatch Types
  */

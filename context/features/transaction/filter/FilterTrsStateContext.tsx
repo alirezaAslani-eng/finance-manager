@@ -29,7 +29,7 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
   // * Is Data filtred ================= >
   const [filter, setFilter] = useQueryState<boolean>(
     addKey("filter"),
-    parseAsBoolean.withDefault(false)
+    parseAsBoolean.withDefault(false),
   );
   // * Should we render oldest transactions =============== >
   const [old, setOld] = useQueryState<true>(addKey("old"), parseAsTrue);
@@ -37,37 +37,37 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
   // * expenses = 0 / income = 1 transactions or all =========== >
   const [type, setType] = useQueryState<Transaction_face["type"]>(
     addKey("type"),
-    parseAsStringLiteral(["0", "1"])
+    parseAsStringLiteral(["0", "1"]),
   );
   // * Filter transactions based on Selected Accounts / [] = all ====== >
   const [accounts, setAccounts] = useQueryState<string[]>(
     addKey("accounts"),
-    parseAsArrayOf(parseAsString).withDefault([])
+    parseAsArrayOf(parseAsString).withDefault([]),
   );
   // * Filter transactions based on Selected categories / [] = all ====== >
   const [categories, setCategories] = useQueryState<string[]>(
     addKey("categories"),
-    parseAsArrayOf(parseAsString).withDefault([])
+    parseAsArrayOf(parseAsString).withDefault([]),
   );
   // * Show me transactions which have amount >= minAmount  ====== >
   const [minAmount, setMinAmount] = useQueryState<number>(
     addKey("minAmount"),
-    parseAsInteger
+    parseAsInteger,
   );
   // * Show me transactions which have amount <= maxAmount  ====== >
   const [maxAmount, setMaxAmount] = useQueryState<number>(
     addKey("maxAmount"),
-    parseAsInteger
+    parseAsInteger,
   );
   // * Show me transactions which are created in (date >= fromDate ) ====== >
   const [fromDate, setFromDate] = useQueryState<Date>(
     addKey("fromDate"),
-    parseAsFromDate
+    parseAsFromDate,
   );
   // * Show me transactions which are created in (date <= toDate ) ====== >
   const [toDate, setToDate] = useQueryState<Date>(
     addKey("toDate"),
-    parseAsToDate
+    parseAsToDate,
   );
   /**
    * If this state get updates, it cause a side-effect run
@@ -127,24 +127,14 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
           setOld((prev) => (!prev ? true : null));
           break;
         }
-        case "ADD_ACCOUNT": {
-          // * Add one id to the array of accounts' id ======= >
-          setAccounts((prev) => addOneId(prev, action.payload.value));
+        case "ACCOUNTS": {
+          // * Accounts as an array of unique ids =========== >
+          setAccounts(action.payload.value);
           break;
         }
-        case "REMOVE_ACCOUNT": {
-          // * Remove one id to the array of accounts' id ======= >
-          setAccounts((prev) => removeOneId(prev, action.payload.value));
-          break;
-        }
-        case "ADD_CATEGORY": {
-          // * Add one id to the array of categories' id ======= >
-          setCategories((prev) => addOneId(prev, action.payload.value));
-          break;
-        }
-        case "REMOVE_CATEGORY": {
-          // * Remove one id to the array of categories' id ======= >
-          setCategories((prev) => removeOneId(prev, action.payload.value));
+        case "CATEGORIES": {
+          // * Categories as an array of unique ids =========== >
+          setCategories(action.payload.value);
           break;
         }
         case "FROM_DATE": {
@@ -213,7 +203,7 @@ const FilterTrsStateProvider: ProviderFilterTrsStateFn = ({ children }) => {
       setToDate,
       setMinAmount,
       setMaxAmount,
-    ]
+    ],
   );
 
   // * Apply By User =========== >

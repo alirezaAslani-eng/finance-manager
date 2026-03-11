@@ -5,56 +5,56 @@ import { debounce } from "@mui/material";
 
 const useFilterTrsState: UseTrsFilterState = () => {
   const { dispatcher, filterState, apply, dynamicQueryKey } = useContext(
-    FilterTrsStateContext
+    FilterTrsStateContext,
   );
 
   // * Reset Filter =========== >
   const resetFilter = useCallback(
     () => dispatcher({ type: "RESET_FILTER" }),
-    [dispatcher]
+    [dispatcher],
   );
   // * Reset Filter =========== >
   const toggleSort = useCallback(
     () => dispatcher({ type: "TOGGLE_SORT" }),
-    [dispatcher]
+    [dispatcher],
   );
 
   // * Filter Transactions Based on Amount =========== >
   const setMinAmount = useCallback(
     debounce(
       (n: number) => dispatcher({ type: "MIN_AMOUNT", payload: { value: n } }),
-      400
+      400,
     ),
-    [dispatcher]
+    [dispatcher],
   );
 
   const setMaxAmount = useCallback(
     debounce(
       (n: number) => dispatcher({ type: "MAX_AMOUNT", payload: { value: n } }),
-      400
+      400,
     ),
-    [dispatcher]
+    [dispatcher],
   );
 
   // * Filter Transactions Based on Date =========== >
   const setFromDate = useCallback(
     (date: Date) => dispatcher({ type: "FROM_DATE", payload: { value: date } }),
-    [dispatcher]
+    [dispatcher],
   );
 
   const setToDate = useCallback(
     (date: Date) => dispatcher({ type: "TO_DATE", payload: { value: date } }),
-    [dispatcher]
+    [dispatcher],
   );
 
   const cancelFromDate = useCallback(
     () => dispatcher({ type: "CANCEL_FROM_DATE" }),
-    [dispatcher]
+    [dispatcher],
   );
 
   const cancelToDate = useCallback(
     () => dispatcher({ type: "CANCEL_TO_DATE" }),
-    [dispatcher]
+    [dispatcher],
   );
   const setType: UseTrsFilterReturnedType["setType"] = useCallback(
     (value) =>
@@ -62,42 +62,36 @@ const useFilterTrsState: UseTrsFilterState = () => {
         type: "TRANSACTION_TYPE",
         payload: { value: value === "all" ? null : value },
       }),
-    [dispatcher]
+    [dispatcher],
   );
 
   // * Categories ==== >
-  const setCategory = useCallback(
-    (addedCategory: string) =>
+  const setCategories = useCallback(
+    (categories: string[]) =>
       dispatcher({
-        type: "ADD_CATEGORY",
-        payload: { value: addedCategory },
+        type: "CATEGORIES",
+        payload: { value: categories },
       }),
-    [dispatcher]
+    [dispatcher],
   );
-
-  const cancelCategory = useCallback(
-    (canceledCategory: string) =>
+  const clearCategories = useCallback(
+    () =>
       dispatcher({
-        type: "REMOVE_CATEGORY",
-        payload: { value: canceledCategory },
+        type: "CATEGORIES",
+        payload: { value: [] },
       }),
-    [dispatcher]
+    [dispatcher],
   );
 
   // * Accounts ========= >
-  const setAccount = useCallback(
-    (addedAccount: string) =>
-      dispatcher({ type: "ADD_ACCOUNT", payload: { value: addedAccount } }),
-    [dispatcher]
+  const setAccounts = useCallback(
+    (accounts: string[]) =>
+      dispatcher({ type: "ACCOUNTS", payload: { value: accounts } }),
+    [dispatcher],
   );
-
-  const cancelAccount = useCallback(
-    (canceledAccount: string) =>
-      dispatcher({
-        type: "REMOVE_ACCOUNT",
-        payload: { value: canceledAccount },
-      }),
-    [dispatcher]
+  const clearAccounts = useCallback(
+    () => dispatcher({ type: "ACCOUNTS", payload: { value: [] } }),
+    [dispatcher],
   );
 
   return {
@@ -110,10 +104,10 @@ const useFilterTrsState: UseTrsFilterState = () => {
     setToDate,
     cancelFromDate,
     cancelToDate,
-    setCategory,
-    cancelCategory,
-    setAccount,
-    cancelAccount,
+    setCategories,
+    clearCategories,
+    setAccounts,
+    clearAccounts,
     apply,
     toggleSort,
     setType,

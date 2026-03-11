@@ -8,11 +8,11 @@ interface UseTrsFilterReturnedType {
   setMaxAmount: (amount: number) => void;
   setFromDate: (date: Date) => void;
   setToDate: (date: Date) => void;
-  setCategory: (category: string) => void;
-  setAccount: (category: string) => void;
+  setCategories: (categories: string[]) => void;
+  setAccounts: (accounts: string[]) => void;
+  clearCategories: () => void;
+  clearAccounts: () => void;
   resetFilter: () => void;
-  cancelAccount: (account: string) => void;
-  cancelCategory: (account: string) => void;
   cancelToDate: () => void;
   cancelFromDate: () => void;
   apply: () => void;
