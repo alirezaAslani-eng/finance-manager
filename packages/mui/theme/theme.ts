@@ -9,6 +9,7 @@ import {
   container,
   cssBaseLine,
   dialog,
+  formLabel,
   inputLabel,
   svgIcon,
   textField,
@@ -53,6 +54,7 @@ const theme: ThemeOptions = {
     MuiTextField: textField,
     MuiDialog: dialog,
     MuiContainer: container,
+    MuiFormLabel: formLabel,
   },
 };
 
