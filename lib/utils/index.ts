@@ -21,3 +21,4 @@ export { default as parseURLQueryToArray } from "./app/parseURLQueryToArray";
 export { default as triggerRandomID } from "./app/triggerRandomID";
 export { default as buildArray } from "./app/buildArray";
 export { default as formatBankNumber } from "./app/formatBankNumber";
+export { default as getLengthOfArray } from "./app/getLengthOfArray";
