@@ -1,18 +1,18 @@
-import { Account_face } from "./account.types";
+import { Account } from "./account.types";
 import { Category_face } from "./category.types";
 
-enum UserRolesEnum {
-  USER = "USER",
-  ADMIN = "ADMIN",
-}
+type UserRoles = "USER" | "ADMIN";
+type UserRolesForMongoEnum = ["USER", "ADMIN"];
+
 interface User_face {
   userName: string;
   fullName: string;
   password: string;
   email: string;
   phone: string;
-  role?: keyof typeof UserRolesEnum; // * "USER" | "ADMIN"
+  role?: UserRoles; // * "USER" | "ADMIN"
 }
+
 type userDoc_type = { _id: string };
 type PayloadToken_type = {
   [key in keyof Pick<
@@ -25,10 +25,7 @@ type GetMeOutput = Pick<
   "email" | "fullName" | "phone" | "role" | "userName"
 > & {
   _id: string;
-  accounts: ({ _id: string } & Pick<
-    Account_face,
-    "accountName" | "cardNumber" | "currentBalance" | "isActive"
-  >)[];
+  accounts: Account[];
   categories: ({ _id: string } & Pick<Category_face, "name">)[];
 };
 
@@ -40,6 +37,6 @@ export type {
   GetMeOutput,
   userDoc_type,
   SignupResponse_type,
+  UserRoles,
+  UserRolesForMongoEnum,
 };
-// * Value ===== >
-export { UserRolesEnum };

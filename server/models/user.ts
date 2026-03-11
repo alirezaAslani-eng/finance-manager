@@ -1,4 +1,8 @@
-import { User_face, UserRolesEnum } from "@/types/user.types";
+import {
+  User_face,
+  UserRoles,
+  UserRolesForMongoEnum,
+} from "@/types/user.types";
 import m, { model, models, Schema } from "mongoose";
 import { category_model } from "./category"; // * Relation
 import { account_model } from "./account"; // * Relation
@@ -37,11 +41,11 @@ const user_schema = new Schema<User_face>(
     },
     role: {
       type: String,
-      enum: Object.values(UserRolesEnum),
-      default: UserRolesEnum.USER,
+      enum: ["USER", "ADMIN"] satisfies UserRolesForMongoEnum,
+      default: "USER" satisfies UserRoles,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 user_schema.set("toObject", { virtuals: true });
 user_schema.set("toJSON", { virtuals: true });
