@@ -23,4 +23,5 @@ export { default as TotalBalanceCard } from "./Card/TotalBalanceCard";
 export { default as IncomeExpenseCard } from "./Card/IncomeExpenseCard";
 export { default as WheelSelector } from "./WheelSelector/WheelSelector";
 export { default as BankIcon } from "./Img/BankIcon";
+export { default as InputMultipleSelectCheckBox } from "./Input/InputMultipleSelectCheckBox";
 export { default as InputTrigger } from "./Triggers/InputTrigger";
