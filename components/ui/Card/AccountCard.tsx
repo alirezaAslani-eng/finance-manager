@@ -4,6 +4,7 @@ import { formatBankNumber } from "@/lib/utils";
 import TextPrice from "../Text/TextPrice";
 import { muiTheme } from "@/packages/mui";
 import { Account } from "@/types/account.types";
+import BankIcon from "../Img/BankIcon";
 
 function AccountCard(props: Partial<Account>) {
   return (
@@ -33,7 +34,7 @@ function AccountCard(props: Partial<Account>) {
             gap={"4px"}
           >
             {/* // * --------------- Bank Icon --------------- */}
-            <Box component={"img"} src={"/images/bankIcons/maskan-26.svg"} />
+            <BankIcon src="/images/bankIcons/maskan-26.svg" alt="test icon" />
             {/* // * --------------- Owner Name --------------- */}
             <Typography>{"مریم اصلانی"}</Typography>
           </Box>

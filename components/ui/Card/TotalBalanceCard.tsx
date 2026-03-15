@@ -1,6 +1,5 @@
 import { useModalState } from "@/hooks";
 import { muiTheme } from "@/packages/mui";
-import DialogBottomSheet from "@/packages/mui/styled-components/Dialog/DialogBottomSheet";
 import { ComponentFetchState } from "@/types/component.types";
 import { contextCreator } from "@/utils";
 import {
@@ -15,11 +14,8 @@ import {
   TypographyProps,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
-import dana_md from "@/constant/font/dana_md";
-import { AccountListModal, Accounts } from "@/components/module";
-import CloseRounded from "@mui/icons-material/CloseRounded";
-import AddCardRoundedIcon from "@mui/icons-material/AddCardRounded";
-import Link from "next/link";
+import { AccountListModal } from "@/components/module";
+import BankIcon from "../Img/BankIcon";
 
 // * Component's Context =========== >
 const { Context, useCreatedContext } = contextCreator<ComponentFetchState>();
@@ -143,14 +139,7 @@ TotalBalanceCard.AccountIconList = function (props: BoxProps) {
         </>
       ) : (
         <>
-          <Box
-            src="/images/bankIcons/melli-22.svg"
-            alt=""
-            component={"img"}
-            height={"35px"}
-            sx={{ objectFit: "cover", aspectRatio: "1/1" }}
-            {...props}
-          />
+          <BankIcon src="/images/bankIcons/melli-22.svg" alt="test icon" />
         </>
       )}
     </Box>

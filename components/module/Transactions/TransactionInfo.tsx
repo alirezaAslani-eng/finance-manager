@@ -1,4 +1,4 @@
-import { TextPrice } from "@/components/ui";
+import { BankIcon, TextPrice } from "@/components/ui";
 import dana_md from "@/constant/font/dana_md";
 import { formatBankNumber, getFaDate } from "@/lib/utils";
 import { muiTheme } from "@/packages/mui";
@@ -43,7 +43,7 @@ function TransactionInfo(transactionInfo: Partial<Transaction>) {
         {/* // * Account Info */}
         <Stack alignItems={"center"}>
           <Box display={"flex"} alignItems={"center"} gap={"4px"}>
-            <Box component={"img"} src={"/images/bankIcons/ansar-05.svg"} />
+            <BankIcon src={"/images/bankIcons/ansar-05.svg"} alt="test icon" />
             <Typography>{"مریم اصلانی"}</Typography>
           </Box>
           <Typography component={"span"}>
