@@ -8,8 +8,9 @@ import {
   Button,
   ToggleButtonGroup,
 } from "@mui/material";
-import { MultiSelectModal } from "@/components/ui";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import {
+  ModalToolBar,
+} from "@/components/ui";
 import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
 import { useAuth, useFilterTrsState } from "@/context";
@@ -80,31 +81,16 @@ const FilterPanel = ({ onClose }: Myprops) => {
   return (
     <Box>
       {/* // * Heading-> Close Button And Reset Filter Button */}
-      <Stack
-        flexDirection={"row"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-      >
-        {/* // * Close Icon =============== > */}
-        <CloseRoundedIcon
+      <ModalToolBar>
+        <ModalToolBar.CloseButton
           onClick={onClose}
-          sx={{
-            cursor: "pointer",
-            color: muiTheme(mode, {
-              dark: grey[100],
-              light: grey[700],
-            }),
-          }}
+          sx={(tm) => tm.custom!.circleButton as object}
         />
-
-        {/* // * Title ============== > */}
-        <Typography>{"فیلتر ها"}</Typography>
-
-        {/* // * Reset Filter Button ============ > */}
-        <Button onClick={resetFilter} variant="text-grey" size="medium">
+        <ModalToolBar.Title>{"فیلتر ها"}</ModalToolBar.Title>
+        <ModalToolBar.Button onClick={resetFilter}>
           {"حذف فیلتر ها"}
-        </Button>
-      </Stack>
+        </ModalToolBar.Button>
+      </ModalToolBar>
       <Divider sx={{ m: "10px 0px 20px 0px" }} />
       {/* // * ------------------------------ Filter Elements -------------------------------- >*/}
       <Stack gap={"20px"}>
