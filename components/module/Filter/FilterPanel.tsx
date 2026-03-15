@@ -101,10 +101,10 @@ const FilterPanel = ({ onClose }: Myprops) => {
           onChange={toggleSort}
         >
           <ToggleButton color="warning" value={"oldest"}>
-            {"قدیمی ترین ها"}
+            {"قدیم"}
           </ToggleButton>
           <ToggleButton color="primary" value={"latest"}>
-            {"تراکنش های جدید"}
+            {"جدید"}
           </ToggleButton>
         </ToggleButtonGroup>
 
@@ -117,10 +117,10 @@ const FilterPanel = ({ onClose }: Myprops) => {
           }}
         >
           <ToggleButton color="error" value={"0"}>
-            {"برداشت از حساب"}
+            {"برداشت"}
           </ToggleButton>
           <ToggleButton color="success" value={"1"}>
-            {"واریزی ها"}
+            {"واریزی"}
           </ToggleButton>
           <ToggleButton color="primary" value={"all"}>
             {"همه"}
