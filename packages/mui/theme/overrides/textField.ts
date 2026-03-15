@@ -1,4 +1,5 @@
 import { Components, Theme } from "@mui/material/styles";
+import { sharedInputStyle } from "./shared";
 
 const textField = {
   defaultProps: {
@@ -8,7 +9,7 @@ const textField = {
   styleOverrides: {
     root: {
       ["& .MuiOutlinedInput-root"]: {
-        borderRadius: "16px",
+        borderRadius: sharedInputStyle.borderRadius,
         height: "100%",
       },
     },
