@@ -12,6 +12,7 @@ import {
   formControll,
   formLabel,
   inputLabel,
+  select,
   svgIcon,
   textField,
   toggleButtonGroup,
@@ -57,6 +58,7 @@ const theme: ThemeOptions = {
     MuiContainer: container,
     MuiFormLabel: formLabel,
     MuiFormControl: formControll,
+    MuiSelect: select,
   },
 };
 
