@@ -26,3 +26,4 @@ export { default as BankIcon } from "./Img/BankIcon";
 export { default as InputMultipleSelectCheckBox } from "./Input/InputMultipleSelectCheckBox";
 export { default as InputTrigger } from "./Triggers/InputTrigger";
 export { default as ModalToolBar } from "./ToolsBar/ModalToolBar";
+export { default as AccountCheckbox } from "./Checkbox/AccountCheckbox";
