@@ -2,20 +2,20 @@ import {
   Divider,
   Stack,
   ToggleButton,
-  Typography,
-  useTheme,
   Box,
   Button,
   ToggleButtonGroup,
+  FormLabel,
 } from "@mui/material";
 import {
+  AccountCheckbox,
+  InputMultipleSelectCheckBox,
   ModalToolBar,
 } from "@/components/ui";
 import Datefilter from "../Input/Datefilter";
 import PriceFilter from "../Input/PriceFilter";
 import { useAuth, useFilterTrsState } from "@/context";
-import { useMemo } from "react";
-import { muiTheme } from "@/packages/mui";
+import { FilterCheckBoxsModal } from "./Modal";
 
 interface Myprops {
   onClose?: () => any;
@@ -35,15 +35,15 @@ const FilterPanel = ({ onClose }: Myprops) => {
     },
     toggleSort,
     setType,
-    setCategory,
-    cancelCategory,
-    cancelAccount,
-    setAccount,
+    setCategories,
+    clearCategories,
     resetFilter,
     setToDate,
     setFromDate,
     cancelFromDate,
     cancelToDate,
+    setAccounts,
+    clearAccounts,
     setMaxAmount,
     setMinAmount,
     apply,
@@ -54,29 +54,11 @@ const FilterPanel = ({ onClose }: Myprops) => {
     userInfo: { categories, accounts },
   } = useAuth();
 
-  // * User's categories for Checkboxes ===== >
-  const categoriesCheckBoxs = useMemo(() => {
-    return categories.map((item) => {
-      return { text: item.name, value: item._id };
-    });
-  }, [categories]);
-
-  // * User's accounts for Checkboxes ===== >
-  const accountsCheckBoxs = useMemo(() => {
-    return accounts.map((item) => {
-      return { text: item.accountName, value: item._id };
-    });
-  }, [accounts]);
-
   // * Apply Filter ===== >
   const applyFilters = () => {
     apply();
     onClose && onClose();
   };
-
-  const {
-    palette: { mode, grey },
-  } = useTheme();
 
   return (
     <Box>
@@ -130,13 +112,29 @@ const FilterPanel = ({ onClose }: Myprops) => {
 
       {/* // * Category Filter =============== > */}
       <Divider sx={{ my: "30px" }} />
-      <MultiSelectModal
+      <FilterCheckBoxsModal
         placeholder="انتخاب دسته بندی"
-        onDisable={cancelCategory}
-        onEnable={setCategory}
-        items={categoriesCheckBoxs}
-        activedCheckBoxs={selectedCategories}
-      />
+        selectedCheckBoxs={selectedCategories}
+        onClear={clearCategories}
+      >
+        <InputMultipleSelectCheckBox
+          onChange={setCategories}
+          activeValues={selectedCategories}
+        >
+          {categories.map(({ _id, name }) => {
+            return (
+              <Box display={"flex"} alignItems={"center"} gap={"8px"}>
+                <InputMultipleSelectCheckBox.CheckBox
+                  key={_id}
+                  value={_id}
+                  id={_id}
+                />
+                <FormLabel htmlFor={_id}>{name}</FormLabel>
+              </Box>
+            );
+          })}
+        </InputMultipleSelectCheckBox>
+      </FilterCheckBoxsModal>
 
       {/* // * Date filter ================== >  */}
       <Divider sx={{ my: "30px" }} />
@@ -161,13 +159,36 @@ const FilterPanel = ({ onClose }: Myprops) => {
 
       {/* // * Account Filter ==================== > */}
       <Divider sx={{ my: "30px" }} />
-      <MultiSelectModal
-        placeholder="انتخاب کارت بانکی"
-        onDisable={cancelAccount}
-        onEnable={setAccount}
-        items={accountsCheckBoxs}
-        activedCheckBoxs={selectedAccounts}
-      />
+
+      <FilterCheckBoxsModal
+        placeholder="انتخاب کارت"
+        selectedCheckBoxs={selectedAccounts}
+        onClear={clearAccounts}
+      >
+        <InputMultipleSelectCheckBox
+          onChange={setAccounts}
+          activeValues={selectedAccounts}
+        >
+          {accounts.map((account) => {
+            return (
+              <AccountCheckbox mb={"16px"}>
+                <InputMultipleSelectCheckBox.CheckBox
+                  value={account._id}
+                  id={account._id}
+                />
+                <FormLabel htmlFor={account._id}>
+                  <AccountCheckbox.InfoSection
+                    accountName={account.accountName}
+                    bankIcon={account.bankIcon}
+                    bankName={account.bankName}
+                    cardNumber={account.cardNumber}
+                  />
+                </FormLabel>
+              </AccountCheckbox>
+            );
+          })}
+        </InputMultipleSelectCheckBox>
+      </FilterCheckBoxsModal>
 
       {/* // * Apply Button ============================== > */}
       <Divider sx={{ my: "30px" }} />
