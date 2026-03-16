@@ -7,6 +7,7 @@ export { default as cardNumberFormatter } from "./features/account/cardNumberFor
  * App's utilities
  */
 export { default as toSerializable } from "./app/toSerializable";
+export { default as objectGetter } from "./app/objectGetter";
 export { default as getJalaliyears } from "./app/getJalaliyears";
 export { default as identifyJalaliMonth } from "./app/identifyJalaliMonth";
 export { default as getFaDate } from "./app/getFaDate";
