@@ -12,6 +12,7 @@ import {
   formControll,
   formLabel,
   inputLabel,
+  menu,
   select,
   svgIcon,
   textField,
@@ -59,6 +60,7 @@ const theme: ThemeOptions = {
     MuiFormLabel: formLabel,
     MuiFormControl: formControll,
     MuiSelect: select,
+    MuiMenu: menu,
   },
 };
 
