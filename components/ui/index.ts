@@ -29,5 +29,6 @@ export { default as ModalToolBar } from "./ToolsBar/ModalToolBar";
 export { default as AccountCheckbox } from "./Checkbox/AccountCheckbox";
 export { default as InputError } from "./Error/InputError";
 export { default as AccountMenuItem } from "./MenuItem/AccountMenuItem";
+export { default as TransactionTypeIcon } from "./Icon/TransactionTypeIcon";
 export { default as SelectField } from "./Input/SelectField";
 export { default as FormPanelHeading } from "./Heading/FormPanelHeading";
