@@ -29,3 +29,4 @@ export { default as ModalToolBar } from "./ToolsBar/ModalToolBar";
 export { default as AccountCheckbox } from "./Checkbox/AccountCheckbox";
 export { default as InputError } from "./Error/InputError";
 export { default as SelectField } from "./Input/SelectField";
+export { default as FormPanelHeading } from "./Heading/FormPanelHeading";
