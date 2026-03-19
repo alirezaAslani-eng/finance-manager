@@ -27,3 +27,4 @@ export { default as InputMultipleSelectCheckBox } from "./Input/InputMultipleSel
 export { default as InputTrigger } from "./Triggers/InputTrigger";
 export { default as ModalToolBar } from "./ToolsBar/ModalToolBar";
 export { default as AccountCheckbox } from "./Checkbox/AccountCheckbox";
+export { default as InputError } from "./Error/InputError";
