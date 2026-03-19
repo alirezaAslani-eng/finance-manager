@@ -1,6 +1,6 @@
 export { default as Landing } from "./Landing/Landing";
 export { default as Footer } from "./Footer/Footer";
-export { default as TransactionForm } from "./Form/TransactionForm";
+export { default as CreateTransactionForm } from "./Form/CreateTransactionForm";
 export { default as AccountForm } from "./Form/AccountForm";
 export { default as UserEditForm } from "./Form/UserEditForm";
 export { default as InitForm } from "./Form/InitForm";

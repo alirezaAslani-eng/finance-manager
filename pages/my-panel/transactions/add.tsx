@@ -1,10 +1,9 @@
-import { TransactionForm } from "@/components/module";
-import { TransactionDetailsModal } from "@/components/ui";
+import { CreateTransactionForm } from "@/components/module";
+import { FormPanelHeading, TransactionDetailsModal } from "@/components/ui";
 import { useAddTransaction } from "@/hooks";
 import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
 import { Container, Dialog } from "@mui/material";
-import React from "react";
 
 const add: PageComponent = () => {
   // * Add Transaction Hook ==== >
@@ -24,8 +23,18 @@ const add: PageComponent = () => {
 
   return (
     <>
-      <Container>
-        <TransactionForm onSubmit={openModal} />
+      <Container maxWidth="sm" sx={{ maxWidth: undefined }}>
+        <FormPanelHeading>
+          <FormPanelHeading.Title>{"تراکنش جدید"}</FormPanelHeading.Title>
+          <FormPanelHeading.BackButton />
+        </FormPanelHeading>
+
+        <CreateTransactionForm>
+          <CreateTransactionForm.FormContainer />
+          <CreateTransactionForm.SubmitButton>
+            {"ایجاد تراکنش"}
+          </CreateTransactionForm.SubmitButton>
+        </CreateTransactionForm>
       </Container>
       {/* // * Show Final Details And then Submit by Confriming modal */}
       <Dialog
