@@ -1,6 +1,9 @@
 import { Components, Theme } from "@mui/material/styles";
 
 const formControl = {
+  defaultProps: {
+    fullWidth: true,
+  },
   styleOverrides: {
     root: {
       "& label": {
