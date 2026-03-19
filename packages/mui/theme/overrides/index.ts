@@ -11,3 +11,6 @@ export { default as container } from "./container";
 export { default as formLabel } from "./formLabel";
 export { default as formControll } from "./formControll";
 export { default as select } from "./select";
+export { default as menu } from "./menu";
+export { default as paper } from "./paper";
+export { default as toggleButton } from "./toggleButton";

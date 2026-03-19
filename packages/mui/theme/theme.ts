@@ -17,6 +17,7 @@ import {
   select,
   svgIcon,
   textField,
+  toggleButton,
   toggleButtonGroup,
   typography as typography_,
 } from "./overrides";
@@ -63,6 +64,7 @@ const theme: ThemeOptions = {
     MuiSelect: select,
     MuiPaper: paper,
     MuiMenu: menu,
+    MuiToggleButton: toggleButton,
   },
 };
 
