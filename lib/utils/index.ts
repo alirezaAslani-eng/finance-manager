@@ -3,6 +3,7 @@
  */
 export { default as identyfyBank } from "./features/account/identyfyBank";
 export { default as cardNumberFormatter } from "./features/account/cardNumberFormatter";
+export { default as lastCardNumbers } from "./features/account/lastCardNumbers";
 /**
  * App's utilities
  */
