@@ -6,10 +6,11 @@ const createAccountSchema = () => {
       .min(3, "نام حساب بانکی شما کوتاه است")
       .max(20, "برای نام حساب حداکثر 20 حرف مجاز هست"),
     cardNumber: preprocess(
-      (val: string | undefined) => val?.split("-").join(""),
-      string().regex(/^[0-9]{16}$/, "شماره کارت نا معتبر هست")
+      (val: string): string =>
+        typeof val !== "string" ? "" : val.split("-").join(""),
+      string(" ").regex(/^[0-9]{16}$/, "شماره کارت نا معتبر هست"),
     ),
-    currentBalance: number().min(0, "مقدار حداقل 0 میتونه باشه"),
+    currentBalance: number(" ").min(1, " "),
   });
 };
 
