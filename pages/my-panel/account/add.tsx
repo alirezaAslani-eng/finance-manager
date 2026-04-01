@@ -1,15 +1,14 @@
-import { AccountForm } from "@/components/module";
+import { CreateAccountForm } from "@/components/module";
 import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
-import { Box, Container } from "@mui/material";
-import React from "react";
+import { Container } from "@mui/material";
 import type { GlobalAppProps } from "@/types/pages/Global.types";
-import { useAddccount, useEditAccount } from "@/hooks";
 import { CreateAccountSchemaType } from "@/lib/validations/types";
 import { getOneAccount } from "@/server/services";
 import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import type { GetServerSidePropsWithAuth } from "@/types/ssr.types";
 import { toSerializable } from "@/lib/utils";
+import { FormPanelHeading } from "@/components/ui";
 
 interface PageProps {
   isEdit: boolean;
@@ -18,22 +17,19 @@ interface PageProps {
 }
 
 const add: PageComponent<PageProps> = ({ isEdit, accountInfo, accountId }) => {
-  const { addAccount } = useAddccount();
-  const { editAccount } = useEditAccount(accountId as string);
-
   return (
-    <Container>
-      {isEdit ? (
-        <AccountForm
-          onSubmit={editAccount}
-          edit={true}
-          defaultValues={accountInfo}
-        />
-      ) : (
-        <Box>
-          <AccountForm onSubmit={addAccount} />
-        </Box>
-      )}
+    <Container maxWidth="sm" sx={{ maxWidth: undefined }}>
+      <FormPanelHeading>
+        <FormPanelHeading.Title>{"حساب جدید"}</FormPanelHeading.Title>
+        <FormPanelHeading.BackButton />
+      </FormPanelHeading>
+
+      <CreateAccountForm>
+        <CreateAccountForm.FormContainer />
+        <CreateAccountForm.SubmitButton>
+          {"ثبت "}
+        </CreateAccountForm.SubmitButton>
+      </CreateAccountForm>
     </Container>
   );
 };
@@ -42,7 +38,7 @@ add.Layout = PanelLayout;
 export default add;
 
 const ssr: GetServerSidePropsWithAuth<GlobalAppProps & PageProps> = async (
-  context
+  context,
 ) => {
   const { query } = context;
   // * if page render to edit account pass it's info ================= >
