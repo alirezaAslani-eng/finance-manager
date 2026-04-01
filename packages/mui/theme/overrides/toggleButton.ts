@@ -4,11 +4,11 @@ import { sharedInputStyle } from "./shared";
 const toggleButton = {
   styleOverrides: {
     root: {
-      ":first-child": {
+      ":first-of-type": {
         borderTopLeftRadius: sharedInputStyle.borderRadius,
         borderBottomLeftRadius: sharedInputStyle.borderRadius,
       },
-      ":last-child": {
+      ":last-of-type": {
         borderTopRightRadius: sharedInputStyle.borderRadius,
         borderBottomRightRadius: sharedInputStyle.borderRadius,
       },
