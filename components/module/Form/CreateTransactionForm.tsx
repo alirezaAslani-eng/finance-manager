@@ -3,12 +3,15 @@ import { useAuth } from "@/context";
 import { transactionTypesList } from "@/lib/constant";
 import { createTransactionSchema } from "@/lib/validations";
 import type { CreateTransactionSchemaType } from "@/lib/validations/types";
-import { contextCreator } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, UseFormReturn } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import {
   AccountMenuItem,
-  CircleLoader,
   InputError,
   PriceInput,
   SelectField,
@@ -16,9 +19,6 @@ import {
 import {
   Box,
   BoxProps,
-  Button,
-  ButtonProps,
-  FormControl,
   MenuItem,
   Stack,
   StackProps,
@@ -26,10 +26,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import { identifySxProp } from "@/packages/mui";
-
-const { Context: UseFormContext, useCreatedContext: useFormContext } =
-  contextCreator<UseFormReturn<CreateTransactionSchemaType>>();
+import SubmitButton from "../Button/SubmitButton";
 
 function CreateTransactionForm(props: BoxProps<"form">) {
   // * Form Setup ======================== >
@@ -54,7 +51,7 @@ function CreateTransactionForm(props: BoxProps<"form">) {
 
   return (
     <>
-      <UseFormContext value={{ ...useFormReturnValue }}>
+      <FormProvider {...useFormReturnValue}>
         <Box
           {...props}
           component={"form"}
@@ -62,7 +59,7 @@ function CreateTransactionForm(props: BoxProps<"form">) {
         >
           {props.children}
         </Box>
-      </UseFormContext>
+      </FormProvider>
     </>
   );
 }
@@ -73,7 +70,7 @@ CreateTransactionForm.FormContainer = function (props: StackProps) {
     control,
     register,
     formState: { errors, isSubmitting },
-  } = useFormContext();
+  } = useFormContext<CreateTransactionSchemaType>();
 
   // * ----- This form needs user's info and state -----
   const {
@@ -192,22 +189,6 @@ CreateTransactionForm.FormContainer = function (props: StackProps) {
     </Stack>
   );
 };
-CreateTransactionForm.SubmitButton = function (props: ButtonProps) {
-  const {
-    formState: { isSubmitting },
-  } = useFormContext();
-  return (
-    <Button
-      variant="outlined"
-      size="large"
-      type="submit"
-      {...props}
-      sx={(tm) => ({ mt: "24px", ...identifySxProp(tm, props.sx) })}
-      disabled={props.disabled || isSubmitting}
-    >
-      {isSubmitting ? <CircleLoader bgcolor={"primary.main"}/> :"ایجاد تراکنش"}
-    </Button>
-  );
-};
+CreateTransactionForm.SubmitButton = SubmitButton;
 
 export default CreateTransactionForm;
