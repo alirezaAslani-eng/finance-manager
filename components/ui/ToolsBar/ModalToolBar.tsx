@@ -14,6 +14,7 @@ function ModalToolBar(props: BoxProps) {
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
+      width={"100%"}
       {...props}
     >
       {props.children}
@@ -36,7 +37,7 @@ ModalToolBar.CloseButton = function (props: ButtonProps) {
   );
 };
 ModalToolBar.Title = function (props: TypographyProps) {
-  return <Typography>{props.children}</Typography>;
+  return <Typography {...props}>{props.children}</Typography>;
 };
 
 export default ModalToolBar;
