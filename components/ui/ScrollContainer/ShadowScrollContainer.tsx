@@ -1,4 +1,5 @@
 import { gradient } from "@/packages/mui";
+import { Positions } from "@/types/css.types";
 import { ParamType } from "@/types/utils";
 import { Box, BoxProps } from "@mui/material";
 
@@ -57,5 +58,5 @@ export default ShadowScrollContainer;
 interface ShadowProps {
   size?: `${number}px`;
   gradient?: Partial<ParamType<typeof gradient>>;
-  position: "left" | "right" | "top" | "bottom";
+  position: Positions;
 }
