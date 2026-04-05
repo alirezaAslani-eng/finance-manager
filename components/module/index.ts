@@ -12,7 +12,7 @@ export { default as Transactions } from "./Transactions/Transactions";
 export { default as PriceFilter } from "./Input/PriceFilter";
 export { default as Datefilter } from "./Input/Datefilter";
 export { default as LoadeingErrorHandler } from "./WaitHandler/LoadeingErrorHandler";
-export { default as CategoryModalForm } from "./Form/CategoryModalForm";
+export { default as CreateCategoryModalForm } from "./Form/CreateCategoryModalForm";
 export { default as TransactionSkeletonList } from "./SkeletonGenerator/TransactionSkeletonList";
 export { default as AuthOTPButton } from "./Button/AuthOTPButton";
 export { default as WheelDatePicker } from "./DatePicker/WheelDatePicker";
