@@ -5,31 +5,14 @@ import { useMediaQuery } from "@mui/material";
 // TODO => Style  SearchBox Style & Logic -- Drawer List
 
 export default function PanelLayout({ children }: PropsWithChildren) {
-  // * SideBar State =========================== >
-  const [isOpenMobileSidebar, setIsOpenMobileSidebar] =
-    useState<boolean>(false);
   // * Brakepoints ======================= >
-  const isTablet = useMediaQuery((tm) => tm.breakpoints.up("md"));
-
-  // * Events ===================== >
-  const closeSidebarMobile = () => {
-    setIsOpenMobileSidebar(false); // * Close SideBar <<<
-  };
-  const openSidebarMobile = () => {
-    setIsOpenMobileSidebar(true); // * Open SideBar <<<
-  };
+  const isAfter_md = useMediaQuery((tm) => tm.breakpoints.up("md"));
 
   // * JSX ========================================== >
   return (
     <Box sx={{ display: "flex" }}>
       {/* // *Side Bar =============================== > */}
-      <SideBar
-        onClose={closeSidebarMobile}
-        drawerProps={{
-          variant: `${isTablet ? "permanent" : "temporary"}`,
-          open: isOpenMobileSidebar,
-        }}
-      />
+      {isAfter_md && <SideBar />}
       {/* // * Main Content =================================== > */}
       <Box sx={{ flex: "1", minWidth: "0" }}>
         {/* Top Bar ============================= > */}

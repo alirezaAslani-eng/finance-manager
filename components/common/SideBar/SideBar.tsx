@@ -1,44 +1,22 @@
-import { Brand } from "@/components/ui";
 import {
-  Box,
-  Button,
   Divider,
   Drawer,
   List,
   Toolbar,
+  Tooltip,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
-import type { DrawerProps } from "@mui/material";
-import React from "react";
-import dana_md from "@/constant/font/dana_md";
-import peyda_md from "@/constant/font/peyda_md";
-import PowerSettingsNewRoundedIcon from "@mui/icons-material/PowerSettingsNewRounded";
 import SideBarItems from "./SideBarItems";
-interface MyProps {
-  drawerProps?: DrawerProps;
-  onClose?: () => any;
-  onLogout?: () => any;
-}
-function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
-  // * Breakepoints =================== >
-  const isTablet = useMediaQuery((tm) => tm.breakpoints.up("md"));
+import { PowerSettingsNewRounded } from "@mui/icons-material";
+import type { DrawerProps } from "@mui/material";
 
-  // * Events ======================= >
-  const closeMe = () => {
-    onClose && onClose();
-  };
-  const logout = () => {
-    onLogout && onLogout();
-  };
-  // * JSX ==================================================== >
+
+function SideBar(props: DrawerProps) {
   return (
     <Drawer
       variant="permanent"
       anchor="right"
-      {...drawerProps}
-      onClose={closeMe}
-      className={`${dana_md.variable} ${peyda_md.variable}`}
+      {...props}
       sx={{
         width: "240px",
         flexShrink: 0,
@@ -48,45 +26,23 @@ function SideBar({ drawerProps, onClose, onLogout }: MyProps) {
         },
       }}
     >
-      <Toolbar>
-        <Box sx={{ textAlign: "center", width: "100%" }}>
-          <Typography
-            variant="2xl"
-            fontFamily={"var(--peyda-md)"}
-            color="primary"
-          >
-            {"هزینه یار"}
-          </Typography>
-        </Box>
+      <Toolbar
+        sx={{ justifyContent: "space-between", px: "16px" }}
+        disableGutters
+      >
+        <Typography variant="xl" color="primary">
+          {"هزینه یار"}
+        </Typography>
+        <Tooltip title="خروج" placement="left">
+          <PowerSettingsNewRounded color="error" />
+        </Tooltip>
       </Toolbar>
 
       <Divider />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "column",
-          height: "100%",
-        }}
-      >
-        {/* // * MenuList ==================== > */}
-        <List>
-          <SideBarItems onSideBarClick={closeMe} />
-        </List>
-        {/* // * Logout Button ====================== > */}
-        {!isTablet && (
-          <Button
-            onClick={logout}
-            size="large"
-            color="error"
-            fullWidth
-            sx={{ gap: "10px", borderRadius: "0px" }}
-          >
-            {"خروج از پنل"}
-            <PowerSettingsNewRoundedIcon fontSize="large" />
-          </Button>
-        )}
-      </Box>
+
+      <List>
+        <SideBarItems />
+      </List>
     </Drawer>
   );
 }
