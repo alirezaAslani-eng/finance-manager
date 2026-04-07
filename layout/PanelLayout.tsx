@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState } from "react";
 import Box from "@mui/material/Box";
-import { MobileAppBar, MuiAppBar, SideBar } from "@/components/common";
+import { PanelAppBar, SideBar } from "@/components/common";
 import { useMediaQuery } from "@mui/material";
 // TODO => Style  SearchBox Style & Logic -- Drawer List
 
@@ -33,11 +33,7 @@ export default function PanelLayout({ children }: PropsWithChildren) {
       {/* // * Main Content =================================== > */}
       <Box sx={{ flex: "1", minWidth: "0" }}>
         {/* Top Bar ============================= > */}
-        {isTablet ? (
-          <MuiAppBar />
-        ) : (
-          <MobileAppBar onMenuClick={openSidebarMobile} />
-        )}
+        <PanelAppBar />
         <Box component={"main"} sx={{ minHeight: `calc(100svh - 64px)` }}>
           {children}
         </Box>
