@@ -1,6 +1,6 @@
 import { Box, CssBaseline } from "@mui/material";
 import type { AppProps } from "next/app";
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/pages";
 
 import {
@@ -22,6 +22,7 @@ import { ModalGroup } from "@/components/common";
 import dana_md from "@/constant/font/dana_md";
 import peyda_md from "@/constant/font/peyda_md";
 import dana_rg from "@/constant/font/dana_rg";
+import { useSetFontVarsToBody } from "@/hooks";
 
 // * set all default queries ======= >
 setAllDefaults(); // ! Side effet module
@@ -33,12 +34,19 @@ function _app({
 }: AppProps<GlobalAppProps> & { Component: CustomPageProps }) {
   const Layout =
     Component.Layout ?? (({ children }: PropsWithChildren) => <>{children}</>);
+
+  const { serialized_font_vars } = useSetFontVarsToBody(
+    dana_md.variable,
+    peyda_md.variable,
+    dana_rg.variable,
+  );
+
   return (
     <Box
-      role="font-variables-loader"
+      role="font-variables"
       component={"div"}
       bgcolor={"palette.background.default"}
-      className={`${dana_md.variable} ${peyda_md.variable} ${dana_rg.variable}`}
+      className={serialized_font_vars}
     >
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps?.dehydratedState}>

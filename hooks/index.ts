@@ -16,6 +16,7 @@ export { default as useResponsiveState } from "./app/useResponsiveState";
 export { default as useTriggerState } from "./app/useTriggerState";
 export { default as useModalState } from "./app/useModalState";
 export { default as useCloseModalByPopstateEvent } from "./app/useCloseModalByPopstateEvent";
+export { default as useSetFontVarsToBody } from "./app/useSetFontVarsToBody";
 
 /**
  * Auth's hooks
