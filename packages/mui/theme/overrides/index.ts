@@ -14,3 +14,4 @@ export { default as select } from "./select";
 export { default as menu } from "./menu";
 export { default as paper } from "./paper";
 export { default as toggleButton } from "./toggleButton";
+export { default as tooltip } from "./tooltip";

@@ -19,6 +19,7 @@ import {
   textField,
   toggleButton,
   toggleButtonGroup,
+  tooltip,
   typography as typography_,
 } from "./overrides";
 
@@ -65,6 +66,7 @@ const theme: ThemeOptions = {
     MuiPaper: paper,
     MuiMenu: menu,
     MuiToggleButton: toggleButton,
+    MuiTooltip: tooltip,
   },
 };
 
