@@ -1,9 +1,10 @@
+import { Bank } from "@/lib/constant";
 import { cardNumberFormatter, identyfyBank } from "@/lib/utils";
 import { useState } from "react";
 
 interface OutPut {
   formattedCardNumber: string;
-  bankIcon: string | false;
+  bankIcon: Bank | null;
   cardNumberHandler: (cardNumber: string) => void;
 }
 
@@ -11,7 +12,7 @@ type UseIdentyfyBank = () => OutPut;
 
 const useIdentyfyBank: UseIdentyfyBank = () => {
   const [formattedCardNumber, setCardNumber] = useState("");
-  const [bankIcon, setBanckIcon] = useState<false | string>("");
+  const [bankIcon, setBanckIcon] = useState<Bank | null>(null);
 
   const cardNumberHandler: OutPut["cardNumberHandler"] = (value) => {
     const { formatted, onlyNumber } = cardNumberFormatter(value);
@@ -25,11 +26,9 @@ const useIdentyfyBank: UseIdentyfyBank = () => {
     // * Identyfy Bank ==== >
     const bankInfo = identyfyBank(onlyNumber);
     if (bankInfo) {
-      // * Set Icon Address ===== >
-      setBanckIcon(bankInfo.bank_logo);
+      setBanckIcon(bankInfo);
     } else {
-      // * Disable Icon Address ===== >
-      setBanckIcon(false);
+      setBanckIcon(null);
     }
   };
 

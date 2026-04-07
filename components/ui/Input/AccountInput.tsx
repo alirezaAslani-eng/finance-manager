@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import MuiTextField, { MuiTextFieldProps } from "./MuiTextField";
 import { Box } from "@mui/material";
 import { useIdentyfyBank } from "@/hooks";
 import { Controller, type Control } from "react-hook-form";
+import BankIcon from "../Img/BankIcon";
 
 interface MyProps extends Pick<MuiTextFieldProps, "errorText"> {
   control: Control<any>;
@@ -53,21 +54,17 @@ function AccountInput({
                 },
               }}
             />
-            {bankIcon && (
-              <Box
+            {!!bankIcon && (
+              <BankIcon
+                src={bankIcon.bank_logo}
+                alt={bankIcon.bank_title}
                 sx={{
-                  objectFit: "cover",
-                  aspectRatio: "1/1",
-                  height: "35px",
                   position: "absolute",
                   animation: "opacity-appear 800ms ease forwards",
-                  top: "10px",
-
+                  top: "12px",
                   left: "10px",
                 }}
-                component={"img"}
-                src={bankIcon}
-              ></Box>
+              />
             )}
           </Box>
         );
