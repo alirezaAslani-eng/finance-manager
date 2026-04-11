@@ -2,7 +2,7 @@ import { ShadowScrollContainer } from "@/components/ui";
 import { useModal } from "@/context";
 import { useTriggerState } from "@/hooks";
 import {
-  AddCircleRounded,
+  AddCircleOutline,
   AddRounded,
   KeyboardArrowDownRounded,
   KeyboardArrowUpRounded,
@@ -70,7 +70,7 @@ function BottomNavigationPanel() {
 
             <Grid size={3}>
               <BottomNavigationButton onClick={openAddCategoryModal}>
-                <AddCircleRounded color="inherit" />
+                <AddCircleOutline color="inherit" />
                 <BottomNavigationText>{"دسته بندی"}</BottomNavigationText>
               </BottomNavigationButton>
             </Grid>

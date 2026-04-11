@@ -1,15 +1,15 @@
 import {
-  AccountCircleRounded,
   AddCardRounded,
   AddchartRounded,
-  HomeRounded,
+  HomeOutlined,
   ReceiptLongRounded,
+  SettingsOutlined,
 } from "@mui/icons-material";
 import { AppNavigator } from "./types";
 
 const appNavigators: AppNavigator[] = [
   {
-    icon: <HomeRounded color="inherit" />,
+    icon: <HomeOutlined color="inherit" />,
     text: "داشبورد",
     link: "/my-panel",
   },
@@ -29,8 +29,8 @@ const appNavigators: AppNavigator[] = [
     link: "/my-panel/account/add",
   },
   {
-    icon: <AccountCircleRounded color="inherit" />,
-    text: "اطلاعات من",
+    icon: <SettingsOutlined color="inherit" />,
+    text: "تنزیمات",
     link: "/my-panel/me",
   },
 ];
