@@ -6,10 +6,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import SideBarItems from "./SideBarItems";
 import { PowerSettingsNewRounded } from "@mui/icons-material";
 import type { DrawerProps } from "@mui/material";
-
+import SideBarNavigators from "./SideBarNavigators";
 
 function SideBar(props: DrawerProps) {
   return (
@@ -41,7 +40,7 @@ function SideBar(props: DrawerProps) {
       <Divider />
 
       <List>
-        <SideBarItems />
+        <SideBarNavigators />
       </List>
     </Drawer>
   );
