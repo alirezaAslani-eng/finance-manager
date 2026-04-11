@@ -1,8 +1,6 @@
 import type { SxProps, Theme } from "@mui/material/styles";
 import { CustomStyle, FontSizes, Shades } from "./theme.types";
 
-
-
 declare module "@mui/material/styles" {
   interface PaletteColor extends Shades {}
   interface SimplePaletteColorOptions extends Shades {}
@@ -25,6 +23,7 @@ declare module "@mui/material/styles" {
   interface TypographyVariants extends FontSizes {}
 
   interface BreakpointOverrides {
+    _360: true;
     _700: true;
     _600: true;
     _540: true;

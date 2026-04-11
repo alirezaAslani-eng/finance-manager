@@ -8,6 +8,7 @@ const breakpoints: BreakpointsOptions = {
     lg: 1200,
     xl: 1536,
     // * Custom needed breakepoints =========== >
+    _360: 360,
     _1350: 1350,
     _700: 700,
     _600: 600,
