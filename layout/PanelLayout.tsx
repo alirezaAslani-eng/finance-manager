@@ -1,6 +1,10 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren } from "react";
 import Box from "@mui/material/Box";
-import { PanelAppBar, SideBar } from "@/components/common";
+import {
+  BottomNavigationPanel,
+  PanelAppBar,
+  SideBar,
+} from "@/components/common";
 import { useMediaQuery } from "@mui/material";
 // TODO => Style  SearchBox Style & Logic -- Drawer List
 
@@ -20,6 +24,7 @@ export default function PanelLayout({ children }: PropsWithChildren) {
         <Box component={"main"} sx={{ minHeight: `calc(100svh - 64px)` }}>
           {children}
         </Box>
+        {!isAfter_md && <BottomNavigationPanel />}
       </Box>
     </Box>
   );
