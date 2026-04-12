@@ -2,7 +2,8 @@ import { EditAccountForm } from "@/components/module";
 import { FormPanelHeading } from "@/components/ui";
 import { PanelLayout } from "@/layout";
 import { PageComponent } from "@/types/page.types";
-import { Container } from "@mui/material";
+import { EditRounded } from "@mui/icons-material";
+import { Box, Container } from "@mui/material";
 
 const edit: PageComponent = () => {
   return (
@@ -11,7 +12,15 @@ const edit: PageComponent = () => {
         <FormPanelHeading.Title>{"ویرایش حساب"}</FormPanelHeading.Title>
         <FormPanelHeading.BackButton />
       </FormPanelHeading>
-      <EditAccountForm />
+      <Box maxWidth={"600px"} mx={"auto"}>
+        <EditAccountForm accountId="123">
+          <EditAccountForm.FormContainer />
+          <EditAccountForm.SubmitButton sx={{ gap: "8px", mt: "24px" }}>
+            <EditRounded />
+            {"ویرایش حساب"}
+          </EditAccountForm.SubmitButton>
+        </EditAccountForm>
+      </Box>
     </Container>
   );
 };
