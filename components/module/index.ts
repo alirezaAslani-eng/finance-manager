@@ -4,6 +4,7 @@ export { default as CreateTransactionForm } from "./Form/CreateTransactionForm";
 export { default as CreateAccountForm } from "./Form/CreateAccountForm";
 export { default as UserEditForm } from "./Form/UserEditForm";
 export { default as SetupUserForm } from "./Form/SetupUserForm";
+export { default as EditAccountForm } from "./Form/EditAccountForm";
 export { default as EditTransactionform } from "./Form/EditTransactionform";
 export { default as RecentTransactions } from "./Transactions/RecentTransactions";
 export { default as Slider } from "./Slider/Slider";
