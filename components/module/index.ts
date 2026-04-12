@@ -23,3 +23,4 @@ export { default as AccountListModal } from "./Account/AccountListModal";
 export { default as SubmitButton } from "./Button/SubmitButton";
 export { default as CategoryChipList } from "./CategoryLists/CategoryChipList";
 export { default as BackwardButton } from "./Button/BackwardButton";
+export { default as UserActivities } from "./User/UserActivities";
