@@ -5,7 +5,7 @@ import {
   verifyUserToken,
   throwError,
 } from "@/server/utils";
-import { createAccountSchema } from "@/lib/validations";
+import { editAccountSchema } from "@/lib/validations";
 import { account_model } from "@/server/models";
 import { handler_type } from "@/types/api.types";
 import { PayloadToken_type } from "@/types/user.types";
@@ -38,8 +38,7 @@ const handler: handler_type = async (req, res) => {
     }
     case "PUT": {
       // * Body to Update Account ============== >
-      const { accountName, cardNumber, currentBalance } =
-        createAccountSchema().parse(req.body);
+      const { accountName, cardNumber } = editAccountSchema().parse(req.body);
       // * Identyfy Account ======= >
       const bankInfo = identyfyBank(cardNumber)!;
       throwError(!bankInfo, {
@@ -51,7 +50,6 @@ const handler: handler_type = async (req, res) => {
       await editAccount(req.query.id as string, {
         accountName,
         cardNumber,
-        currentBalance,
         bankIcon: bankInfo.bank_logo,
         bankName: bankInfo.bank_name,
       }); // ! Might throw Error <<<<<<<<

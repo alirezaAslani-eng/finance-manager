@@ -19,7 +19,7 @@ interface FindActiveAccountOutput {
   _id: string;
 }
 type FindActiveAccount = (
-  userId: string
+  userId: string,
 ) => Promise<FindActiveAccountOutput | null>;
 
 // * activeAccount.ts === >
@@ -31,26 +31,24 @@ interface CreateAccountInfo extends Omit<AccountMongoSchema, "isActive"> {}
 interface CreateAccountOutput extends AccountMongoSchema {}
 type CreateAccount = (
   info: CreateAccountInfo,
-  options?: Pick<ServiceOptions, "uniqCheck">
+  options?: Pick<ServiceOptions, "uniqCheck">,
 ) => Promise<CreateAccountOutput>;
 
 // * editAccount.ts === >
-interface EditCategoryInfo
-  extends Pick<
-    AccountMongoSchema,
-    "accountName" | "bankIcon" | "bankName" | "cardNumber" | "currentBalance"
-  > {}
+interface EditCategoryInfo extends Pick<
+  AccountMongoSchema,
+  "accountName" | "bankIcon" | "bankName" | "cardNumber"
+> {}
 type EditAccount = (_id: string, body: EditCategoryInfo) => Promise<void>;
 
 // * removeAccount.ts === >
 type RemoveAccount = (_id: string) => Promise<void>;
 
 // * getOneAccount === >
-interface GetOneAccountOutput
-  extends Pick<
-    AccountMongoSchema,
-    "accountName" | "cardNumber" | "currentBalance"
-  > {}
+interface GetOneAccountOutput extends Pick<
+  AccountMongoSchema,
+  "accountName" | "cardNumber" | "currentBalance"
+> {}
 type GetOneAccount = (_id: string) => Promise<GetOneAccountOutput | null>;
 
 export type {
