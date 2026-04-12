@@ -3,7 +3,7 @@ export { default as Footer } from "./Footer/Footer";
 export { default as CreateTransactionForm } from "./Form/CreateTransactionForm";
 export { default as CreateAccountForm } from "./Form/CreateAccountForm";
 export { default as UserEditForm } from "./Form/UserEditForm";
-export { default as InitForm } from "./Form/InitForm";
+export { default as SetupUserForm } from "./Form/SetupUserForm";
 export { default as EditTransactionform } from "./Form/EditTransactionform";
 export { default as RecentTransactions } from "./Transactions/RecentTransactions";
 export { default as Slider } from "./Slider/Slider";
