@@ -3,6 +3,7 @@
  */
 export { default as activeAccountSchema } from "./account/activeAccountSchema";
 export { default as createAccountSchema } from "./account/createAccountSchema";
+export { default as editAccountSchema } from "./account/editAccountSchema";
 /**
  * Category's schemas
  */
