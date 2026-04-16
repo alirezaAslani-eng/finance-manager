@@ -46,6 +46,7 @@ function _app({
       role="font-variables"
       component={"div"}
       bgcolor={"palette.background.default"}
+      minHeight={"100svh"}
       className={serialized_font_vars}
     >
       <QueryClientProvider client={queryClient}>
