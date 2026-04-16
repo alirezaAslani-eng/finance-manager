@@ -171,7 +171,7 @@ const FilterPanel = ({ onClose }: Myprops) => {
         >
           {accounts.map((account) => {
             return (
-              <AccountCheckbox mb={"16px"}>
+              <AccountCheckbox mb={"12px"}>
                 <InputMultipleSelectCheckBox.CheckBox
                   value={account._id}
                   id={account._id}

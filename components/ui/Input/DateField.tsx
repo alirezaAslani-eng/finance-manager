@@ -101,7 +101,7 @@ const DateField = ({
         fullWidth
         maxWidth="xs"
       >
-        <Box padding={"24px 16px"}>
+        <Box padding={"24px"}>
           <WheelDatePicker
             onFinalizeDate={finalizeDate}
             value={date ?? undefined}
