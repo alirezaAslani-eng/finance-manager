@@ -5,4 +5,9 @@ interface Category_face {
   user: User_face;
 }
 
-export type { Category_face };
+interface Category {
+  name: string;
+  user: string;
+}
+
+export type { Category_face, Category };
