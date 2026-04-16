@@ -27,3 +27,4 @@ export { default as BackwardButton } from "./Button/BackwardButton";
 export { default as UserAccessiblities } from "./User/UserAccessiblities";
 export { default as UserActivities } from "./User/UserActivities";
 export { default as UserInfoCard } from "./User/UserInfoCard";
+export { default as LoginButton } from "./Button/LoginButton";
