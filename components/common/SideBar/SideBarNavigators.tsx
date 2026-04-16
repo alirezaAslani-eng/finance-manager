@@ -2,8 +2,8 @@ import { SideBarButton } from "@/components/ui";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { useModal } from "@/context";
 import { ParamType } from "@/types/utils";
-import { AppNavigator } from "@/constant/types";
-import appNavigators from "@/constant/appNavigators";
+import { AppNavigator } from "@/constant/static-data/types";
+import { appNavigators } from "@/constant";
 import { OptimizedMap } from "@/components/module";
 
 function SideBarNavigators() {

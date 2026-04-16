@@ -1,5 +1,5 @@
 import { memo } from "react";
-import appNavigators from "@/constant/appNavigators";
+import { appNavigators } from "@/constant";
 import BottomNavigationLink from "./BottomNavigationLink";
 import BottomNavigationButton from "./BottomNavigationButton";
 import BottomNavigationText from "./BottomNavigationText";
