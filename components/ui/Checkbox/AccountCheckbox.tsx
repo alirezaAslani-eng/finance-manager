@@ -1,15 +1,10 @@
-import {
-  Box,
-  BoxProps,
-  Checkbox,
-  CheckboxProps,
-} from "@mui/material";
+import { Box, BoxProps, Checkbox, CheckboxProps } from "@mui/material";
 import BankIcon from "../Img/BankIcon";
 import { Account } from "@/types/account.types";
 import { formatBankNumber } from "@/lib/utils";
 function AccountCheckbox(props: BoxProps) {
   return (
-    <Box display={"flex"} alignItems={"center"} gap={"4px"}>
+    <Box display={"flex"} alignItems={"center"} gap={"4px"} {...props}>
       {props.children}
     </Box>
   );
