@@ -13,7 +13,6 @@ export { default as AccountInput } from "./Input/AccountInput";
 export { default as MuiSelectInput } from "./Input/MuiSelectInput";
 export { default as TextPrice } from "./Text/TextPrice";
 export { default as NoData } from "./Fallback/NoData";
-export { default as TransactionDetailsModal } from "./Modal/TransactionDetailsModal";
 export { default as MultipleInputs } from "./Input/MultipleInputs";
 export { default as PriceInput } from "./Input/PriceInput";
 export { default as Form } from "./Form/Form";
