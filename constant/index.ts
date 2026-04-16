@@ -1,1 +1,1 @@
-export * from "./appNavigators";
+export * from "./static-data";
