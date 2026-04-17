@@ -14,6 +14,7 @@ interface Shades {
   700?: string;
   800?: string;
   900?: string;
+  950?: string;
 }
 interface FontSizes {
   base?: TypographyStyle;
