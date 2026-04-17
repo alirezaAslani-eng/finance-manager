@@ -6,8 +6,8 @@ const getThemeWithMode: GetThemeWithMode = (theme, opt = {}) => {
   const paper_default = theme.palette?.background?.paper;
 
   // * Dark Theme ==== >
-  const background_dark = theme.palette?.black![950];
-  const paper_dark = theme.palette?.grey?.[900];
+  const background_dark = theme.palette?.darkBackground;
+  const paper_dark = theme.palette?.darkPaper;
 
   return {
     ...theme,

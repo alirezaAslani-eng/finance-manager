@@ -1,16 +1,23 @@
 import type { SxProps, Theme } from "@mui/material/styles";
 import { CustomStyle, FontSizes, Shades } from "./theme.types";
 
+type CustomPaletteColors = Record;
 declare module "@mui/material/styles" {
   interface PaletteColor extends Shades {}
   interface SimplePaletteColorOptions extends Shades {}
   interface Palette {
     black: Shades;
     white: Shades;
+    blue: Shades;
+    darkBackground: string;
+    darkPaper: string;
   }
   interface PaletteOptions {
     black?: Shades;
     white?: Shades;
+    blue?: Shades;
+    darkBackground?: string;
+    darkPaper?: string;
   }
   interface Theme {
     custom?: CustomStyle;
