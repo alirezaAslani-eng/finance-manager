@@ -14,8 +14,8 @@ function UserInfoCard(props: BoxProps) {
       sx={({ palette, alpha }) => {
         return {
           borderColor: muiTheme(palette.mode, {
-            dark: alpha(palette.white, 0.12),
-            light: alpha(palette.black, 0.12),
+            dark: alpha(palette.white[50]!, 0.12),
+            light: alpha(palette.black[950]!, 0.12),
           }),
         };
       }}

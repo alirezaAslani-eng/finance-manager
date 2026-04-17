@@ -1,14 +1,12 @@
 import { GetThemeWithMode } from "./types";
-
 const getThemeWithMode: GetThemeWithMode = (theme, opt = {}) => {
   const { mode = "dark" } = opt;
-
   // * Default Theme ==== >
   const background_default = theme.palette?.background?.default;
   const paper_default = theme.palette?.background?.paper;
 
   // * Dark Theme ==== >
-  const background_dark = theme.palette?.black;
+  const background_dark = theme.palette?.black![950];
   const paper_dark = theme.palette?.grey?.[900];
 
   return {

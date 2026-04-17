@@ -32,7 +32,7 @@ function BottomNavigationPanel() {
         mt={"23px"}
         sx={({ palette, alpha }) => {
           return {
-            boxShadow: `0px -5px 20px 0px ${alpha(palette.black, 0.1)} `,
+            boxShadow: `0px -5px 20px 0px ${alpha(palette.black[950]!, 0.1)} `,
           };
         }}
       >

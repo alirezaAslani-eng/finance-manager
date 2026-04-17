@@ -1,4 +1,4 @@
-import {  Toolbar, Typography } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
 import { muiTheme } from "@/packages/mui";
 import { getFaDate } from "@/lib/utils";
 
@@ -11,8 +11,8 @@ function PanelAppBar() {
           width: "100%",
           borderBottom: "1px solid",
           borderColor: muiTheme(palette.mode, {
-            light: alpha(palette.black, 0.12),
-            dark: alpha(palette.white, 0.12),
+            light: alpha(palette.black[950]!, 0.12),
+            dark: alpha(palette.white[50]!, 0.12),
           }),
         };
       }}

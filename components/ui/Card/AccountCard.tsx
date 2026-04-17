@@ -15,8 +15,8 @@ function AccountCard(props: Partial<Account>) {
       sx={({ alpha, palette }) => ({
         border: "1px solid",
         borderColor: muiTheme(palette.mode, {
-          light: alpha(palette.black, 0.3),
-          dark: alpha(palette.white, 0.3),
+          light: alpha(palette.black[950]!, 0.3),
+          dark: alpha(palette.white[50]!, 0.3),
         }),
       })}
     >

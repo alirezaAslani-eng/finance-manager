@@ -80,11 +80,11 @@ Form.FormBox = function (props) {
     <Box
       mt="20px"
       borderRadius={"18px"}
-      p={{xs:"20px 18px",sm:"28px 20px"}}
+      p={{ xs: "20px 18px", sm: "28px 20px" }}
       bgcolor={"background.paper"}
       sx={(tm) => {
         return {
-          boxShadow: `0px 0px 18px 0px ${tm.alpha(tm.palette.black, 0.1)}`,
+          boxShadow: `0px 0px 18px 0px ${tm.alpha(tm.palette.black[950]!, 0.1)}`,
         };
       }}
       {...props}

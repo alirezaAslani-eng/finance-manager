@@ -34,8 +34,8 @@ const TotalBalanceCard = (props: PropsWithChildren<StackProps>) => {
         border={"1px solid"}
         borderColor={(tm) =>
           muiTheme(tm.palette.mode, {
-            light: tm.alpha(tm.palette.black, 0.12),
-            dark: tm.alpha(tm.palette.white, 0.12),
+            light: tm.alpha(tm.palette.black[950]!, 0.12),
+            dark: tm.alpha(tm.palette.white[50]!, 0.12),
           })
         }
         {...props}
