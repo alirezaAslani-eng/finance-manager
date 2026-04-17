@@ -5,12 +5,12 @@ declare module "@mui/material/styles" {
   interface PaletteColor extends Shades {}
   interface SimplePaletteColorOptions extends Shades {}
   interface Palette {
-    black: string;
-    white: string;
+    black: Shades;
+    white: Shades;
   }
   interface PaletteOptions {
-    black?: string;
-    white?: string;
+    black?: Shades;
+    white?: Shades;
   }
   interface Theme {
     custom?: CustomStyle;
