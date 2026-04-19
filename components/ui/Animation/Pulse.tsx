@@ -20,6 +20,7 @@ function PulsingCircle({
       bgcolor={bgcolor}
       sx={{
         width: size,
+        minWidth:size,
         height: size,
         borderRadius,
         position: "relative",
