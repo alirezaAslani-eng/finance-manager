@@ -1,6 +1,6 @@
 import { RecentTransactions } from "@/components/module";
 import { PageComponent } from "@/types/page.types";
-import { Box, BoxProps, Container, useMediaQuery } from "@mui/material";
+import { Box, Container, useMediaQuery } from "@mui/material";
 import { PanelLayout } from "@/layout";
 import { getServerSidePropsWithAuth } from "@/server/HOFs";
 import {
@@ -19,6 +19,8 @@ const index: PageComponent = () => {
       <Box
         display={"flex"}
         gap={"50px"}
+        pt={{ xs: "30px", sm: "50px" }}
+        pb={"24px"}
         sx={{
           flexDirection: { xs: "column", lg: "row" },
           alignItems: { xs: "center", lg: "start" },
