@@ -7,7 +7,7 @@ const sharedPalette = {
   blue: { 900: "#0e1015ff", 950: "#12161eff" },
 } satisfies PaletteOptions;
 
-const palette = {
+const palette: PaletteOptions = {
   white: sharedPalette.white,
   black: sharedPalette.black,
   blue: sharedPalette.blue,
@@ -26,6 +26,6 @@ const palette = {
   grey: {
     900: grey[900],
   },
-} satisfies PaletteOptions;
+};
 
 export default palette;
