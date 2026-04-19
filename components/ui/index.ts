@@ -32,3 +32,4 @@ export { default as SelectField } from "./Input/SelectField";
 export { default as FormPanelHeading } from "./Heading/FormPanelHeading";
 export { default as ShadowScrollContainer } from "./ScrollContainer/ShadowScrollContainer";
 export { default as Pulse } from "./Animation/Pulse";
+export { default as AdvantageCard } from "./Card/AdvantageCard";
