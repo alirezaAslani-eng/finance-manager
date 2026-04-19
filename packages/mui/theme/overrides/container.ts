@@ -5,7 +5,7 @@ const inputLabel = {
   defaultProps: {
     sx: ({ spacing }) => ({
       px: { xs: spacing(4), sm: spacing(6) },
-      pt: { xs: spacing(4), md: spacing(8), lg: spacing(12) },
+      // pt: { xs: spacing(4), md: spacing(8), lg: spacing(12) },
       width: "100%",
       maxWidth: {
         xs: "100%",
