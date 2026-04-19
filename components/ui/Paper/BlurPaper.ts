@@ -1,8 +1,9 @@
 import { muiTheme } from "@/packages/mui";
 import { Box, styled } from "@mui/material";
-
+const backdropFilter = "blur(12px)"
 const BlurPaper = styled(Box)(({ theme: { palette, alpha } }) => ({
-  backdropFilter: "blur(12px)",
+  backdropFilter,
+  WebkitBackdropFilter: backdropFilter,
   borderRadius: "16px",
   border: "1px solid",
   borderColor: muiTheme(palette.mode, {
